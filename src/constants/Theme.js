@@ -1,4 +1,4 @@
-export const colors = {
+export const COLORS = {
   primary: '#0A84FF',
   glassButton: 'rgba(0, 0, 0, 0.5)',
   black: '#000000',
@@ -6,14 +6,14 @@ export const colors = {
   indicator: 'rgba(255, 255, 255, 0.3)'
 };
 
-export const spacing = {
+export const SPACING = {
   xs: 4,
   small: 8,
   medium: 12, 
   large: 16,
 }; 
 
-export const borderRadius = {
+export const BORDERRADIUS = {
   xs: 4,
   small: 8,
   medium: 16,

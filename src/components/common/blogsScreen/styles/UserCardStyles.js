@@ -1,10 +1,10 @@
 import { StyleSheet } from "react-native";
-import { borderRadius, colors, spacing } from "../../../../constants/Theme";
+import { BORDERRADIUS, COLORS } from "../../../../constants/Theme";
 
 const styles = StyleSheet.create({
 	userCard: {
 		height: '100%', 
-        borderRadius: borderRadius.medium,
+        borderRadius: BORDERRADIUS.medium,
 		overflow: "hidden",
 		width: '100%',
         shadowColor: "#000",
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.27,
         shadowRadius: 4.65,
         elevation: 6,
-        backgroundColor: colors.background,
+        backgroundColor: COLORS.background,
 	},
     cardContainer: {
         width: '100%',

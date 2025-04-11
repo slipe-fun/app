@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { colors } from '../constants/Theme';
+import { COLORS } from '../constants/Theme';
 
 const ProfileScreen = () => {
   return (
     <View style={styles.container}>
-      <Text style={{ color: colors.white }}>Profile</Text>
+      <Text style={{ color: COLORS.white }}>Profile</Text>
     </View>
   );
 };
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.black,
+    backgroundColor: COLORS.black,
   },
 });
 

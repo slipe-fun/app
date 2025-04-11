@@ -3,7 +3,7 @@ import { View, TouchableOpacity, Animated, Easing, Text } from "react-native";
 import { ROUTES } from "../../constants/Routes";
 import { styles } from "./styles/TabBarStyles";
 import Icon from "./icon";
-import { colors } from "../../constants/Theme";
+import { COLORS } from "../../constants/Theme";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const CustomTabBar = ({ state, descriptors, navigation }) => {
@@ -28,7 +28,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 
 				const interpolatedColor = focusAnim.interpolate({
 					inputRange: [0, 1],
-					outputRange: [colors.white, colors.primary],
+					outputRange: [COLORS.white, COLORS.primary],
 				});
 
 				const interpolatedOpacity = focusAnim.interpolate({

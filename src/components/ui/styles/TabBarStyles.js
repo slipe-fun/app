@@ -1,9 +1,9 @@
 import { StyleSheet } from "react-native";
-import { colors, spacing, borderRadius } from "../../../constants/Theme";
+import { COLORS, BORDERRADIUS } from "../../../constants/Theme";
 
 export const styles = StyleSheet.create({
     tabBarContainer: {
-        backgroundColor: colors.black,
+        backgroundColor: COLORS.black,
         flexDirection: 'row',
         alignItems: 'center',
 		paddingTop: 10,
@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
     tabButton: {
         justifyContent: "center",
         alignItems: "center",
-        borderRadius: borderRadius.medium,
+        borderRadius: BORDERRADIUS.medium,
         width: "100%",
     },
 	tabButtonText: {

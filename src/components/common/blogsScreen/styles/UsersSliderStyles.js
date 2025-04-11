@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
 	outerContainer: {
 		width: "100%",
 		overflow: "hidden",
-		borderRadius: borderRadius.medium,
+		borderRadius: BORDERRADIUS.medium,
 		height: "100%",
 	},
 	animatedContainer: {
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 	},
 	pageContainer: {
 		width: "100%",
-		borderRadius: borderRadius.medium,
+		borderRadius: BORDERRADIUS.medium,
 		overflow: "hidden",
 		alignItems: "center",
 		justifyContent: "center",
