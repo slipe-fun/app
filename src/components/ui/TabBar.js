@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { View, TouchableOpacity, Animated, Easing, Text } from "react-native";
 import { ROUTES } from "../../constants/Routes";
 import { styles } from "./styles/TabBarStyles";
@@ -20,7 +20,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 				useEffect(() => {
 					Animated.timing(focusAnim, {
 						toValue: isFocused ? 1 : 0,
-						duration: 200,
+						duration: 150,
 						easing: Easing.inOut(Easing.ease),
 						useNativeDriver: false,
 					}).start();

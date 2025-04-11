@@ -1,12 +1,20 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
-import styles from "../styles/UserCardStyles";
+import { View, Image, StyleSheet } from "react-native";
+import { GradientBorder } from '../../../ui/GradientBorder';
+import styles from '../styles/UserCardStyles';
 
 const UserCard = ({ user, index }) => {
-	return (
-		<TouchableOpacity style={styles.userCard} activeOpacity={0.9}>
-			<Image source={ user.postImage } style={styles.postImage} />
-		</TouchableOpacity>
-	);
+  return (
+    <GradientBorder
+      style={styles.cardContainer}
+      borderRadius={16}
+      borderWidth={1}
+    >
+      <Image
+        source={{ uri: user.postImage }}
+        style={styles.postImage}
+      />
+    </GradientBorder>
+  );
 };
 
 export default UserCard;

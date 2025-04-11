@@ -17,10 +17,13 @@ const styles = StyleSheet.create({
         elevation: 6,
         backgroundColor: colors.background,
 	},
+    cardContainer: {
+        width: '100%',
+        height: '100%',
+      },
 	postImage: {
 		height: '100%', 
 		width: '100%',
-        borderRadius: borderRadius.medium,
 	},
 });
 
