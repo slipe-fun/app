@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react";
 import { View, TouchableOpacity, Animated, Easing, Text } from "react-native";
 import { ROUTES } from "../../constants/Routes";
 import { styles } from "./styles/TabBarStyles";
-import Icon from "./icon";
+import Icon from "./Icon";
 import { COLORS } from "../../constants/Theme";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 

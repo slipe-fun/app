@@ -3,7 +3,8 @@ export const COLORS = {
   glassButton: 'rgba(0, 0, 0, 0.5)',
   black: '#000000',
   white: '#ffffff',
-  indicator: 'rgba(255, 255, 255, 0.3)'
+  indicator: 'rgba(255, 255, 255, 0.3)',
+  transparentText: 'rgba(255, 255, 255, 0.65)'
 };
 
 export const SPACING = {
@@ -19,3 +20,12 @@ export const BORDERRADIUS = {
   medium: 16,
   large: 20,
 }; 
+
+export const FONT_SIZE = {
+  xs: 12,
+  small: 14,
+  medium: 16,
+  large: 18,
+  xl: 20,
+  xxl: 24,
+}

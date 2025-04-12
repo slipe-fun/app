@@ -7,7 +7,6 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
 		paddingTop: 10,
-        justifyContent: 'space-around',
     },
     tabItem: {
         flex: 1,
@@ -22,6 +21,6 @@ export const styles = StyleSheet.create({
     },
 	tabButtonText: {
 		fontSize: 12,
-		fontWeight: 600,
+		fontFamily: '600',
 	}
 });

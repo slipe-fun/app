@@ -1,20 +1,13 @@
 import { StyleSheet } from "react-native";
-import { BORDERRADIUS, COLORS } from "../../../../constants/Theme";
+import { BORDERRADIUS, COLORS, FONT_SIZE, SPACING } from "../../../../constants/Theme";
 
 const styles = StyleSheet.create({
 	userCard: {
 		height: '100%', 
         borderRadius: BORDERRADIUS.medium,
 		overflow: "hidden",
+        position: 'relative',
 		width: '100%',
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 3,
-        },
-        shadowOpacity: 0.27,
-        shadowRadius: 4.65,
-        elevation: 6,
         backgroundColor: COLORS.background,
 	},
     cardContainer: {
@@ -23,8 +16,65 @@ const styles = StyleSheet.create({
       },
 	postImage: {
 		height: '100%', 
+        position: 'absolute',   
 		width: '100%',
 	},
+    header: {
+        zIndex: 10,
+        position: 'relative',
+        gap: SPACING.medium,
+        width: '100%'
+    },
+    headerBlock: {
+        justifyContent: 'space-between',
+        display: 'flex',
+        width: '100%',
+        flexDirection: 'row',
+        paddingTop: 0,
+        padding: SPACING.large,
+    },
+    headerAvatar: {
+        width: 44,
+        height: 44,
+        borderRadius: 9999
+    },
+    headerInfo: {
+        flexDirection: 'column',
+        gap: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    infoName: {
+        color: COLORS.white,
+        fontFamily: '600',
+        fontSize: FONT_SIZE.small
+    },
+    infoDescription: {
+        color: COLORS.transparentText,
+        fontFamily: '500',
+        fontSize: FONT_SIZE.xs
+    },
+    gradient: {
+        left: 0,
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+    },
+    // Indicator styles 
+    container: {
+		gap: 8,
+        padding: SPACING.large,
+        paddingBottom: 0,
+		flexDirection: "row",
+	},
+	indicator: {
+		flex: 1,
+		backgroundColor: COLORS.indicator,
+		height: 2.5,
+		borderRadius: 4,
+		overflow: "hidden",
+	},
+    // -----------------
 });
 
 export default styles;
