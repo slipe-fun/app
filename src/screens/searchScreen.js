@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { COLORS } from '../constants/theme';
 
-const ProfileScreen = () => {
+const SearchScreen = () => {
   return (
     <View style={styles.container}>
-      <Text style={{ color: COLORS.white }}>Profile</Text>
+      <Text style={{ color: COLORS.white }}>Search</Text>
     </View>
   );
 };
@@ -18,4 +18,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileScreen; 
+export default SearchScreen; 
