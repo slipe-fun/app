@@ -98,6 +98,21 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         padding: SPACING.large,
     },
+    reactionButton: {
+        width: 'auto',
+        paddingHorizontal: 18,
+        gap: 9,
+        flexDirection: 'row',
+        height: 44,
+        display: 'flex',
+        overflow: 'hidden',
+        alignItems: 'center',
+        borderRadius: 30,
+    },
+    reactionButtonText: {
+        fontFamily: '600',
+        color: COLORS.white
+    }
 });
 
 export default styles;

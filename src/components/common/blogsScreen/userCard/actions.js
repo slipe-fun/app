@@ -1,4 +1,4 @@
-import { View, Pressable, Platform } from "react-native";
+import { View, Pressable, Platform, Image, Text } from "react-native";
 import styles from "../styles/UserCardStyles";
 import { GradientBorder } from "../../../ui/GradientBorder";
 import { COLORS } from "../../../../constants/Theme";
@@ -37,6 +37,23 @@ const UserCardActions = ({ user, index }) => {
 						)}
 					</GradientBorder>
 				</Pressable>
+				{[0,1,2,3,4].map((_, index) => (
+					<Pressable key={index}>
+					<GradientBorder borderRadius={32} borderWidth={1}>
+						{Platform.OS === "ios" ? (
+							<BlurView style={styles.reactionButton} blurReductionFactor={4} tint='dark' intensity={100}>
+								<Icon icon='smile' size={26} color={COLORS.white} />
+							</BlurView>
+						) : (
+							<View style={[styles.reactionButton, { backgroundColor: COLORS.glassButton }]}>
+								<Image style={{ width: 22, height: 22 }} source={require('../../../../../assets/emojis/0_16.png')}/>
+								<Text style={styles.reactionButtonText}>5.7K</Text>
+							</View>
+						)}
+					</GradientBorder>
+				</Pressable>
+				))}
+				
 			</View>
 		</View>
 	);
