@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react";
-import { View, TouchableOpacity, Animated, Easing, Text } from "react-native";
+import { View, TouchableOpacity, Animated, Easing, Text, Platform } from "react-native";
 import { ROUTES } from "../../constants/routes";
 import { styles } from "./styles/tabBarStyles";
 import Icon from "./icon";
@@ -10,7 +10,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 	const insets = useSafeAreaInsets();
 
 	return (
-		<View style={[styles.tabBarContainer, { paddingBottom: insets.bottom + 6 }]}>
+		<View style={[styles.tabBarContainer, { paddingBottom: Platform.OS === "ios" ? insets.bottom - 2 : insets.bottom + 6 }]}>
 			{state.routes.map((route, index) => {
 				const { options } = descriptors[route.key];
 				const isFocused = state.index === index;

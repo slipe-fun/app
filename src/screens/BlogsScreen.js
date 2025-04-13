@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { Platform, View } from "react-native";
 import { COLORS } from "../constants/theme";
 import UsersSlider from "../components/common/blogsScreen";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -42,7 +42,7 @@ const BlogsScreen = () => {
 	const insets = useSafeAreaInsets();
 
 	return (
-		<View style={{ flex: 1, paddingTop: insets.top + 6, backgroundColor: COLORS.black }}>
+		<View style={{ flex: 1, paddingTop: Platform.OS === "ios" ? insets.top - 4 : insets.top + 6, backgroundColor: COLORS.black }}>
 			<UsersSlider users={USERS} />
 		</View>
 	);
