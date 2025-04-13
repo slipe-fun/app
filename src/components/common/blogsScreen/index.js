@@ -1,8 +1,8 @@
-import { useState, useRef } from "react"; // Добавь useRef если планируешь использовать рефы для жестов в будущем, хотя в этом решении он не нужен
+import { useState, useRef } from "react";
 import { View } from "react-native";
 import styles from "./styles/usersSliderStyles";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing } from "react-native-reanimated";
+import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing, runOnJS } from "react-native-reanimated";
 import UserCard from "./userCard";
 
 const GAP = 16;
@@ -20,6 +20,7 @@ const UsersSlider = ({ users }) => {
 	const translateY = useSharedValue(0);
 	const context = useSharedValue({ y: 0 });
 	const activeIndex = useSharedValue(0);
+	const [currentActiveIndexState, setCurrentActiveIndexState] = useState(0);
 
 	const handleLayout = event => {
 		const { height } = event.nativeEvent.layout;
@@ -27,6 +28,7 @@ const UsersSlider = ({ users }) => {
 			setContainerHeight(height);
 			translateY.value = 0;
 			activeIndex.value = 0;
+			setCurrentActiveIndexState(0);
 		}
 	};
 
@@ -41,30 +43,37 @@ const UsersSlider = ({ users }) => {
 			const itemFullHeight = containerHeight + GAP;
 			let newTranslateY = context.value.y + event.translationY;
 			const lowerBound = -(users.length - 1) * itemFullHeight;
-			translateY.value = Math.max(Math.min(newTranslateY, 0), lowerBound);
+			const upperBound = 0;
+			translateY.value = Math.max(Math.min(newTranslateY, upperBound), lowerBound);
 		})
 		.onEnd(event => {
 			const itemFullHeight = containerHeight + GAP;
 			const velocityY = event.velocityY;
 			const translationY = event.translationY;
-			const currentActiveIndex = activeIndex.value;
+			const currentReanimatedActiveIndex = activeIndex.value;
 			const lastIndex = users.length - 1;
+
 			const VELOCITY_THRESHOLD = 200;
 			const TRANSLATION_THRESHOLD = containerHeight / 4;
 
-			let targetIndex = currentActiveIndex;
+			let targetIndex = currentReanimatedActiveIndex;
 
 			if (velocityY < -VELOCITY_THRESHOLD || translationY < -TRANSLATION_THRESHOLD) {
-				targetIndex = currentActiveIndex + 1;
+				targetIndex = currentReanimatedActiveIndex + 1;
 			} else if (velocityY > VELOCITY_THRESHOLD || translationY > TRANSLATION_THRESHOLD) {
-				targetIndex = currentActiveIndex - 1;
+				targetIndex = currentReanimatedActiveIndex - 1;
 			}
 
 			targetIndex = Math.max(0, Math.min(targetIndex, lastIndex));
 
 			const targetTranslateY = -targetIndex * itemFullHeight;
+
 			translateY.value = withTiming(targetTranslateY, TIMING_CONFIG);
 			activeIndex.value = targetIndex;
+
+			if (currentActiveIndexState !== targetIndex) {
+				runOnJS(setCurrentActiveIndexState)(targetIndex);
+			}
 		});
 
 	const animatedStyle = useAnimatedStyle(() => {
@@ -80,11 +89,22 @@ const UsersSlider = ({ users }) => {
 			{containerHeight > 0 && (
 				<GestureDetector gesture={panGesture}>
 					<Animated.View style={[styles.animatedContainer, animatedStyle]}>
-						{users.map((user, index) => (
-							<View key={user.id} style={[styles.pageContainer, { height: containerHeight, marginBottom: GAP }]}>
-								<UserCard user={user} index={index} />
-							</View>
-						))}
+						{users.map((user, index) => {
+							return (
+								<View
+									key={index}
+									style={[
+										styles.pageContainer,
+										{
+											height: containerHeight,
+											marginBottom: index === users.length - 1 ? 0 : GAP,
+										},
+									]}
+								>
+									<UserCard user={user} active={index !== currentActiveIndexState} />
+								</View>
+							);
+						})}
 					</Animated.View>
 				</GestureDetector>
 			)}

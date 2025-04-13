@@ -10,7 +10,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 	const insets = useSafeAreaInsets();
 
 	return (
-		<View style={[styles.tabBarContainer, { paddingBottom: Platform.OS === "ios" ? insets.bottom - 2 : insets.bottom + 6 }]}>
+		<View style={[styles.tabBarContainer, { paddingBottom: insets.bottom + 6 }]}>
 			{state.routes.map((route, index) => {
 				const { options } = descriptors[route.key];
 				const isFocused = state.index === index;

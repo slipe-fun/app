@@ -5,36 +5,98 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const USERS = [
 	{
-		id: "1",
 		name: "John Doe",
-		postImage: "https://cdn.slipe.fun/posts/be87bd9f-6489-4cc9-853d-c011f0c80ebb.png",
 		avatar: require("../../assets/test/xbox.jpg"),
-		date: "3 days ago",
-		views: "12.56k",
+		posts: [
+			{
+				date: "1 hour ago",
+				views: "82.82k",
+				postImage: "https://cdn.slipe.fun/posts/2d62a6d0-d5b5-4981-8cf4-e0146a0a1458.png",
+			},
+			{
+				date: "6 hours ago",
+				views: "56.19k",
+				postImage: "https://cdn.slipe.fun/posts/2d62a6d0-d5b5-4981-8cf4-e0146a0a1458.png",
+			},
+			{
+				date: "1 day ago",
+				views: "90.10k",
+				postImage: "https://cdn.slipe.fun/posts/2d62a6d0-d5b5-4981-8cf4-e0146a0a1458.png",
+			},
+			{
+				date: "1 day ago",
+				views: "120.04k",
+				postImage: "https://cdn.slipe.fun/posts/2d62a6d0-d5b5-4981-8cf4-e0146a0a1458.png",
+			},
+		],
 	},
 	{
-		id: "2",
-		name: "Jane Smith",
-		postImage: "https://cdn.slipe.fun/posts/2d62a6d0-d5b5-4981-8cf4-e0146a0a1458.png",
-		avatar: require("../../assets/test/xbox.jpg"),
-		date: "1 day ago",
-		views: "8.39k",
+		name: "User 2025",
+		avatar: require("../../assets/test/opm.png"),
+		posts: [
+			{
+				date: "1 day ago",
+				views: "1.78k",
+				postImage: "https://cdn.slipe.fun/posts/2d62a6d0-d5b5-4981-8cf4-e0146a0a1458.png",
+			},
+			{
+				date: "2 days ago",
+				views: "9.09k",
+				postImage: "https://cdn.slipe.fun/posts/2d62a6d0-d5b5-4981-8cf4-e0146a0a1458.png",
+			},
+			{
+				date: "5 days ago",
+				views: "22.55k",
+				postImage: "https://cdn.slipe.fun/posts/2d62a6d0-d5b5-4981-8cf4-e0146a0a1458.png",
+			},
+		],
 	},
 	{
-		id: "3",
-		name: "Alex Green",
-		postImage: "https://cdn.slipe.fun/posts/6174e8d9-ed9e-4da6-889a-7b0d14deac20.png",
-		avatar: require("../../assets/test/xbox.jpg"),
-		date: "6 days ago",
-		views: "30.41k",
+		name: "Jakie Anderson",
+		avatar: require("../../assets/test/slipe.png"),
+		posts: [
+			{
+				date: "15 hours ago",
+				views: "2.02k",
+				postImage: "https://cdn.slipe.fun/posts/2d62a6d0-d5b5-4981-8cf4-e0146a0a1458.png",
+			},
+			{
+				date: "1 day ago",
+				views: "904",
+				postImage: "https://cdn.slipe.fun/posts/2d62a6d0-d5b5-4981-8cf4-e0146a0a1458.png",
+			},
+			{
+				date: "1 day ago",
+				views: "1.44k",
+				postImage: "https://cdn.slipe.fun/posts/2d62a6d0-d5b5-4981-8cf4-e0146a0a1458.png",
+			},
+			{
+				date: "2 days ago",
+				views: "3.94k",
+				postImage: "https://cdn.slipe.fun/posts/2d62a6d0-d5b5-4981-8cf4-e0146a0a1458.png",
+			},
+			{
+				date: "4 days ago",
+				views: "18.09k",
+				postImage: "https://cdn.slipe.fun/posts/2d62a6d0-d5b5-4981-8cf4-e0146a0a1458.png",
+			},
+		],
 	},
 	{
-		id: "4",
-		name: "Sarah Blue",
-		postImage: "https://cdn.slipe.fun/posts/b9b7e7a3-77b1-41d4-8191-7e2585ecaf83.png",
-		avatar: require("../../assets/test/xbox.jpg"),
-		date: "4 days ago",
-		views: "2.43k",
+		name: "Eddie",
+		avatar: require("../../assets/test/yo.jpg"),
+		posts: [
+			{
+				date: "1 day ago",
+				views: "8.39k",
+				postImage: "https://cdn.slipe.fun/posts/2d62a6d0-d5b5-4981-8cf4-e0146a0a1458.png",
+			},
+			{
+				date: "3 days ago",
+				views: "12.23k",
+				postImage: "https://cdn.slipe.fun/posts/2d62a6d0-d5b5-4981-8cf4-e0146a0a1458.png",
+			},
+		],
 	},
 ];
 
