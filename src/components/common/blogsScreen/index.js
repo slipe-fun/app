@@ -1,6 +1,4 @@
-
-
-import { useState } from "react";
+import { useState, useRef } from "react"; // Добавь useRef если планируешь использовать рефы для жестов в будущем, хотя в этом решении он не нужен
 import { View } from "react-native";
 import styles from "./styles/usersSliderStyles";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
@@ -10,9 +8,12 @@ import UserCard from "./userCard";
 const GAP = 16;
 
 const TIMING_CONFIG = {
-	duration: 400,
+	duration: 375,
 	easing: Easing.out(Easing.cubic),
 };
+
+const ACTIVATION_THRESHOLD_Y = 10;
+const ACTIVATION_THRESHOLD_X = 10;
 
 const UsersSlider = ({ users }) => {
 	const [containerHeight, setContainerHeight] = useState(0);
@@ -31,6 +32,8 @@ const UsersSlider = ({ users }) => {
 
 	const panGesture = Gesture.Pan()
 		.enabled(containerHeight > 0)
+		.activeOffsetY([-ACTIVATION_THRESHOLD_Y, ACTIVATION_THRESHOLD_Y])
+		.failOffsetX([-ACTIVATION_THRESHOLD_X, ACTIVATION_THRESHOLD_X])
 		.onStart(() => {
 			context.value = { y: translateY.value };
 		})
@@ -40,7 +43,6 @@ const UsersSlider = ({ users }) => {
 			const lowerBound = -(users.length - 1) * itemFullHeight;
 			translateY.value = Math.max(Math.min(newTranslateY, 0), lowerBound);
 		})
-
 		.onEnd(event => {
 			const itemFullHeight = containerHeight + GAP;
 			const velocityY = event.velocityY;
@@ -71,7 +73,7 @@ const UsersSlider = ({ users }) => {
 			height: totalHeight,
 			transform: [{ translateY: translateY.value }],
 		};
-	}, [containerHeight]);
+	}, [containerHeight, users.length]);
 
 	return (
 		<View style={styles.outerContainer} onLayout={handleLayout}>

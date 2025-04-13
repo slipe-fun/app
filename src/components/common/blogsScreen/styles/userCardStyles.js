@@ -88,15 +88,8 @@ const styles = StyleSheet.create({
     },
     actions: {
         zIndex: 10,
-        position: 'relative',
-        width: '100%'
-    },
-    actionsBlock: {
-        display: 'flex',
-        gap: SPACING.large,
         width: '100%',
-        flexDirection: 'row',
-        padding: SPACING.large,
+        flexDirection: 'row'
     },
     reactionButton: {
         width: 'auto',
