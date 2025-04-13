@@ -1,7 +1,7 @@
 import { useEffect, useCallback } from "react";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import AppNavigator from "./src/navigation/AppNavigator";
+import AppNavigator from "./src/navigation/appNavigator";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Platform } from "react-native";
 import * as NavigationBar from "expo-navigation-bar";
