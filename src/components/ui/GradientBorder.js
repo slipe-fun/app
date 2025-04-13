@@ -9,7 +9,7 @@ export const GradientBorder = ({
 	style,
 	borderWidth = 1,
 	borderRadius = 10,
-	gradientColors = ["rgba(255, 255, 255, 0.24)", "rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.24)"],
+	gradientColors = ["rgba(255, 255, 255, 0.24)", "rgba(255, 255, 255, 0)"],
 	gradientStart = { x: 0.5, y: 0 },
 	gradientEnd = { x: 0.5, y: 1 },
 }) => {

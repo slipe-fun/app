@@ -12,6 +12,8 @@ const styles = StyleSheet.create({
 	},
     cardContainer: {
         width: '100%',
+        display: 'flex',
+        justifyContent: 'space-between',
         height: '100%',
       },
 	postImage: {
@@ -75,6 +77,27 @@ const styles = StyleSheet.create({
 		overflow: "hidden",
 	},
     // -----------------
+    menuButton: {
+        width: 44,
+        height: 44,
+        display: 'flex',
+        justifyContent: 'center',
+        overflow: 'hidden',
+        alignItems: 'center',
+        borderRadius: 30,
+    },
+    actions: {
+        zIndex: 10,
+        position: 'relative',
+        width: '100%'
+    },
+    actionsBlock: {
+        display: 'flex',
+        gap: SPACING.large,
+        width: '100%',
+        flexDirection: 'row',
+        padding: SPACING.large,
+    },
 });
 
 export default styles;

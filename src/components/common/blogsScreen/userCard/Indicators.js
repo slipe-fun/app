@@ -21,7 +21,7 @@ const IndicatorBar = ({ isActive, progress }) => {
 	);
 };
 
-const Indicator = ({ count, currentIndex, duration = 5000, onFinish, isPaused = false }) => {
+const Indicators = ({ count, currentIndex, duration = 5000, onFinish, isPaused = false }) => {
 	const progresses = useRef(Array.from({ length: count }, (_, i) => useSharedValue(i < currentIndex ? 1 : 0))).current;
 
 	useEffect(() => {
@@ -77,4 +77,4 @@ const Indicator = ({ count, currentIndex, duration = 5000, onFinish, isPaused = 
 	);
 };
 
-export default Indicator;
+export default Indicators;
