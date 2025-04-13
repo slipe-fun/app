@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { COLORS, BORDERRADIUS } from "../../../constants/Theme";
+import { COLORS, BORDERRADIUS } from "../../../constants/theme";
 
 export const styles = StyleSheet.create({
     tabBarContainer: {

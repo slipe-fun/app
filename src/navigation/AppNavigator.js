@@ -1,11 +1,11 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import CustomTabBar from "../components/ui/TabBar";
-import BlogsScreen from "../screens/BlogsScreen";
-import PublishScreen from "../screens/PublishScreen";
-import SearchScreen from "../screens/SearchScreen";
-import { ROUTES } from "../constants/Routes";
-import ProfileScreen from "../screens/ProfileScreen";
+import CustomTabBar from "../components/ui/tabBar";
+import BlogsScreen from "../screens/blogsScreen";
+import PublishScreen from "../screens/publishScreen";
+import SearchScreen from "../screens/searchScreen";
+import { ROUTES } from "../constants/routes";
+import ProfileScreen from "../screens/profileScreen";
 
 const Tab = createBottomTabNavigator();
 

@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { COLORS } from '../constants/Theme';
+import { COLORS } from '../constants/theme';
 
 const PublishScreen = () => {
   return (

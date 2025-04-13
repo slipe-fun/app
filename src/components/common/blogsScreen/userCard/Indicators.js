@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { View, StyleSheet } from "react-native";
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, runOnJS, Easing, cancelAnimation } from "react-native-reanimated";
-import { COLORS } from "../../../../constants/Theme";
-import styles from "../styles/UserCardStyles";
+import { COLORS } from "../../../../constants/theme";
+import styles from "../styles/userCardStyles";
 
 const IndicatorBar = ({ isActive, progress }) => {
 	const animatedStyle = useAnimatedStyle(() => {

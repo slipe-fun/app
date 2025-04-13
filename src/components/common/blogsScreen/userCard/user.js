@@ -1,11 +1,11 @@
 import { View, Text, Image, Platform, Pressable } from "react-native";
-import styles from "../styles/UserCardStyles";
+import styles from "../styles/userCardStyles";
 import { LinearGradient } from "expo-linear-gradient";
-import Indicators from "./Indicators";
+import Indicators from "./indicators";
 import { BlurView } from "expo-blur";
-import { GradientBorder } from "../../../ui/GradientBorder";
-import Icon from "../../../ui/Icon";
-import { COLORS } from "../../../../constants/Theme";
+import { GradientBorder } from "../../../ui/gradientBorder";
+import Icon from "../../../ui/icon";
+import { COLORS } from "../../../../constants/theme";
 
 const UserCardHeader = ({ user, post }) => {
 

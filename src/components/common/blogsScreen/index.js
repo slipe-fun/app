@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { View } from "react-native";
-import styles from "./styles/UsersSliderStyles";
+import styles from "./styles/usersSliderStyles";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing } from "react-native-reanimated";
 import UserCard from "./userCard";

@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { COLORS } from "../constants/Theme";
+import { COLORS } from "../constants/theme";
 import UsersSlider from "../components/common/blogsScreen";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 

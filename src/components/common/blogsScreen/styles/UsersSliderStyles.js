@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { BORDERRADIUS } from "../../../../constants/Theme";
+import { BORDERRADIUS } from "../../../../constants/theme";
 
 const styles = StyleSheet.create({
 	outerContainer: {

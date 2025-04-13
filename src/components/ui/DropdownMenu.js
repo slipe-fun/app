@@ -1,6 +1,6 @@
 import Animated, { Keyframe } from "react-native-reanimated";
 import { BlurView } from "expo-blur";
-import { GradientBorder } from "./GradientBorder";
+import { GradientBorder } from "./gradientBorder";
 
 const enteringAnimation = new Keyframe({
 	0: {

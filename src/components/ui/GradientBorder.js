@@ -2,7 +2,7 @@ import { View, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { useMemo } from "react";
-import { styles } from "./styles/GradientBorderStyles";
+import { styles } from "./styles/gradientBorderStyles";
 
 export const GradientBorder = ({
 	children,

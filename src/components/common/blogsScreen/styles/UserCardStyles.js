@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { BORDERRADIUS, COLORS, FONT_SIZE, SPACING } from "../../../../constants/Theme";
+import { BORDERRADIUS, COLORS, FONT_SIZE, SPACING } from "../../../../constants/theme";
 
 const styles = StyleSheet.create({
 	userCard: {

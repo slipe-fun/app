@@ -1,8 +1,8 @@
 import { View, Image, StyleSheet } from "react-native";
-import { GradientBorder } from "../../../ui/GradientBorder";
-import styles from "../styles/UserCardStyles";
-import UserCardHeader from "./User";
-import UserCardActions from "./Actions";
+import { GradientBorder } from "../../../ui/gradientBorder";
+import styles from "../styles/userCardStyles";
+import UserCardHeader from "./user";
+import UserCardActions from "./actions";
 
 const UserCard = ({ user, index }) => {
 	return (

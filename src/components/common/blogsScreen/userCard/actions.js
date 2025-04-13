@@ -1,9 +1,9 @@
 import { View, Pressable, Platform, Image, Text } from "react-native";
-import styles from "../styles/UserCardStyles";
-import { GradientBorder } from "../../../ui/GradientBorder";
-import { COLORS } from "../../../../constants/Theme";
+import styles from "../styles/userCardStyles";
+import { GradientBorder } from "../../../ui/gradientBorder";
+import { COLORS } from "../../../../constants/theme";
 import { BlurView } from "expo-blur";
-import Icon from "../../../ui/Icon";
+import Icon from "../../../ui/icon";
 import { LinearGradient } from "expo-linear-gradient";
 
 const UserCardActions = ({ user, index }) => {
@@ -42,7 +42,8 @@ const UserCardActions = ({ user, index }) => {
 					<GradientBorder borderRadius={32} borderWidth={1}>
 						{Platform.OS === "ios" ? (
 							<BlurView style={styles.reactionButton} blurReductionFactor={4} tint='dark' intensity={100}>
-								<Icon icon='smile' size={26} color={COLORS.white} />
+								<Image style={{ width: 22, height: 22 }} source={require('../../../../../assets/emojis/0_16.png')}/>
+								<Text style={styles.reactionButtonText}>5.7K</Text>
 							</BlurView>
 						) : (
 							<View style={[styles.reactionButton, { backgroundColor: COLORS.glassButton }]}>
