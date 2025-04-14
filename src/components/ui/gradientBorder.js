@@ -8,7 +8,7 @@ export const GradientBorder = ({
 	children,
 	style,
 	borderWidth = 1,
-	borderRadius = 10,
+	BORDER_RADIUS = 10,
 	gradientColors = ["rgba(255, 255, 255, 0.24)", "rgba(255, 255, 255, 0)"],
 	gradientStart = { x: 0.5, y: 0 },
 	gradientEnd = { x: 0.5, y: 1 },
@@ -19,13 +19,13 @@ export const GradientBorder = ({
 				maskElementContainer: {
 					flex: 1,
 					borderWidth: 1,
-					borderRadius: borderRadius,
+					BORDER_RADIUS: BORDER_RADIUS,
 				},
 			}),
-		[borderRadius, borderWidth]
+		[BORDER_RADIUS, borderWidth]
 	);
 
-	const containerStyle = useMemo(() => [styles.containerBase, { borderRadius: borderRadius }, style], [borderRadius, style]);
+	const containerStyle = useMemo(() => [styles.containerBase, { BORDER_RADIUS: BORDER_RADIUS }, style], [BORDER_RADIUS, style]);
 
 	return (
 		<View style={containerStyle}>

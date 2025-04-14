@@ -1,11 +1,11 @@
 import { StyleSheet } from "react-native";
-import { BORDERRADIUS } from "../../../../constants/theme";
+import { BORDER_RADIUS } from "../../../constants/theme";
 
 const styles = StyleSheet.create({
 	outerContainer: {
 		width: "100%",
 		overflow: "hidden",
-		borderRadius: BORDERRADIUS.medium,
+		BORDER_RADIUS: BORDER_RADIUS.medium,
 		height: "100%",
 	},
 	animatedContainer: {
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 	},
 	pageContainer: {
 		width: "100%",
-		borderRadius: BORDERRADIUS.medium,
+		BORDER_RADIUS: BORDER_RADIUS.medium,
 		overflow: "hidden",
 		alignItems: "center",
 		justifyContent: "center",

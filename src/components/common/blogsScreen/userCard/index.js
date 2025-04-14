@@ -10,7 +10,7 @@ const UserCard = ({ user, active }) => {
 	return (
 		<GradientBorder
 			style={styles.cardContainer}
-			borderRadius={16}
+			BORDER_RADIUS={16}
 			gradientColors={["rgba(255, 255, 255, 0.24)", "rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.24)"]}
 			borderWidth={1}
 		>

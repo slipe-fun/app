@@ -11,14 +11,14 @@ const UserCardActions = ({ user, index }) => {
 		<View>
 			<ScrollView contentContainerStyle={{ gap: SPACING.large, padding: SPACING.large }} horizontal showsHorizontalScrollIndicator={false} style={styles.actions}>
 				<Pressable>
-					<GradientBorder borderRadius={32} borderWidth={1}>
+					<GradientBorder BORDER_RADIUS={32} borderWidth={1}>
 						<PlatformWrapperButton style={[styles.menuButton, { width: 48, height: 48 }]}>
 							<Icon icon='message' size={28} color={COLORS.white} />
 						</PlatformWrapperButton>
 					</GradientBorder>
 				</Pressable>
 				<Pressable>
-					<GradientBorder borderRadius={32} borderWidth={1}>
+					<GradientBorder BORDER_RADIUS={32} borderWidth={1}>
 						<PlatformWrapperButton style={[styles.menuButton, { width: 48, height: 48 }]}>
 							<Icon icon='smile' size={30} color={COLORS.white} />
 						</PlatformWrapperButton>
@@ -26,7 +26,7 @@ const UserCardActions = ({ user, index }) => {
 				</Pressable>
 				{[0, 1, 2, 3, 4].map((_, index) => (
 					<Pressable key={index}>
-						<GradientBorder borderRadius={32} borderWidth={1}>
+						<GradientBorder BORDER_RADIUS={32} borderWidth={1}>
 							<PlatformWrapperButton style={[styles.reactionButton, { paddingHorizontal: 20, height: 48 }]}>
 								<Image style={{ width: 24, height: 24 }} source={require("../../../../../assets/emojis/0_16.png")} />
 								<Text style={styles.reactionButtonText}>5.7K</Text>

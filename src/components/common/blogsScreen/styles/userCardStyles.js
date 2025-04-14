@@ -1,10 +1,10 @@
 import { StyleSheet } from "react-native";
-import { BORDERRADIUS, COLORS, FONT_SIZE, SPACING } from "../../../../constants/theme";
+import { BORDER_RADIUS, COLORS, FONT_SIZE, SPACING } from "../../../../constants/theme";
 
 const styles = StyleSheet.create({
 	userCard: {
 		height: '100%', 
-        borderRadius: BORDERRADIUS.medium,
+        BORDER_RADIUS: BORDER_RADIUS.medium,
 		overflow: "hidden",
         position: 'relative',
 		width: '100%',
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     headerAvatar: {
         width: 44,
         height: 44,
-        borderRadius: 9999
+        BORDER_RADIUS: 9999
     },
     headerInfo: {
         flexDirection: 'column',
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: COLORS.indicator,
 		height: 2.5,
-		borderRadius: 4,
+		BORDER_RADIUS: 4,
 		overflow: "hidden",
 	},
     // -----------------
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         overflow: 'hidden',
         alignItems: 'center',
-        borderRadius: 30,
+        BORDER_RADIUS: 30,
     },
     actions: {
         zIndex: 10,
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         overflow: 'hidden',
         alignItems: 'center',
-        borderRadius: 30,
+        BORDER_RADIUS: 30,
     },
     reactionButtonText: {
         fontFamily: '600',

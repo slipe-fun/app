@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { View } from "react-native";
-import styles from "./styles/usersSliderStyles";
+import styles from "./styles/verticalSliderStyles";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing, runOnJS } from "react-native-reanimated";
 
