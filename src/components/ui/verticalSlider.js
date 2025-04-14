@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
 import { View } from "react-native";
 import styles from "./styles/verticalSliderStyles";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";

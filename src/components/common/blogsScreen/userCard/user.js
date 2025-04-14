@@ -11,7 +11,7 @@ const UserCardHeader = ({ user, post, activeIdx, handleIndicatorFinish, total, p
 	return (
 		<View style={styles.header}>
 			<LinearGradient colors={["rgba(0, 0, 0, 0.32)", "rgba(0, 0, 0, 0)"]} start={{ x: 0.5, y: 0 }} end={{ x: 0.5, y: 1 }} style={styles.gradient} />
-			<Indicators isPaused={pause} onFinish={() => handleIndicatorFinish} count={total} currentIndex={activeIdx} />
+			<Indicators isPaused={pause} onFinish={() => handleIndicatorFinish()} count={total} currentIndex={activeIdx} />
 			<View style={styles.headerBlock}>
 				<Image style={styles.headerAvatar} source={user.avatar} />
 				<View style={styles.headerInfo}>
