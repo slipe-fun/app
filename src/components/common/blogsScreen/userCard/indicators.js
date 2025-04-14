@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import { View, StyleSheet } from "react-native";
+import { View } from "react-native";
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, runOnJS, Easing, cancelAnimation } from "react-native-reanimated";
-import { COLORS } from "../../../../constants/theme";
+import { BORDER_RADIUS, COLORS } from "../../../../constants/theme";
 import styles from "../styles/userCardStyles";
 
 const IndicatorBar = ({ isActive, progress }) => {
@@ -11,6 +11,7 @@ const IndicatorBar = ({ isActive, progress }) => {
 			width: `${widthPercentage}%`,
 			backgroundColor: COLORS.white,
 			height: "100%",
+			borderRadius: BORDER_RADIUS.xs,
 		};
 	});
 
@@ -22,43 +23,37 @@ const IndicatorBar = ({ isActive, progress }) => {
 };
 
 const Indicators = ({ count, currentIndex, duration = 5000, onFinish, isPaused = false }) => {
-	const progresses = useRef(Array.from({ length: count }, (_, i) => useSharedValue(i < currentIndex ? 1 : 0))).current;
+	const progresses = useRef(Array.from({ length: count }, () => useSharedValue(0))).current;
 
 	useEffect(() => {
-		for (let i = 0; i < count; i++) {
-			const progress = progresses[i];
-			if (!progress) continue;
-			cancelAnimation(progress);
-			if (i < currentIndex) {
-				progress.value = withTiming(1, { duration: 150 });
-			} else {
+		progresses.forEach(p => cancelAnimation(p));
+
+		progresses.forEach((progress, index) => {
+			if (index < currentIndex) {
+				progress.value = 1;
+			} else if (index > currentIndex) {
 				progress.value = 0;
 			}
-		}
-	}, [currentIndex, count, progresses]);
-	useEffect(() => {
+		});
+
 		const activeProgress = progresses[currentIndex];
 		if (!activeProgress) return;
-		cancelAnimation(activeProgress);
 
-		if (isPaused) {
-		} else {
-			const currentProgressValue = activeProgress.value;
-			if (currentProgressValue < 1) {
-				const remainingDuration = duration * (1 - currentProgressValue);
-				activeProgress.value = withTiming(
-					1,
-					{
-						duration: remainingDuration > 0 ? remainingDuration : 0,
-						easing: Easing.linear,
-					},
-					finished => {
-						if (finished === true && onFinish) {
-							runOnJS(onFinish)();
-						}
+		activeProgress.value = 0;
+
+		if (!isPaused) {
+			activeProgress.value = withTiming(
+				1,
+				{
+					duration: duration,
+					easing: Easing.linear,
+				},
+				finished => {
+					if (finished === true && onFinish) {
+						runOnJS(onFinish)();
 					}
-				);
-			}
+				}
+			);
 		}
 
 		return () => {
@@ -66,7 +61,7 @@ const Indicators = ({ count, currentIndex, duration = 5000, onFinish, isPaused =
 				cancelAnimation(activeProgress);
 			}
 		};
-	}, [currentIndex, isPaused, duration, onFinish, progresses]);
+	}, [currentIndex, isPaused, duration, onFinish, progresses, count]);
 
 	return (
 		<View style={styles.container}>

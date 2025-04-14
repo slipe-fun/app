@@ -105,6 +105,14 @@ const styles = StyleSheet.create({
     reactionButtonText: {
         fontFamily: '600',
         color: COLORS.white
+    },
+    buttonsView: {
+        flex: 1,
+        zIndex: 10,
+        flexDirection: 'row',
+    },
+    buttonsViewButton: {
+        flex: 1,
     }
 });
 

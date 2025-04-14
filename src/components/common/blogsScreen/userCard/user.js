@@ -7,11 +7,11 @@ import { GradientBorder } from "../../../ui/gradientBorder";
 import Icon from "../../../ui/icon";
 import { COLORS } from "../../../../constants/theme";
 
-const UserCardHeader = ({ user, post, activeIdx, setIdx, total, pause }) => {
+const UserCardHeader = ({ user, post, activeIdx, handleIndicatorFinish, total, pause }) => {
 	return (
 		<View style={styles.header}>
 			<LinearGradient colors={["rgba(0, 0, 0, 0.32)", "rgba(0, 0, 0, 0)"]} start={{ x: 0.5, y: 0 }} end={{ x: 0.5, y: 1 }} style={styles.gradient} />
-			<Indicators isPaused={pause} onFinish={() => setIdx(activeIdx + 1)} count={total} currentIndex={activeIdx} />
+			<Indicators isPaused={pause} onFinish={() => handleIndicatorFinish} count={total} currentIndex={activeIdx} />
 			<View style={styles.headerBlock}>
 				<Image style={styles.headerAvatar} source={user.avatar} />
 				<View style={styles.headerInfo}>
