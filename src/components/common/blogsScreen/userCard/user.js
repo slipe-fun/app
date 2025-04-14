@@ -22,7 +22,7 @@ const UserCardHeader = ({ user, post, activeIdx, setIdx, total, pause }) => {
 				</View>
 				{/* {isMenuVisible && <DropdownMenu setOpen={setIsMenuVisible} />} */}
 				<Pressable>
-					<GradientBorder BORDER_RADIUS={32} borderWidth={1}>
+					<GradientBorder borderRadius={32} borderWidth={1}>
 						{Platform.OS === "ios" ? (
 							<BlurView style={styles.menuButton} blurReductionFactor={4} tint='dark' intensity={100}>
 								<Icon icon='menu' size={26} color={COLORS.white} />

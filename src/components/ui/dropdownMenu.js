@@ -32,7 +32,7 @@ const DropdownMenu = ({ setOpen, children }) => {
 			exiting={exitingAnimation}
 			onStartShouldSetResponder={() => true}
 		>
-			<GradientBorder BORDER_RADIUS={18} borderWidth={1}>
+			<GradientBorder borderRadius={18} borderWidth={1}>
 				<BlurView
 					experimentalBlurMethod='dimezisBlurView'
 					style={{ width: "100%", height: "100%" }}

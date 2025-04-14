@@ -4,7 +4,7 @@ import { BORDER_RADIUS, COLORS, FONT_SIZE, SPACING } from "../../../../constants
 const styles = StyleSheet.create({
 	userCard: {
 		height: '100%', 
-        BORDER_RADIUS: BORDER_RADIUS.medium,
+        borderRadius: BORDER_RADIUS.medium,
 		overflow: "hidden",
         position: 'relative',
 		width: '100%',
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     headerAvatar: {
         width: 44,
         height: 44,
-        BORDER_RADIUS: 9999
+        borderRadius: 9999
     },
     headerInfo: {
         flexDirection: 'column',
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: COLORS.indicator,
 		height: 2.5,
-		BORDER_RADIUS: 4,
+		borderRadius: 4,
 		overflow: "hidden",
 	},
     // -----------------
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         overflow: 'hidden',
         alignItems: 'center',
-        BORDER_RADIUS: 30,
+        borderRadius: 30,
     },
     actions: {
         zIndex: 10,
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         overflow: 'hidden',
         alignItems: 'center',
-        BORDER_RADIUS: 30,
+        borderRadius: 30,
     },
     reactionButtonText: {
         fontFamily: '600',

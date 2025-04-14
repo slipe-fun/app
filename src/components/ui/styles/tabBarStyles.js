@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
     tabButton: {
         justifyContent: "center",
         alignItems: "center",
-        BORDER_RADIUS: BORDER_RADIUS.medium,
+        borderRadius: BORDER_RADIUS.medium,
         width: "100%",
     },
 	tabButtonText: {
