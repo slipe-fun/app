@@ -3,7 +3,6 @@ import { View } from "react-native";
 import styles from "./styles/usersSliderStyles";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing, runOnJS } from "react-native-reanimated";
-import UserCard from "./userCard";
 
 const GAP = 16;
 
@@ -15,7 +14,7 @@ const TIMING_CONFIG = {
 const ACTIVATION_THRESHOLD_Y = 10;
 const ACTIVATION_THRESHOLD_X = 10;
 
-const UsersSlider = ({ users }) => {
+const VerticalSlider = ({ users, RenderSlideComponent }) => {
 	const [containerHeight, setContainerHeight] = useState(0);
 	const translateY = useSharedValue(0);
 	const context = useSharedValue({ y: 0 });
@@ -101,7 +100,7 @@ const UsersSlider = ({ users }) => {
 										},
 									]}
 								>
-									<UserCard user={user} active={index !== currentActiveIndexState} />
+									<RenderSlideComponent user={user} active={index !== currentActiveIndexState} />
 								</View>
 							);
 						})}
@@ -112,4 +111,4 @@ const UsersSlider = ({ users }) => {
 	);
 };
 
-export default UsersSlider;
+export default VerticalSlider;

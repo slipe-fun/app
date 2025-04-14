@@ -1,7 +1,8 @@
 import { Platform, View } from "react-native";
 import { COLORS } from "../constants/theme";
-import UsersSlider from "../components/common/blogsScreen";
+import VerticalSlider from "../components/ui/verticalSlider";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import UserCard from "../components/common/blogsScreen/userCard";
 
 const USERS = [
 	{
@@ -105,7 +106,7 @@ const BlogsScreen = () => {
 
 	return (
 		<View style={{ flex: 1, paddingTop: Platform.OS === "ios" ? insets.top - 4 : insets.top + 6, backgroundColor: COLORS.black }}>
-			<UsersSlider users={USERS} />
+			<VerticalSlider users={USERS} RenderSlideComponent={({ user, active }) => <UserCard user={user} active={active}/> } />
 		</View>
 	);
 };
