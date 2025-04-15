@@ -3,7 +3,7 @@ import { GradientBorder } from "../../../ui/gradientBorder";
 import styles from "../styles/userCardStyles";
 import UserCardHeader from "./user";
 import UserCardActions from "./actions";
-import { useState, useCallback, useMemo } from "react"; // Добавлен useMemo
+import { useState, useCallback, useMemo } from "react";
 
 const UserCard = ({ user, active }) => {
     const [idx, setIdx] = useState(0);
