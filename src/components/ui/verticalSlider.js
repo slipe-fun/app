@@ -74,7 +74,7 @@ const VerticalSlider = ({ users, RenderSlideComponent }) => {
 				runOnJS(setCurrentActiveIndexState)(targetIndex);
 			}
 		});
-
+		
 	const animatedStyle = useAnimatedStyle(() => {
 		const totalHeight = containerHeight > 0 ? (containerHeight + GAP) * users.length - GAP : 0;
 		return {
