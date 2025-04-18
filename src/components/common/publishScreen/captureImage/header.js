@@ -4,39 +4,30 @@ import { GradientBorder } from "../../../ui/gradientBorder";
 import { PlatformWrapperButton } from "../../../ui/platformWrapperButton";
 import Icon from "../../../ui/icon";
 import { COLORS } from "../../../../constants/theme";
-import { LinearGradient } from "expo-linear-gradient";
+import * as Haptics from "expo-haptics";
 
 export const CaptureImageHeader = () => {
 	return (
 		<View style={styles.header}>
-			<LinearGradient colors={["rgba(0, 0, 0, 0.32)", "rgba(0, 0, 0, 0)"]} start={{ x: 0.5, y: 0 }} end={{ x: 0.5, y: 1 }} style={styles.gradient} />
-			<View style={styles.footerWrapper}>
-				<View style={styles.footerBlock}>
-					<Pressable>
-						<GradientBorder borderRadius={32} borderWidth={1}>
-							<PlatformWrapperButton style={styles.menuButton}>
-								<Icon icon='circleArrow' size={26} color={COLORS.white} />
-							</PlatformWrapperButton>
-						</GradientBorder>
-					</Pressable>
-				</View>
-				<View style={styles.footerBlock}>
-					<Pressable>
-						<View style={styles.captureButton}>
-							<View style={styles.captureButtonInside} />
-						</View>
-					</Pressable>
-				</View>
-				<View style={styles.footerBlock}>
-					<Pressable>
-						<GradientBorder borderRadius={32} borderWidth={1}>
-							<PlatformWrapperButton style={styles.menuButton}>
-								<Icon icon='message' size={26} color={COLORS.white} />
-							</PlatformWrapperButton>
-						</GradientBorder>
-					</Pressable>
-				</View>
+			<View style={styles.qualityWrapper}>
+				<Pressable>
+					<View style={styles.qualityButton}></View>
+				</Pressable>
 			</View>
+			<Pressable onPress={() => Haptics.selectionAsync()}>
+				<GradientBorder borderRadius={32} borderWidth={1}>
+					<PlatformWrapperButton style={styles.menuButton}>
+						<Icon icon='flashlight' size={26} color={COLORS.white} />
+					</PlatformWrapperButton>
+				</GradientBorder>
+			</Pressable>
+			<Pressable onPress={() => Haptics.selectionAsync()}>
+				<GradientBorder borderRadius={32} borderWidth={1}>
+					<PlatformWrapperButton style={styles.menuButton}>
+						<Icon icon='audio' size={26} color={COLORS.white} />
+					</PlatformWrapperButton>
+				</GradientBorder>
+			</Pressable>
 		</View>
 	);
 };

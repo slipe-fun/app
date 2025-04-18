@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import Animated, { useSharedValue, useAnimatedStyle, withSpring, runOnJS } from "react-native-reanimated";
 import * as MediaLibrary from "expo-media-library";
 import { useDispatch, useSelector } from "react-redux";
+import * as Haptics from "expo-haptics"
 import { selectActiveFacing, updateCameraFacing } from "../../../../reducers/publishScreen";
 
 export const CaptureImageFooter = () => {
@@ -46,6 +47,7 @@ export const CaptureImageFooter = () => {
 
 	const changeFacing = () => {
 		if (isDisabled) return;
+        Haptics.selectionAsync()
 		setIsDisabled(true);
         const newFacing = facing === 'front' ? 'back' : 'front';
         dispatch(updateCameraFacing({ facing: newFacing }))
@@ -70,9 +72,9 @@ export const CaptureImageFooter = () => {
 				<View style={styles.footerBlock}>
 					<Pressable onPress={changeFacing} disabled={isDisabled}>
 						<GradientBorder borderRadius={32} borderWidth={1}>
-							<PlatformWrapperButton style={styles.menuButton}>
+							<PlatformWrapperButton style={[styles.menuButton, {width: 48, height: 48}]}>
 								<Animated.View style={animatedStyles}>
-									<Icon icon='circleArrow' size={32} color={COLORS.white} />
+									<Icon icon='circleArrow' size={30} color={COLORS.white} />
 								</Animated.View>
 							</PlatformWrapperButton>
 						</GradientBorder>
@@ -90,7 +92,7 @@ export const CaptureImageFooter = () => {
 				<View style={styles.footerBlock}>
 					<Pressable onPress={() => {}}>
 						<GradientBorder borderRadius={32} borderWidth={1}>
-							{photo && <Image key={photo.id} source={{ uri: photo.uri }} style={styles.menuButton} resizeMode='cover' />}
+							{photo && <Image key={photo.id} source={{ uri: photo.uri }} style={[styles.menuButton, {width: 48, height: 48}]} resizeMode='cover' />}
 						</GradientBorder>
 					</Pressable>
 				</View>

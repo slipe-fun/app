@@ -14,8 +14,8 @@ export const styles = StyleSheet.create({
 		overflow: "hidden",
 	},
 	menuButton: {
-		width: 48,
-		height: 48,
+		width: 44,
+		height: 44,
 		display: "flex",
 		justifyContent: "center",
 		overflow: "hidden",
@@ -29,6 +29,9 @@ export const styles = StyleSheet.create({
 	},
     header: {
 		width: "100%",
+        flexDirection: 'row',
+        padding: SPACING.large,
+        gap: 16,
 		position: "absolute",
 	},
 	footerBlock: {
@@ -61,4 +64,8 @@ export const styles = StyleSheet.create({
 		width: "100%",
 		flexDirection: "row",
 	},
+    qualityWrapper: {
+        flex: 1,
+        alignItems: 'center',
+    }
 });

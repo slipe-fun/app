@@ -8,7 +8,6 @@ import { COLORS } from "../../../../constants/theme";
 import { LinearGradient } from "expo-linear-gradient";
 import { useSharedValue, useAnimatedStyle } from "react-native-reanimated";
 import { GestureDetector } from "react-native-gesture-handler";
-import { useCameraFlip } from "../../../../hooks/useCameraFlip";
 
 export const CameraInputCard = ({ result }) => {
 	const [permission, requestPermission] = useCameraPermissions();

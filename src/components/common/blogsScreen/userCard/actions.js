@@ -6,6 +6,17 @@ import Icon from "../../../ui/icon";
 import { PlatformWrapperButton } from "../../../ui/platformWrapperButton";
 
 const UserCardActions = ({ user, index }) => {
+	// it's just shit, i will move all emojis to cdn soon
+
+	const emojiImages = {
+		'0_16': require('../../../../../assets/emojis/0_16.png'),
+		'0_29': require('../../../../../assets/emojis/0_29.png'),
+		'0_32': require('../../../../../assets/emojis/0_32.png'),
+		'0_39': require('../../../../../assets/emojis/0_39.png'),
+		'1_29': require('../../../../../assets/emojis/1_29.png'),
+		'1_35': require('../../../../../assets/emojis/1_35.png'),
+	  };
+
 	return (
 		<View>
 			<ScrollView
@@ -29,11 +40,11 @@ const UserCardActions = ({ user, index }) => {
 					</GradientBorder>
 				</Pressable>
 
-				{[0, 1, 2, 3, 4].map((_, index) => (
+				{['0_16', '0_29', '0_32', '0_39', '1_29', '1_35'].map((reaction, index) => (
 					<Pressable key={index}>
 						<GradientBorder borderRadius={32} borderWidth={1}>
 							<PlatformWrapperButton style={styles.reactionButton}>
-								<Image style={{ width: 22, height: 22 }} source={require("../../../../../assets/emojis/0_16.png")} />
+								<Image style={{ width: 22, height: 22 }} source={emojiImages[reaction]} />
 								<Text style={styles.reactionButtonText}>5.7K</Text>
 							</PlatformWrapperButton>
 						</GradientBorder>
