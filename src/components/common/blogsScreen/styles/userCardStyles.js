@@ -4,7 +4,7 @@ import { BORDER_RADIUS, COLORS, FONT_SIZE, SPACING } from "../../../../constants
 const styles = StyleSheet.create({
 	userCard: {
 		height: '100%', 
-        borderRadius: BORDER_RADIUS.medium,
+        borderRadius: BORDER_RADIUS.large,
 		overflow: "hidden",
         position: 'relative',
 		width: '100%',

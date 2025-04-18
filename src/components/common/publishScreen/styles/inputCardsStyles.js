@@ -11,6 +11,7 @@ export const styles = StyleSheet.create({
 	},
 	cameraView: {
 		flex: 1,
+		overflow: 'hidden'
 	},
 	inputCardHeader: {
 		zIndex: 2,
@@ -49,7 +50,7 @@ export const styles = StyleSheet.create({
 	footerBlockTitle: {
 		fontFamily: "600",
 		color: COLORS.white,
-		fontSize: 22,
+		fontSize: 20,
 	},
 	footerBlockSubtitle: {
 		fontFamily: "500",
@@ -69,12 +70,23 @@ export const styles = StyleSheet.create({
 		fontSize: 20,
 		textAlign: "center",
 	},
-	cameraContainer: {
-		flex: 1,
-		borderRadius: 16,
-		overflow: 'hidden'
-	},
 	permissionContainer: {
 		flex: 1,
 	},
+	galleryContainer: {
+		display: 'flex',
+		flex: 1,
+		flexDirection: 'row',
+		flexWrap: 'wrap',
+		gap: SPACING.xs
+	},
+	galleryRow: {
+		flex: 1,
+		gap: SPACING.xs
+	},
+	galleryImage: {
+		width: '100%',
+		aspectRatio: 1/1,
+		borderRadius: BORDER_RADIUS.small
+	}
 });

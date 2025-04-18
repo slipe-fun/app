@@ -4,11 +4,11 @@ import { ICONS } from '../../constants/icons';
 
 const AnimatedPath = Animated.createAnimatedComponent(Path);
 
-const Icon = ({ size = 24, color, icon = "" }) => {
+const Icon = ({ size = 24, color, icon = "", style }) => {
     const pathData = ICONS[icon] || "";
 
     return (
-        <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+        <Svg style={style} width={size} height={size} viewBox="0 0 24 24" fill="none">
             <AnimatedPath
                 fill={color}
                 d={pathData}

@@ -20,20 +20,19 @@ const UserCardHeader = ({ user, post, activeIdx, handleIndicatorFinish, total, p
 						{post?.date} | {post?.views} views
 					</Text>
 				</View>
+				<GradientBorder borderRadius={32} borderWidth={1}>
+					{Platform.OS === "ios" ? (
+						<BlurView style={styles.menuButton} blurReductionFactor={4} tint='dark' intensity={100}>
+							<Icon icon='menu' size={26} color={COLORS.white} />
+						</BlurView>
+					) : (
+						<View style={[styles.menuButton, { backgroundColor: COLORS.glassButton }]}>
+							<Icon icon='menu' size={26} color={COLORS.white} />
+						</View>
+					)}
+				</GradientBorder>
+
 				{/* {isMenuVisible && <DropdownMenu setOpen={setIsMenuVisible} />} */}
-				<Pressable>
-					<GradientBorder borderRadius={32} borderWidth={1}>
-						{Platform.OS === "ios" ? (
-							<BlurView style={styles.menuButton} blurReductionFactor={4} tint='dark' intensity={100}>
-								<Icon icon='menu' size={26} color={COLORS.white} />
-							</BlurView>
-						) : (
-							<View style={[styles.menuButton, { backgroundColor: COLORS.glassButton }]}>
-								<Icon icon='menu' size={26} color={COLORS.white} />
-							</View>
-						)}
-					</GradientBorder>
-				</Pressable>
 			</View>
 		</View>
 	);

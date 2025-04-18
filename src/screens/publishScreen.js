@@ -3,14 +3,14 @@ import { COLORS, SPACING } from '../constants/theme';
 import { CameraInputCard } from '../components/common/publishScreen/inputCards/camera';
 import { GalleryInputCard } from '../components/common/publishScreen/inputCards/gallery';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { CaptureImage } from '../components/common/publishScreen/captureImage';
 
 const PublishScreen = () => {
   const insets = useSafeAreaInsets();
 
   return (
     <View style={[styles.container, { paddingTop: Platform.OS === "ios" ? insets.top - 4 : insets.top + 6 }]}>
-      <CameraInputCard/>
-      <GalleryInputCard/>
+     <CaptureImage/>
     </View>
   );
 };
