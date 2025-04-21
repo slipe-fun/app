@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { enableTorch: false, mute: false };
+const initialState = { enableTorch: false, mute: false, mode: 'picture' };
 
 const publishScreen = createSlice({
 	name: "publish",

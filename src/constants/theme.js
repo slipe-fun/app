@@ -2,6 +2,7 @@ export const COLORS = {
   primary: '#0A84FF',
   glassButton: 'rgba(0, 0, 0, 0.5)',
   black: '#000000',
+  red: '#E82132',
   white: '#ffffff',
   indicator: 'rgba(255, 255, 255, 0.3)',
   transparentText: 'rgba(255, 255, 255, 0.65)',

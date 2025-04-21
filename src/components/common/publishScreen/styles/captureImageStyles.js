@@ -44,14 +44,14 @@ export const styles = StyleSheet.create({
 		borderWidth: 4,
 		width: 72,
 		height: 72,
+		justifyContent: 'center',
+		alignItems: 'center',
 		borderRadius: 99,
 		borderColor: COLORS.white,
-		padding: SPACING.small,
 	},
 	captureButtonInside: {
-		flex: 1,
-		borderRadius: 99,
-		backgroundColor: COLORS.white,
+		width: '100%',
+		height: '100%',
 	},
 	gradient: {
 		left: 0,

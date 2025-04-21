@@ -2,16 +2,14 @@ import { useRef, useState } from "react";
 import { View, Image, PixelRatio } from "react-native";
 import { CameraView } from "expo-camera";
 import { styles } from "../styles/captureImageStyles";
-import { useSelector } from "react-redux";
 import { captureRef } from "react-native-view-shot";
-import { selectEnableTorch, selectMute } from "../../../../reducers/publishScreen";
 import { CaptureImageFooter } from "./footer";
 import { CaptureImageHeader } from "./header";
 
 export const CaptureImage = () => {
 	const [facing, setFacing] = useState("back");
-	const torch = useSelector(selectEnableTorch);
-	const mute = useSelector(selectMute);
+	const [torch, setTorch] = useState(true);
+	const [mute, setMute] = useState(false);
 	const cameraRef = useRef(null);
 	const [snapshotUri, setSnapshotUri] = useState(null);
 	const [isBlurring, setIsBlurring] = useState(false);
@@ -59,7 +57,7 @@ export const CaptureImage = () => {
 			/>
 			{isBlurring && <Image fadeDuration={175} source={{ uri: snapshotUri }} style={styles.cameraLoader} blurRadius={8} />}
 			<CaptureImageFooter applyStaticBlur={() => applyStaticBlur()} />
-			<CaptureImageHeader />
+			<CaptureImageHeader setTorch={setTorch} setMute={setMute} mute={mute} torch={torch} />
 		</View>
 	);
 };

@@ -9,7 +9,7 @@ export const PlatformWrapperButton = ({ children, style, blurProps = {}, viewPro
 	useEffect(() => {
 		Animated.timing(animatedValue, {
 			toValue: active ? 1 : 0,
-			duration: 150,
+			duration: 225,
 			useNativeDriver: false,
 		}).start();
 	}, [active]);
