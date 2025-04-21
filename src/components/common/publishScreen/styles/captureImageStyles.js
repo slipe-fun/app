@@ -67,5 +67,10 @@ export const styles = StyleSheet.create({
     qualityWrapper: {
         flex: 1,
         alignItems: 'center',
-    }
+    },
+	cameraLoader: {
+		width: '100%',
+		height: '100%',
+		position: 'absolute',
+	}
 });
