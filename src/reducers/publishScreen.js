@@ -17,3 +17,4 @@ export default publishScreen.reducer;
 
 export const selectEnableTorch = state => state.publish.enableTorch;
 export const selectMute = state => state.publish.mute;
+export const selectMode = state => state.publish.mode;

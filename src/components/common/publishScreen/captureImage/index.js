@@ -53,7 +53,7 @@ export const CaptureImage = () => {
 				enableTorch={torch}
 				mute={mute}
 				facing={facing}
-				mode='picture'
+				mode='video'
 			/>
 			{isBlurring && <Image fadeDuration={175} source={{ uri: snapshotUri }} style={styles.cameraLoader} blurRadius={8} />}
 			<CaptureImageFooter applyStaticBlur={() => applyStaticBlur()} />

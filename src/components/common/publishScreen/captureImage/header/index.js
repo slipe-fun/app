@@ -1,10 +1,10 @@
-import { styles } from "../styles/captureImageStyles";
+import { styles } from "../../styles/captureImageStyles";
 import React, { useRef, useEffect, useCallback } from "react";
 import { View, Pressable, Animated, Easing } from "react-native";
-import { GradientBorder } from "../../../ui/gradientBorder";
-import { PlatformWrapperButton } from "../../../ui/platformWrapperButton";
-import Icon from "../../../ui/icon";
-import { COLORS } from "../../../../constants/theme";
+import { GradientBorder } from "../../../../ui/gradientBorder";
+import { PlatformWrapperButton } from "../../../../ui/platformWrapperButton";
+import Icon from "../../../../ui/icon";
+import { COLORS } from "../../../../../constants/theme";
 import * as Haptics from "expo-haptics";
 
 const AnimatedButton = ({ active, iconName, onToggle, animValue, scaleValue }) => {

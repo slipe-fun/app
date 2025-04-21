@@ -3,15 +3,12 @@ import { Animated, Pressable } from "react-native";
 import * as Haptics from "expo-haptics";
 import { COLORS } from "../../../../../constants/theme";
 import { styles } from "../../styles/captureImageStyles";
-import { useDispatch } from "react-redux";
-import { updateCameraState } from "../../../../../reducers/publishScreen";
 
 export const CaptureButton = () => {
 	const captureBgColor = useRef(new Animated.Value(0)).current;
 	const captureBorderRadius = useRef(new Animated.Value(0)).current;
 	const capturePadding = useRef(new Animated.Value(0)).current;
 	const captureTimerRef = useRef(null);
-    const dispatch = useDispatch()
 	const isLongPressingRef = useRef(false);
 
 	const timingConfig = toValue => ({
@@ -28,6 +25,7 @@ export const CaptureButton = () => {
 			Animated.timing(captureBorderRadius, timingConfig(1)),
 			Animated.spring(capturePadding, { friction: 7, tension: 40, useNativeDriver: false, toValue: 1 }),
 		]).start();
+		// startRecording();
 	}, [captureBgColor, captureBorderRadius, capturePadding]);
 
 	const reverseCaptureAnimation = useCallback(() => {
@@ -50,9 +48,11 @@ export const CaptureButton = () => {
 			clearTimeout(captureTimerRef.current);
 			captureTimerRef.current = null;
 			Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+			// takePicture();
 		} else if (isLongPressingRef.current) {
 			Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
 			reverseCaptureAnimation();
+			// stopRecording();
 		}
 		isLongPressingRef.current = false;
 	}, [reverseCaptureAnimation]);
