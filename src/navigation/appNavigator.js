@@ -1,30 +1,60 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CustomTabBar from "../components/ui/tabBar";
 import BlogsScreen from "../screens/blogsScreen";
 import PublishScreen from "../screens/publishScreen";
 import SearchScreen from "../screens/searchScreen";
-import { ROUTES } from "../constants/routes";
 import ProfileScreen from "../screens/profileScreen";
+import AuthNavigator from "./AuthNavigator";
+import { ROUTES } from "../constants/routes";
+import { useState, createContext, useContext } from "react";
+
+export const AuthContext = createContext(null);
 
 const Tab = createBottomTabNavigator();
+const RootStack = createNativeStackNavigator();
 
-const AppNavigator = () => {
+const MainTabNavigator = () => {
 	return (
-		<NavigationContainer>
-			<Tab.Navigator
-				tabBar={props => <CustomTabBar {...props} />}
-				screenOptions={{
-					headerShown: false
-				}}
-			>
-				<Tab.Screen name={ROUTES.BLOGS} component={BlogsScreen} />
-				<Tab.Screen name={ROUTES.PUBLISH} component={PublishScreen} />
-				<Tab.Screen name={ROUTES.SEARCH} component={SearchScreen} />
-				<Tab.Screen name={ROUTES.PROFILE} component={ProfileScreen} />
-			</Tab.Navigator>
-		</NavigationContainer>
+		<Tab.Navigator
+			tabBar={props => <CustomTabBar {...props} />}
+			screenOptions={{
+				headerShown: false
+			}}
+		>
+			<Tab.Screen name={ROUTES.BLOGS} component={BlogsScreen} />
+			<Tab.Screen name={ROUTES.PUBLISH} component={PublishScreen} />
+			<Tab.Screen name={ROUTES.SEARCH} component={SearchScreen} />
+			<Tab.Screen name={ROUTES.PROFILE} component={ProfileScreen} />
+		</Tab.Navigator>
 	);
 };
+
+const AppNavigator = () => {
+	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	
+	const authContextValue = {
+		isAuthenticated,
+		login: () => setIsAuthenticated(true),
+		logout: () => setIsAuthenticated(false)
+	};
+
+	return (
+		<AuthContext.Provider value={authContextValue}>
+			<NavigationContainer>
+				<RootStack.Navigator screenOptions={{ headerShown: false }}>
+					{isAuthenticated ? (
+						<RootStack.Screen name="MainApp" component={MainTabNavigator} />
+					) : (
+						<RootStack.Screen name={ROUTES.AUTH} component={AuthNavigator} />
+					)}
+				</RootStack.Navigator>
+			</NavigationContainer>
+		</AuthContext.Provider>
+	);
+};
+
+export const useAuth = () => useContext(AuthContext);
 
 export default AppNavigator;

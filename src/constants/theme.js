@@ -4,6 +4,7 @@ export const COLORS = {
   black: '#000000',
   red: '#E82132',
   white: '#ffffff',
+  elemBackground: 'rgba(255, 255, 255, 0.1)',
   indicator: 'rgba(255, 255, 255, 0.3)',
   transparentText: 'rgba(255, 255, 255, 0.65)',
   transparentIcon: 'rgba(255, 255, 255, 0.5)'
