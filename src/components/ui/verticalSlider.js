@@ -88,7 +88,7 @@ const VerticalSlider = ({ users, RenderSlideComponent }) => {
 			{containerHeight > 0 && (
 				<GestureDetector gesture={panGesture}>
 					<Animated.View style={[styles.animatedContainer, animatedStyle]}>
-						{users.map((user, index) => {
+						{users?.map((user, index) => {
 							return (
 								<View
 									key={index}
@@ -100,7 +100,7 @@ const VerticalSlider = ({ users, RenderSlideComponent }) => {
 										},
 									]}
 								>
-									<RenderSlideComponent user={user} active={index !== currentActiveIndexState} />
+									<RenderSlideComponent user={user?.author} posts={user?.posts} active={index !== currentActiveIndexState} />
 								</View>
 							);
 						})}

@@ -4,10 +4,10 @@ import styles from "../styles/userCardStyles";
 import UserCardHeader from "./user";
 import UserCardActions from "./actions";
 import { useState, useCallback, useMemo } from "react";
+import { URLS } from "../../../../constants/urls";
 
-const UserCard = ({ user, active }) => {
+const UserCard = ({ user, posts, active }) => {
     const [idx, setIdx] = useState(0);
-    const posts = useMemo(() => user?.posts || [], [user?.posts]);
     const postsLength = useMemo(() => posts.length, [posts]);
     const post = useMemo(() => posts[idx], [posts, idx]);
 
@@ -39,7 +39,7 @@ const UserCard = ({ user, active }) => {
             gradientColors={["rgba(255, 255, 255, 0.24)", "rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.24)"]}
             borderWidth={1}
         >
-            <Image source={{ uri: post?.postImage }} style={styles.postImage} />
+            <Image source={{ uri: URLS.CDN_POSTS_URL + post?.image }} style={styles.postImage} />
 
             <UserCardHeader
                 pause={active}

@@ -6,6 +6,8 @@ import { BlurView } from "expo-blur";
 import { GradientBorder } from "../../../ui/gradientBorder";
 import Icon from "../../../ui/icon";
 import { COLORS } from "../../../../constants/theme";
+import { URLS } from "../../../../constants/urls";
+import TimePassedFromDate from "../../../../lib/time-from-date";
 
 const UserCardHeader = ({ user, post, activeIdx, handleIndicatorFinish, total, pause }) => {
 	return (
@@ -13,11 +15,11 @@ const UserCardHeader = ({ user, post, activeIdx, handleIndicatorFinish, total, p
 			<LinearGradient colors={["rgba(0, 0, 0, 0.32)", "rgba(0, 0, 0, 0)"]} start={{ x: 0.5, y: 0 }} end={{ x: 0.5, y: 1 }} style={styles.gradient} />
 			<Indicators isPaused={pause} onFinish={() => handleIndicatorFinish()} count={total} currentIndex={activeIdx} />
 			<View style={styles.headerBlock}>
-				<Image style={styles.headerAvatar} source={user.avatar} />
+				<Image style={styles.headerAvatar} source={URLS.CDN_AVATARS_URL + (user?.avatar || "ce7592a9-074d-4c4b-a2bf-08c61abbada2.jpg")} />
 				<View style={styles.headerInfo}>
-					<Text style={styles.infoName}>{user.name}</Text>
+					<Text style={styles.infoName}>{user?.username}</Text>
 					<Text style={styles.infoDescription}>
-						{post?.date} | {post?.views} views
+						{TimePassedFromDate(post?.date)} | {post?.views} views
 					</Text>
 				</View>
 				<GradientBorder borderRadius={32} borderWidth={1}>
