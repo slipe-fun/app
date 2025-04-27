@@ -34,8 +34,12 @@ const MainTabNavigator = () => {
 
 const AppNavigator = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 
-	useEffect(() => setIsAuthenticated(!!storage.getString("token")), []);
+	useEffect(() => {
+		setIsAuthenticated(!!storage.getString("token"));
+		setIsLoading(false);
+	}, []);
 	
 	const authContextValue = {
 		isAuthenticated,
@@ -47,11 +51,11 @@ const AppNavigator = () => {
 		<AuthContext.Provider value={authContextValue}>
 			<NavigationContainer>
 				<RootStack.Navigator screenOptions={{ headerShown: false }}>
-					{isAuthenticated ? (
+					{!isLoading ? isAuthenticated ? (
 						<RootStack.Screen name="MainApp" component={MainTabNavigator} />
 					) : (
 						<RootStack.Screen name={ROUTES.AUTH} component={AuthNavigator} />
-					)}
+					) : <RootStack.Screen name={"Loading"} component={() => <></>} />}
 				</RootStack.Navigator>
 			</NavigationContainer>
 		</AuthContext.Provider>
