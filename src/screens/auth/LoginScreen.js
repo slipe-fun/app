@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -13,11 +13,18 @@ import {
 import { useAuth } from "../../navigation/appNavigator";
 import { COLORS, FONT_SIZE, SPACING } from "../../constants/theme";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { storage } from "../../lib/storage";
+import { api } from "../../lib/api";
 
 const LoginScreen = ({ navigation }) => {
   const { login } = useAuth();
   const insets = useSafeAreaInsets();
   const buttonOffset = useRef(new Animated.Value(0)).current;
+
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+
+  const [error, setError] = useState();
 
   useEffect(() => {
     const onKeyboardShow = ({ endCoordinates: { height } }) => {
@@ -49,6 +56,23 @@ const LoginScreen = ({ navigation }) => {
     };
   }, [buttonOffset]);
 
+  async function handleLogin () {
+		if (!username.trim().length || !password.trim().length) {
+			return setError('Username and password are required');
+		}
+
+		await api.v2.post('/auth/login', JSON.stringify({
+			username,
+			password
+		})).then(async (res) => {
+			storage.set("token", res?.data?.token);
+			setError(null);
+      login()
+		}).catch((err) => {
+			setError(err?.response?.data?.error);
+		})
+  }
+
   return (
     <View
       style={[
@@ -58,15 +82,15 @@ const LoginScreen = ({ navigation }) => {
     >
       <View style={styles.wrapper}>
         <Text style={styles.title}>Log in</Text>
-        <TextInput style={styles.input} cursorColor={COLORS.white} maxLength={32} placeholderTextColor={COLORS.transparentText} placeholder="Username here" />
-        <TextInput style={styles.input} cursorColor={COLORS.white} maxLength={32} placeholderTextColor={COLORS.transparentText} placeholder="Password here" />
+        <TextInput onChangeText={(text) => setUsername(text)} style={styles.input} cursorColor={COLORS.white} maxLength={32} placeholderTextColor={COLORS.transparentText} placeholder="Username here" />
+        <TextInput onChangeText={(text) => setPassword(text)} style={styles.input} cursorColor={COLORS.white} maxLength={32} placeholderTextColor={COLORS.transparentText} placeholder="Password here" />
         <TouchableOpacity  onPress={() => navigation.navigate('Register')} activeOpacity={0.8} style={{ width: '100%'}}>
           <Text style={styles.dontText}>Don't have an account?</Text>
         </TouchableOpacity>
       </View>
 
       <Animated.View style={{ marginBottom: buttonOffset, width: '100%' }}>
-        <TouchableOpacity onPress={login} activeOpacity={0.8} style={styles.button}>
+        <TouchableOpacity onPress={handleLogin} activeOpacity={0.8} style={styles.button}>
           <Text style={styles.buttonText}>Log in</Text>
         </TouchableOpacity>
       </Animated.View>
