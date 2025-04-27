@@ -17,7 +17,7 @@ const UserCardHeader = ({ user, post, activeIdx, handleIndicatorFinish, total, p
 			<View style={styles.headerBlock}>
 				<Image style={styles.headerAvatar} source={URLS.CDN_AVATARS_URL + (user?.avatar || "ce7592a9-074d-4c4b-a2bf-08c61abbada2.jpg")} />
 				<View style={styles.headerInfo}>
-					<Text style={styles.infoName}>{user?.username}</Text>
+					<Text style={styles.infoName}>{user?.nickname || `${user?.username}`}</Text>
 					<Text style={styles.infoDescription}>
 						{TimePassedFromDate(post?.date)} | {post?.views} views
 					</Text>
