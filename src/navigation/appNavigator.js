@@ -8,7 +8,8 @@ import SearchScreen from "../screens/searchScreen";
 import ProfileScreen from "../screens/profileScreen";
 import AuthNavigator from "./AuthNavigator";
 import { ROUTES } from "../constants/routes";
-import { useState, createContext, useContext } from "react";
+import { useState, createContext, useContext, useEffect } from "react";
+import { storage } from "../lib/storage";
 
 export const AuthContext = createContext(null);
 
@@ -33,6 +34,8 @@ const MainTabNavigator = () => {
 
 const AppNavigator = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+	useEffect(() => setIsAuthenticated(!!storage.getString("token")), []);
 	
 	const authContextValue = {
 		isAuthenticated,
