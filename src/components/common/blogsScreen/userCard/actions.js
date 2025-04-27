@@ -4,10 +4,12 @@ import { GradientBorder } from "../../../ui/gradientBorder";
 import { COLORS, SPACING } from "../../../../constants/theme";
 import Icon from "../../../ui/icon";
 import { PlatformWrapperButton } from "../../../ui/platformWrapperButton";
+import { useEmojiState } from "../../../../hooks/useEmojiState";
 
-const UserCardActions = ({ user, index }) => {
+const UserCardActions = ({ post }) => {
+	const { emojis, handleEmojiClick } = useEmojiState(post);
+
 	// it's just shit, i will move all emojis to cdn soon
-
 	const emojiImages = {
 		'0_16': require('../../../../../assets/emojis/0_16.png'),
 		'0_29': require('../../../../../assets/emojis/0_29.png'),
@@ -15,7 +17,7 @@ const UserCardActions = ({ user, index }) => {
 		'0_39': require('../../../../../assets/emojis/0_39.png'),
 		'1_29': require('../../../../../assets/emojis/1_29.png'),
 		'1_35': require('../../../../../assets/emojis/1_35.png'),
-	  };
+	};
 
 	return (
 		<View>
@@ -40,12 +42,12 @@ const UserCardActions = ({ user, index }) => {
 					</GradientBorder>
 				</Pressable>
 
-				{['0_16', '0_29', '0_32', '0_39', '1_29', '1_35'].map((reaction, index) => (
-					<Pressable key={index}>
+				{Object.keys(emojis).map((reaction, index) => (
+					<Pressable onPress={() => handleEmojiClick(reaction)} key={index}>
 						<GradientBorder borderRadius={32} borderWidth={1}>
 							<PlatformWrapperButton style={styles.reactionButton}>
 								<Image style={{ width: 22, height: 22 }} source={emojiImages[reaction]} />
-								<Text style={styles.reactionButtonText}>5.7K</Text>
+								<Text style={styles.reactionButtonText}>{emojis[reaction]?.count}</Text>
 							</PlatformWrapperButton>
 						</GradientBorder>
 					</Pressable>

@@ -57,7 +57,7 @@ const UserCard = ({ user, posts, active }) => {
                 </View>
             )}
 
-            <UserCardActions />
+            <UserCardActions post={post}/>
         </GradientBorder>
     );
 };
