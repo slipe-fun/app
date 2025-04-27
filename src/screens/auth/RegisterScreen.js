@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   View,
   Text,
@@ -13,11 +13,19 @@ import {
 import { useAuth } from "../../navigation/appNavigator";
 import { COLORS, FONT_SIZE, SPACING } from "../../constants/theme";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { storage } from "../../lib/storage";
+import { api } from "../../lib/api";
+import isRegistrationDataCorrect from "../../lib/auth/signUp/isDataCorrect";
 
 const RegisterScreen = ({ navigation }) => {
   const { login } = useAuth();
   const insets = useSafeAreaInsets();
   const buttonOffset = useRef(new Animated.Value(0)).current;
+
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+
+  const [error, setError] = useState();
 
   useEffect(() => {
     const onKeyboardShow = ({ endCoordinates: { height } }) => {
@@ -49,6 +57,28 @@ const RegisterScreen = ({ navigation }) => {
     };
   }, [buttonOffset]);
 
+	async function handleRegister() {
+		const isDataCorrect = isRegistrationDataCorrect(username, password);
+
+		for (const key in isDataCorrect) {
+			if (!isDataCorrect[key]?.success) {
+				setError(isDataCorrect[key]?.message);
+				return;
+			}
+		}
+
+		await api.v2.post('/auth/register', JSON.stringify({
+			username,
+			password
+		})).then(async (res) => {
+			storage.set("token", res?.data?.token);
+			setError(null);
+      login()
+		}).catch((err) => {
+			setError(err?.response?.data?.error);
+		})
+	}
+
   return (
     <View
       style={[
@@ -58,15 +88,15 @@ const RegisterScreen = ({ navigation }) => {
     >
       <View style={styles.wrapper}>
         <Text style={styles.title}>Sign up</Text>
-        <TextInput style={styles.input} cursorColor={COLORS.white} maxLength={32} placeholderTextColor={COLORS.transparentText} placeholder="Username here" />
-        <TextInput style={styles.input} cursorColor={COLORS.white} maxLength={32} placeholderTextColor={COLORS.transparentText} placeholder="Password here" />
+        <TextInput style={styles.input} onChangeText={(text) => setUsername(text)} cursorColor={COLORS.white} maxLength={32} placeholderTextColor={COLORS.transparentText} placeholder="Username here" />
+        <TextInput style={styles.input} onChangeText={(text) => setPassword(text)} cursorColor={COLORS.white} maxLength={32} placeholderTextColor={COLORS.transparentText} placeholder="Password here" />
         <TouchableOpacity  onPress={() => navigation.navigate('Login')} activeOpacity={0.8} style={{ width: '100%'}}>
           <Text style={styles.dontText}>Already have an account?</Text>
         </TouchableOpacity>
       </View>
 
       <Animated.View style={{ marginBottom: buttonOffset, width: '100%' }}>
-        <TouchableOpacity onPress={login} activeOpacity={0.8} style={styles.button}>
+        <TouchableOpacity onPress={handleRegister} activeOpacity={0.8} style={styles.button}>
           <Text style={styles.buttonText}>Sign up</Text>
         </TouchableOpacity>
       </Animated.View>
