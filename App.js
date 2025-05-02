@@ -11,7 +11,6 @@ import { Provider } from "react-redux";
 import store from "./src/store";
 import { enableScreens } from 'react-native-screens';
 
-// Enable native screens implementation
 enableScreens();
 
 const fontsToLoad = {

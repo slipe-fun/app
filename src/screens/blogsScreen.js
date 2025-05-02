@@ -16,7 +16,7 @@ const BlogsScreen = () => {
 
 	return (
 		<View style={{ flex: 1, paddingTop: Platform.OS === "ios" ? insets.top - 2 : insets.top + 6, backgroundColor: COLORS.black }}>
-			<VerticalSlider onSlideChange={handleSlideChange} users={users} RenderSlideComponent={({ user, posts, active }) => <UserCard user={user} posts={posts} active={active} />} />
+			<VerticalSlider onSlideChange={handleSlideChange} users={users} />
 		</View>
 	);
 };

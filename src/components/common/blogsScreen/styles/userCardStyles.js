@@ -64,17 +64,10 @@ const styles = StyleSheet.create({
     },
     // Indicator styles 
     container: {
-		gap: 8,
+		gap: 6,
         padding: SPACING.large,
         paddingBottom: 0,
 		flexDirection: "row",
-	},
-	indicator: {
-		flex: 1,
-		backgroundColor: COLORS.indicator,
-		height: 2.5,
-		borderRadius: 4,
-		overflow: "hidden",
 	},
     // -----------------
     menuButton: {
