@@ -1,63 +1,78 @@
-import React, { useEffect, memo } from "react";
-import { View, StyleSheet } from "react-native";
-import Animated, { useSharedValue, useAnimatedStyle, withTiming, cancelAnimation, runOnJS, Easing } from "react-native-reanimated";
 import styles from "../styles/userCardStyles";
-import { BORDER_RADIUS, COLORS } from "../../../../constants/theme";
+import { View, Animated, Easing } from "react-native";
+import { COLORS } from "../../../../constants/theme";
+import { useEffect, useRef } from "react";
 
-const IndicatorBar = memo(({ index, activeIndex, duration, isPaused, onFinish }) => {
-	const progress = useSharedValue(index < activeIndex ? 1 : 0);
-
-	const style = useAnimatedStyle(() => ({
-		flex: 1,
-		height: 2.5,
-		borderRadius: BORDER_RADIUS.xs,
-		backgroundColor: COLORS.indicator,
-		overflow: "hidden",
-		justifyContent: "center",
-	}));
-
-	const innerStyle = useAnimatedStyle(() => ({
-		width: `${progress.value * 100}%`,
-		height: "100%",
-		backgroundColor: COLORS.white,
-		borderRadius: BORDER_RADIUS.xs,
-	}));
+const Indicator = ({ isFinished, isPaused, onFinished, duration, currentIndex, count }) => {
+	const animatedValue = useRef(new Animated.Value(isFinished ? 1 : 0)).current;
+	const animatedValueWidth = useRef(new Animated.Value(isFinished ? 1 : 0)).current;
 
 	useEffect(() => {
-		cancelAnimation(progress);
-		if (index < activeIndex) {
-			progress.value = 1;
-		} else if (index > activeIndex) {
-			progress.value = 0;
-		} else {
-			progress.value = 0;
-			if (!isPaused) {
-				progress.value = withTiming(1, { duration, easing: Easing.linear }, finished => {
-					if (finished) {
-						runOnJS(onFinish)();
-					}
-				});
-			}
-		}
+		Animated.timing(animatedValue, {
+			toValue: isFinished ? 1 : 0,
+			duration: 300,
+			useNativeDriver: true,
+		}).start();
+	}, [isFinished]);
 
-		return () => cancelAnimation(progress);
-	}, [activeIndex, isPaused, duration]);
+	const runWidthAnimation = () => {
+		animatedValueWidth.setValue(0);
+		const anim = Animated.timing(animatedValueWidth, {
+			toValue: 1,
+			duration,
+			easing: Easing.linear,
+			useNativeDriver: false,
+		});
+		anim.start(({ finished }) => {
+			if (!finished) return;
+			if (currentIndex + 1 < count) {
+				onFinished();
+			} else {
+				runWidthAnimation();
+			}
+		});
+	};
+
+	useEffect(() => {
+		if (isPaused) {
+			animatedValueWidth.stopAnimation();
+			animatedValueWidth.setValue(0);
+		} else {
+			runWidthAnimation();
+		}
+	}, [isPaused, currentIndex, isFinished, duration]);
+
+	const backgroundColor = animatedValue.interpolate({
+		inputRange: [0, 1],
+		outputRange: [COLORS.indicator, COLORS.white],
+	});
+
+	const widthInterpolated = animatedValueWidth.interpolate({
+		inputRange: [0, 1],
+		outputRange: ["0%", "100%"],
+	});
 
 	return (
-		<Animated.View style={style}>
-			<Animated.View style={innerStyle} />
+		<Animated.View style={[styles.indicator, { backgroundColor }]}>
+			<Animated.View style={[styles.indicatorInner, { width: widthInterpolated }]} />
 		</Animated.View>
 	);
-});
-
-const Indicators = ({ count, currentIndex, duration = 5000, onFinish, isPaused = false }) => {
-	return (
-		<View style={styles.container}>
-			{Array.from({ length: count }).map((_, index) => (
-				<IndicatorBar key={index} index={index} activeIndex={currentIndex} duration={duration} isPaused={isPaused} onFinish={onFinish} />
-			))}
-		</View>
-	);
 };
+
+const Indicators = ({ isPaused = true, currentIndex = 0, count = 2, onFinish, duration = 5500 }) => (
+	<View style={styles.container}>
+		{[...Array(count).keys()].map(index => (
+			<Indicator
+				key={index}
+				duration={duration}
+				currentIndex={currentIndex}
+				count={count}
+				onFinished={onFinish}
+				isPaused={isPaused || currentIndex !== index}
+				isFinished={index < currentIndex}
+			/>
+		))}
+	</View>
+);
 
 export default Indicators;

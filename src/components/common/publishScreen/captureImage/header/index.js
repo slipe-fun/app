@@ -56,7 +56,7 @@ export const CaptureImageHeader = ({ torch, mute, setTorch, setMute }) => {
 
 	useEffect(() => {
 		Animated.timing(torchAnim, {
-			toValue: torch ? 1 : 0,
+			toValue: torch === "on" ? 1 : 0,
 			duration: 225,
 			easing: Easing.inOut(Easing.ease),
 			useNativeDriver: false,
@@ -72,7 +72,7 @@ export const CaptureImageHeader = ({ torch, mute, setTorch, setMute }) => {
 		}).start();
 	}, [mute, muteAnim]);
 
-	const toggleTorch = useCallback(() => setTorch(prev => !prev), [setTorch]);
+	const toggleTorch = useCallback(() => setTorch(prev => prev === "on" ? "off" : "on"), [setTorch]);
 	const toggleMute = useCallback(() => setMute(prev => !prev), [setMute]);
 
 	return (
@@ -83,7 +83,7 @@ export const CaptureImageHeader = ({ torch, mute, setTorch, setMute }) => {
 				</Pressable>
 			</View>
 
-			<AnimatedButton active={torch} iconName='flashlight' onToggle={toggleTorch} animValue={torchAnim} scaleValue={torchScale} />
+			<AnimatedButton active={torch === "on"} iconName='flashlight' onToggle={toggleTorch} animValue={torchAnim} scaleValue={torchScale} />
 
 			<AnimatedButton active={mute} iconName='audio' onToggle={toggleMute} animValue={muteAnim} scaleValue={muteScale} />
 		</View>

@@ -39,6 +39,7 @@
     "react-native-screens": "~4.4.0",
     "react-native-svg": "15.8.0",
     "react-native-view-shot": "~4.0.3",
+    "react-native-vision-camera": "^4.6.4",
     "react-redux": "^9.2.0"
   },
   "devDependencies": {

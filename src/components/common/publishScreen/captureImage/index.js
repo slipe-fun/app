@@ -1,62 +1,86 @@
-import { useRef, useState } from "react";
-import { View, Image, PixelRatio } from "react-native";
-import { CameraView } from "expo-camera";
+import { useEffect, useRef, useState } from "react";
+import { View, Image } from "react-native";
 import { styles } from "../styles/captureImageStyles";
 import { captureRef } from "react-native-view-shot";
 import { CaptureImageFooter } from "./footer";
 import { CaptureImageHeader } from "./header";
+import Reanimated, { useAnimatedProps, useSharedValue, interpolate, Extrapolation } from "react-native-reanimated";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import { Camera, useCameraDevice } from "react-native-vision-camera";
+
+Reanimated.addWhitelistedNativeProps({
+	zoom: true,
+});
+const ReanimatedCamera = Reanimated.createAnimatedComponent(Camera);
 
 export const CaptureImage = () => {
 	const [facing, setFacing] = useState("back");
-	const [torch, setTorch] = useState(true);
+	const device = useCameraDevice(facing || "back");
+	const cameraPermission = Camera.getCameraPermissionStatus();
+	const zoomOffset = useSharedValue(0);
+	const zoom = useSharedValue(device.neutralZoom);
+	const animatedProps = useAnimatedProps(() => ({ zoom: zoom.value }), [zoom]);
+	const [torch, setTorch] = useState("off");
 	const [mute, setMute] = useState(false);
 	const cameraRef = useRef(null);
 	const [snapshotUri, setSnapshotUri] = useState(null);
 	const [isBlurring, setIsBlurring] = useState(false);
-	const [cameraLayout, setCameraLayout] = useState({ width: 0, height: 0 });
-	const [cameraReady, setCameraReady] = useState(false);
+
+	const gesture = Gesture.Pinch()
+		.onBegin(() => {
+			zoomOffset.value = zoom.value;
+		})
+		.onUpdate(event => {
+			const z = zoomOffset.value * event.scale;
+			zoom.value = interpolate(z, [1, 10], [device.minZoom, device.maxZoom], Extrapolation.CLAMP);
+		});
 
 	const applyStaticBlur = async () => {
-		setCameraReady(false);
-		const result = await captureRef(cameraRef?.current, {
-			result: "data-uri",
-			handleGLSurfaceViewOnAndroid: true,
-			quality: 0.3,
-			format: "jpg",
-			width: Math.round(cameraLayout.width * 0.25),
-            height: Math.round(cameraLayout.height * 0.25),
-		}).then(data => {
-			setIsBlurring(true);
-			setSnapshotUri(data);
-			setFacing(prev => prev === "front" ? "back" : "front");
-		});
-		if (cameraReady) {
+		if (!cameraRef.current) return;
+		setIsBlurring(true);
+		try {
+			const result = await captureRef(cameraRef?.current, {
+				result: "data-uri",
+				handleGLSurfaceViewOnAndroid: true,
+				quality: 0.1,
+				format: "jpg",
+				width: Math.round(500 * 0.25),
+				height: Math.round(800 * 0.25),
+			});
+
+			setSnapshotUri(result);
+			setFacing(prev => (prev === "front" ? "back" : "front"));
+		} catch (e) {
+			console.error("Error in applyStaticBlur:", e);
+		} finally {
 			setTimeout(() => {
 				setIsBlurring(false);
 				setSnapshotUri(null);
-			}, 1250);
+			}, 1000);
 		}
 	};
 
-	const handleLayout = (event) => {
-        const { width, height } = event.nativeEvent.layout;
-        setCameraLayout({ width, height });
-    };
+	useEffect(() => {
+		if (cameraPermission !== "granted") {
+			Camera.requestCameraPermission();
+		}
+	}, []);
 
 	return (
 		<View style={styles.captureImage}>
-			<CameraView
-				onLayout={handleLayout}
-				ref={cameraRef}
-				style={styles.cameraView}
-				onCameraReady={() => setCameraReady(true)}
-				enableTorch={torch}
-				mute={mute}
-				facing={facing}
-				mode='video'
-			/>
-			{isBlurring && <Image fadeDuration={175} source={{ uri: snapshotUri }} style={styles.cameraLoader} blurRadius={8} />}
-			<CaptureImageFooter applyStaticBlur={() => applyStaticBlur()} />
+			<GestureDetector gesture={gesture}>
+				<ReanimatedCamera
+					video
+					torch={torch}
+					ref={cameraRef}
+					animatedProps={animatedProps}
+					style={styles.cameraView}
+					device={device}
+					isActive={true}
+				/>
+			</GestureDetector>
+			{isBlurring && snapshotUri && <Image fadeDuration={175} source={{ uri: snapshotUri }} style={styles.cameraLoader} blurRadius={8} />}
+			<CaptureImageFooter applyStaticBlur={applyStaticBlur} />
 			<CaptureImageHeader setTorch={setTorch} setMute={setMute} mute={mute} torch={torch} />
 		</View>
 	);
