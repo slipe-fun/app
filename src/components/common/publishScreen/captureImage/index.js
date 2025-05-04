@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { View, Image } from "react-native";
 import { styles } from "../styles/captureImageStyles";
 import { captureRef } from "react-native-view-shot";
+import { GradientBorder } from "../../../ui/gradientBorder";
 import { CaptureImageFooter } from "./footer";
 import { CaptureImageHeader } from "./header";
 import Reanimated, { useAnimatedProps, useSharedValue, interpolate, Extrapolation } from "react-native-reanimated";
@@ -37,7 +38,7 @@ export const CaptureImage = () => {
 
 	const applyStaticBlur = async () => {
 		if (!cameraRef.current) return;
-		zoom.value = 0
+		zoom.value = 0;
 		setIsBlurring(true);
 		try {
 			const result = await captureRef(cameraRef?.current, {
@@ -68,7 +69,12 @@ export const CaptureImage = () => {
 	}, []);
 
 	return (
-		<View style={styles.captureImage}>
+		<GradientBorder
+			style={styles.captureImage}
+			borderRadius={20}
+			gradientColors={["rgba(255, 255, 255, 0.24)", "rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.24)"]}
+			borderWidth={1}
+		>
 			<GestureDetector gesture={gesture}>
 				<ReanimatedCamera
 					video
@@ -83,6 +89,6 @@ export const CaptureImage = () => {
 			{isBlurring && snapshotUri && <Image fadeDuration={175} source={{ uri: snapshotUri }} style={styles.cameraLoader} blurRadius={8} />}
 			<CaptureImageFooter applyStaticBlur={applyStaticBlur} />
 			<CaptureImageHeader setTorch={setTorch} setMute={setMute} mute={mute} torch={torch} />
-		</View>
+		</GradientBorder>
 	);
 };

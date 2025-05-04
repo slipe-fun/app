@@ -48,7 +48,7 @@ export const CaptureButton = () => {
 	};
 
 	const outerStyle = useAnimatedStyle(() => ({
-		padding: interpolate(paddingProgress.value, [0, 1], [8, 18]),
+		padding: interpolate(paddingProgress.value, [0, 1], [6, 18]),
 	}));
 
 	const innerStyle = useAnimatedStyle(() => ({

@@ -1,26 +1,39 @@
+
 import { useEffect } from "react";
-import { View, TouchableOpacity, Text, Platform } from "react-native";
-import { ROUTES } from "../../constants/routes";
+import { View, Platform } from "react-native";
 import { styles } from "./styles/tabBarStyles";
+import { Pressable } from "react-native-gesture-handler";
 import Icon from "./icon";
-import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing } from "react-native-reanimated";
+import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing, interpolateColor, useAnimatedProps } from "react-native-reanimated";
 import { COLORS } from "../../constants/theme";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const CustomTabBar = ({ state, descriptors, navigation }) => {
+const CustomTabBar = ({ state, navigation }) => {
 	const insets = useSafeAreaInsets();
 
 	return (
-		<View style={[styles.tabBarContainer, { paddingBottom: Platform.OS === "ios" ? insets.bottom : insets.bottom + 6 }]}>
+		<View style={[styles.tabBarContainer, { paddingBottom: Platform.OS === "ios" ? insets.bottom : insets.bottom + 8 }]}>
 			{state.routes.map((route, index) => {
-				const { options } = descriptors[route.key];
 				const isFocused = state.index === index;
 
 				const opacityValue = useSharedValue(0.35);
+				const colorValue = useSharedValue(isFocused ? 1 : 0);
 
 				const buttonOpacityStyles = useAnimatedStyle(() => {
 					return {
 						opacity: opacityValue.value,
+					};
+				});
+
+				const buttonColorStyles = useAnimatedStyle(() => {
+					return {
+						backgroundColor: interpolateColor(colorValue.value, [0, 1], [COLORS.elemBackground, COLORS.white]),
+					};
+				});
+
+				const buttonIconColorProps = useAnimatedProps(() => {
+					return {
+						fill: interpolateColor(colorValue.value, [0, 1], [COLORS.transparentIcon, COLORS.black]),
 					};
 				});
 
@@ -36,44 +49,38 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 					}
 				};
 
-				let iconName;
-				let pageName;
-				if (route.name === ROUTES.BLOGS) {
-					iconName = "feed";
-					pageName = "Feed";
-				} else if (route.name === ROUTES.PUBLISH) {
-					iconName = "publish";
-					pageName = "Publish";
-				} else if (route.name === ROUTES.SEARCH) {
-					iconName = "search";
-					pageName = "Search";
-				} else if (route.name === ROUTES.PROFILE) {
-					iconName = "user";
-					pageName = "Profile";
-				}
+				let iconName = route.name.charAt(0).toLowerCase() + route.name.slice(1);
 
 				useEffect(() => {
-					opacityValue.value = withTiming(isFocused ? 1 : 0.35, { duration: 200, easing: Easing.ease });
+					opacityValue.value = withTiming(isFocused ? 1 : 0.35, { duration: 150, easing: Easing.ease });
+					colorValue.value = withTiming(isFocused ? 1 : 0, { duration: 150, easing: Easing.ease });
 				}, [isFocused]);
 
 				return (
 					<View key={route.key} style={styles.tabItem}>
-						<TouchableOpacity activeOpacity={1} onPress={onPress} style={styles.tabButton}>
-							<Animated.View
-								style={[
-									{
-										alignItems: "center",
-										width: "100%",
-										gap: 2,
-										justifyContent: "center",
-									},
-									buttonOpacityStyles,
-								]}
-							>
-								<Icon icon={iconName} style={{ color: COLORS.white }} size={34} />
-								<Text style={styles.tabButtonText}>{pageName}</Text>
-							</Animated.View>
-						</TouchableOpacity>
+						<Pressable onPress={onPress}>
+							{route.name === "Publish" ? (
+								<Animated.View
+									key={route.name}
+									style={[
+										route.name === "Publish" ? styles.publishButton : styles.tabItem,
+										buttonColorStyles
+									]}
+								>
+									<Icon icon={iconName} animatedProps={buttonIconColorProps} style={{ color: COLORS.white }} size={34} />
+								</Animated.View>
+							) : (
+								<Animated.View
+								key={route.name}
+									style={[
+										route.name === "Publish" ? styles.publishButton : styles.tabItem,
+										buttonOpacityStyles
+									]}
+								>
+									<Icon icon={iconName} size={34} />
+								</Animated.View>
+							)}
+						</Pressable>
 					</View>
 				);
 			})}

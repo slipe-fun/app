@@ -7,7 +7,7 @@ export const COLORS = {
   elemBackground: 'rgba(255, 255, 255, 0.1)',
   indicator: 'rgba(255, 255, 255, 0.3)',
   transparentText: 'rgba(255, 255, 255, 0.65)',
-  transparentIcon: 'rgba(255, 255, 255, 0.5)'
+  transparentIcon: 'hsla(0, 0.00%, 100.00%, 0.35)',
 };
 
 export const SPACING = {

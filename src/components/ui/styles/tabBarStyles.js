@@ -6,10 +6,11 @@ export const styles = StyleSheet.create({
         backgroundColor: COLORS.black,
         flexDirection: 'row',
         alignItems: 'center',
-		paddingTop: 10,
+		paddingTop: 14,
     },
     tabItem: {
         flex: 1,
+        height: 44,
         justifyContent: "center",
         alignItems: "center",
     },
@@ -18,6 +19,13 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         borderRadius: BORDER_RADIUS.medium,
         width: "100%",
+    },
+    publishButton: {
+        borderRadius: 10,
+        height: 44,
+        width: 68,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
 	tabButtonText: {
         color: COLORS.white,

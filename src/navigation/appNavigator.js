@@ -10,6 +10,7 @@ import AuthNavigator from "./AuthNavigator";
 import { ROUTES } from "../constants/routes";
 import { useState, createContext, useContext, useEffect } from "react";
 import { storage } from "../lib/storage";
+import NotifsScreen from "../screens/notifsScreen";
 
 export const AuthContext = createContext(null);
 
@@ -25,6 +26,7 @@ const MainTabNavigator = () => {
 			}}
 		>
 			<Tab.Screen name={ROUTES.BLOGS} component={BlogsScreen} />
+			<Tab.Screen name={ROUTES.NOTIFS} component={NotifsScreen} />
 			<Tab.Screen name={ROUTES.PUBLISH} component={PublishScreen} />
 			<Tab.Screen name={ROUTES.SEARCH} component={SearchScreen} />
 			<Tab.Screen name={ROUTES.PROFILE} component={ProfileScreen} />

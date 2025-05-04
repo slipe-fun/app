@@ -1,6 +1,7 @@
 export const ROUTES = {
   // Main tabs
   BLOGS: 'Blogs',
+  NOTIFS: 'Notifications',
   PUBLISH: 'Publish',
   SEARCH: 'Search',
   PROFILE: 'Profile',

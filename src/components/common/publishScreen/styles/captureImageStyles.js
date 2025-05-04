@@ -25,11 +25,13 @@ export const styles = StyleSheet.create({
 	footer: {
 		width: "100%",
         bottom: 0,
+		zIndex: 10,
 		position: "absolute",
 	},
     header: {
 		width: "100%",
         flexDirection: 'row',
+		zIndex: 10,
         padding: SPACING.large,
         gap: 16,
 		position: "absolute",
