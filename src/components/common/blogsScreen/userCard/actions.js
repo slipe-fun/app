@@ -24,6 +24,7 @@ const UserCardActions = ({ post }) => {
 			<ScrollView
 				contentContainerStyle={{ gap: SPACING.large, padding: SPACING.large }}
 				horizontal
+				overScrollMode="never"
 				showsHorizontalScrollIndicator={false}
 				style={styles.actions}
 			>

@@ -37,6 +37,7 @@ export const CaptureImage = () => {
 
 	const applyStaticBlur = async () => {
 		if (!cameraRef.current) return;
+		zoom.value = 0
 		setIsBlurring(true);
 		try {
 			const result = await captureRef(cameraRef?.current, {

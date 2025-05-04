@@ -76,6 +76,7 @@ const VerticalSlider = ({ users, onSlideChange = () => {} }) => {
 	return (
 		<View style={styles.outerContainer} onLayout={handleLayout}>
 			<AnimatedFlashList
+				overScrollMode="never"
 				data={users}
 				extraData={activeIndex}
 				keyExtractor={keyExtractor}

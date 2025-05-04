@@ -1,45 +1,58 @@
 import { styles } from "../../styles/captureImageStyles";
-import React, { useRef, useEffect, useCallback } from "react";
-import { View, Pressable, Animated, Easing } from "react-native";
+import { useEffect, useCallback } from "react";
+import { View, Pressable } from "react-native";
 import { GradientBorder } from "../../../../ui/gradientBorder";
 import { PlatformWrapperButton } from "../../../../ui/platformWrapperButton";
 import Icon from "../../../../ui/icon";
 import { COLORS } from "../../../../../constants/theme";
 import * as Haptics from "expo-haptics";
+import Animated, {
+	interpolateColor,
+	useSharedValue,
+	Easing,
+	withSpring,
+	withTiming,
+	useAnimatedProps,
+	useAnimatedStyle,
+} from "react-native-reanimated";
 
-const AnimatedButton = ({ active, iconName, onToggle, animValue, scaleValue }) => {
-	const iconColor = animValue.interpolate({
-		inputRange: [0, 1],
-		outputRange: [COLORS.white, COLORS.primary],
+const AnimatedButton = ({ active, iconName, onToggle }) => {
+	const animValue = useSharedValue(active ? 1 : 0);
+	const scaleValue = useSharedValue(1);
+
+	const iconColorProps = useAnimatedProps(() => {
+		return {
+			fill: interpolateColor(animValue.value, [0, 1], [COLORS.white, COLORS.black]),
+		};
 	});
 
-	const handlePressIn = useCallback(() => {
-		Animated.spring(scaleValue, {
-			toValue: 1.075,
-			friction: 3,
-			tension: 80,
-			useNativeDriver: true,
-		}).start();
-	}, [scaleValue]);
+	const buttonScaleStyles = useAnimatedStyle(() => {
+		return {
+			transform: [{ scale: scaleValue.value }],
+		};
+	});
 
-	const handlePressOut = useCallback(() => {
-		Animated.spring(scaleValue, {
-			toValue: 1,
-			friction: 3,
-			tension: 80,
-			useNativeDriver: true,
-		}).start();
-		Haptics.selectionAsync();
-		onToggle();
-	}, [scaleValue, onToggle]);
+	const handlePressIn = () => {
+		scaleValue.value = withSpring(1.075, { mass: 2.75, damping: 2.5, stiffness: 125 });
+	};
+
+	const handlePressOut = () => {
+			scaleValue.value = withSpring(1, { mass: 2.75, damping: 2.5, stiffness: 125 });
+			Haptics.selectionAsync();
+			onToggle();
+	};
+
+	useEffect(() => {
+		animValue.value = withTiming(active ? 1 : 0, { duration: 225, easing: Easing.ease });
+	}, [active]);
 
 	return (
 		<Pressable onPressIn={handlePressIn} onPressOut={handlePressOut}>
-			<Animated.View style={{ transform: [{ scale: scaleValue }] }}>
+			<Animated.View style={buttonScaleStyles}>
 				<GradientBorder borderRadius={32} borderWidth={1}>
 					<PlatformWrapperButton active={active} style={styles.menuButton}>
 						<View>
-							<Icon icon={iconName} size={26} color={iconColor} />
+							<Icon icon={iconName} size={26} animatedProps={iconColorProps} />
 						</View>
 					</PlatformWrapperButton>
 				</GradientBorder>
@@ -49,30 +62,7 @@ const AnimatedButton = ({ active, iconName, onToggle, animValue, scaleValue }) =
 };
 
 export const CaptureImageHeader = ({ torch, mute, setTorch, setMute }) => {
-	const torchAnim = useRef(new Animated.Value(torch ? 1 : 0)).current;
-	const muteAnim = useRef(new Animated.Value(mute ? 1 : 0)).current;
-	const torchScale = useRef(new Animated.Value(1)).current;
-	const muteScale = useRef(new Animated.Value(1)).current;
-
-	useEffect(() => {
-		Animated.timing(torchAnim, {
-			toValue: torch === "on" ? 1 : 0,
-			duration: 225,
-			easing: Easing.inOut(Easing.ease),
-			useNativeDriver: false,
-		}).start();
-	}, [torch, torchAnim]);
-
-	useEffect(() => {
-		Animated.timing(muteAnim, {
-			toValue: mute ? 1 : 0,
-			duration: 225,
-			easing: Easing.inOut(Easing.ease),
-			useNativeDriver: false,
-		}).start();
-	}, [mute, muteAnim]);
-
-	const toggleTorch = useCallback(() => setTorch(prev => prev === "on" ? "off" : "on"), [setTorch]);
+	const toggleTorch = useCallback(() => setTorch(prev => (prev === "on" ? "off" : "on")), [setTorch]);
 	const toggleMute = useCallback(() => setMute(prev => !prev), [setMute]);
 
 	return (
@@ -83,9 +73,9 @@ export const CaptureImageHeader = ({ torch, mute, setTorch, setMute }) => {
 				</Pressable>
 			</View>
 
-			<AnimatedButton active={torch === "on"} iconName='flashlight' onToggle={toggleTorch} animValue={torchAnim} scaleValue={torchScale} />
+			<AnimatedButton active={torch === "on"} iconName='flashlight' onToggle={toggleTorch} />
 
-			<AnimatedButton active={mute} iconName='audio' onToggle={toggleMute} animValue={muteAnim} scaleValue={muteScale} />
+			<AnimatedButton active={mute} iconName='audio' onToggle={toggleMute} />
 		</View>
 	);
 };

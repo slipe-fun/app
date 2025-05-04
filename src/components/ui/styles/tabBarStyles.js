@@ -20,6 +20,7 @@ export const styles = StyleSheet.create({
         width: "100%",
     },
 	tabButtonText: {
+        color: COLORS.white,
 		fontSize: 12,
 		fontFamily: '600',
 	}

@@ -1,8 +1,9 @@
-import { useRef, useEffect } from "react";
-import { View, TouchableOpacity, Animated, Easing, Text, Platform } from "react-native";
+import { useEffect } from "react";
+import { View, TouchableOpacity, Text, Platform } from "react-native";
 import { ROUTES } from "../../constants/routes";
 import { styles } from "./styles/tabBarStyles";
 import Icon from "./icon";
+import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing } from "react-native-reanimated";
 import { COLORS } from "../../constants/theme";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -15,25 +16,12 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 				const { options } = descriptors[route.key];
 				const isFocused = state.index === index;
 
-				const focusAnim = useRef(new Animated.Value(isFocused ? 1 : 0)).current;
+				const opacityValue = useSharedValue(0.35);
 
-				useEffect(() => {
-					Animated.timing(focusAnim, {
-						toValue: isFocused ? 1 : 0,
-						duration: 150,
-						easing: Easing.inOut(Easing.ease),
-						useNativeDriver: false,
-					}).start();
-				}, [isFocused, focusAnim]);
-
-				const interpolatedColor = focusAnim.interpolate({
-					inputRange: [0, 1],
-					outputRange: [COLORS.white, COLORS.primary],
-				});
-
-				const interpolatedOpacity = focusAnim.interpolate({
-					inputRange: [0, 1],
-					outputRange: [0.35, 1],
+				const buttonOpacityStyles = useAnimatedStyle(() => {
+					return {
+						opacity: opacityValue.value,
+					};
 				});
 
 				const onPress = () => {
@@ -64,28 +52,26 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
 					pageName = "Profile";
 				}
 
-				const AnimatedText = Animated.createAnimatedComponent(Text);
+				useEffect(() => {
+					opacityValue.value = withTiming(isFocused ? 1 : 0.35, { duration: 200, easing: Easing.ease });
+				}, [isFocused]);
 
 				return (
 					<View key={route.key} style={styles.tabItem}>
 						<TouchableOpacity activeOpacity={1} onPress={onPress} style={styles.tabButton}>
 							<Animated.View
-								style={{
-									opacity: interpolatedOpacity,
-									alignItems: "center",
-									width: '100%',
-									gap: 2,
-									justifyContent: "center",
-								}}
+								style={[
+									{
+										alignItems: "center",
+										width: "100%",
+										gap: 2,
+										justifyContent: "center",
+									},
+									buttonOpacityStyles,
+								]}
 							>
-								<Icon icon={iconName} size={34} color={interpolatedColor} />
-								<AnimatedText
-									style={[{
-										color: interpolatedColor,
-									}, styles.tabButtonText]}
-								>
-									{pageName}
-								</AnimatedText>
+								<Icon icon={iconName} style={{ color: COLORS.white }} size={34} />
+								<Text style={styles.tabButtonText}>{pageName}</Text>
 							</Animated.View>
 						</TouchableOpacity>
 					</View>

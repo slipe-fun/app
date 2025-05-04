@@ -1,60 +1,51 @@
 import styles from "../styles/userCardStyles";
-import { View, Animated, Easing } from "react-native";
+import { View } from "react-native";
 import { COLORS } from "../../../../constants/theme";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
+import Animated, { Easing, interpolateColor, runOnJS, useAnimatedStyle, useSharedValue, withTiming, withRepeat } from "react-native-reanimated";
 
-const Indicator = ({ isFinished, isPaused, onFinished, duration, currentIndex, count }) => {
-	const animatedValue = useRef(new Animated.Value(isFinished ? 1 : 0)).current;
-	const animatedValueWidth = useRef(new Animated.Value(isFinished ? 1 : 0)).current;
+const Indicator = ({ index, isFinished, isPaused, onFinished, duration, currentIndex, count }) => {
+	const bgProgress = useSharedValue(isFinished ? 1 : 0);
+	const widthProgress = useSharedValue(isFinished ? 1 : 0);
+
+	const animatedBgStyle = useAnimatedStyle(() => {
+		return {
+			backgroundColor: interpolateColor(bgProgress.value, [0, 1], [COLORS.indicator, COLORS.white]),
+		};
+	});
+
+	const animatedWidthStyle = useAnimatedStyle(() => {
+		return {
+			width: `${widthProgress.value * 100}%`,
+		};
+	});
 
 	useEffect(() => {
-		Animated.timing(animatedValue, {
-			toValue: isFinished ? 1 : 0,
-			duration: 300,
-			useNativeDriver: true,
-		}).start();
+		if (!isPaused) {
+			if (index === count - 1) {
+				widthProgress.value = withRepeat(
+					withTiming(1, { duration, easing: Easing.linear }),
+					-1,
+					false
+				);
+			} else {
+				widthProgress.value = withTiming(1, { duration, easing: Easing.linear }, finished => {
+					"worklet";
+					if (finished) runOnJS(onFinished)();
+				});
+			}
+		} else {
+			widthProgress.value = 0;
+		}
+	}, [isPaused, isFinished, currentIndex, duration]);
+
+	useEffect(() => {
+		bgProgress.value = withTiming(isFinished ? 1 : 0, { duration: 300 });
 	}, [isFinished]);
 
-	const runWidthAnimation = () => {
-		animatedValueWidth.setValue(0);
-		const anim = Animated.timing(animatedValueWidth, {
-			toValue: 1,
-			duration,
-			easing: Easing.linear,
-			useNativeDriver: false,
-		});
-		anim.start(({ finished }) => {
-			if (!finished) return;
-			if (currentIndex + 1 < count) {
-				onFinished();
-			} else {
-				runWidthAnimation();
-			}
-		});
-	};
-
-	useEffect(() => {
-		if (isPaused) {
-			animatedValueWidth.stopAnimation();
-			animatedValueWidth.setValue(0);
-		} else {
-			runWidthAnimation();
-		}
-	}, [isPaused, currentIndex, isFinished, duration]);
-
-	const backgroundColor = animatedValue.interpolate({
-		inputRange: [0, 1],
-		outputRange: [COLORS.indicator, COLORS.white],
-	});
-
-	const widthInterpolated = animatedValueWidth.interpolate({
-		inputRange: [0, 1],
-		outputRange: ["0%", "100%"],
-	});
-
 	return (
-		<Animated.View style={[styles.indicator, { backgroundColor }]}>
-			<Animated.View style={[styles.indicatorInner, { width: widthInterpolated }]} />
+		<Animated.View style={[styles.indicator, animatedBgStyle]}>
+			<Animated.View style={[styles.indicatorInner, animatedWidthStyle]} />
 		</Animated.View>
 	);
 };
@@ -64,6 +55,7 @@ const Indicators = ({ isPaused = true, currentIndex = 0, count = 2, onFinish, du
 		{[...Array(count).keys()].map(index => (
 			<Indicator
 				key={index}
+				index={index}
 				duration={duration}
 				currentIndex={currentIndex}
 				count={count}

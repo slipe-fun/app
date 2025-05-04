@@ -1,84 +1,65 @@
-import { useRef, useCallback } from "react";
-import { Animated, Pressable } from "react-native";
+import React, { useRef } from "react";
+import { Pressable } from "react-native";
+import Animated, { useSharedValue, useAnimatedStyle, withTiming, withSpring, interpolateColor, interpolate } from "react-native-reanimated";
 import * as Haptics from "expo-haptics";
 import { COLORS } from "../../../../../constants/theme";
 import { styles } from "../../styles/captureImageStyles";
 
 export const CaptureButton = () => {
-	const captureBgColor = useRef(new Animated.Value(0)).current;
-	const captureBorderRadius = useRef(new Animated.Value(0)).current;
-	const capturePadding = useRef(new Animated.Value(0)).current;
-	const captureTimerRef = useRef(null);
-	const isLongPressingRef = useRef(false);
+	const bgProgress = useSharedValue(0);
+	const borderProgress = useSharedValue(0);
+	const paddingProgress = useSharedValue(0);
+	const isLongPressRef = useRef(false);
+	const timerRef = useRef(null);
 
-	const timingConfig = toValue => ({
-		toValue,
-		duration: 250,
-		useNativeDriver: false,
-	});
-
-	const startCaptureAnimation = useCallback(() => {
+	const startCaptureAnimation = () => {
 		Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-		isLongPressingRef.current = true;
-		Animated.parallel([
-			Animated.timing(captureBgColor, timingConfig(1)),
-			Animated.timing(captureBorderRadius, timingConfig(1)),
-			Animated.spring(capturePadding, { friction: 7, tension: 40, useNativeDriver: false, toValue: 1 }),
-		]).start();
-		// startRecording();
-	}, [captureBgColor, captureBorderRadius, capturePadding]);
+		isLongPressRef.current = true;
+		bgProgress.value = withTiming(1, { duration: 250 });
+		borderProgress.value = withTiming(1, { duration: 250 });
+		paddingProgress.value = withSpring(1, { damping: 17, stiffness: 400 });
+	};
 
-	const reverseCaptureAnimation = useCallback(() => {
-		Animated.parallel([
-			Animated.timing(captureBgColor, timingConfig(0)),
-			Animated.timing(captureBorderRadius, timingConfig(0)),
-			Animated.spring(capturePadding, { friction: 7, tension: 40, useNativeDriver: false, toValue: 0 }),
-		]).start();
-	}, [captureBgColor, captureBorderRadius, capturePadding]);
+	const reverseCaptureAnimation = () => {
+		bgProgress.value = withTiming(0, { duration: 250 });
+		borderProgress.value = withTiming(0, { duration: 250 });
+		paddingProgress.value = withSpring(0, { damping: 17, stiffness: 400 });
+	};
 
-	const handleCapturePressIn = useCallback(() => {
-		captureTimerRef.current = setTimeout(() => {
+	const handlePressIn = () => {
+		timerRef.current = setTimeout(() => {
 			startCaptureAnimation();
-			captureTimerRef.current = null;
+			timerRef.current = null;
 		}, 350);
-	}, [startCaptureAnimation]);
+	};
 
-	const handleCapturePressOut = useCallback(() => {
-		if (captureTimerRef.current) {
-			clearTimeout(captureTimerRef.current);
-			captureTimerRef.current = null;
+	const handlePressOut = () => {
+		if (timerRef.current) {
+			clearTimeout(timerRef.current);
+			timerRef.current = null;
 			Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-			// takePicture();
-		} else if (isLongPressingRef.current) {
+			// runOnJS(takePicture)();
+		} else if (isLongPressRef.current) {
 			Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
 			reverseCaptureAnimation();
-			// stopRecording();
+			// runOnJS(stopRecording)();
 		}
-		isLongPressingRef.current = false;
-	}, [reverseCaptureAnimation]);
-
-	const captureButtonAnimatedStyles = {
-		padding: capturePadding.interpolate({
-			inputRange: [0, 1],
-			outputRange: [8, 18],
-		}),
+		isLongPressRef.current = false;
 	};
 
-	const captureButtonInsideAnimatedStyles = {
-		backgroundColor: captureBgColor.interpolate({
-			inputRange: [0, 1],
-			outputRange: [COLORS.white, COLORS.red],
-		}),
-		borderRadius: captureBorderRadius.interpolate({
-			inputRange: [0, 1],
-			outputRange: [30, 8],
-		}),
-	};
+	const outerStyle = useAnimatedStyle(() => ({
+		padding: interpolate(paddingProgress.value, [0, 1], [8, 18]),
+	}));
+
+	const innerStyle = useAnimatedStyle(() => ({
+		backgroundColor: interpolateColor(bgProgress.value, [0, 1], [COLORS.white, COLORS.red]),
+		borderRadius: interpolate(bgProgress.value, [0, 1], [30, 8]),
+	}));
 
 	return (
-		<Pressable onPressIn={handleCapturePressIn} onPressOut={handleCapturePressOut}>
-			<Animated.View style={[styles.captureButton, captureButtonAnimatedStyles]}>
-				<Animated.View style={[styles.captureButtonInside, captureButtonInsideAnimatedStyles]} />
+		<Pressable onPressIn={handlePressIn} onPressOut={handlePressOut}>
+			<Animated.View style={[styles.captureButton, outerStyle]}>
+				<Animated.View style={[styles.captureButtonInside, innerStyle]} />
 			</Animated.View>
 		</Pressable>
 	);
