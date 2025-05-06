@@ -4,7 +4,7 @@ import { COLORS } from "../../../../constants/theme";
 import { useEffect } from "react";
 import Animated, { Easing, interpolateColor, runOnJS, useAnimatedStyle, useSharedValue, withTiming, withRepeat } from "react-native-reanimated";
 
-const Indicator = ({ index, isFinished, isPaused, onFinished, duration, currentIndex, count }) => {
+const Indicator = ({ index, isFinished, isPaused, onFinished, duration, currentIndex, pages, page }) => {
 	const bgProgress = useSharedValue(isFinished ? 1 : 0);
 	const widthProgress = useSharedValue(isFinished ? 1 : 0);
 
@@ -22,7 +22,7 @@ const Indicator = ({ index, isFinished, isPaused, onFinished, duration, currentI
 
 	useEffect(() => {
 		if (!isPaused) {
-			if (index === count - 1) {
+			if (index === pages[page].length - 1) {
 				widthProgress.value = withRepeat(
 					withTiming(1, { duration, easing: Easing.linear }),
 					-1,
@@ -50,15 +50,16 @@ const Indicator = ({ index, isFinished, isPaused, onFinished, duration, currentI
 	);
 };
 
-const Indicators = ({ isPaused = true, currentIndex = 0, count = 2, onFinish, duration = 5500 }) => (
+const Indicators = ({ isPaused = true, currentIndex = 0, pages, page, onFinish, duration = 5500 }) => (
 	<View style={styles.container}>
-		{[...Array(count).keys()].map(index => (
+		{pages[page]?.map(index => (
 			<Indicator
 				key={index}
 				index={index}
 				duration={duration}
 				currentIndex={currentIndex}
-				count={count}
+				pages={pages}
+				page={page}
 				onFinished={onFinish}
 				isPaused={isPaused || currentIndex !== index}
 				isFinished={index < currentIndex}

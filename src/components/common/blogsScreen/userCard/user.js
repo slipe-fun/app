@@ -9,11 +9,11 @@ import { COLORS } from "../../../../constants/theme";
 import { URLS } from "../../../../constants/urls";
 import TimePassedFromDate from "../../../../lib/time-from-date";
 
-const UserCardHeader = ({ user, post, activeIdx, handleIndicatorFinish, total, pause }) => {
+const UserCardHeader = ({ user, post, activeIdx, handleIndicatorFinish, pages, page, pause }) => {
 	return (
 		<View style={styles.header}>
 			<LinearGradient colors={["rgba(0, 0, 0, 0.32)", "rgba(0, 0, 0, 0)"]} start={{ x: 0.5, y: 0 }} end={{ x: 0.5, y: 1 }} style={styles.gradient} />
-			<Indicators isPaused={pause} onFinish={() => handleIndicatorFinish()} count={total} currentIndex={activeIdx} />
+			<Indicators isPaused={pause} onFinish={() => handleIndicatorFinish()} pages={pages} page={page} currentIndex={activeIdx} />
 			<View style={styles.headerBlock}>
 				
 				<Image style={styles.headerAvatar} source={{ uri: URLS.CDN_AVATARS_URL + (user?.avatar || "ce7592a9-074d-4c4b-a2bf-08c61abbada2.jpg")}} />
