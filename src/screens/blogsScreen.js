@@ -12,15 +12,13 @@ const BlogsScreen = () => {
 
 	const [currentSlide, setCurrentSlide] = useState(0);
 
-	const handleSlideChange = async currentSlide => setCurrentSlide(currentSlide);
-
 	useEffect(() => {
 		if (currentSlide === users.length - 2) handleFetchUsers();
 	}, [currentSlide, users, handleFetchUsers]);
 
 	return (
 		<View style={{ flex: 1, paddingTop: Platform.OS === "ios" ? insets.top - 2 : insets.top + 6, backgroundColor: COLORS.black }}>
-			<VerticalSlider onSlideChange={handleSlideChange} users={users} />
+			<VerticalSlider onSlideChange={setCurrentSlide} users={users} />
 		</View>
 	);
 };
