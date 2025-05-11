@@ -5,7 +5,7 @@ import * as Haptics from "expo-haptics";
 import { COLORS } from "../../../../../constants/theme";
 import { styles } from "../../styles/captureImageStyles";
 
-export const CaptureButton = () => {
+export const CaptureButton = ({capturePhoto}) => {
 	const bgProgress = useSharedValue(0);
 	const borderProgress = useSharedValue(0);
 	const paddingProgress = useSharedValue(0);
@@ -33,12 +33,12 @@ export const CaptureButton = () => {
 		}, 350);
 	};
 
-	const handlePressOut = () => {
+	const handlePressOut = async () => {
 		if (timerRef.current) {
 			clearTimeout(timerRef.current);
 			timerRef.current = null;
-			Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-			// runOnJS(takePicture)();
+			await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+			capturePhoto()
 		} else if (isLongPressRef.current) {
 			Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
 			reverseCaptureAnimation();

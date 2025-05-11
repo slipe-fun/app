@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { View, Image } from "react-native";
+import { Image, View } from "react-native";
+import { useCameraBlur } from "../../../../hooks/useCameraBlur";
 import { styles } from "../styles/captureImageStyles";
-import { captureRef } from "react-native-view-shot";
 import { GradientBorder } from "../../../ui/gradientBorder";
 import { CaptureImageFooter } from "./footer";
 import { CaptureImageHeader } from "./header";
@@ -24,8 +24,14 @@ export const CaptureImage = () => {
 	const [torch, setTorch] = useState("off");
 	const [mute, setMute] = useState(false);
 	const cameraRef = useRef(null);
-	const [snapshotUri, setSnapshotUri] = useState(null);
-	const [isBlurring, setIsBlurring] = useState(false);
+
+	const { applyCameraBlur, isBlurring, snapshotUri } = useCameraBlur({
+		cameraRef,
+		zoom,
+		zoomOffset,
+		device,
+		setFacing,
+	});
 
 	const gesture = Gesture.Pinch()
 		.onBegin(() => {
@@ -33,33 +39,14 @@ export const CaptureImage = () => {
 		})
 		.onUpdate(event => {
 			const z = zoomOffset.value * event.scale;
-			zoom.value = interpolate(z, [1, 10], [device.minZoom, device.maxZoom], Extrapolation.CLAMP);
+			zoom.value = interpolate(z, [1, 15], [device.minZoom, device.maxZoom], Extrapolation.CLAMP);
 		});
 
-	const applyStaticBlur = async () => {
-		if (!cameraRef.current) return;
-		zoom.value = 0;
-		setIsBlurring(true);
-		try {
-			const result = await captureRef(cameraRef?.current, {
-				result: "data-uri",
-				handleGLSurfaceViewOnAndroid: true,
-				quality: 0.1,
-				format: "jpg",
-				width: Math.round(500 * 0.25),
-				height: Math.round(800 * 0.25),
-			});
-
-			setSnapshotUri(result);
-			setFacing(prev => (prev === "front" ? "back" : "front"));
-		} catch (e) {
-			console.error("Error in applyStaticBlur:", e);
-		} finally {
-			setTimeout(() => {
-				setIsBlurring(false);
-				setSnapshotUri(null);
-			}, 1000);
-		}
+	const capturePhoto = async () => {
+		const file = await cameraRef.current.takePhoto();
+		const result = await fetch(`file://${file.path}`);
+		const data = await result.blob();
+		console.log(data);
 	};
 
 	useEffect(() => {
@@ -76,8 +63,10 @@ export const CaptureImage = () => {
 			borderWidth={1}
 		>
 			<GestureDetector gesture={gesture}>
+				<View style={styles.zoomDetector}/>
+			</GestureDetector>
 				<ReanimatedCamera
-					video
+					photo
 					torch={torch}
 					ref={cameraRef}
 					animatedProps={animatedProps}
@@ -85,9 +74,8 @@ export const CaptureImage = () => {
 					device={device}
 					isActive={true}
 				/>
-			</GestureDetector>
 			{isBlurring && snapshotUri && <Image fadeDuration={175} source={{ uri: snapshotUri }} style={styles.cameraLoader} blurRadius={8} />}
-			<CaptureImageFooter applyStaticBlur={applyStaticBlur} />
+			<CaptureImageFooter capturePhoto={capturePhoto} applyStaticBlur={applyCameraBlur} />
 			<CaptureImageHeader setTorch={setTorch} setMute={setMute} mute={mute} torch={torch} />
 		</GradientBorder>
 	);
