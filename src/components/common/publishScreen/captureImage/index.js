@@ -7,11 +7,15 @@ import { CaptureImageFooter } from "./footer";
 import { CaptureImageHeader } from "./header";
 import Reanimated, { useAnimatedProps, useSharedValue, interpolate, Extrapolation } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import { Camera, useCameraDevice } from "react-native-vision-camera";
+import { Camera, useCameraDevice, useCameraFormat } from "react-native-vision-camera";
+import BlobUtil from "react-native-blob-util";
+import { useDispatch, useSelector } from "react-redux";
+import { selectImage, updateCameraState } from "../../../../reducers/publishScreen";
 
 Reanimated.addWhitelistedNativeProps({
 	zoom: true,
 });
+
 const ReanimatedCamera = Reanimated.createAnimatedComponent(Camera);
 
 export const CaptureImage = () => {
@@ -19,11 +23,14 @@ export const CaptureImage = () => {
 	const device = useCameraDevice(facing || "back");
 	const cameraPermission = Camera.getCameraPermissionStatus();
 	const zoomOffset = useSharedValue(0);
+	const image = useSelector(selectImage);
+	const dispatch = useDispatch();
 	const zoom = useSharedValue(device.neutralZoom);
 	const animatedProps = useAnimatedProps(() => ({ zoom: zoom.value }), [zoom]);
 	const [torch, setTorch] = useState("off");
 	const [mute, setMute] = useState(false);
 	const cameraRef = useRef(null);
+	const format = useCameraFormat(device, [{ photoResolution: { width: 1280, height: 720 } }]);
 
 	const { applyCameraBlur, isBlurring, snapshotUri } = useCameraBlur({
 		cameraRef,
@@ -44,9 +51,10 @@ export const CaptureImage = () => {
 
 	const capturePhoto = async () => {
 		const file = await cameraRef.current.takePhoto();
-		const result = await fetch(`file://${file.path}`);
-		const data = await result.blob();
-		console.log(data);
+		const absolutePath = file.path;
+		const base64Data = await BlobUtil.fs.readFile(absolutePath, "base64");
+		console.log(base64Data);
+		dispatch(updateCameraState({ image: `data:${file.mimeType || "image/jpeg"};base64,${base64Data}` }));
 	};
 
 	useEffect(() => {
@@ -63,17 +71,20 @@ export const CaptureImage = () => {
 			borderWidth={1}
 		>
 			<GestureDetector gesture={gesture}>
-				<View style={styles.zoomDetector}/>
+				<View style={styles.zoomDetector} />
 			</GestureDetector>
-				<ReanimatedCamera
-					photo
-					torch={torch}
-					ref={cameraRef}
-					animatedProps={animatedProps}
-					style={styles.cameraView}
-					device={device}
-					isActive={true}
-				/>
+			<ReanimatedCamera
+				photoQualityBalance='speed'
+				photo
+				format={format}
+				torch={torch}
+				ref={cameraRef}
+				animatedProps={animatedProps}
+				style={styles.cameraView}
+				device={device}
+				isActive={true}
+			/>
+			{image !== "" && <Image fadeDuration={175} style={styles.cameraLoader} source={{ uri: image }} />}
 			{isBlurring && snapshotUri && <Image fadeDuration={175} source={{ uri: snapshotUri }} style={styles.cameraLoader} blurRadius={8} />}
 			<CaptureImageFooter capturePhoto={capturePhoto} applyStaticBlur={applyCameraBlur} />
 			<CaptureImageHeader setTorch={setTorch} setMute={setMute} mute={mute} torch={torch} />

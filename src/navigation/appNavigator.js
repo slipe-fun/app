@@ -22,7 +22,7 @@ const MainTabNavigator = () => {
 		<Tab.Navigator
 			tabBar={props => <CustomTabBar {...props} />}
 			screenOptions={{
-				headerShown: false
+				headerShown: false,
 			}}
 		>
 			<Tab.Screen name={ROUTES.BLOGS} component={BlogsScreen} />
@@ -42,22 +42,16 @@ const AppNavigator = () => {
 		setIsAuthenticated(!!storage.getString("token"));
 		setIsLoading(false);
 	}, []);
-	
-	const authContextValue = {
-		isAuthenticated,
-		login: () => setIsAuthenticated(true),
-		logout: () => setIsAuthenticated(false)
-	};
 
 	return (
-		<AuthContext.Provider value={authContextValue}>
+		<AuthContext.Provider value={isAuthenticated}>
 			<NavigationContainer>
 				<RootStack.Navigator screenOptions={{ headerShown: false }}>
-					{!isLoading ? isAuthenticated ? (
-						<RootStack.Screen name="MainApp" component={MainTabNavigator} />
+					{isAuthenticated ? (
+						<RootStack.Screen name='MainApp' component={MainTabNavigator} />
 					) : (
 						<RootStack.Screen name={ROUTES.AUTH} component={AuthNavigator} />
-					) : <RootStack.Screen name={"Loading"} component={() => <></>} />}
+					)}
 				</RootStack.Navigator>
 			</NavigationContainer>
 		</AuthContext.Provider>

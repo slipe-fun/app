@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { enableTorch: false, mute: false, mode: 'picture' };
+const initialState = { image: "" };
 
 const publishScreen = createSlice({
 	name: "publish",
@@ -15,6 +15,4 @@ const publishScreen = createSlice({
 export const { updateCameraState } = publishScreen.actions;
 export default publishScreen.reducer;
 
-export const selectEnableTorch = state => state.publish.enableTorch;
-export const selectMute = state => state.publish.mute;
-export const selectMode = state => state.publish.mode;
+export const selectImage = state => state.publish.image;

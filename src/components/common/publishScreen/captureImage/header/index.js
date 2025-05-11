@@ -14,9 +14,13 @@ import Animated, {
 	withTiming,
 	useAnimatedProps,
 	useAnimatedStyle,
+	FadeOutDown,
+	FadeInUp,
 } from "react-native-reanimated";
+import { useDispatch, useSelector } from "react-redux";
+import { selectImage, updateCameraState } from "../../../../../reducers/publishScreen";
 
-const AnimatedButton = ({ active, iconName, onToggle }) => {
+const AnimatedButton = ({ active = false, iconName, onToggle, size = 26 }) => {
 	const animValue = useSharedValue(active ? 1 : 0);
 	const scaleValue = useSharedValue(1);
 
@@ -37,9 +41,9 @@ const AnimatedButton = ({ active, iconName, onToggle }) => {
 	};
 
 	const handlePressOut = () => {
-			scaleValue.value = withSpring(1, { mass: 2.75, damping: 2.5, stiffness: 125 });
-			Haptics.selectionAsync();
-			onToggle();
+		scaleValue.value = withSpring(1, { mass: 2.75, damping: 2.5, stiffness: 125 });
+		Haptics.selectionAsync();
+		onToggle();
 	};
 
 	useEffect(() => {
@@ -52,7 +56,7 @@ const AnimatedButton = ({ active, iconName, onToggle }) => {
 				<GradientBorder borderRadius={32} borderWidth={1}>
 					<PlatformWrapperButton active={active} style={styles.menuButton}>
 						<View>
-							<Icon icon={iconName} size={26} animatedProps={iconColorProps} />
+							<Icon icon={iconName} size={size} animatedProps={iconColorProps} />
 						</View>
 					</PlatformWrapperButton>
 				</GradientBorder>
@@ -64,18 +68,28 @@ const AnimatedButton = ({ active, iconName, onToggle }) => {
 export const CaptureImageHeader = ({ torch, mute, setTorch, setMute }) => {
 	const toggleTorch = useCallback(() => setTorch(prev => (prev === "on" ? "off" : "on")), [setTorch]);
 	const toggleMute = useCallback(() => setMute(prev => !prev), [setMute]);
+	const image = useSelector(selectImage);
+	const dispatch = useDispatch()
 
 	return (
-		<View style={styles.header}>
-			<View style={styles.qualityWrapper}>
-				<Pressable>
-					<View style={styles.qualityButton} />
-				</Pressable>
-			</View>
+		<>
+			{image === "" ? (
+				<Animated.View key='header-1' exiting={FadeOutDown.duration(225)} entering={FadeInUp.duration(225)} style={styles.header}>
+					<View style={styles.qualityWrapper}>
+						<Pressable>
+							<View style={styles.qualityButton} />
+						</Pressable>
+					</View>
 
-			<AnimatedButton active={torch === "on"} iconName='flashlight' onToggle={toggleTorch} />
+					<AnimatedButton active={torch === "on"} iconName='flashlight' onToggle={toggleTorch} />
 
-			<AnimatedButton active={mute} iconName='audio' onToggle={toggleMute} />
-		</View>
+					<AnimatedButton active={mute} iconName='audio' onToggle={toggleMute} />
+				</Animated.View>
+			) : (
+				<Animated.View key='header-2' exiting={FadeOutDown.duration(225)} entering={FadeInUp.duration(225)} style={styles.header}>
+					<AnimatedButton size={24} iconName='arrowBack' onToggle={() => dispatch(updateCameraState({image: ""}))} />
+				</Animated.View>
+			)}
+		</>
 	);
 };

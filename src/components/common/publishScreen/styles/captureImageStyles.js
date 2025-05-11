@@ -26,6 +26,9 @@ export const styles = StyleSheet.create({
 		width: "100%",
         bottom: 0,
 		zIndex: 20,
+		paddingHorizontal: SPACING.large,
+		paddingVertical: SPACING.xxxl,
+		flexDirection: 'row',
 		position: "absolute",
 	},
     header: {
@@ -38,14 +41,13 @@ export const styles = StyleSheet.create({
 	},
 	footerBlock: {
 		flex: 1,
-		height: 72,
 		justifyContent: "center",
 		alignItems: "center",
 	},
 	captureButton: {
 		borderWidth: 4,
-		width: 72,
-		height: 72,
+		width: 68,
+		height: 68,
 		justifyContent: 'center',
 		alignItems: 'center',
 		borderRadius: 99,
@@ -54,17 +56,6 @@ export const styles = StyleSheet.create({
 	captureButtonInside: {
 		width: '100%',
 		height: '100%',
-	},
-	gradient: {
-		left: 0,
-		position: "absolute",
-		width: "100%",
-		height: "100%",
-	},
-    footerWrapper: {
-		padding: SPACING.large,
-		width: "100%",
-		flexDirection: "row",
 	},
     qualityWrapper: {
         flex: 1,

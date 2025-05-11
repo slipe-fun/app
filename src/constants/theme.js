@@ -16,6 +16,7 @@ export const SPACING = {
   medium: 12, 
   large: 16,
   xxl: 20,
+  xxxl: 26,
 }; 
 
 export const BORDER_RADIUS = {
