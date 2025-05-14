@@ -43,8 +43,14 @@ const AppNavigator = () => {
 		setIsLoading(false);
 	}, []);
 
+	const authContextValue = {
+		isAuthenticated,
+		login: () => setIsAuthenticated(true),
+		logout: () => setIsAuthenticated(false)
+	};
+
 	return (
-		<AuthContext.Provider value={isAuthenticated}>
+		<AuthContext.Provider value={authContextValue}>
 			<NavigationContainer>
 				<RootStack.Navigator screenOptions={{ headerShown: false }}>
 					{isAuthenticated ? (

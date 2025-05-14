@@ -5,6 +5,8 @@ import { styles } from "../styles/captureImageStyles";
 import { GradientBorder } from "../../../ui/gradientBorder";
 import { CaptureImageFooter } from "./footer";
 import { CaptureImageHeader } from "./header";
+import { useIsFocused } from "@react-navigation/native";
+import { useAppState } from "@react-native-community/hooks";
 import Reanimated, { useAnimatedProps, useSharedValue, interpolate, Extrapolation } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { Camera, useCameraDevice, useCameraFormat } from "react-native-vision-camera";
@@ -31,6 +33,9 @@ export const CaptureImage = () => {
 	const [mute, setMute] = useState(false);
 	const cameraRef = useRef(null);
 	const format = useCameraFormat(device, [{ photoResolution: { width: 1280, height: 720 } }]);
+	const isFocused = useIsFocused()
+	const appState = useAppState()
+	const isActive = isFocused && appState === "active"
 
 	const { applyCameraBlur, isBlurring, snapshotUri } = useCameraBlur({
 		cameraRef,
@@ -53,7 +58,6 @@ export const CaptureImage = () => {
 		const file = await cameraRef.current.takePhoto();
 		const absolutePath = file.path;
 		const base64Data = await BlobUtil.fs.readFile(absolutePath, "base64");
-		console.log(base64Data);
 		dispatch(updateCameraState({ image: `data:${file.mimeType || "image/jpeg"};base64,${base64Data}` }));
 	};
 
@@ -70,6 +74,7 @@ export const CaptureImage = () => {
 			gradientColors={["rgba(255, 255, 255, 0.24)", "rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.24)"]}
 			borderWidth={1}
 		>
+			
 			<GestureDetector gesture={gesture}>
 				<View style={styles.zoomDetector} />
 			</GestureDetector>
@@ -82,7 +87,7 @@ export const CaptureImage = () => {
 				animatedProps={animatedProps}
 				style={styles.cameraView}
 				device={device}
-				isActive={true}
+				isActive={isActive}
 			/>
 			{image !== "" && <Image fadeDuration={175} style={styles.cameraLoader} source={{ uri: image }} />}
 			{isBlurring && snapshotUri && <Image fadeDuration={175} source={{ uri: snapshotUri }} style={styles.cameraLoader} blurRadius={8} />}

@@ -10,20 +10,19 @@ export const styles = StyleSheet.create({
     },
     tabItem: {
         flex: 1,
-        height: 44,
+        height: 40,
         justifyContent: "center",
         alignItems: "center",
     },
     tabButton: {
         justifyContent: "center",
         alignItems: "center",
-        borderRadius: BORDER_RADIUS.medium,
         width: "100%",
     },
     publishButton: {
         borderRadius: 10,
-        height: 44,
-        width: 68,
+        height: 40,
+        width: 62,
         alignItems: 'center',
         justifyContent: 'center'
     },

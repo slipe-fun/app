@@ -1,50 +1,29 @@
-import React, { useEffect, useRef, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Platform, TextInput, Keyboard, Animated, Easing } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Platform, TextInput } from "react-native";
 import { useAuth } from "../../navigation/appNavigator";
 import { COLORS, FONT_SIZE, SPACING } from "../../constants/theme";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { storage } from "../../lib/storage";
 import { api } from "../../lib/api";
+import { useKeyboard } from "@react-native-community/hooks";
+import Animated, { useAnimatedStyle, useSharedValue, withTiming, Easing, ReduceMotion } from "react-native-reanimated";
 
 const LoginScreen = ({ navigation }) => {
 	const { login } = useAuth();
 	const insets = useSafeAreaInsets();
-	const buttonOffset = useRef(new Animated.Value(0)).current;
+	const buttonOffset = useSharedValue(0);
+	const keyboard = useKeyboard();
 
 	const [username, setUsername] = useState();
 	const [password, setPassword] = useState();
 
 	const [error, setError] = useState();
 
-	useEffect(() => {
-		const onKeyboardShow = ({ endCoordinates: { height } }) => {
-			Animated.timing(buttonOffset, {
-				toValue: height + 10,
-				duration: 200,
-				easing: Easing.out(Easing.circle),
-				useNativeDriver: false,
-			}).start();
+	const buttonAnimatedStyles = useAnimatedStyle(() => {
+		return {
+			paddingBottom: buttonOffset.value,
 		};
-		const onKeyboardHide = () => {
-			Animated.timing(buttonOffset, {
-				toValue: 0,
-				duration: 200,
-				easing: Easing.out(Easing.circle),
-				useNativeDriver: false,
-			}).start();
-		};
-
-		const showEvent = Platform.OS === "ios" ? "keyboardWillShow" : "keyboardDidShow";
-		const hideEvent = Platform.OS === "ios" ? "keyboardWillHide" : "keyboardDidHide";
-
-		const showSub = Keyboard.addListener(showEvent, onKeyboardShow);
-		const hideSub = Keyboard.addListener(hideEvent, onKeyboardHide);
-
-		return () => {
-			showSub.remove();
-			hideSub.remove();
-		};
-	}, [buttonOffset]);
+	});
 
 	async function handleLogin() {
 		if (!username.trim().length || !password.trim().length) {
@@ -69,6 +48,14 @@ const LoginScreen = ({ navigation }) => {
 			});
 	}
 
+	useEffect(() => {
+		buttonOffset.value = withTiming(keyboard.keyboardShown ? keyboard.keyboardHeight + 10 : 0, {
+			duration: 100,
+			easing: Easing.linear,
+			reduceMotion: ReduceMotion.Never,
+		});
+	}, [keyboard]);
+
 	return (
 		<View style={[styles.container, { paddingBottom: Platform.OS === "ios" ? insets.bottom : insets.bottom + 6 }]}>
 			<View style={styles.wrapper}>
@@ -86,6 +73,7 @@ const LoginScreen = ({ navigation }) => {
 					style={styles.input}
 					cursorColor={COLORS.white}
 					maxLength={32}
+					secureTextEntry
 					placeholderTextColor={COLORS.transparentText}
 					placeholder='Password here'
 				/>
@@ -94,7 +82,7 @@ const LoginScreen = ({ navigation }) => {
 				</TouchableOpacity>
 			</View>
 
-			<Animated.View style={{ marginBottom: buttonOffset, width: "100%" }}>
+			<Animated.View style={[buttonAnimatedStyles, { width: "100%" }]}>
 				<TouchableOpacity onPress={handleLogin} activeOpacity={0.8} style={styles.button}>
 					<Text style={styles.buttonText}>Log in</Text>
 				</TouchableOpacity>

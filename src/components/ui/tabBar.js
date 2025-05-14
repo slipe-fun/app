@@ -16,7 +16,7 @@ const CustomTabBar = ({ state, navigation }) => {
 			{state.routes.map((route, index) => {
 				const isFocused = state.index === index;
 
-				const opacityValue = useSharedValue(0.35);
+				const opacityValue = useSharedValue(isFocused ? 1 : 0.35);
 				const colorValue = useSharedValue(isFocused ? 1 : 0);
 
 				const buttonOpacityStyles = useAnimatedStyle(() => {
@@ -67,7 +67,7 @@ const CustomTabBar = ({ state, navigation }) => {
 										buttonColorStyles
 									]}
 								>
-									<Icon icon={iconName} animatedProps={buttonIconColorProps} style={{ color: COLORS.white }} size={34} />
+									<Icon icon={iconName} animatedProps={buttonIconColorProps} style={{ color: COLORS.white }} size={32} />
 								</Animated.View>
 							) : (
 								<Animated.View
@@ -77,7 +77,7 @@ const CustomTabBar = ({ state, navigation }) => {
 										buttonOpacityStyles
 									]}
 								>
-									<Icon icon={iconName} size={34} />
+									<Icon icon={iconName} size={32} />
 								</Animated.View>
 							)}
 						</Pressable>
