@@ -44,6 +44,7 @@ const LoginScreen = ({ navigation }) => {
 				login();
 			})
 			.catch(err => {
+				console.log(err)
 				setError(err?.response?.data?.error);
 			});
 	}
@@ -55,6 +56,8 @@ const LoginScreen = ({ navigation }) => {
 			reduceMotion: ReduceMotion.Never,
 		});
 	}, [keyboard]);
+
+	useEffect(() => console.log(error), [error])
 
 	return (
 		<View style={[styles.container, { paddingBottom: Platform.OS === "ios" ? insets.bottom : insets.bottom + 6 }]}>
