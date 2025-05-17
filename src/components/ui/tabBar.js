@@ -33,7 +33,7 @@ const CustomTabBar = ({ state, navigation }) => {
 
 				const buttonIconColorProps = useAnimatedProps(() => {
 					return {
-						fill: interpolateColor(colorValue.value, [0, 1], [COLORS.transparentIcon, COLORS.black]),
+						fill: interpolateColor(colorValue.value, [0, 1], [COLORS.white, COLORS.black]),
 					};
 				});
 

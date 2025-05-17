@@ -39,14 +39,31 @@ const AppNavigator = () => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		setIsAuthenticated(!!storage.getString("token"));
-		setIsLoading(false);
+		const checkAuth = async () => {
+			try {
+				const storageInstance = await storage();
+				const token = storageInstance?.getString("token");
+				setIsAuthenticated(!!token);
+			} finally {
+				setIsLoading(false);
+			}
+		};
+
+		checkAuth();
 	}, []);
 
 	const authContextValue = {
 		isAuthenticated,
 		login: () => setIsAuthenticated(true),
-		logout: () => setIsAuthenticated(false)
+		logout: async () => {
+			try {
+				const storageInstance = await storage();
+				storageInstance.delete("token");
+				setIsAuthenticated(false);
+			} catch (error) {
+				console.error("Error during logout:", error);
+			}
+		}
 	};
 
 	return (

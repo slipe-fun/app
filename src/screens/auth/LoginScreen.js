@@ -30,23 +30,23 @@ const LoginScreen = ({ navigation }) => {
 			return setError("Username and password are required");
 		}
 
-		await api.v2
-			.post(
+		try {
+			const res = await api.v2.post(
 				"/auth/login",
 				JSON.stringify({
 					username,
 					password,
 				})
-			)
-			.then(async res => {
-				storage.set("token", res?.data?.token);
-				setError(null);
-				login();
-			})
-			.catch(err => {
-				console.log(err)
-				setError(err?.response?.data?.error);
-			});
+			);
+			
+			const storageInstance = await storage();
+			await storageInstance.set("token", res?.data?.token);
+			
+			setError(null);
+			login();
+		} catch (err) {
+			setError(err?.response?.data?.error);
+		}
 	}
 
 	useEffect(() => {
@@ -56,8 +56,6 @@ const LoginScreen = ({ navigation }) => {
 			reduceMotion: ReduceMotion.Never,
 		});
 	}, [keyboard]);
-
-	useEffect(() => console.log(error), [error])
 
 	return (
 		<View style={[styles.container, { paddingBottom: Platform.OS === "ios" ? insets.bottom : insets.bottom + 6 }]}>

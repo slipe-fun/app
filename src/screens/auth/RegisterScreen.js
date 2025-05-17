@@ -36,22 +36,23 @@ const RegisterScreen = ({ navigation }) => {
 			}
 		}
 
-		await api.v2
-			.post(
+		try {
+			const res = await api.v2.post(
 				"/auth/register",
 				JSON.stringify({
 					username,
 					password,
 				})
-			)
-			.then(async res => {
-				storage.set("token", res?.data?.token);
-				setError(null);
-				login();
-			})
-			.catch(err => {
-				setError(err?.response?.data?.error);
-			});
+			);
+			
+			const storageInstance = await storage();
+			await storageInstance.set("token", res?.data?.token);
+			
+			setError(null);
+			login();
+		} catch (err) {
+			setError(err?.response?.data?.error);
+		}
 	}
 
 	useEffect(() => {

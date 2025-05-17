@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from "react";
+import { useCallback } from "react";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import AppNavigator from "./src/navigation/appNavigator";
@@ -9,6 +9,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { Provider } from "react-redux";
 import store from "./src/store";
 import { enableScreens } from "react-native-screens";
+import { Platform } from "react-native";
 
 enableScreens();
 
@@ -24,18 +25,15 @@ SplashScreen.preventAutoHideAsync();
 export default function App() {
 	const [fontsLoaded, fontError] = useFonts(fontsToLoad);
 
-	useEffect(() => {
-		(async () => {
-			await NavigationBar.setBehaviorAsync("inset-swipe");
-			await NavigationBar.setPositionAsync("absolute");
-			await NavigationBar.setBackgroundColorAsync("#00000000");
-			await NavigationBar.setButtonStyleAsync("light");
-		  })();
-	}, []);
-
 	const onLayoutRootView = useCallback(async () => {
 		if (fontsLoaded || fontError) {
 			await SplashScreen.hideAsync();
+			if (Platform.OS === "android") {
+				await NavigationBar.setBehaviorAsync("inset-swipe");
+				await NavigationBar.setPositionAsync("absolute");
+				await NavigationBar.setBackgroundColorAsync("#00000000");
+				await NavigationBar.setButtonStyleAsync("light");
+			}
 		}
 	}, [fontsLoaded, fontError]);
 
