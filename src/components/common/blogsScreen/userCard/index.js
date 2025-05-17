@@ -33,6 +33,8 @@ const UserCard = ({ user, posts, active, usersNavigation, goToNext, goToPrevious
 		setPostsLength(userPosts.length);
 	}, [userPosts]);
 
+	// useEffect(() => console.log(idx, currentPage), [idx, currentPage])
+
 	return (
 		<GradientBorder
 			style={styles.cardContainer}
