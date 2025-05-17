@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { View, Dimensions, Animated } from "react-native";
 import { FlashList } from "@shopify/flash-list";
+import { FlatList } from "react-native"
 import UserCard from "../common/blogsScreen/userCard";
 import styles from "./styles/verticalSliderStyles";
 import usePostNavigation from "../../hooks/usePostNavigation";
@@ -9,7 +10,7 @@ const { height: windowHeight, width: windowWidth } = Dimensions.get("window");
 const VIEWABILITY_CONFIG = { itemVisiblePercentThreshold: 50 };
 const SPACING = 16;
 
-const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 const VerticalSlider = ({ users, onSlideChange = () => { } }) => {
 	const [activeIndex, setActiveIndex] = useState(0);
@@ -90,7 +91,7 @@ const VerticalSlider = ({ users, onSlideChange = () => { } }) => {
 
 	return (
 		<View style={styles.outerContainer} onLayout={handleLayout}>
-			<AnimatedFlashList
+			<AnimatedFlatList
 				overScrollMode="never"
 				data={users}
 				extraData={activeIndex}
