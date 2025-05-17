@@ -52,7 +52,7 @@ const Indicator = ({ index, isFinished, isPaused, onFinished, duration, currentI
 
 const Indicators = ({ isPaused = true, currentIndex = 0, pages, page, onFinish, duration = 5500 }) => (
 	<View style={styles.container}>
-		{pages[page]?.map(index => (
+		{pages ? pages[page]?.map(index => (
 			<Indicator
 				key={index}
 				index={index}
@@ -64,7 +64,7 @@ const Indicators = ({ isPaused = true, currentIndex = 0, pages, page, onFinish, 
 				isPaused={isPaused || currentIndex !== index}
 				isFinished={index < currentIndex}
 			/>
-		))}
+		)) : null}
 	</View>
 );
 

@@ -9,47 +9,29 @@ import handlePageChange from "../../../../lib/pagination/handlePageChange";
 import genPages from "../../../../lib/pagination/genPages";
 import { useFetchUserPosts } from "../../../../hooks/useFetchUserPosts";
 
-const UserCard = ({ user, posts, active }) => {
+const UserCard = ({ user, posts, active, usersNavigation, goToNext, goToPrevious }) => {
 	const { userPosts, fetchPosts } = useFetchUserPosts(user, posts);
 
-	const [idx, setIdx] = useState(0);
 	const [postsLength, setPostsLength] = useState(0);
-	const [post, setPost] = useState(null);
-
-	const [paginationPages, setPaginationPages] = useState([]);
+	const [idx, setIdx] = useState(0);
 	const [currentPage, setCurrentPage] = useState(0);
 
-	const goToNext = useCallback(() => {
-		setIdx(prevIndex => {
-			const nextIndex = prevIndex + 1;
-			return nextIndex < postsLength ? nextIndex : prevIndex;
-		});
-		handlePageChange(idx + 1, paginationPages, currentPage, setCurrentPage);
-	}, [idx, postsLength, currentPage, paginationPages]);
+	const changeUser = (user) => {
+		setIdx(user?.idx)
+		setCurrentPage(user?.currentPage)
+	}
 
-	const goToPrevious = useCallback(() => {
-		setIdx(prevIndex => {
-			const prevInternalIndex = prevIndex - 1;
-			return prevInternalIndex >= 0 ? prevInternalIndex : 0;
-		});
-		handlePageChange(idx - 1, paginationPages, currentPage, setCurrentPage);
-	}, [idx, postsLength, currentPage, paginationPages]);
+	const getNavigationUser = () => usersNavigation.find(_user => _user.id === user.id);
 
-	const handleIndicatorFinish = useCallback(() => {
-		if (idx < postsLength - 1) {
-			setIdx(prev => prev + 1);
-			handlePageChange(idx + 1, paginationPages, currentPage, setCurrentPage);
-		}
-	}, [idx, postsLength, currentPage, paginationPages, setCurrentPage]);
+	function handleIndicatorFinish () {
+		goToNext(user?.id, changeUser);
+	}
 
-	useEffect(() => { setPaginationPages(genPages(user?.postsCount) || []) }, [user?.postsCount]);
-
-	useEffect(() => { fetchPosts(); }, [currentPage]);
+	useEffect(() => { fetchPosts(); }, [getNavigationUser(user?.id)?.currentPage]);
 
 	useEffect(() => {
 		setPostsLength(userPosts.length);
-		setPost(userPosts[idx]);
-	}, [userPosts, idx]);
+	}, [userPosts]);
 
 	return (
 		<GradientBorder
@@ -58,18 +40,26 @@ const UserCard = ({ user, posts, active }) => {
 			gradientColors={["rgba(255, 255, 255, 0.24)", "rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.24)"]}
 			borderWidth={1}
 		>
-			<Image source={{ uri: URLS.CDN_POSTS_URL + post?.image }} style={styles.postImage} />
+			<Image source={{ uri: URLS.CDN_POSTS_URL + userPosts[idx]?.image }} style={styles.postImage} />
 
-			<UserCardHeader pause={!active} handleIndicatorFinish={handleIndicatorFinish} activeIdx={idx} pages={paginationPages} post={post} user={user} page={currentPage} />
+			<UserCardHeader
+				pause={!active}
+				handleIndicatorFinish={handleIndicatorFinish}
+				activeIdx={idx}
+				pages={getNavigationUser(user?.id)?.paginationPages}
+				post={userPosts[idx]}
+				user={user}
+				page={currentPage}
+			/>
 
 			{postsLength > 1 && (
 				<View style={styles.buttonsView}>
-					<Pressable style={styles.buttonsViewButton} onPress={goToPrevious} />
-					<Pressable style={styles.buttonsViewButton} onPress={goToNext} />
+					<Pressable style={styles.buttonsViewButton} onPress={() => {goToPrevious(user?.id, changeUser)}} />
+					<Pressable style={styles.buttonsViewButton} onPress={() => {goToNext(user?.id, changeUser)}} />
 				</View>
 			)}
 
-			<UserCardActions post={post} />
+			<UserCardActions post={userPosts[idx]} />
 		</GradientBorder>
 	);
 };

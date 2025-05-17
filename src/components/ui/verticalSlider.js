@@ -3,6 +3,7 @@ import { View, Dimensions, Animated } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import UserCard from "../common/blogsScreen/userCard";
 import styles from "./styles/verticalSliderStyles";
+import usePostNavigation from "../../hooks/usePostNavigation";
 
 const { height: windowHeight, width: windowWidth } = Dimensions.get("window");
 const VIEWABILITY_CONFIG = { itemVisiblePercentThreshold: 50 };
@@ -10,11 +11,17 @@ const SPACING = 16;
 
 const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
 
-const VerticalSlider = ({ users, onSlideChange = () => {} }) => {
+const VerticalSlider = ({ users, onSlideChange = () => { } }) => {
 	const [activeIndex, setActiveIndex] = useState(0);
 	const [containerHeight, setContainerHeight] = useState(windowHeight);
 	const ITEM_LENGTH = useMemo(() => containerHeight + SPACING, [containerHeight]);
 	const scrollY = useRef(new Animated.Value(0)).current;
+
+	const {
+		users: usersNavigation,
+		goToNext,
+		goToPrevious
+	} = usePostNavigation(users);
 
 	const handleLayout = useCallback(
 		e => {
@@ -59,6 +66,7 @@ const VerticalSlider = ({ users, onSlideChange = () => {} }) => {
 
 			return (
 				<Animated.View
+					id={String(index + item?.author?.id)}
 					style={{
 						height: containerHeight,
 						width: windowWidth,
@@ -66,11 +74,18 @@ const VerticalSlider = ({ users, onSlideChange = () => {} }) => {
 						opacity,
 					}}
 				>
-					<UserCard user={item.author} posts={item.posts} active={index === activeIndex} />
+					<UserCard
+						user={item.author}
+						posts={item.posts}
+						active={index === activeIndex}
+						usersNavigation={usersNavigation}
+						goToNext={goToNext}
+						goToPrevious={goToPrevious}
+					/>
 				</Animated.View>
 			);
 		},
-		[activeIndex, containerHeight, scrollY, ITEM_LENGTH]
+		[activeIndex, containerHeight, usersNavigation, scrollY, ITEM_LENGTH]
 	);
 
 	return (
