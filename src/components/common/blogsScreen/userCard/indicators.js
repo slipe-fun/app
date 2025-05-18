@@ -21,8 +21,10 @@ const Indicator = ({ index, isFinished, isPaused, onFinished, duration, currentI
 	});
 
 	useEffect(() => {
+		console.log(currentIndex)
 		if (!isPaused) {
-			if (index === pages[page].length - 1) {
+			console.log(index, pages[page].length - 1, index === pages[page].length - 1)
+			if (index === pages[pages.length-1].length-1) {
 				widthProgress.value = withRepeat(
 					withTiming(1, { duration, easing: Easing.linear }),
 					-1,
@@ -52,6 +54,7 @@ const Indicator = ({ index, isFinished, isPaused, onFinished, duration, currentI
 
 const Indicators = ({ isPaused = true, currentIndex = 0, pages, page, onFinish, duration = 5500 }) => (
 	<View style={styles.container}>
+	{console.log(pages ? pages[page] : null, page)}
 		{pages ? pages[page]?.map(index => (
 			<Indicator
 				key={index}
