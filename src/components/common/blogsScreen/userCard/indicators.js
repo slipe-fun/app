@@ -21,9 +21,7 @@ const Indicator = ({ index, isFinished, isPaused, onFinished, duration, currentI
 	});
 
 	useEffect(() => {
-		console.log(currentIndex)
 		if (!isPaused) {
-			console.log(index, pages[page].length - 1, index === pages[page].length - 1)
 			if (index === pages[pages.length-1].length-1) {
 				widthProgress.value = withRepeat(
 					withTiming(1, { duration, easing: Easing.linear }),
@@ -52,12 +50,15 @@ const Indicator = ({ index, isFinished, isPaused, onFinished, duration, currentI
 	);
 };
 
-const Indicators = ({ isPaused = true, currentIndex = 0, pages, page, onFinish, duration = 5500 }) => (
-	<View style={styles.container}>
-	{console.log(pages ? pages[page] : null, page)}
-		{pages ? pages[page]?.map(index => (
-			<Indicator
-				key={index}
+const Indicators = ({ isPaused = true, currentIndex = 0, pages, page, onFinish, duration = 5500 }) => {
+	if (!pages) return;
+	const lastPage = pages[pages?.length-1];
+	const postsCount = lastPage[lastPage.length-1];
+	// console.log(page, postsCount)
+	return <View style={styles.container}>
+		{pages[page]?.map(index => (
+			<><Indicator
+				key={Math.random()}
 				index={index}
 				duration={duration}
 				currentIndex={currentIndex}
@@ -67,8 +68,10 @@ const Indicators = ({ isPaused = true, currentIndex = 0, pages, page, onFinish, 
 				isPaused={isPaused || currentIndex !== index}
 				isFinished={index < currentIndex}
 			/>
-		)) : null}
+			{/* {console.log(index, currentIndex, index < currentIndex)} */}
+			</>
+		))}
 	</View>
-);
+};
 
 export default Indicators;

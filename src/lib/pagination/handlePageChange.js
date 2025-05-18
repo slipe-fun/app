@@ -1,14 +1,16 @@
-export default function handlePageChange(localPage, paginationPages, currentPage, setCurrentPage) {
+export default function handlePageChange(type, localPage, paginationPages, currentPage, setCurrentPage) {
     if (!Array.isArray(paginationPages) || paginationPages.length === 0) return;
     if (currentPage < 0 || currentPage >= paginationPages.length) return;
 
-    const lp = paginationPages[currentPage];
-    if (localPage === lp[lp.length-1] && currentPage < paginationPages.length) {
-        console.log(321)
-        setCurrentPage(currentPage + 1)
-    } else if (localPage === lp[0] && currentPage !== 0) {
-        console.log(123)
-        setCurrentPage(currentPage - 1)
+    if (type === "plus") {
+        const nextPage = paginationPages[currentPage + 1];
+        if (nextPage && localPage === nextPage[0]-1) {
+            setCurrentPage(currentPage + 1);
+        }
+    } else if (type === "minus") {
+        const lastPage = paginationPages[currentPage - 1];
+        if (lastPage && localPage === lastPage[lastPage.length-1]) {
+            setCurrentPage(currentPage - 1)
+        }
     }
-    // setCurrentPage(paginationPages.indexOf(paginationPages.find(page => page.includes(localPage))));
 }

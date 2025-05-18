@@ -5,7 +5,7 @@ const jsonConfig = {
 	headers: {
 		"Content-Type": "application/json",
 	},
-	timeout: 10000,
+	timeout: 30000,
 };
 
 const mediaConfig = {
@@ -17,7 +17,7 @@ const mediaConfig = {
 
 const v1Instance = axios.create({
 	...jsonConfig,
-	baseURL: "https://api.slipe.fun/v1",
+	baseURL: "https://api.slipe.fun/v1"
 });
 
 const v2Instance = axios.create({
@@ -32,7 +32,7 @@ const mediaInstance = axios.create({
 
 const requestInterceptor = async config => {
 	const storageInstance = await storage();
-	const token = storageInstance?.getString("token");
+	const token = storageInstance?.getString("token") || null;
 	if (token) {
 		if (!config.headers) {
 			config.headers = {};

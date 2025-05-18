@@ -45,7 +45,7 @@ export default function usePostNavigation (startDataUsers) {
         const nextIndex = user?.idx + 1;
         if (nextIndex >= user?.postsCount) return;
         changeUserIndex(userId, nextIndex, onChange)
-        handlePageChange(nextIndex, user.paginationPages, user.currentPage, (value) => changeUserCurrentPage(userId, value))
+        handlePageChange("plus", nextIndex, user.paginationPages, user.currentPage, (value) => changeUserCurrentPage(userId, value))
         return findUser(userId);
     }
 
@@ -54,7 +54,7 @@ export default function usePostNavigation (startDataUsers) {
         const prevIndex = user?.idx - 1;
         if (prevIndex < 0) return;
         changeUserIndex(userId, prevIndex, onChange)
-        handlePageChange(prevIndex, user.paginationPages, user.currentPage, (value) => changeUserCurrentPage(userId, value))
+        handlePageChange("minus", prevIndex, user.paginationPages, user.currentPage, (value) => changeUserCurrentPage(userId, value))
         return findUser(userId);
     }
 
