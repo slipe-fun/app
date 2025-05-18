@@ -58,7 +58,7 @@ const Indicators = ({ isPaused = true, currentIndex = 0, pages, page, onFinish, 
 	return <View style={styles.container}>
 		{pages[page]?.map(index => (
 			<><Indicator
-				key={Math.random()}
+				key={index}
 				index={index}
 				duration={duration}
 				currentIndex={currentIndex}

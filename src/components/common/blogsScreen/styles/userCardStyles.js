@@ -4,7 +4,7 @@ import { BORDER_RADIUS, COLORS, FONT_SIZE, SPACING } from "../../../../constants
 const styles = StyleSheet.create({
 	userCard: {
 		height: "100%",
-		borderRadius: BORDER_RADIUS.large,
+		borderRadius: BORDER_RADIUS.medium,
 		overflow: "hidden",
 		position: "relative",
 		width: "100%",
@@ -36,9 +36,9 @@ const styles = StyleSheet.create({
 		padding: SPACING.large,
 	},
 	headerAvatar: {
-		width: 44,
-		height: 44,
-		borderRadius: 9999,
+		width: 40,
+		height: 40,
+		borderRadius: 30,
 	},
 	headerInfo: {
 		flexDirection: "column",
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
 	infoName: {
 		color: COLORS.white,
 		fontFamily: "600",
-		fontSize: FONT_SIZE.small,
+		fontSize: 13,
 	},
 	infoDescription: {
 		color: COLORS.transparentText,
@@ -70,20 +70,20 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 	},
 	indicator: {
-		height: 2.5,
+		height: 2,
 		flex: 1,
 		backgroundColor: COLORS.indicator,
 		borderRadius: 3,
 	},
     indicatorInner: {
         height: '100%',
-        borderRadius: 2.5,
+        borderRadius: 2,
         backgroundColor: COLORS.white,
     },
 	// -----------------
 	menuButton: {
-		width: 44,
-		height: 44,
+		width: 40,
+		height: 40,
 		display: "flex",
 		justifyContent: "center",
 		overflow: "hidden",
@@ -97,10 +97,10 @@ const styles = StyleSheet.create({
 	},
 	reactionButton: {
 		width: "auto",
-		paddingHorizontal: 18,
-		gap: 9,
+		paddingHorizontal: SPACING.large,
+		gap: SPACING.small,
 		flexDirection: "row",
-		height: 44,
+		height: 40,
 		display: "flex",
 		overflow: "hidden",
 		alignItems: "center",
@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
 	},
 	reactionButtonText: {
 		fontFamily: "600",
+		fontSize: 13,
 		color: COLORS.white,
 	},
 	buttonsView: {

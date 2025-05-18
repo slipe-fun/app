@@ -1,6 +1,6 @@
 export const COLORS = {
   primary: '#0A84FF',
-  glassButton: 'rgba(0, 0, 0, 0.5)',
+  glassButton: 'rgba(0, 0, 0, 0.24)',
   black: '#000000',
   red: '#E82132',
   white: '#ffffff',
@@ -22,8 +22,9 @@ export const SPACING = {
 export const BORDER_RADIUS = {
   xs: 4,
   small: 8,
-  medium: 16,
-  large: 20,
+  medium: 14,
+  large: 16,
+  xl: 20,
 }; 
 
 export const FONT_SIZE = {

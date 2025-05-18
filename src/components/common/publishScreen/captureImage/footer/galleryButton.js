@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Pressable, Image } from "react-native";
 import * as MediaLibrary from "expo-media-library";
 import { GradientBorder } from "../../../../ui/gradientBorder";
-import { styles } from "../../styles/captureImageStyles";
+import { styles } from "../styles/captureImageStyles";
 
 export const MediaGalleryButton = ({ onGalleryPress }) => {
 	const [permissionResponse, requestPermission] = MediaLibrary.usePermissions();

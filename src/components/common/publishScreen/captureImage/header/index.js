@@ -1,4 +1,4 @@
-import { styles } from "../../styles/captureImageStyles";
+import { styles } from "../styles/captureImageStyles";
 import { useCallback } from "react";
 import AnimatedButton from "../../../../ui/animatedButton";
 import { useSelector } from "react-redux";
@@ -15,8 +15,8 @@ export const CaptureImageHeader = ({ torch, mute, setTorch, setMute }) => {
 			{image === "" && (
 				<Animated.View exiting={FadeOutUp.duration(250)}
 				entering={FadeInDown.duration(250)} key='header-1' style={styles.header}>
-					<AnimatedButton active={torch === "on"} iconName='flashlight' onToggle={toggleTorch} />
-					<AnimatedButton active={mute} iconName='audio' onToggle={toggleMute} />
+					<AnimatedButton haptics active={torch === "on"} iconName='flashlight' onToggle={toggleTorch} />
+					<AnimatedButton haptics active={mute} iconName='audio' onToggle={toggleMute} />
 				</Animated.View>
 			
 			)}

@@ -3,7 +3,7 @@ import AnimatedButton from "../../../../ui/animatedButton";
 import { MediaGalleryButton } from "./galleryButton";
 import { RotateButton } from "./rotateButton";
 import { CaptureButton } from "./captureButton";
-import { styles } from "../../styles/captureImageStyles";
+import { styles } from "../styles/captureImageStyles";
 import Animated, { FadeInUp, FadeOutDown } from "react-native-reanimated";
 import { useSelector, useDispatch } from "react-redux";
 import { selectImage, updateCameraState } from "../../../../../reducers/publishScreen";

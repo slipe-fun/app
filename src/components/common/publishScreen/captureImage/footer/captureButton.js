@@ -3,7 +3,7 @@ import { Pressable } from "react-native";
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, withSpring, interpolateColor, interpolate } from "react-native-reanimated";
 import * as Haptics from "expo-haptics";
 import { COLORS } from "../../../../../constants/theme";
-import { styles } from "../../styles/captureImageStyles";
+import { styles } from "../styles/captureImageStyles";
 
 export const CaptureButton = ({capturePhoto}) => {
 	const bgProgress = useSharedValue(0);

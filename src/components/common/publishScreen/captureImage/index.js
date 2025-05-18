@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Image, View } from "react-native";
 import { useCameraBlur } from "../../../../hooks/useCameraBlur";
-import { styles } from "../styles/captureImageStyles";
+import { styles } from "./styles/captureImageStyles";
 import { GradientBorder } from "../../../ui/gradientBorder";
 import { CaptureImageFooter } from "./footer";
 import { CaptureImageHeader } from "./header";
@@ -35,7 +35,7 @@ export const CaptureImage = () => {
 	const format = useCameraFormat(device, [{ photoResolution: { width: 1280, height: 720 } }]);
 	const isFocused = useIsFocused()
 	const appState = useAppState()
-	const isActive = isFocused && appState === "active"
+	const isActive = isFocused && appState === "active" || image === ""
 
 	const { applyCameraBlur, isBlurring, snapshotUri } = useCameraBlur({
 		cameraRef,
@@ -71,7 +71,7 @@ export const CaptureImage = () => {
 		<GradientBorder
 			style={styles.captureImage}
 			borderRadius={20}
-			gradientColors={["rgba(255, 255, 255, 0.24)", "rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.24)"]}
+			gradientColors={["rgba(255, 255, 255, 0.18)", "rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.18)"]}
 			borderWidth={1}
 		>
 			

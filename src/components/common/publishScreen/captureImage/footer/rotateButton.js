@@ -5,7 +5,7 @@ import { GradientBorder } from "../../../../ui/gradientBorder";
 import { PlatformWrapperButton } from "../../../../ui/platformWrapperButton";
 import Icon from "../../../../ui/icon";
 import { COLORS } from "../../../../../constants/theme";
-import { styles } from "../../styles/captureImageStyles";
+import { styles } from "../styles/captureImageStyles";
 
 export const RotateButton = ({ applyStaticBlur }) => {
 	const [isRotateDisabled, setIsRotateDisabled] = useState(false);
