@@ -26,7 +26,7 @@ export const PlatformWrapperButton = ({ children, style, blurProps = {}, viewPro
 
 	if (Platform.OS === "ios") {
 		return (
-			<BlurView style={[style, { backgroundColor: COLORS.glassButton }]} intensity={64} {...blurProps}>
+			<BlurView style={[style, { backgroundColor: COLORS.iosGlassButton }]} intensity={64} {...blurProps}>
 				<Animated.View style={[style, { backgroundColor: backgroundColorBlur }]}>{children}</Animated.View>
 			</BlurView>
 		);

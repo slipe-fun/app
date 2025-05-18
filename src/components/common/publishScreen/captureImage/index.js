@@ -70,7 +70,7 @@ export const CaptureImage = () => {
 	return (
 		<GradientBorder
 			style={styles.captureImage}
-			borderRadius={20}
+			borderRadius={14}
 			gradientColors={["rgba(255, 255, 255, 0.18)", "rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.18)"]}
 			borderWidth={1}
 		>

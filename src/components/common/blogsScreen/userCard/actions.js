@@ -4,7 +4,7 @@ import { COLORS, SPACING } from "../../../../constants/theme";
 import { useEmojiState } from "../../../../hooks/useEmojiState";
 import AnimatedButton from "../../../ui/animatedButton";
 import Animated, { interpolateColor, useAnimatedStyle, useSharedValue, withTiming, Easing } from "react-native-reanimated";
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect } from "react";
 
 const Reaction = memo(({ emojis, reaction, emojiImages, handleEmojiClick }) => {
 	const colorValue = useSharedValue(emojis[reaction]?.isActive ? 1 : 0);

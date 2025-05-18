@@ -1,6 +1,7 @@
 export const COLORS = {
   primary: '#0A84FF',
-  glassButton: 'rgba(0, 0, 0, 0.24)',
+  iosGlassButton: 'rgba(0, 0, 0, 0.24)',
+  glassButton: 'rgba(0, 0, 0, 0.5)',
   black: '#000000',
   red: '#E82132',
   white: '#ffffff',

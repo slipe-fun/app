@@ -4,7 +4,7 @@ import { BORDER_RADIUS, COLORS, SPACING } from "../../../../../constants/theme";
 export const styles = StyleSheet.create({
 	captureImage: {
 		flex: 1,
-		borderRadius: BORDER_RADIUS.large,
+		borderRadius: BORDER_RADIUS.medium,
 		overflow: "hidden",
 		position: "relative",
 		justifyContent: "space-between",
