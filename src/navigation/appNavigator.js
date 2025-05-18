@@ -11,6 +11,7 @@ import { ROUTES } from "../constants/routes";
 import { useState, createContext, useContext, useEffect } from "react";
 import { storage } from "../lib/storage";
 import NotifsScreen from "../screens/notifsScreen";
+import EditorScreen from "../screens/publish/editorScreen";
 
 export const AuthContext = createContext(null);
 
@@ -63,7 +64,7 @@ const AppNavigator = () => {
 			} catch (error) {
 				console.error("Error during logout:", error);
 			}
-		}
+		},
 	};
 
 	return (
@@ -71,7 +72,10 @@ const AppNavigator = () => {
 			<NavigationContainer>
 				<RootStack.Navigator screenOptions={{ headerShown: false }}>
 					{isAuthenticated ? (
-						<RootStack.Screen name='MainApp' component={MainTabNavigator} />
+						<>
+							<RootStack.Screen name='MainApp' component={MainTabNavigator} />
+							<RootStack.Screen name={ROUTES.PUBLISH_EDITOR} component={EditorScreen} />
+						</>
 					) : (
 						<RootStack.Screen name={ROUTES.AUTH} component={AuthNavigator} />
 					)}

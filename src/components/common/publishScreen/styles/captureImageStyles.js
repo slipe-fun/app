@@ -36,6 +36,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
 		zIndex: 20,
         padding: SPACING.large,
+		justifyContent: 'flex-end',
         gap: 16,
 		position: "absolute",
 	},
@@ -71,5 +72,24 @@ export const styles = StyleSheet.create({
 		height: '100%',
 		position: 'absolute',
 		zIndex: 10,
+	},
+	confirmFooter: {
+		width: "100%",
+        bottom: 0,
+		zIndex: 20,
+		paddingHorizontal: 42,
+		paddingVertical: 32,
+		justifyContent: 'space-between',
+		flexDirection: 'row',
+		position: "absolute",
+	},
+	confirmButton: {
+		width: 52,
+		height: 52,
+		display: "flex",
+		justifyContent: "center",
+		overflow: "hidden",
+		alignItems: "center",
+		borderRadius: 30,
 	}
 });

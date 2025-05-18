@@ -9,5 +9,8 @@ export const ROUTES = {
   // Auth routes
   AUTH: 'Auth',
   LOGIN: 'Login',
-  REGISTER: 'Register'
+  REGISTER: 'Register',
+
+  // Publish Routes
+  PUBLISH_EDITOR: 'Publish_Editor',
 }; 

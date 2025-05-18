@@ -43,7 +43,7 @@ export default function App() {
 
 	return (
 		<SafeAreaProvider>
-			<GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
+			<GestureHandlerRootView style={{ flex: 1, backgroundColor: 'black' }} onLayout={onLayoutRootView}>
 				<StatusBar translucent style='light' />
 				<Provider store={store}>
 					<AppNavigator />
