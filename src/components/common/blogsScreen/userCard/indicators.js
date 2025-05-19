@@ -52,9 +52,6 @@ const Indicator = ({ index, isFinished, isPaused, onFinished, duration, currentI
 
 const Indicators = ({ isPaused = true, currentIndex = 0, pages, page, onFinish, duration = 5500 }) => {
 	if (!pages) return;
-	const lastPage = pages[pages?.length-1];
-	const postsCount = lastPage[lastPage.length-1];
-	// console.log(page, postsCount)
 	return <View style={styles.container}>
 		{pages[page]?.map(index => (
 			<><Indicator
@@ -68,7 +65,6 @@ const Indicators = ({ isPaused = true, currentIndex = 0, pages, page, onFinish, 
 				isPaused={isPaused || currentIndex !== index}
 				isFinished={index < currentIndex}
 			/>
-			{/* {console.log(index, currentIndex, index < currentIndex)} */}
 			</>
 		))}
 	</View>

@@ -21,14 +21,13 @@ export default function usePostNavigation (startDataUsers) {
         return users?.find(user => user.id === userId);
     }
 
-    function changeUserIndex (userId, value, onChange = () => {}) {
+    function changeUserIndex (userId, value) {
         const user = findUser(userId);
         const index = users.indexOf(user);
         setUsers(prev => {
             prev[index].idx = value;
             return prev;
         })
-        onChange(users[index])
     }
 
     function changeUserCurrentPage (userId, value) {
@@ -44,18 +43,22 @@ export default function usePostNavigation (startDataUsers) {
         const user = findUser(userId);
         const nextIndex = user?.idx + 1;
         if (nextIndex >= user?.postsCount) return;
-        changeUserIndex(userId, nextIndex, onChange)
+        changeUserIndex(userId, nextIndex)
         handlePageChange("plus", nextIndex, user.paginationPages, user.currentPage, (value) => changeUserCurrentPage(userId, value))
-        return findUser(userId);
+        const newUserData = findUser(userId);
+        onChange(newUserData);
+        return newUserData;
     }
 
     function goToPrevious (userId, onChange) {
         const user = findUser(userId);
         const prevIndex = user?.idx - 1;
         if (prevIndex < 0) return;
-        changeUserIndex(userId, prevIndex, onChange)
+        changeUserIndex(userId, prevIndex)
         handlePageChange("minus", prevIndex, user.paginationPages, user.currentPage, (value) => changeUserCurrentPage(userId, value))
-        return findUser(userId);
+        const newUserData = findUser(userId);
+        onChange(newUserData);
+        return newUserData;
     }
 
     return { users, goToNext, goToPrevious };
