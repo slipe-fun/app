@@ -1,27 +1,27 @@
 import { View, Image, ScrollView } from "react-native";
 import styles from "../styles/userCardStyles";
-import { COLORS, SPACING } from "../../../../constants/theme";
+import { COLORS } from "../../../../constants/theme";
 import { useEmojiState } from "../../../../hooks/useEmojiState";
 import AnimatedButton from "../../../ui/animatedButton";
 import Animated, { interpolateColor, useAnimatedStyle, useSharedValue, withTiming, Easing } from "react-native-reanimated";
 import { memo, useEffect } from "react";
 
-const Reaction = memo(({ emojis, reaction, emojiImages, handleEmojiClick }) => {
-	const colorValue = useSharedValue(emojis[reaction]?.isActive ? 1 : 0);
+const Reaction = memo(({ emojis, reaction, emojiImages, handleEmojiClick, isActive }) => {
+	const colorValue = useSharedValue(isActive ? 1 : 0);
 
 	const animatedTextStyles = useAnimatedStyle(() => ({
 		color: interpolateColor(colorValue.value, [1, 0], [COLORS.black, COLORS.white]),
 	}));
 
 	useEffect(() => {
-		colorValue.value = withTiming(emojis[reaction]?.isActive ? 1 : 0, {
+		colorValue.value = withTiming(isActive ? 1 : 0, {
 			duration: 225,
 			easing: Easing.ease,
 		});
-	}, [emojis]);
+	}, [isActive]);
 
 	return (
-		<AnimatedButton active={emojis[reaction]?.isActive} style={styles.reactionButton} onToggle={() => handleEmojiClick(reaction)} haptics>
+		<AnimatedButton active={isActive} style={styles.reactionButton} onToggle={() => handleEmojiClick(reaction)} haptics>
 			<Image style={{ width: 20, height: 20 }} source={emojiImages[reaction]} />
 			<Animated.Text style={[styles.reactionButtonText, animatedTextStyles]}>{emojis[reaction]?.count}</Animated.Text>
 		</AnimatedButton>
@@ -44,7 +44,7 @@ const UserCardActions = ({ post }) => {
 	return (
 		<View>
 			<ScrollView
-				contentContainerStyle={{ gap: SPACING.large, padding: SPACING.large }}
+				contentContainerStyle={styles.scrollView}
 				horizontal
 				overScrollMode='never'
 				showsHorizontalScrollIndicator={false}
@@ -59,6 +59,7 @@ const UserCardActions = ({ post }) => {
 						emojis={emojis}
 						reaction={reaction}
 						index={index}
+						isActive={emojis[reaction]?.isActive}
 						handleEmojiClick={reaction => handleEmojiClick(reaction)}
 						emojiImages={emojiImages}
 					/>

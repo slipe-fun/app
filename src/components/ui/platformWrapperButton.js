@@ -1,40 +1,32 @@
+import React, { useEffect, memo } from "react";
+import { Platform } from "react-native";
+import Animated, { useSharedValue, withTiming, useAnimatedStyle, interpolateColor } from "react-native-reanimated";
 import { BlurView } from "expo-blur";
-import { Platform, Animated } from "react-native";
-import { useRef, useEffect } from "react";
 import { COLORS } from "../../constants/theme";
 
-export const PlatformWrapperButton = ({ children, style, blurProps = {}, viewProps = {}, active = false }) => {
-	const animatedValue = useRef(new Animated.Value(active ? 1 : 0)).current;
+const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
+const AnimatedView = Animated.View;
+
+export const PlatformWrapperButton = memo(({ children, style, blurProps = {}, viewProps = {}, active = false }) => {
+	const progress = useSharedValue(active ? 1 : 0);
 
 	useEffect(() => {
-		Animated.timing(animatedValue, {
-			toValue: active ? 1 : 0,
-			duration: 225,
-			useNativeDriver: false,
-		}).start();
-	}, [active]);
+		progress.value = withTiming(active ? 1 : 0, { duration: 225 });
+	}, [active, progress]);
 
-	const backgroundColorBlur = animatedValue.interpolate({
-		inputRange: [0, 1],
-		outputRange: ["#ffffff00", "#ffffff"],
+	const animatedStyle = useAnimatedStyle(() => {
+		const bgColor = interpolateColor(progress.value, [0, 1], [COLORS.glassButton, "#ffffff"]);
+		const blurBg = interpolateColor(progress.value, [0, 1], ["#00000000", COLORS.iosGlassButton]);
+
+		return Platform.OS === "ios" ? { backgroundColor: blurBg } : { backgroundColor: bgColor };
 	});
 
-	const backgroundColor = animatedValue.interpolate({
-		inputRange: [0, 1],
-		outputRange: [COLORS.glassButton, "#ffffff"],
-	});
+	const Wrapper = Platform.OS === "ios" ? AnimatedBlurView : AnimatedView;
+	const wrapperProps = Platform.OS === "ios" ? { intensity: blurProps.intensity ?? 64, ...blurProps } : viewProps;
 
-	if (Platform.OS === "ios") {
-		return (
-			<BlurView style={[style, { backgroundColor: COLORS.iosGlassButton }]} intensity={64} {...blurProps}>
-				<Animated.View style={[style, { backgroundColor: backgroundColorBlur }]}>{children}</Animated.View>
-			</BlurView>
-		);
-	} else {
-		return (
-			<Animated.View style={[style, { backgroundColor }]} {...viewProps}>
-				{children}
-			</Animated.View>
-		);
-	}
-};
+	return (
+		<Wrapper style={[style, animatedStyle]} {...wrapperProps}>
+			{children}
+		</Wrapper>
+	);
+});

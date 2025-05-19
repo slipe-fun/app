@@ -75,11 +75,11 @@ const styles = StyleSheet.create({
 		backgroundColor: COLORS.indicator,
 		borderRadius: 3,
 	},
-    indicatorInner: {
-        height: '100%',
-        borderRadius: 2,
-        backgroundColor: COLORS.white,
-    },
+	indicatorInner: {
+		height: "100%",
+		borderRadius: 2,
+		backgroundColor: COLORS.white,
+	},
 	// -----------------
 	menuButton: {
 		width: 40,
@@ -118,6 +118,10 @@ const styles = StyleSheet.create({
 	},
 	buttonsViewButton: {
 		flex: 1,
+	},
+	scrollView: {
+		gap: SPACING.large,
+		padding: SPACING.large,
 	},
 });
 

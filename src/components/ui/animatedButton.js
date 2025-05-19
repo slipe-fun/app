@@ -8,6 +8,7 @@ import Animated, {
 	useAnimatedProps,
 	useAnimatedStyle,
 	Easing,
+	runOnJS,
 } from "react-native-reanimated";
 import * as Haptics from "expo-haptics";
 
@@ -17,44 +18,46 @@ import { PlatformWrapperButton } from "./platformWrapperButton";
 import Icon from "./icon";
 import { COLORS } from "../../constants/theme";
 
+const AnimatedGradientBorder = Animated.createAnimatedComponent(GradientBorder)
+
 const AnimatedButton = ({ active = false, iconName, onToggle, size = 26, style, haptics = false, exiting, entering, children }) => {
-	const animValue = useSharedValue(active ? 1 : 0);
-	const scaleValue = useSharedValue(1);
+	const anim = useSharedValue(active ? 1 : 0);
+	const scale = useSharedValue(1);
 
 	const iconColorProps = useAnimatedProps(() => ({
-		fill: interpolateColor(animValue.value, [0, 1], [COLORS.white, COLORS.black]),
+		fill: interpolateColor(anim.value, [0, 1], [COLORS.white, COLORS.black]),
 	}));
 
 	const buttonScaleStyle = useAnimatedStyle(() => ({
-		transform: [{ scale: scaleValue.value }],
+		transform: [{ scale: scale.value }],
 	}));
 
 	useEffect(() => {
-		animValue.value = withTiming(active ? 1 : 0, {
+		anim.value = withTiming(active ? 1 : 0, {
 			duration: 225,
 			easing: Easing.ease,
 		});
-	}, [active, animValue]);
+	}, [active, anim]);
 
 	const handlePressIn = useCallback(() => {
-		scaleValue.value = withSpring(0.925, {
+		scale.value = withSpring(0.95, {
 			mass: 2.75,
-			damping: 2.5,
+			damping: 5,
 			stiffness: 125,
 		});
-	}, [scaleValue]);
+	}, [scale]);
 
 	const handlePressOut = useCallback(() => {
-		scaleValue.value = withSpring(1, {
+		scale.value = withSpring(1, {
 			mass: 2.75,
-			damping: 2.5,
+			damping: 5,
 			stiffness: 125,
 		});
-	}, [haptics, scaleValue]);
+	}, [haptics, scale]);
 
 	const handlePress = useCallback(() => {
-		onToggle && onToggle();
-        if (haptics) Haptics.selectionAsync();
+		onToggle && runOnJS(onToggle)();
+        if (haptics) runOnJS(Haptics.selectionAsync)();
 	}, [onToggle]);
 
 	return (
@@ -65,8 +68,7 @@ const AnimatedButton = ({ active = false, iconName, onToggle, size = 26, style, 
 			onPressOut={handlePressOut}
 			onPress={handlePress}
 		>
-			<Animated.View entering={entering} exiting={exiting} style={buttonScaleStyle}>
-				<GradientBorder borderRadius={32} borderWidth={1}>
+				<AnimatedGradientBorder entering={entering} exiting={exiting} style={buttonScaleStyle} borderRadius={32} borderWidth={1}>
 					<PlatformWrapperButton active={active} style={style || styles.menuButton}>
 						{children || (
 							<View>
@@ -74,8 +76,7 @@ const AnimatedButton = ({ active = false, iconName, onToggle, size = 26, style, 
 							</View>
 						)}
 					</PlatformWrapperButton>
-				</GradientBorder>
-			</Animated.View>
+				</AnimatedGradientBorder >
 		</Pressable>
 	);
 };

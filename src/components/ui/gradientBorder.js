@@ -1,10 +1,10 @@
 import { View, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import MaskedView from "@react-native-masked-view/masked-view";
-import { useMemo } from "react";
+import { forwardRef, useMemo } from "react";
 import { styles } from "./styles/gradientBorderStyles";
 
-export const GradientBorder = ({
+export const GradientBorder = forwardRef(({
 	children,
 	style,
 	borderWidth = 1,
@@ -12,7 +12,7 @@ export const GradientBorder = ({
 	gradientColors = ["rgba(255, 255, 255, 0.18)", "rgba(255, 255, 255, 0)"],
 	gradientStart = { x: 0.5, y: 0 },
 	gradientEnd = { x: 0.5, y: 1 },
-}) => {
+}, ref) => {
 	const maskStyles = useMemo(
 		() =>
 			StyleSheet.create({
@@ -28,11 +28,11 @@ export const GradientBorder = ({
 	const containerStyle = useMemo(() => [styles.containerBase, { borderRadius }, style], [borderRadius, style]);
 
 	return (
-		<View style={containerStyle}>
+		<View ref={ref} style={containerStyle}>
 			{children}
 			<MaskedView style={styles.absoluteFill} maskElement={<View style={maskStyles.maskElementContainer} />}>
 				<LinearGradient colors={gradientColors} start={gradientStart} end={gradientEnd} style={styles.absoluteFill} />
 			</MaskedView>
 		</View>
 	);
-};
+});
