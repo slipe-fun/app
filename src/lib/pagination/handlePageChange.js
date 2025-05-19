@@ -4,7 +4,7 @@ export default function handlePageChange(type, localPage, paginationPages, curre
 
     if (type === "plus") {
         const nextPage = paginationPages[currentPage + 1];
-        if (nextPage && localPage === nextPage[0]-1) {
+        if (nextPage && localPage === nextPage[0]) {
             setCurrentPage(currentPage + 1);
         }
     } else if (type === "minus") {
