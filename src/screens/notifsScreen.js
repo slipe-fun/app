@@ -1,21 +1,12 @@
-import { View, Text, StyleSheet } from 'react-native';
-import { COLORS } from '../constants/theme';
+import { View } from 'tamagui';
+import { NotifsHeader } from '../components/common/notifsScreen/header';
 
 const NotifsScreen = () => {
   return (
-    <View style={styles.container}>
-      <Text style={{ color: COLORS.white }}>Notifications</Text>
+    <View flex={1} backgroundColor="$bg">
+      <NotifsHeader />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: COLORS.black,
-  },
-});
 
 export default NotifsScreen; 
