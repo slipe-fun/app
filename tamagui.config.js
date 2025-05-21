@@ -1,4 +1,5 @@
 import { createFont, createTamagui, createTokens } from 'tamagui'
+import { createAnimations } from '@tamagui/animations-moti'
 
 const openRundeFont = createFont({
   family: 'OpenRunde',
@@ -136,12 +137,33 @@ export const tokens = createTokens({
   },
 })
 
+const animations = createAnimations({
+  fast: {
+    type: 'spring',
+    damping: 20,
+    mass: 1.2,
+    stiffness: 250,
+  },
+  medium: {
+    type: 'spring',
+    damping: 15,
+    mass: 1,
+    stiffness: 200,
+  },
+  slow: {
+    type: 'spring',
+    damping: 15,
+    stiffness: 50,
+  },
+});
+
 const configUI = createTamagui({
   fonts: {
     heading: openRundeFont,
     body: openRundeFont,
   },
   tokens,
+  animations,
 
   themes: {
     light: {
