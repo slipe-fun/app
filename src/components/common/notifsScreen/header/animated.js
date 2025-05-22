@@ -8,14 +8,12 @@ import { YStack, XStack, Text, Button, getVariableValue } from "tamagui";
 import Icon from "../../../ui/icon";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Platform } from "react-native";
-import { useState } from "react";
-import UnderLineTabs from "../tabs/underline";
+import UnderLineTabs from "../tabs";
 
-export const NotifsAnimatedHeader = ({ scrollY }) => {
+export const NotifsAnimatedHeader = ({ scrollY, tabs, selectedIndex, setSelectedIndex }) => {
   const rotation = useSharedValue(0);
   const color = getVariableValue("$primary", "color");
   const insets = useSafeAreaInsets();
-  const [selectedIndex, setSelectedIndex] = useState(0)
 
   const smallHeaderStyle = useAnimatedStyle(() => {
     const opacity = interpolate(scrollY.value, [20, 60], [0, 1], "clamp");
@@ -30,13 +28,6 @@ export const NotifsAnimatedHeader = ({ scrollY }) => {
       transform: [{ rotate: `${rotation.value}deg` }],
     };
   });
-
-  const tabs = [
-    { key: 'all', label: 'Все' },
-    { key: 'subscribes', label: 'Подписки' },
-    { key: 'reactions', label: 'Реакции' },
-    { key: 'comments', label: 'Комментарии' },
-  ]
 
   return (
     <Animated.View

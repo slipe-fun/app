@@ -24,8 +24,6 @@ const UnderLineTabs = forwardRef(({ tabs, selectedIndex, onSelect }, ref) => {
               height="auto"
               pb="$5"
               ph="$6"
-              justifyContent="center"
-              alignItems="center"
               onPress={() => onSelect(index)}
               onLayout={(event) => {
                 const { x, width } = event.nativeEvent.layout;
@@ -36,7 +34,7 @@ const UnderLineTabs = forwardRef(({ tabs, selectedIndex, onSelect }, ref) => {
                 });
               }}
             >
-              <Text fz="$2" fw="$3" opacity={isFocused ? 1 : 0.75} color={isFocused ? "$primary" : "$color"} animation="quick">{tab.label}</Text>
+              <Text lh="$2" fz="$2" fw="$3" opacity={isFocused ? 1 : 0.75} color={isFocused ? "$primary" : "$color"} animation="quick">{tab.label}</Text>
             </Button>
           );
         })}

@@ -2,12 +2,12 @@ import { getVariableValue } from "tamagui";
 import Animated, { useAnimatedStyle, interpolate, useSharedValue, withSpring } from "react-native-reanimated";
 import { YStack, XStack, Text, Button } from "tamagui";
 import Icon from "../../../ui/icon";
+import UnderLineTabs from "../tabs";
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
-export const NotifsDefaultHeader = ({ scrollY }) => {
+export const NotifsDefaultHeader = ({ scrollY, tabs, selectedIndex, setSelectedIndex  }) => {
   const color = getVariableValue("$primary", "color");
-
   const rotation = useSharedValue(0);
 
   const bigHeaderStyle = useAnimatedStyle(() => {
@@ -28,8 +28,8 @@ export const NotifsDefaultHeader = ({ scrollY }) => {
   });
 
   return (
-    <AnimatedYStack style={bigHeaderStyle} pt="$6" pb="$4" ph="$6">
-      <XStack justifyContent="space-between" alignItems="center">
+    <AnimatedYStack style={bigHeaderStyle} gap="$3" pt="$6" pb="$4">
+      <XStack ph="$6" justifyContent="space-between" alignItems="center">
         <Text color="$color" lh="$8" fw="$3" fz="$8">
           Уведомления
         </Text>
@@ -65,6 +65,7 @@ export const NotifsDefaultHeader = ({ scrollY }) => {
           />
         </XStack>
       </XStack>
+      <UnderLineTabs tabs={tabs} selectedIndex={selectedIndex} onSelect={setSelectedIndex} />
     </AnimatedYStack>
   );
 };
