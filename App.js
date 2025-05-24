@@ -48,9 +48,9 @@ export default function App() {
         <StatusBar translucent style="light" />
         <Provider store={store}>
           <TamaguiProvider config={configUI}>
-			<Theme name="dark">
-            <AppNavigator />
-			</Theme>
+            <Theme name="dark">
+              <AppNavigator />
+            </Theme>
           </TamaguiProvider>
         </Provider>
       </GestureHandlerRootView>

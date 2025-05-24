@@ -8,8 +8,38 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Platform } from "react-native";
 import { NotifsDefaultHeader } from "../components/common/notifsScreen/header/default";
 import { NotifsAnimatedHeader } from "../components/common/notifsScreen/header/animated";
+import Notification from "../components/common/notifsScreen/notification";
 
 const ReanimatedScrollView = Animated.ScrollView;
+
+const notification = [
+  {
+    user: {
+      nickname: "John Doe",
+      avatar: "https://via.placeholder.com/150",
+    },
+    type: "follow",
+    time: "2ч",
+  },
+  {
+    user: {
+      nickname: "John Doe",
+      avatar: "https://via.placeholder.com/150",
+    },
+    type: "reaction",
+    emoji: "👍",
+    time: "2ч",
+  },
+  {
+    user: {
+      nickname: "John Doe",
+      avatar: "https://via.placeholder.com/150",
+    },
+    type: "comment",
+    comment: "ававава",
+    time: "2ч",
+  },
+]
 
 const tabs = [
   { key: 'all', label: 'Все' },
@@ -37,10 +67,8 @@ export function NotifsScreen() {
         contentContainerStyle={{ paddingTop: Platform.OS === "ios" ? insets.top : insets.top }}
       >
         <NotifsDefaultHeader scrollY={scrollY} tabs={tabs} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} />
-        {Array.from({ length: 20 }).map((_, index) => (
-          <View key={index} h={50}>
-            <Text>Уведомление {index + 1}</Text>
-          </View>
+        {notification.map((notification, index) => (
+          <Notification key={index} notification={notification} />
         ))}
       </ReanimatedScrollView>
     </YStack>

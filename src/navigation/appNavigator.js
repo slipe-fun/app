@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import CustomTabBar from "../components/ui/tabBar";
+import CustomTabBar from "../components/ui/tabBar/tabBar";
 import BlogsScreen from "../screens/blogsScreen";
 import PublishScreen from "../screens/publishScreen";
 import SearchScreen from "../screens/searchScreen";
