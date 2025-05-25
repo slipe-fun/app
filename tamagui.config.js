@@ -20,6 +20,7 @@ const openRundeFont = createFont({
     2: '500',
     3: '600',
     4: '700',
+    true: '500',
   },
   lineHeight: {
     1: 16,
@@ -59,6 +60,18 @@ export const tokens = createTokens({
     6: 20,
     7: 22,
     8: 26,
+    9: 28,
+    10: 32,
+    11: 36,
+    12: 40,
+    13: 44,
+    14: 48,
+    15: 52,
+    16: 56,
+    17: 60,
+    18: 64,
+    19: 68,
+    20: 72,
     true: 16,
   },
   weight: {
@@ -91,6 +104,7 @@ export const tokens = createTokens({
     8: 24,
     9: 28,
     10: 32,
+    11: 60,
     true: 16,
   },
   radius: {
@@ -133,8 +147,11 @@ export const tokens = createTokens({
     elemBackgroundLight: 'rgba(0, 0, 0, 0.1)',
     indicator: 'rgba(255, 255, 255, 0.3)',
     transparentText: 'rgba(255, 255, 255, 0.65)',
-    transparentIcon: 'hsla(0, 0.00%, 100.00%, 0.35)',
+    transparentIconDark: 'rgba(255, 255, 255, 0.35)',
+    transparentIconLight: 'rgba(0, 0, 0, 0.35)',
     black: '#000',
+    separatorLight: 'rgba(0, 0, 0, 0.2)',
+    separatorDark: 'rgba(255, 255, 255, 0.2)',
   },
 })
 
@@ -173,14 +190,18 @@ const configUI = createTamagui({
 
   themes: {
     light: {
+      secondaryText: tokens.color.transparentIconLight,
       bg: tokens.color.white,
       color: tokens.color.black,
-      elemBackground: tokens.color.elemBackgroundLight,
+      separator: tokens.color.separatorLight,
+      backgroundTransparent: tokens.color.elemBackgroundLight,
     },
     dark: {
+      secondaryText: tokens.color.transparentIconDark,
       bg: tokens.color.black,
       color: tokens.color.white,
-      elemBackground: tokens.color.elemBackgroundDark,
+      separator: tokens.color.separatorDark,
+      backgroundTransparent: tokens.color.elemBackgroundDark,
     },
   },
 

@@ -9,9 +9,9 @@ export const GradientBorder = forwardRef(({
 	style,
 	borderWidth = 1,
 	borderRadius = 10,
-	gradientColors = ["rgba(255, 255, 255, 0.18)", "rgba(255, 255, 255, 0)"],
-	gradientStart = { x: 0.5, y: 0 },
-	gradientEnd = { x: 0.5, y: 1 },
+	gradientColors = ["rgba(255, 255, 255, 0.12)", "rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.12)"],
+	gradientStart = { x: 0, y: 0 },
+	gradientEnd = { x: 1, y: 1 },
 }, ref) => {
 	const maskStyles = useMemo(
 		() =>
