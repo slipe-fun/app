@@ -41,15 +41,16 @@ const NotificationContent = ({ type, comment }) => {
 const Notification = ({ notification }) => {
   const theme = useTheme();
 
+  const user = notification?.from_user;
   return (
     <View justifyContent="space-between" flexDirection="row" gap="$6">
       <Avatar circular size="$13">
-        <Avatar.Image src={notification.user.avatar} />
+        <Avatar.Image src={user?.avatar} />
         <Avatar.Fallback backgroundColor="$backgroundTransparent" />
       </Avatar>
       <View flex={1} gap="$2">
         <Text color="$color" fw="$3" fz="$2" lh="$2">
-          {notification.user.nickname}
+          {user?.nickname || user?.username}
           {"  "}
           <Text fw="$3" fz="$2" lh="$2" color="$secondaryText">
             {notification.time}

@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { YStack, Separator, Text } from "tamagui";
 import Animated, {
   useSharedValue,
@@ -9,20 +9,9 @@ import { Platform } from "react-native";
 import { NotifsDefaultHeader } from "../components/common/notifsScreen/header/default";
 import { NotifsAnimatedHeader } from "../components/common/notifsScreen/header/animated";
 import Notification from "../components/common/notifsScreen/notification";
+import { useFetchNotifications } from "../hooks/useFetchNotifications";
 
 const ReanimatedScrollView = Animated.ScrollView;
-
-const notifications = [
-  { user: { nickname: "John Doe", avatar: require("../../assets/test/ava-example.png") }, type: "follow", time: "2ч" },
-  { user: { nickname: "John Doe", avatar: require("../../assets/test/ava-example.png") }, type: "reaction", emoji: "0_32", time: "2ч" },
-  { user: { nickname: "John Doe", avatar: require("../../assets/test/ava-example.png") }, type: "comment", comment: "...", time: "2ч" },
-  { user: { nickname: "John Doe", avatar: require("../../assets/test/ava-example.png") }, type: "follow", time: "1д" },
-  { user: { nickname: "John Doe", avatar: require("../../assets/test/ava-example.png") }, type: "reaction", emoji: "0_16", time: "1д" },
-  { user: { nickname: "John Doe", avatar: require("../../assets/test/ava-example.png") }, type: "comment", comment: "...", time: "3д" },
-  { user: { nickname: "John Doe", avatar: require("../../assets/test/ava-example.png") }, type: "follow", time: "3д" },
-  { user: { nickname: "John Doe", avatar: require("../../assets/test/ava-example.png") }, type: "reaction", emoji: "0_29", time: "3д" },
-  { user: { nickname: "John Doe", avatar: require("../../assets/test/ava-example.png") }, type: "comment", comment: "...", time: "3д" },
-];
 
 const tabs = [
   { key: "all", label: "Все" },
@@ -31,26 +20,17 @@ const tabs = [
   { key: "comments", label: "Комментарии" },
 ];
 
-const timeSections = {
-  "2ч": "Недавно",
-  "1д": "Вчера",
-  "3д": "3 дня назад",
-};
+const types = ["all", "reaction", "subscribe", "comment"];
 
 export function NotifsScreen() {
   const scrollY = useSharedValue(0);
   const insets = useSafeAreaInsets();
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const { notifications, handleFetchNotifications, pages, addPage } = useFetchNotifications();
 
-  const sections = useMemo(() => {
-    const grouped = {};
-    notifications.forEach((item) => {
-      const section = timeSections[item.time] || item.time;
-      if (!grouped[section]) grouped[section] = [];
-      grouped[section].push(item);
-    });
-    return grouped;
-  }, []);
+  useEffect(() => {
+    handleFetchNotifications(types[selectedIndex]);
+  }, [selectedIndex]);
 
   const onScroll = useAnimatedScrollHandler((event) => {
     scrollY.value = event.contentOffset.y;
@@ -80,15 +60,15 @@ export function NotifsScreen() {
           setSelectedIndex={setSelectedIndex}
         />
 
-        {Object.entries(sections).map(([sectionTitle, items]) => (
-          <YStack key={sectionTitle}>
+        {types.map(type => (
+          <YStack key={type}>
             <Text color="$secondaryText" mb="$1" pl="$6" fz="$2" lh="$2">
-              {sectionTitle}
+              {type}
             </Text>
-            {items.map((notification, index) => (
+            {notifications.filter(item => item.type === type).map((notification, index) => (
               <YStack key={index} gap="$5" mt="$5" ph="$6">
                 <Notification notification={notification} />
-                {index < items.length - 1 && (
+                {index < notifications.length - 1 && (
                   <Separator
                     borderRadius="$full"
                     borderBottomWidth={2}

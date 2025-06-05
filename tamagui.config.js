@@ -139,19 +139,13 @@ export const tokens = createTokens({
   },
   color: {
     white: '#fff',
-    primary: '#0A84FF',
-    iosGlassButton: 'rgba(0, 0, 0, 0.24)',
-    glassButton: 'rgba(0, 0, 0, 0.5)',
-    red: '#E82132',
-    elemBackgroundDark: 'rgba(255, 255, 255, 0.1)',
-    elemBackgroundLight: 'rgba(0, 0, 0, 0.1)',
-    indicator: 'rgba(255, 255, 255, 0.3)',
-    transparentText: 'rgba(255, 255, 255, 0.65)',
-    transparentIconDark: 'rgba(255, 255, 255, 0.35)',
-    transparentIconLight: 'rgba(0, 0, 0, 0.35)',
+    primary: '#FF9F0A',
+    pink: '#FF66F5',
+    violet: '#A666FF',
+    red: '#FF7666',
+    elemBackground: 'rgba(255, 255, 255, 0.12)',
+    transparentText: 'rgba(255, 255, 255, 0.35)',
     black: '#000',
-    separatorLight: 'rgba(0, 0, 0, 0.2)',
-    separatorDark: 'rgba(255, 255, 255, 0.2)',
   },
 })
 
@@ -190,18 +184,16 @@ const configUI = createTamagui({
 
   themes: {
     light: {
-      secondaryText: tokens.color.transparentIconLight,
+      secondaryText: tokens.color.transparentText,
       bg: tokens.color.white,
       color: tokens.color.black,
-      separator: tokens.color.separatorLight,
-      backgroundTransparent: tokens.color.elemBackgroundLight,
+      backgroundTransparent: tokens.color.elemBackground,
     },
     dark: {
-      secondaryText: tokens.color.transparentIconDark,
+      secondaryText: tokens.color.transparentText,
       bg: tokens.color.black,
       color: tokens.color.white,
-      separator: tokens.color.separatorDark,
-      backgroundTransparent: tokens.color.elemBackgroundDark,
+      backgroundTransparent: tokens.color.elemBackground,
     },
   },
 
