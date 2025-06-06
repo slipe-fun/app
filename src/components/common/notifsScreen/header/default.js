@@ -2,11 +2,10 @@ import { getVariableValue } from "tamagui";
 import Animated, { useAnimatedStyle, interpolate, useSharedValue, withSpring } from "react-native-reanimated";
 import { YStack, XStack, Text, Button } from "tamagui";
 import Icon from "../../../ui/icon";
-import UnderLineTabs from "../tabs";
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
-export const NotifsDefaultHeader = ({ scrollY, tabs, selectedIndex, setSelectedIndex  }) => {
+export const NotifsDefaultHeader = ({ scrollY }) => {
   const color = getVariableValue("$primary", "color");
   const rotation = useSharedValue(0);
 
@@ -65,7 +64,6 @@ export const NotifsDefaultHeader = ({ scrollY, tabs, selectedIndex, setSelectedI
           />
         </XStack>
       </XStack>
-      <UnderLineTabs tabs={tabs} selectedIndex={selectedIndex} onSelect={setSelectedIndex} />
     </AnimatedYStack>
   );
 };

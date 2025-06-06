@@ -1,6 +1,7 @@
 import { Avatar, Text, View, Button, useTheme, Image } from "tamagui";
 import Icon from "../../ui/icon";
 import { GradientBorder } from "../../ui/gradientBorder";
+import { URLS } from "../../../constants/urls";
 
 const emojiImages = {
   "0_16": require("../../../../assets/emojis/0_16.png"),
@@ -14,22 +15,22 @@ const emojiImages = {
 const NotificationContent = ({ type, comment }) => {
   const renderContent = () => {
     switch (type) {
-      case "follow":
+      case "subscribe":
         return (
           <Text lh="$1" fz="$1" color="$secondaryText">
-            Подписался на вас
+            Subscribed to you
           </Text>
         );
       case "reaction":
         return (
           <Text lh="$1" fz="$1" color="$secondaryText">
-            Оставил реакцию
+            Reacted your post
           </Text>
         );
       case "comment":
         return (
           <Text lh="$1" fz="$1" color="$secondaryText">
-            Оставил комментарий: {comment}
+            Left a comment: {comment}
           </Text>
         );
     }
@@ -45,7 +46,7 @@ const Notification = ({ notification }) => {
   return (
     <View justifyContent="space-between" flexDirection="row" gap="$6">
       <Avatar circular size="$13">
-        <Avatar.Image src={user?.avatar} />
+        <Avatar.Image src={URLS.CDN_AVATARS_URL + user?.avatar} />
         <Avatar.Fallback backgroundColor="$backgroundTransparent" />
       </Avatar>
       <View flex={1} gap="$2">
@@ -58,7 +59,7 @@ const Notification = ({ notification }) => {
         </Text>
         <NotificationContent
           type={notification.type}
-          comment={notification.comment}
+          comment={notification?.object?.text}
         />
       </View>
       <GradientBorder style={{ height: 40, marginTop: 2 }} borderRadius={99}>
@@ -70,7 +71,7 @@ const Notification = ({ notification }) => {
           backgroundColor="$transparent"
           p={0}
         >
-          <Image width="$9" height="$9" source={emojiImages[notification.emoji]} />
+          <Image width="$9" height="$9" source={emojiImages[notification?.object?.name]} />
         </Button>
         ) : (
           <Button

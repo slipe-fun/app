@@ -5,13 +5,11 @@ const unique = arr => [...new Map(arr.map(item => [item.date, item])).values()];
 
 export function useFetchNotifications() {
     const [notifications, setNotifications] = useState([]);
-    const [pages, setPages] = useState([1, 1, 1]);
-    const types = ["reaction", "subscribe", "comment"];
+    const [page, setPage] = useState(1);
 
-    async function fetchNotifications(type) {
-        if (!types.includes(type)) return;
+    async function fetchNotifications() {
         try {
-            const request = await api.v1.get(`/notifications/get?page=${pages[types.indexOf(type)]}&type=${type}`);
+            const request = await api.v1.get(`/notifications/get?page=${page}&type=all`);
             const localNotifications = request.data?.success || [];
             if (Object.keys(localNotifications).length === 0) return;
             setNotifications(notifications => unique([...notifications, ...Object.values(localNotifications) || []]));
@@ -20,18 +18,13 @@ export function useFetchNotifications() {
         }
     }
 
-    function handleFetchNotifications(type) {
-        fetchNotifications(type);
+    function handleFetchNotifications() {
+        fetchNotifications();
     }
 
-    function addPage(type) {
-        if (!types.includes(type)) return;
-        setPages(pages => {
-            const newPages = [...pages];
-            newPages[types.indexOf(type)]++;
-            return newPages;
-        });
+    function addPage() {
+        setPage(page => page + 1);
     }
 
-    return { notifications, handleFetchNotifications, pages, addPage }
+    return { notifications, handleFetchNotifications, page, addPage }
 }

@@ -8,9 +8,8 @@ import { YStack, XStack, Text, Button, getVariableValue } from "tamagui";
 import Icon from "../../../ui/icon";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Platform } from "react-native";
-import UnderLineTabs from "../tabs";
 
-export const NotifsAnimatedHeader = ({ scrollY, tabs, selectedIndex, setSelectedIndex }) => {
+export const NotifsAnimatedHeader = ({ scrollY }) => {
   const rotation = useSharedValue(0);
   const color = getVariableValue("$primary", "color");
   const insets = useSafeAreaInsets();
@@ -82,7 +81,6 @@ export const NotifsAnimatedHeader = ({ scrollY, tabs, selectedIndex, setSelected
             icon={<Icon size={31} icon="gear" color={color} />}
           />
         </XStack>
-        <UnderLineTabs tabs={tabs} selectedIndex={selectedIndex} onSelect={setSelectedIndex} />
       </YStack>
     </Animated.View>
   );

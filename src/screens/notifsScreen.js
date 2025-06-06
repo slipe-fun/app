@@ -13,24 +13,14 @@ import { useFetchNotifications } from "../hooks/useFetchNotifications";
 
 const ReanimatedScrollView = Animated.ScrollView;
 
-const tabs = [
-  { key: "all", label: "Все" },
-  { key: "subscribes", label: "Подписки" },
-  { key: "reactions", label: "Реакции" },
-  { key: "comments", label: "Комментарии" },
-];
-
-const types = ["all", "reaction", "subscribe", "comment"];
-
 export function NotifsScreen() {
   const scrollY = useSharedValue(0);
   const insets = useSafeAreaInsets();
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const { notifications, handleFetchNotifications, pages, addPage } = useFetchNotifications();
+  const { notifications, handleFetchNotifications, page, addPage } = useFetchNotifications();
 
   useEffect(() => {
-    handleFetchNotifications(types[selectedIndex]);
-  }, [selectedIndex]);
+    handleFetchNotifications();
+  }, [page]);
 
   const onScroll = useAnimatedScrollHandler((event) => {
     scrollY.value = event.contentOffset.y;
@@ -40,9 +30,6 @@ export function NotifsScreen() {
     <YStack f={1} backgroundColor="$black">
       <NotifsAnimatedHeader
         scrollY={scrollY}
-        tabs={tabs}
-        selectedIndex={selectedIndex}
-        setSelectedIndex={setSelectedIndex}
       />
 
       <ReanimatedScrollView
@@ -55,29 +42,18 @@ export function NotifsScreen() {
       >
         <NotifsDefaultHeader
           scrollY={scrollY}
-          tabs={tabs}
-          selectedIndex={selectedIndex}
-          setSelectedIndex={setSelectedIndex}
         />
-
-        {types.map(type => (
-          <YStack key={type}>
-            <Text color="$secondaryText" mb="$1" pl="$6" fz="$2" lh="$2">
-              {type}
-            </Text>
-            {notifications.filter(item => item.type === type).map((notification, index) => (
-              <YStack key={index} gap="$5" mt="$5" ph="$6">
-                <Notification notification={notification} />
-                {index < notifications.length - 1 && (
-                  <Separator
-                    borderRadius="$full"
-                    borderBottomWidth={2}
-                    borderColor="$separator"
-                    marginLeft={60}
-                  />
-                )}
-              </YStack>
-            ))}
+        {notifications.map((notification, index) => (
+          <YStack key={index} gap="$5" mt="$5" ph="$6">
+            <Notification notification={notification} />
+            {index < notifications.length - 1 && (
+              <Separator
+                borderRadius="$full"
+                borderBottomWidth={2}
+                borderColor="$separator"
+                marginLeft={60}
+              />
+            )}
           </YStack>
         ))}
       </ReanimatedScrollView>
