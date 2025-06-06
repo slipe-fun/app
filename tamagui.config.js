@@ -13,6 +13,7 @@ const openRundeFont = createFont({
     6: 20,
     7: 22,
     8: 26,
+    9: 28,
     true: 16,
   },
   weight: {
@@ -31,6 +32,7 @@ const openRundeFont = createFont({
     6: 24,
     7: 27,
     8: 31,
+    9: 34,
   },
   letterSpacing: {
     1: 0,
@@ -90,6 +92,7 @@ export const tokens = createTokens({
     6: 24,
     7: 27,
     8: 31,
+    9: 34,
     true: 22,
   },
   space: {
@@ -218,6 +221,7 @@ const configUI = createTamagui({
     pr: 'paddingRight',
     pl: 'paddingLeft',
     mt: 'marginTop',
+    br: 'borderRadius',
     mb: 'marginBottom',
     mr: 'marginRight',
     ml: 'marginLeft',
