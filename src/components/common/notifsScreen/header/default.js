@@ -5,7 +5,7 @@ import Icon from "../../../ui/icon";
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
-export const NotifsDefaultHeader = ({ scrollY }) => {
+export const NotifsDefaultHeader = ({ scrollY, refresh }) => {
   const color = getVariableValue("$primary", "color");
   const rotation = useSharedValue(0);
 
@@ -30,7 +30,7 @@ export const NotifsDefaultHeader = ({ scrollY }) => {
     <AnimatedYStack style={bigHeaderStyle} gap="$3" pt="$6" pb="$4">
       <XStack ph="$6" justifyContent="space-between" alignItems="center">
         <Text color="$color" lh="$8" fw="$3" fz="$8">
-          Уведомления
+          Notifications
         </Text>
         <XStack gap="$6">
         <Button
@@ -41,6 +41,7 @@ export const NotifsDefaultHeader = ({ scrollY }) => {
               scale: 0.9,
             }}
             onPress={() => {
+              refresh()
               rotation.value = withSpring(rotation.value + 180, {
                 damping: 20,
                 mass: 1.2,

@@ -18,6 +18,11 @@ export function useFetchNotifications() {
         }
     }
 
+    function refresh () {
+        setNotifications([]);
+        setPage(1);
+    }
+
     function addPage() {
         setPage(page => page + 1);
     }
@@ -26,5 +31,5 @@ export function useFetchNotifications() {
         fetchNotifications();
     }, [page])
 
-    return { notifications, page, addPage }
+    return { notifications, page, addPage, refresh }
 }

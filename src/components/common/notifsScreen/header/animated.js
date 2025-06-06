@@ -9,7 +9,7 @@ import Icon from "../../../ui/icon";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Platform } from "react-native";
 
-export const NotifsAnimatedHeader = ({ scrollY }) => {
+export const NotifsAnimatedHeader = ({ scrollY, refresh }) => {
   const rotation = useSharedValue(0);
   const color = getVariableValue("$primary", "color");
   const insets = useSafeAreaInsets();
@@ -57,6 +57,7 @@ export const NotifsAnimatedHeader = ({ scrollY }) => {
               scale: 0.9,
             }}
             onPress={() => {
+              refresh()
               rotation.value = withSpring(rotation.value + 180, {
                 damping: 20,
                 mass: 1.2,
@@ -70,7 +71,7 @@ export const NotifsAnimatedHeader = ({ scrollY }) => {
             }
           />
           <Text color="white" fw="$3" fz="$4" lh="$4">
-            Уведомления
+            Notifications
           </Text>
           <Button
             p={0}

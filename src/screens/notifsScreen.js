@@ -34,7 +34,7 @@ const NotificationsList = ({ notifications }) => {
 export function NotifsScreen() {
   const scrollY = useSharedValue(0);
   const insets = useSafeAreaInsets();
-  const { notifications, addPage } = useFetchNotifications();
+  const { notifications, addPage, refresh } = useFetchNotifications();
   const listRef = useAnimatedRef();
 
   const onScroll = useAnimatedScrollHandler((event) => {
@@ -56,7 +56,7 @@ export function NotifsScreen() {
   ), [notifications]);
 
   const ListHeaderComponent = useCallback(() => (
-    <NotifsDefaultHeader scrollY={scrollY} />
+    <NotifsDefaultHeader scrollY={scrollY} refresh={refresh} />
   ), []);
 
   const keyExtractor = useCallback((item) => item.id || Math.random().toString(), []);
@@ -67,7 +67,7 @@ export function NotifsScreen() {
 
   return (
     <YStack f={1} backgroundColor="$black">
-      <NotifsAnimatedHeader scrollY={scrollY} />
+      <NotifsAnimatedHeader scrollY={scrollY} refresh={refresh} />
       
       <AnimatedFlashList
         ref={listRef}
