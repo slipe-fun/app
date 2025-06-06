@@ -45,6 +45,7 @@ export const NotifsAnimatedHeader = ({ scrollY }) => {
       <YStack
         gap="$3"
         backgroundColor="$bg"
+        pb="$5"
         pt={Platform.OS === "ios" ? insets.top : insets.top + 10}
       >
         <XStack ph="$6" alignItems="center" justifyContent="space-between">

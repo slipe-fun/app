@@ -34,8 +34,7 @@ const TabBarItem = ({ route, isFocused, onPress, iconName }) => {
     }, [isFocused, opacityValue, colorValue]);
 
     return (
-        <View style={styles.tabItem}>
-            <Pressable onPress={onPress}>
+            <Pressable style={styles.tabItem} onPress={onPress}>
                 {route.name === "Publish" ? (
                     <Animated.View
                         style={[
@@ -56,7 +55,6 @@ const TabBarItem = ({ route, isFocused, onPress, iconName }) => {
                     </Animated.View>
                 )}
             </Pressable>
-        </View>
     );
 };
 

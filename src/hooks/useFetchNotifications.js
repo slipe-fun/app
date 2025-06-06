@@ -18,13 +18,13 @@ export function useFetchNotifications() {
         }
     }
 
-    function handleFetchNotifications() {
-        fetchNotifications();
-    }
-
     function addPage() {
         setPage(page => page + 1);
     }
 
-    return { notifications, handleFetchNotifications, page, addPage }
+    useEffect(() => {
+        fetchNotifications();
+    }, [page])
+
+    return { notifications, page, addPage }
 }

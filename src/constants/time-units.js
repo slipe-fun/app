@@ -1,9 +1,9 @@
 export default [
-    { label: "year", seconds: 31536000 },
-    { label: "month", seconds: 2592000 },
-    { label: "week", seconds: 604800 },
-    { label: "day", seconds: 86400 },
-    { label: "hour", seconds: 3600 },
-    { label: "minute", seconds: 60 },
-    { label: "second", seconds: 1 },
+    { label: "y", seconds: 31536000 },
+    { label: "m", seconds: 2592000 },
+    { label: "w", seconds: 604800 },
+    { label: "d", seconds: 86400 },
+    { label: "h", seconds: 3600 },
+    { label: "min", seconds: 60 },
+    { label: "s", seconds: 1 },
 ];
