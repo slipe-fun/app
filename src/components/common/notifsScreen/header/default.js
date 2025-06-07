@@ -12,8 +12,8 @@ export const NotifsDefaultHeader = ({ scrollY, refresh }) => {
   const bigHeaderStyle = useAnimatedStyle(() => {
     const t = scrollY.value;
     const opacity = interpolate(t, [0, 60], [1, 0], "clamp");
-    const translateY = interpolate(t, [0, 60], [0, -30], "clamp");
-    const scale = interpolate(t, [0, 60], [1, 0.8], "clamp");
+    const translateY = interpolate(t, [0, 60], [0, -20], "clamp");
+    const scale = interpolate(t, [0, 60], [1, 0.96], "clamp");
     return {
       opacity,
       transform: [{ translateY }, { scale }],
