@@ -20,6 +20,7 @@ export const SearchHeader = ({ scrollY }) => {
   const color = getVariableValue("$primary", "color");
   const [isFocused, setIsFocused] = useState(false)
   const insets = useSafeAreaInsets();
+  const [titleHeight, setTitleHeight] = useState(36);
   const titleOpacity = useSharedValue(1)
 
   const bigHeaderStyle = useAnimatedStyle(() => {
@@ -36,8 +37,9 @@ export const SearchHeader = ({ scrollY }) => {
   });
 
   const titleStyle = useAnimatedStyle(() => {
+    if (titleHeight === 0) return;
     const opacity = interpolate(titleOpacity.value, [0, 1], [0, 1]);
-    const height = interpolate(titleOpacity.value, [0, 1], [0, 36]);
+    const height = interpolate(titleOpacity.value, [0, 1], [0, titleHeight]);
     return {
       opacity,
       height,
@@ -59,6 +61,10 @@ export const SearchHeader = ({ scrollY }) => {
       <AnimatedXStack
         justifyContent="space-between"
         alignItems="center"
+        onLayout={(e) => {
+          const height = Math.round(e.nativeEvent.layout.height);
+          if (titleHeight === 0 && height > 0) setTitleHeight(height);
+        }}
         style={titleStyle}
       >
         <Text color="$color" lh="$9" fw="$3" fz="$9">

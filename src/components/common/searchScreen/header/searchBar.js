@@ -1,14 +1,13 @@
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from "react";
 import Animated, {
   useSharedValue,
   withTiming,
   useAnimatedStyle,
   Easing,
-} from 'react-native-reanimated';
-import { View, XStack, Text, Input, useTheme, Button } from 'tamagui';
-import Icon from '../../../ui/icon';
+} from "react-native-reanimated";
+import { View, XStack, Text, Input, useTheme, Button } from "tamagui";
+import Icon from "../../../ui/icon";
 
-const AnimatedXStack = Animated.createAnimatedComponent(XStack);
 const AnimatedView = Animated.createAnimatedComponent(View);
 
 const SearchBar = ({ isButton = false, setIsFocused, isFocused }) => {
@@ -16,31 +15,31 @@ const SearchBar = ({ isButton = false, setIsFocused, isFocused }) => {
   const inputRef = useRef();
   const color = theme.secondaryText.get();
   const primary = theme.primary.get();
-
+  const [cancelWidth, setCancelWidth] = useState(0);
   const cancelOpacity = useSharedValue(0);
-  const inputWidth = useSharedValue(1);
+  const cancelMarginRight = useSharedValue(0);
 
-  useEffect(() => {
-    if (isFocused) {
-      inputWidth.value = withTiming(0.8, { duration: 200, easing: Easing.inOut(Easing.ease) });
-      cancelOpacity.value = withTiming(1, { duration: 200 });
-    } else {
-      inputWidth.value = withTiming(1, { duration: 200, easing: Easing.inOut(Easing.ease) });
-      cancelOpacity.value = withTiming(0, { duration: 200 });
-    }
-  }, [isFocused]);
-
-  const inputStyle = useAnimatedStyle(() => ({
-    width: `${inputWidth.value * 100}%`,
-  }));
   const cancelStyle = useAnimatedStyle(() => ({
+    marginRight: -cancelMarginRight.value,
     opacity: cancelOpacity.value,
   }));
 
+  useEffect(() => {
+    if (cancelWidth === 0) return;
+
+    cancelMarginRight.value = withTiming(isFocused ? 0 : cancelWidth + 16, {
+      duration: 200,
+      easing: Easing.inOut(Easing.ease),
+    });
+    cancelOpacity.value = withTiming(isFocused ? 1 : 0, {
+      duration: 200,
+    });
+  }, [isFocused, cancelWidth]);
+
   return (
     <XStack width="$full" gap="$6" alignItems="center">
-      <AnimatedXStack
-        style={inputStyle}
+      <XStack
+        flex={1}
         onPress={() => {
           setIsFocused(true);
           inputRef.current?.focus();
@@ -50,8 +49,9 @@ const SearchBar = ({ isButton = false, setIsFocused, isFocused }) => {
         br="$4"
         h="$13"
       >
-        <AnimatedView
+        <View
           gap="$4"
+          width="$full"
           flex={1}
           flexDirection="row"
           ph="$4"
@@ -64,7 +64,7 @@ const SearchBar = ({ isButton = false, setIsFocused, isFocused }) => {
             onBlur={() => setIsFocused(false)}
             ref={inputRef}
             fz="$2"
-            flex={1}
+            indicatorColor={color}
             placeholder="Поиск по вселенной"
             placeholderTextColor={color}
             p="$0"
@@ -72,7 +72,7 @@ const SearchBar = ({ isButton = false, setIsFocused, isFocused }) => {
             fw="$3"
             h="$13"
           />
-        </AnimatedView>
+        </View>
         {isButton && (
           <Button
             backgroundColor="$transparent"
@@ -85,12 +85,15 @@ const SearchBar = ({ isButton = false, setIsFocused, isFocused }) => {
             <Icon size={24} icon="gear" color={primary} />
           </Button>
         )}
-      </AnimatedXStack>
+      </XStack>
 
       <AnimatedView style={cancelStyle}>
         <Button
           backgroundColor="$transparent"
           alignItems="center"
+          onLayout={(e) => {
+            setCancelWidth(Math.round(e.nativeEvent.layout.width));
+          }}
           p="$0"
           height="auto"
           onPress={() => {
@@ -98,7 +101,7 @@ const SearchBar = ({ isButton = false, setIsFocused, isFocused }) => {
             inputRef.current?.blur();
           }}
         >
-          <Text fz="$4" lh="$4" fw="$3" color="$primary">
+          <Text fz="$4" lh="$4" fw="$2" color="$primary">
             Cancel
           </Text>
         </Button>
