@@ -64,6 +64,7 @@ const SearchBar = ({ isButton = false, setIsFocused, isFocused }) => {
             onBlur={() => setIsFocused(false)}
             ref={inputRef}
             fz="$2"
+            f={1}
             indicatorColor={color}
             placeholder="Поиск по вселенной"
             placeholderTextColor={color}

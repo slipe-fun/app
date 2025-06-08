@@ -35,8 +35,6 @@ const UserCard = ({ user, posts, active, usersNavigation, goToNext, goToPrevious
 		<GradientBorder
 			style={styles.cardContainer}
 			borderRadius={14}
-			gradientColors={["rgba(255, 255, 255, 0.18)", "rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0.18)"]}
-			borderWidth={1}
 		>
 			<Image source={{ uri: URLS.CDN_POSTS_URL + userPosts[idx]?.image }} style={styles.postImage} />
 
