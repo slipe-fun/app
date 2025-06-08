@@ -12,8 +12,8 @@ export const categories = [
         secondaryColor: '#494437',
     },
     {
-        name: 'Cooking',
-        thumbnail: require('../../assets/thumbnails/categories/cooking.webp'),
+        name: 'Food',
+        thumbnail: require('../../assets/thumbnails/categories/food.webp'),
         color: '#D07A32',
         secondaryColor: '#573314',
     },
@@ -54,8 +54,20 @@ export const categories = [
         secondaryColor: '#B0691C',
     },
     {
-        name: 'Shitposting',
-        thumbnail: require('../../assets/thumbnails/categories/shitposting.webp'),
+        name: 'Movies',
+        thumbnail: require('../../assets/thumbnails/categories/movies.webp'),
+        color: '#8C6851',
+        secondaryColor: '#2A1F18',
+    },
+    {
+        name: 'Finance',
+        thumbnail: require('../../assets/thumbnails/categories/finance.webp'),
+        color: '#DFBA84',
+        secondaryColor: '#A2712A',
+    },
+    {
+        name: 'Shitpost',
+        thumbnail: require('../../assets/thumbnails/categories/shitpost.webp'),
         color: '#777472',
         secondaryColor: '#2A2928',
     }
