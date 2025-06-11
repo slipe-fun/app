@@ -5,6 +5,7 @@ import CustomTabBar from "../components/ui/tabBar/tabBar";
 import BlogsScreen from "../screens/blogsScreen";
 import PublishScreen from "../screens/publishScreen";
 import SearchScreen from "../screens/searchScreen";
+import CategoryPage from "../screens/search/categoryPage";
 import ProfileScreen from "../screens/profileScreen";
 import AuthNavigator from "./AuthNavigator";
 import { ROUTES } from "../constants/routes";
@@ -70,11 +71,12 @@ const AppNavigator = () => {
 	return (
 		<AuthContext.Provider value={authContextValue}>
 			<NavigationContainer>
-				<RootStack.Navigator screenOptions={{ headerShown: false }}>
+				<RootStack.Navigator screenOptions={{ headerShown: false, animationTypeForReplace: 'push', }}>
 					{isAuthenticated ? (
 						<>
 							<RootStack.Screen name='MainApp' component={MainTabNavigator} />
 							<RootStack.Screen name={ROUTES.PUBLISH_EDITOR} component={EditorScreen} />
+							<RootStack.Screen name={ROUTES.CATEGORY_PAGE} component={CategoryPage} />
 						</>
 					) : (
 						<RootStack.Screen name={ROUTES.AUTH} component={AuthNavigator} />

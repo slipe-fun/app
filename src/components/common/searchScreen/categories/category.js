@@ -1,7 +1,10 @@
 import { Button, View, Image, Text } from "tamagui";
 import Icon from "../../../ui/icon";
+import { useNavigation } from "@react-navigation/native";
 
-const Category = ({ category, colIndex, rowIndex }) => {
+const Category = ({ category }) => {
+  const navigation = useNavigation()
+
   return (
     <Button
       unstyled
@@ -17,16 +20,19 @@ const Category = ({ category, colIndex, rowIndex }) => {
         scale: 0.98,
         opacity: 0.9,
       }}
+      onPress={() => navigation.navigate('Category_Page', { category })}
     >
       <View alignSelf="stretch" w="$full" alignItems="flex-end" p="$5.5">
         <Icon size={18} icon="arrowUpRight" color={category.secondaryColor} />
       </View>
       <View flex={1} alignItems="center" justifyContent="center">
-        <Image
-          source={category.thumbnail}
-          w={category.thumbnailSize}
-          h={category.thumbnailSize}
-        />
+          <Image
+            source={category.thumbnail}
+            style={{
+              width: category.thumbnailSize,
+              height: category.thumbnailSize,
+            }}
+          />
       </View>
       <View alignSelf="stretch" w="$full" p="$6">
         <Text

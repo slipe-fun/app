@@ -3,8 +3,7 @@ import Animated, {
   useAnimatedStyle,
   interpolate,
   useSharedValue,
-  withTiming,
-  Easing,
+  withSpring,
 } from "react-native-reanimated";
 import { YStack, XStack, Text, Button } from "tamagui";
 import Icon from "../../../ui/icon";
@@ -46,10 +45,12 @@ export const SearchHeader = ({ scrollY, setIsFocused, isFocused }) => {
   })
 
   useEffect(() => {
-    titleOpacity.value = withTiming(isFocused ? 0 : 1, {
-      duration: 200, easing: Easing.inOut(Easing.ease)
-    })
-  }, [isFocused])
+    titleOpacity.value = withSpring(isFocused ? 0 : 1, {
+      mass: 0.3,
+      damping: 16,
+      stiffness: 120,
+    });
+  }, [isFocused]);
 
   return (
     <AnimatedYStack

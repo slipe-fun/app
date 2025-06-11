@@ -13,4 +13,7 @@ export const ROUTES = {
 
   // Publish Routes
   PUBLISH_EDITOR: 'Publish_Editor',
+
+  // Search Routes
+  CATEGORY_PAGE: 'Category_Page',
 }; 

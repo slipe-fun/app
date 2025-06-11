@@ -1,12 +1,12 @@
 import { useRef, useEffect, useState } from "react";
 import Animated, {
   useSharedValue,
-  withTiming,
+  withSpring,
   useAnimatedStyle,
-  Easing,
 } from "react-native-reanimated";
 import { View, XStack, Text, Input, useTheme, Button } from "tamagui";
 import Icon from "../../../ui/icon";
+import { BackHandler } from "react-native";
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
@@ -25,14 +25,39 @@ const SearchBar = ({ isButton = false, setIsFocused, isFocused }) => {
   }));
 
   useEffect(() => {
+    const onBackPress = () => {
+      if (isFocused) {
+        inputRef.current?.blur();
+        return true;
+      } else {
+        return false;
+      }
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      onBackPress
+    );
+
+    return () => backHandler.remove();
+  }, [isFocused]);
+
+  useEffect(() => {
     if (cancelWidth === 0) return;
 
-    cancelMarginRight.value = withTiming(isFocused ? 0 : cancelWidth + 16, {
-      duration: 200,
-      easing: Easing.inOut(Easing.ease),
+    cancelMarginRight.value = withSpring(isFocused ? 0 : cancelWidth + 16, {
+      mass: 0.4,
+      damping: 18,
+      stiffness: 140,
+      overshootClamping: false,
+      restDisplacementThreshold: 0.1,
+      restSpeedThreshold: 0.1,
     });
-    cancelOpacity.value = withTiming(isFocused ? 1 : 0, {
-      duration: 200,
+
+    cancelOpacity.value = withSpring(isFocused ? 1 : 0, {
+      mass: 0.3,
+      damping: 16,
+      stiffness: 120,
     });
   }, [isFocused, cancelWidth]);
 
