@@ -6,13 +6,11 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Platform } from "react-native";
 import SearchBar from "./searchBar";
 import { YStack } from "tamagui";
-import { useState } from "react";
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
-export const SearchAnimatedHeader = ({ scrollY }) => {
+export const SearchAnimatedHeader = ({ scrollY, setIsFocused, isFocused }) => {
   const insets = useSafeAreaInsets();
-  const [isFocused, setIsFocused] = useState(false)
 
   const smallHeaderStyle = useAnimatedStyle(() => {
     const opacity = interpolate(scrollY.value, [20, 60], [0, 1], "clamp");

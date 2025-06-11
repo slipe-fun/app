@@ -46,7 +46,7 @@ const SearchBar = ({ isButton = false, setIsFocused, isFocused }) => {
         }}
         alignItems="center"
         backgroundColor="$backgroundTransparent"
-        br="$4"
+        br="$full"
         h="$13"
       >
         <View

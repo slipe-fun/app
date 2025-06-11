@@ -16,9 +16,8 @@ import SearchBar from "./searchBar";
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 const AnimatedXStack = Animated.createAnimatedComponent(XStack);
 
-export const SearchHeader = ({ scrollY }) => {
+export const SearchHeader = ({ scrollY, setIsFocused, isFocused }) => {
   const color = getVariableValue("$primary", "color");
-  const [isFocused, setIsFocused] = useState(false)
   const insets = useSafeAreaInsets();
   const [titleHeight, setTitleHeight] = useState(36);
   const titleOpacity = useSharedValue(1)
