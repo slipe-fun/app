@@ -25,6 +25,7 @@ const CategoryPageHeader = ({ category, scrollY }) => {
     >
       <AnimatedView
         w="$full"
+        zIndex="$1"
         entering={FadeInDown.springify().mass(0.5).damping(15).stiffness(100)}
         flexDirection="row"
         justifyContent="space-between"
@@ -49,7 +50,7 @@ const CategoryPageHeader = ({ category, scrollY }) => {
           width="$12"
           height="$12"
           br="$full"
-          onPress={() => {Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft)}}
+          onPress={() => {Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid)}}
           animation="fast"
           backgroundColor={category.secondaryColor}
           pressStyle={{
@@ -62,7 +63,7 @@ const CategoryPageHeader = ({ category, scrollY }) => {
         flex={1}
         alignItems="center"
         justifyContent="center"
-        entering={FadeInDown.delay(100).springify().mass(0.5).damping(15).stiffness(100)}
+        entering={FadeInDown.delay(150).springify().mass(0.5).damping(15).stiffness(100)}
       >
         <Image
           source={category.thumbnail}
@@ -74,10 +75,10 @@ const CategoryPageHeader = ({ category, scrollY }) => {
       </AnimatedView>
       <AnimatedView
         alignSelf="stretch"
-        gap="$3"
+        gap="$2"
         w="$full"
         p="$7"
-        entering={FadeInDown.delay(200).springify().mass(0.5).damping(15).stiffness(100)}
+        entering={FadeInDown.delay(300).springify().mass(0.5).damping(15).stiffness(100)}
       >
         <Text
           textAlign="center"

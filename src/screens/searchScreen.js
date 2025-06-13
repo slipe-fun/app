@@ -10,6 +10,8 @@ import { SearchAnimatedHeader } from "../components/common/searchScreen/header/a
 import CategoryGrid from "../components/common/searchScreen/categories/categoryGrid";
 import { Results } from "../components/common/searchScreen/searchContent/results";
 import { useState, useEffect } from "react";
+import { Platform } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const springConfig = {
   mass: 0.4,
@@ -19,6 +21,7 @@ const springConfig = {
 
 export function SearchScreen() {
   const scrollY = useSharedValue(0);
+  const insets = useSafeAreaInsets();
   const [isFocused, setIsFocused] = useState(false);
 
   const categoryOpacity = useSharedValue(1);
@@ -43,7 +46,7 @@ export function SearchScreen() {
     opacity: resultsOpacity.value,
     position: "absolute",
     zIndex: 100,
-    top: 94,
+    top: 58 + (Platform.OS === "ios" ? insets.top : insets.top + 10),
     left: 0,
     right: 0,
     pointerEvents: resultsOpacity.value === 0 ? "none" : "auto",
