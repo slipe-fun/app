@@ -1,21 +1,20 @@
-import { View, StyleSheet } from "react-native";
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
 import { COLORS } from "../constants/theme";
-import { requireNativeComponent } from "react-native";
-import { Image } from "tamagui";
-
-const LiveShaderView = requireNativeComponent('LiveShaderView');
+import { Image } from 'tamagui';
 
 const ProfileScreen = () => {
   return (
     <View style={styles.container}>
-      <LiveShaderView style={styles.shaderView} />
-      <Image 
-        source={require('../../assets/test/bg-example.png')} 
+      <Image
+        source={require('../../assets/test/bg-example.png')}
         style={styles.backgroundImage}
       />
     </View>
   );
 };
+
+export default ProfileScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -23,7 +22,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.black,
   },
   shaderView: {
-    flex: 1,
     position: 'absolute',
     top: 0,
     left: 0,
@@ -37,5 +35,3 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
 });
-
-export default ProfileScreen;
