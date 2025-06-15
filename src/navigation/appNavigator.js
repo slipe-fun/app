@@ -2,17 +2,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CustomTabBar from "../components/ui/tabBar/tabBar";
-import BlogsScreen from "../screens/blogsScreen";
-import PublishScreen from "../screens/publishScreen";
-import SearchScreen from "../screens/searchScreen";
-import CategoryPage from "../screens/search/categoryPage";
-import ProfileScreen from "../screens/profileScreen";
+import { BlogsScreen, SearchScreen, CategoryPage, ProfileScreen, EditorScreen } from "../screens";
 import AuthNavigator from "./AuthNavigator";
 import { ROUTES } from "../constants/routes";
 import { useState, createContext, useContext, useEffect } from "react";
 import { storage } from "../lib/storage";
-import NotifsScreen from "../screens/notifsScreen";
-import EditorScreen from "../screens/publish/editorScreen";
 
 export const AuthContext = createContext(null);
 
@@ -28,10 +22,8 @@ const MainTabNavigator = () => {
 			}}
 		>
 			<Tab.Screen name={ROUTES.BLOGS} component={BlogsScreen} />
-			<Tab.Screen name={ROUTES.NOTIFS} component={NotifsScreen} />
-			<Tab.Screen name={ROUTES.PUBLISH} component={PublishScreen} />
-			<Tab.Screen name={ROUTES.SEARCH} component={SearchScreen} />
 			<Tab.Screen name={ROUTES.PROFILE} component={ProfileScreen} />
+			<Tab.Screen name={ROUTES.SEARCH} component={SearchScreen} />
 		</Tab.Navigator>
 	);
 };

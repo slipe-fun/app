@@ -78,6 +78,7 @@ export const SearchHeader = ({ scrollY, setIsFocused, isFocused }) => {
           animation="fast"
           backgroundColor="$backgroundTransparent"
           pressStyle={{
+            opacity: 0.9,
             scale: 0.9,
           }}
           icon={<Icon size={24} icon="gear" color={color} />}

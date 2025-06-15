@@ -1,61 +1,70 @@
 import { useEffect } from "react";
-import { View } from "react-native";
-import { styles } from "../styles/tabBarStyles";
-import { Pressable } from "react-native-gesture-handler";
 import Icon from "../icon";
-import Animated, { useSharedValue, useAnimatedStyle, withTiming, Easing, interpolateColor, useAnimatedProps } from "react-native-reanimated";
-import { COLORS } from "../../../constants/theme";
+import { useTheme, Text, Button } from "tamagui";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  interpolateColor,
+  useAnimatedProps,
+  withSpring,
+} from "react-native-reanimated";
 
-const TabBarItem = ({ route, isFocused, onPress, iconName }) => {
-    const opacityValue = useSharedValue(isFocused ? 1 : 0.35);
-    const colorValue = useSharedValue(isFocused ? 1 : 0);
+const AnimatedText = Animated.createAnimatedComponent(Text);
 
-    const buttonOpacityStyles = useAnimatedStyle(() => {
-        return {
-            opacity: opacityValue.value,
-        };
+const TabBarItem = ({ route, isFocused, onPress }) => {
+  const colorValue = useSharedValue(0);
+  const iconName = route.name.toLowerCase();
+  const theme = useTheme();
+  const inactiveColor = theme.secondaryText.get();
+  const activeColor = theme.primary.get();
+
+  const textAnimatedStyles = useAnimatedStyle(() => {
+    return {
+      color: interpolateColor(
+        colorValue.value,
+        [0, 1],
+        [inactiveColor, activeColor]
+      ),
+    };
+  });
+
+  const iconColorProps = useAnimatedProps(() => ({
+    fill: interpolateColor(
+      colorValue.value,
+      [0, 1],
+      [inactiveColor, activeColor]
+    ),
+  }));
+
+  useEffect(() => {
+    colorValue.value = withSpring(isFocused ? 1 : 0, {
+      mass: 0.3,
+      damping: 16,
+      stiffness: 120,
     });
+  }, [isFocused, colorValue]);
 
-    const buttonColorStyles = useAnimatedStyle(() => {
-        return {
-            backgroundColor: interpolateColor(colorValue.value, [0, 1], [COLORS.elemBackground, COLORS.white]),
-        };
-    });
-
-    const buttonIconColorProps = useAnimatedProps(() => {
-        return {
-            fill: interpolateColor(colorValue.value, [0, 1], [COLORS.white, COLORS.black]),
-        };
-    });
-
-    useEffect(() => {
-        opacityValue.value = withTiming(isFocused ? 1 : 0.35, { duration: 150, easing: Easing.ease });
-        colorValue.value = withTiming(isFocused ? 1 : 0, { duration: 150, easing: Easing.ease });
-    }, [isFocused, opacityValue, colorValue]);
-
-    return (
-            <Pressable style={styles.tabItem} onPress={onPress}>
-                {route.name === "Publish" ? (
-                    <Animated.View
-                        style={[
-                            styles.publishButton,
-                            buttonColorStyles
-                        ]}
-                    >
-                        <Icon icon={iconName} animatedProps={buttonIconColorProps} style={{ color: COLORS.white }} size={32} />
-                    </Animated.View>
-                ) : (
-                    <Animated.View
-                        style={[
-                            styles.tabItem,
-                            buttonOpacityStyles
-                        ]}
-                    >
-                        <Icon icon={iconName} size={32} />
-                    </Animated.View>
-                )}
-            </Pressable>
-    );
+  return (
+    <Button
+      animation="fast"
+      pressStyle={{
+        opacity: 0.9,
+        scale: 0.9,
+      }}
+      flex={1}
+      gap="$0.5"
+      unstyled
+      backgroundColor="$transparent"
+      justifyContent="center"
+      alignItems="center"
+      onPress={onPress}
+    >
+      <Icon color={inactiveColor} icon={iconName} size={28} animatedProps={iconColorProps} />
+      <AnimatedText fz="$0.75" fw="$3" lh="$0.75" style={textAnimatedStyles}>
+        {route.name}
+      </AnimatedText>
+    </Button>
+  );
 };
 
 export default TabBarItem;

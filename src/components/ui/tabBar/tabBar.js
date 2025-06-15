@@ -1,43 +1,46 @@
-
-import { View, Platform } from "react-native";
-import { styles } from "../styles/tabBarStyles";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useInsets } from "../../../hooks/useInsets";
 import TabBarItem from "./tabBarItem";
+import * as Haptics from "expo-haptics";
+import { useTheme, View } from "tamagui";
 
 const CustomTabBar = ({ state, navigation }) => {
-	const insets = useSafeAreaInsets();
+  const insets = useInsets();
 
-	return (
-		<View style={[styles.tabBarContainer, { paddingBottom: Platform.OS === "ios" ? insets.bottom : insets.bottom + 8 }]}>
-			{state.routes.map((route, index) => {
-				const isFocused = state.index === index;
+  return (
+    <View
+      backgroundColor="$bg"
+      pb={insets.bottom}
+      pt={8}
+      flexDirection="row"
+      alignItems="center"
+    >
+      {state.routes.map((route, index) => {
+        const isFocused = state.index === index;
 
-				const onPress = () => {
-					const event = navigation.emit({
-						type: "tabPress",
-						target: route.key,
-						canPreventDefault: true,
-					});
+        const onPress = () => {
+          const event = navigation.emit({
+            type: "tabPress",
+            target: route.key,
+            canPreventDefault: true,
+          });
 
-					if (!isFocused && !event.defaultPrevented) {
-						navigation.navigate(route.name);
-					}
-				};
+          if (!isFocused && !event.defaultPrevented) {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
+            navigation.navigate(route.name);
+          }
+        };
 
-				const iconName = route.name.charAt(0).toLowerCase() + route.name.slice(1);
-
-				return (
-					<TabBarItem
-						key={route.key}
-						route={route}
-						isFocused={isFocused}
-						onPress={onPress}
-						iconName={iconName}
-					/>
-				);
-			})}
-		</View>
-	);
+        return (
+          <TabBarItem
+            key={route.key}
+            route={route}
+            isFocused={isFocused}
+            onPress={onPress}
+          />
+        );
+      })}
+    </View>
+  );
 };
 
 export default CustomTabBar;

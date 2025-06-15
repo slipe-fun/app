@@ -1,17 +1,19 @@
 export const ROUTES = {
   // Main tabs
   BLOGS: 'Blogs',
-  NOTIFS: 'Notifications',
-  PUBLISH: 'Publish',
-  SEARCH: 'Search',
   PROFILE: 'Profile',
-  
+  SEARCH: 'Search',
+
   // Auth routes
   AUTH: 'Auth',
   LOGIN: 'Login',
   REGISTER: 'Register',
 
+  // Notifications routes
+  NOTIFS: 'Notifs',
+
   // Publish Routes
+  PUBLISH: 'Publish',
   PUBLISH_EDITOR: 'Publish_Editor',
 
   // Search Routes

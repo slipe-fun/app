@@ -5,6 +5,7 @@ import { Easing } from 'react-native-reanimated'
 const openRundeFont = createFont({
   family: 'OpenRunde',
   size: {
+    0.75: 12,
     1: 13,
     2: 14,
     3: 15,
@@ -25,6 +26,7 @@ const openRundeFont = createFont({
     true: '500',
   },
   lineHeight: {
+    0.75: 15,
     1: 16,
     2: 17,
     3: 18,
@@ -99,6 +101,7 @@ export const tokens = createTokens({
   },
   space: {
     0: 0,
+    0.5: 2,
     1: 4,
     2: 6,
     3: 8,
@@ -153,6 +156,8 @@ export const tokens = createTokens({
     elemBackgroundDark: '#1F1F1F',
     elemBackgroundLight: '#E0E0E0',
     indicator: 'rgba(255, 255, 255, 0.3)',
+    navigationBackgroundDark: 'rgba(0, 0, 0, 0.6)',
+    navigationBackgroundLight: 'rgba(255, 255, 255, 0.6)',
     transparentText: 'rgba(255, 255, 255, 0.65)',
     transparentIconDark: 'rgba(255, 255, 255, 0.35)',
     transparentIconLight: 'rgba(0, 0, 0, 0.35)',
@@ -201,6 +206,7 @@ const configUI = createTamagui({
       bg: tokens.color.white,
       primary: tokens.color.primary,
       color: tokens.color.black,
+      navigationBackground: tokens.color.navigationBackgroundLight,
       separator: tokens.color.separatorLight,
       backgroundTransparent: tokens.color.elemBackgroundLight,
     },
@@ -209,6 +215,7 @@ const configUI = createTamagui({
       bg: tokens.color.black,
       primary: tokens.color.primary,
       color: tokens.color.white,
+      navigationBackground: tokens.color.navigationBackgroundDark,
       separator: tokens.color.separatorDark,
       backgroundTransparent: tokens.color.elemBackgroundDark,
     },
