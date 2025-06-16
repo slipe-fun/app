@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { COLORS } from "../constants/theme";
 import { Image } from 'tamagui';
+import useFetchUser from '../hooks/useFetchUser';
 
 const ProfileScreen = () => {
+  const { user, isLoading, error } = useFetchUser();
+  
   return (
     <View style={styles.container}>
       <Image
