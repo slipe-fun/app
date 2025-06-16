@@ -5,12 +5,15 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Haptics from "expo-haptics";
 import { useNavigation } from "@react-navigation/native";
 import Animated, { Easing, FadeInDown, FadeOutUp } from "react-native-reanimated";
+import useFetchCategoryPosts from "../../../../hooks/useFetchCategoryPosts";
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
 const CategoryPageHeader = ({ category, scrollY }) => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
+
+  const { posts, setPage } = useFetchCategoryPosts(category?.name?.toLowerCase());
 
   return (
     <View
