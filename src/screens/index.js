@@ -5,5 +5,5 @@ export { default as CategoryPage } from './search/categoryPage';
 export { default as ProfileScreen } from './profileScreen';
 export { default as NotifsScreen } from './notifsScreen';
 export { default as EditorScreen } from './publish/editorScreen';
-export { default as LoginScreen } from './auth/loginScreen';
-export { default as RegisterScreen } from './auth/registerScreen';
+export { default as LoginScreen } from './auth/LoginScreen';
+export { default as RegisterScreen } from './auth/RegisterScreen';
