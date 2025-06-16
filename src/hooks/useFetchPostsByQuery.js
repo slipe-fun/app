@@ -6,14 +6,15 @@ export default function useFetchDataByQuery (query, type) {
     const [page, setPage] = useState(1);
 
     async function fetchData () {
-        if (!["account", "post"].includes(type)) return;
         const request = await api.v1.get(`/post/search?q=${query}&page=${page}`);
         setData(prev => [...prev, ...request?.data?.success]);
     }
 
     useEffect(() => {
+        if (!["account", "post"].includes(type)) return;
+        
         fetchData();
     }, [page])
 
-    return { data, setPage }   
+    return { data, setPage };
 }

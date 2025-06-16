@@ -24,6 +24,9 @@ export function SearchScreen() {
   const insets = useSafeAreaInsets();
   const [isFocused, setIsFocused] = useState(false);
 
+  const [type, setType] = useState("post");
+  const [query, setQuery] = useState("");
+
   const categoryOpacity = useSharedValue(1);
   const resultsOpacity = useSharedValue(0);
 
@@ -56,7 +59,7 @@ export function SearchScreen() {
     <YStack f={1} backgroundColor="$black">
       <SearchAnimatedHeader
         scrollY={scrollY}
-        setIsFocused={setIsFocused}
+        setIsFocused={setIsFocused}setQuery
         isFocused={isFocused}
       />
 
@@ -69,13 +72,14 @@ export function SearchScreen() {
           scrollY={scrollY}
           setIsFocused={setIsFocused}
           isFocused={isFocused}
+          setQuery={setQuery}
         />
         <Animated.View style={categoryStyle}>
           <CategoryGrid />
         </Animated.View>
       </Animated.ScrollView>
       <Animated.View style={resultsStyle}>
-        <Results />
+        <Results query={query} type={type} />
       </Animated.View>
     </YStack>
   );
