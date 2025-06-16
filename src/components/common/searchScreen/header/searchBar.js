@@ -6,7 +6,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { View, XStack, Text, Input, useTheme, Button } from "tamagui";
 import Icon from "../../../ui/icon";
-import { BackHandler } from "react-native";
+import { useKeyboard } from "@react-native-community/hooks";
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
@@ -18,29 +18,21 @@ const SearchBar = ({ isButton = false, setIsFocused, isFocused }) => {
   const [cancelWidth, setCancelWidth] = useState(0);
   const cancelOpacity = useSharedValue(0);
   const cancelMarginRight = useSharedValue(0);
+  const keyboard = useKeyboard();
 
   const cancelStyle = useAnimatedStyle(() => ({
     marginRight: -cancelMarginRight.value,
     opacity: cancelOpacity.value,
   }));
 
+
   useEffect(() => {
-    const onBackPress = () => {
-      if (isFocused) {
-        inputRef.current?.blur();
-        return true;
-      } else {
-        return false;
-      }
-    };
-
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      onBackPress
-    );
-
-    return () => backHandler.remove();
-  }, [isFocused]);
+    if (keyboard.keyboardShown) {
+      setIsFocused(true);
+    } else {
+      setIsFocused(false);
+    }
+  }, [keyboard]);
 
   useEffect(() => {
     if (cancelWidth === 0) return;
@@ -85,8 +77,6 @@ const SearchBar = ({ isButton = false, setIsFocused, isFocused }) => {
         >
           <Icon size={22} icon="search" color={color} />
           <Input
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
             ref={inputRef}
             fz="$2"
             f={1}

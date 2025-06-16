@@ -1,6 +1,7 @@
 import { Button, View, Image, Text } from "tamagui";
 import Icon from "../../../ui/icon";
 import { useNavigation } from "@react-navigation/native";
+import * as Haptics from "expo-haptics";
 
 const Category = ({ category }) => {
   const navigation = useNavigation()
@@ -20,7 +21,10 @@ const Category = ({ category }) => {
         scale: 0.98,
         opacity: 0.9,
       }}
-      onPress={() => navigation.navigate('Category_Page', { category })}
+      onPress={() => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
+        navigation.navigate('Category_Page', { category })
+      }}
     >
       <View alignSelf="stretch" w="$full" alignItems="flex-end" p="$5.5">
         <Icon size={18} icon="arrowUpRight" color={category.secondaryColor} />
