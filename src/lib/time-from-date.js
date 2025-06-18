@@ -1,4 +1,4 @@
-import timeUnits from "../constants/time-units";
+import timeUnits from "@constants/time-units";
 
 export default function TimePassedFromDate(time) {
   const elapsedSeconds = Math.floor((Date.now() - new Date(time)) / 1000);

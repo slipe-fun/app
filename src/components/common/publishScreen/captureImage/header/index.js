@@ -1,6 +1,6 @@
 import { styles } from "../styles/captureImageStyles";
 import { useCallback } from "react";
-import AnimatedButton from "../../../../ui/animatedButton";
+import AnimatedButton from "@components/ui/animatedButton";
 import { useSelector } from "react-redux";
 import Animated, { FadeInDown, FadeOutUp } from "react-native-reanimated";
 import { selectImage } from "../../../../../reducers/publishScreen";

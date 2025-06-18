@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { SPACING, COLORS, BORDER_RADIUS } from "../../../../../constants/theme";
+import { SPACING, COLORS, BORDER_RADIUS } from "@constants/theme";
 
 export const mainStyles = StyleSheet.create({
     imageWrapper: {

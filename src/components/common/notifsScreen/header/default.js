@@ -1,7 +1,7 @@
 import { getVariableValue } from "tamagui";
 import Animated, { useAnimatedStyle, interpolate, useSharedValue, withSpring } from "react-native-reanimated";
 import { YStack, XStack, Text, Button } from "tamagui";
-import Icon from "../../../ui/icon";
+import Icon from "@components/ui/icon";
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 

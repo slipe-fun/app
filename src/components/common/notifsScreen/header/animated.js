@@ -5,7 +5,7 @@ import Animated, {
   withSpring,
 } from "react-native-reanimated";
 import { YStack, XStack, Text, Button, getVariableValue } from "tamagui";
-import Icon from "../../../ui/icon";
+import Icon from "@components/ui/icon";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Platform } from "react-native";
 

@@ -4,7 +4,7 @@ import { FlashList } from "@shopify/flash-list";
 import { FlatList } from "react-native"
 import UserCard from "../common/blogsScreen/userCard";
 import styles from "./styles/verticalSliderStyles";
-import usePostNavigation from "../../hooks/usePostNavigation";
+import usePostNavigation from "@hooks/usePostNavigation";
 
 const { height: windowHeight, width: windowWidth } = Dimensions.get("window");
 const VIEWABILITY_CONFIG = { itemVisiblePercentThreshold: 50 };

@@ -1,5 +1,5 @@
 import { YStack, XStack } from "tamagui";
-import { categories } from "../../../../constants/categories";
+import { categories } from "@constants/categories";
 import Category from "./category";
 
 const rowsHeight = [171, 125, 150, 145, 160, 140]

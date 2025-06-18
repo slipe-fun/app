@@ -16,7 +16,7 @@ import { styles } from "./styles/animatedButtonStyles";
 import { GradientBorder } from "./gradientBorder";
 import { PlatformWrapperButton } from "./platformWrapperButton";
 import Icon from "./icon";
-import { COLORS } from "../../constants/theme";
+import { COLORS } from "@constants/theme";
 
 const AnimatedGradientBorder = Animated.createAnimatedComponent(GradientBorder)
 

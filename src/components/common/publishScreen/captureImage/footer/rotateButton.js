@@ -1,10 +1,10 @@
 import { useState, useRef, useCallback } from "react";
 import { Animated, Pressable } from "react-native";
 import * as Haptics from "expo-haptics";
-import { GradientBorder } from "../../../../ui/gradientBorder";
-import { PlatformWrapperButton } from "../../../../ui/platformWrapperButton";
-import Icon from "../../../../ui/icon";
-import { COLORS } from "../../../../../constants/theme";
+import { GradientBorder } from "@components/ui/gradientBorder";
+import { PlatformWrapperButton } from "@components/ui/platformWrapperButton";
+import Icon from "@components/ui/icon";
+import { COLORS } from "@constants/theme";
 import { styles } from "../styles/captureImageStyles";
 
 export const RotateButton = ({ applyStaticBlur }) => {

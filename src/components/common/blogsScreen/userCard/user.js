@@ -2,9 +2,9 @@ import { View, Text, Image } from "react-native";
 import styles from "../styles/userCardStyles";
 import { LinearGradient } from "expo-linear-gradient";
 import Indicators from "./indicators";
-import { URLS } from "../../../../constants/urls";
+import { URLS } from "@constants/urls";
 import TimePassedFromDate from "../../../../lib/time-from-date";
-import AnimatedButton from "../../../ui/animatedButton";
+import AnimatedButton from "@components/ui/animatedButton";
 
 const UserCardHeader = ({ user, post, activeIdx, handleIndicatorFinish, pages, page, pause }) => {
 	return (

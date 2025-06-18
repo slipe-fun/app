@@ -1,5 +1,5 @@
 import { View, Text } from "tamagui";
-import useFetchDataByQuery from "../../../../hooks/useFetchPostsByQuery";
+import useFetchDataByQuery from "@hooks/useFetchPostsByQuery";
 
 export const Results = (query, type) => {
     // const { data, setPage } = useFetchDataByQuery(query, type);

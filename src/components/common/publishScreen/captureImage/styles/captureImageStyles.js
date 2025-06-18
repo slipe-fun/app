@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { BORDER_RADIUS, COLORS, SPACING } from "../../../../../constants/theme";
+import { BORDER_RADIUS, COLORS, SPACING } from "@constants/theme";
 
 export const styles = StyleSheet.create({
 	captureImage: {

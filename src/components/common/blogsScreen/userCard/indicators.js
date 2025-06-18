@@ -1,6 +1,6 @@
 import styles from "../styles/userCardStyles";
 import { View } from "react-native";
-import { COLORS } from "../../../../constants/theme";
+import { COLORS } from "@constants/theme";
 import { useEffect } from "react";
 import Animated, { Easing, interpolateColor, runOnJS, useAnimatedStyle, useSharedValue, withTiming, withRepeat } from "react-native-reanimated";
 

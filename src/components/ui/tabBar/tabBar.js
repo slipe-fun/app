@@ -1,4 +1,4 @@
-import { useInsets } from "../../../hooks/useInsets";
+import { useInsets } from "@hooks";
 import TabBarItem from "./tabBarItem";
 import * as Haptics from "expo-haptics";
 import { useTheme, View } from "tamagui";

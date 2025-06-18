@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import AnimatedButton from "../../../../ui/animatedButton";
+import AnimatedButton from "@components/ui/animatedButton";
 import { MediaGalleryButton } from "./galleryButton";
 import { RotateButton } from "./rotateButton";
 import { CaptureButton } from "./captureButton";

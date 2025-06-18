@@ -2,7 +2,7 @@ import React, { useEffect, memo } from "react";
 import { Platform } from "react-native";
 import Animated, { useSharedValue, withTiming, useAnimatedStyle, interpolateColor } from "react-native-reanimated";
 import { BlurView } from "expo-blur";
-import { COLORS } from "../../constants/theme";
+import { COLORS } from "@constants/theme";
 
 const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
 const AnimatedView = Animated.View;

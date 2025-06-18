@@ -1,7 +1,7 @@
 import { Avatar, Text, View, Button, useTheme, Image } from "tamagui";
-import Icon from "../../ui/icon";
-import { GradientBorder } from "../../ui/gradientBorder";
-import { URLS } from "../../../constants/urls";
+import Icon from "@components/ui/icon";
+import { GradientBorder } from "@components/ui/gradientBorder";
+import { URLS } from "@constants/urls";
 import TimePassedFromDate from "../../../lib/time-from-date";
 
 const emojiImages = {

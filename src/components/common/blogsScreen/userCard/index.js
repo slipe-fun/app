@@ -1,11 +1,11 @@
 import { View, Image, Pressable } from "react-native";
-import { GradientBorder } from "../../../ui/gradientBorder";
+import { GradientBorder } from "@components/ui/gradientBorder";
 import styles from "../styles/userCardStyles";
 import UserCardHeader from "./user";
 import UserCardActions from "./actions";
 import { useState, useEffect } from "react";
-import { URLS } from "../../../../constants/urls";
-import { useFetchUserPosts } from "../../../../hooks/useFetchUserPosts";
+import { URLS } from "@constants/urls";
+import { useFetchUserPosts } from "@hooks/useFetchUserPosts";
 
 const UserCard = ({ user, posts, active, usersNavigation, goToNext, goToPrevious }) => {
 	const { userPosts, fetchPosts } = useFetchUserPosts(user, posts);

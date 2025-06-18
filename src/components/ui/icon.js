@@ -1,5 +1,5 @@
 import Svg, { Path } from "react-native-svg";
-import { ICONS } from "../../constants/icons";
+import { ICONS } from "@constants/icons";
 import Animated from "react-native-reanimated";
 
 const AnimatedPath = Animated.createAnimatedComponent(Path);
