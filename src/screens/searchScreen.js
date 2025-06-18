@@ -75,7 +75,7 @@ export function SearchScreen() {
           setQuery={setQuery}
         />
         <Animated.View style={categoryStyle}>
-          <CategoryGrid />
+          <CategoryGrid/>
         </Animated.View>
       </Animated.ScrollView>
       <Animated.View style={resultsStyle}>
