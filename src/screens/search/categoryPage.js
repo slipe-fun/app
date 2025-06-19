@@ -2,8 +2,8 @@ import Animated, {
   useSharedValue,
   useAnimatedScrollHandler,
 } from "react-native-reanimated";
-import CategoryPageHeader from "../../components/common/searchScreen/categoryPage/header";
-import { Text, View } from "tamagui";
+import CategoryPageHeader from "@components/common/searchScreen/categoryPage/header/header";
+import { View } from "tamagui";
 
 export function CategoryPage({ route }) {
   const { category } = route.params;
@@ -22,11 +22,6 @@ export function CategoryPage({ route }) {
         style={{ flex: 1 }}
       >
         <CategoryPageHeader category={category} scrollY={scrollY} />
-        {/* {Array.from({ length: 5 }).map((_, index) => (
-          <Text key={index} fz="$6" lh="$6" fw="$3" color="$white">
-            Item {index}
-          </Text>
-        ))} */}
       </Animated.ScrollView>
     </View>
   );

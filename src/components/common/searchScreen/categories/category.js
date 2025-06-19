@@ -1,4 +1,4 @@
-import { Button, View, Image, Text } from "tamagui";
+import { Button, View, Image, Text, getVariableValue } from "tamagui";
 import Icon from "../../../ui/icon";
 import { useNavigation } from "@react-navigation/native";
 import * as Haptics from "expo-haptics";
@@ -8,31 +8,36 @@ import { GradientBorder } from "../../../ui/gradientBorder";
 
 const Category = ({ category }) => {
   const navigation = useNavigation();
-  const theme = useTheme();
-  const color = theme.bg.get();
+  const borderRadius = getVariableValue("$7", "radius");
 
   return (
-    <GradientBorder>
-      <Button
-        unstyled
-        flex={category.flex}
-        flexDirection="column"
-        alignItems="stretch"
-        justifyContent="space-between"
-        p="$0"
-        overflow="hidden"
-        br="$7"
-        position="relative"
-        animation="fast"
-        backgroundColor="$transparent"
-        pressStyle={{
-          scale: 0.98,
-          opacity: 0.9,
+    <Button
+      unstyled
+      flex={1}
+      alignItems="stretch"
+      aspectRatio="3/4"
+      p="$0"
+      overflow="hidden"
+      br="$7"
+      position="relative"
+      animation="fast"
+      backgroundColor="$transparent"
+      pressStyle={{
+        scale: 0.98,
+        opacity: 0.9,
+      }}
+      onPress={() => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
+        navigation.navigate("Category_Page", { category });
+      }}
+    >
+      <GradientBorder
+        borderWidth={1.5}
+        style={{
+          flex: 1,
         }}
-        onPress={() => {
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
-          navigation.navigate("Category_Page", { category });
-        }}
+        borderRadius={borderRadius}
+        gradientColors={[`${category.color}12`, "#00000000", `${category.color}12`]}
       >
         <LinearGradient
           alignSelf="stretch"
@@ -43,19 +48,19 @@ const Category = ({ category }) => {
           left={0}
           right={0}
           bottom={0}
-          colors={[category.color, color, category.color]}
+          colors={[category.color, "#00000000", category.color]}
           start={[0, 1]}
           end={[1, 0]}
         />
         <View alignSelf="stretch" w="$full" alignItems="flex-end" p="$5.5">
           <Icon size={18} icon="arrowUpRight" color={category.color} />
         </View>
-        <View flex={1} alignItems="center" justifyContent="center">
+        <View flex={1} p="$5" alignItems="center" justifyContent="center">
           <Image
             source={category.thumbnail}
             style={{
-              width: category.thumbnailSize,
-              height: category.thumbnailSize,
+              aspectRatio: "1/1",
+              height: "120%",
             }}
           />
         </View>
@@ -70,8 +75,8 @@ const Category = ({ category }) => {
             {category.name}
           </Text>
         </View>
-      </Button>
-    </GradientBorder>
+      </GradientBorder>
+    </Button>
   );
 };
 
