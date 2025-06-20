@@ -7,11 +7,13 @@ import Animated, {
 } from "react-native-reanimated";
 import { SearchHeader } from "../components/common/searchScreen/header/default";
 import { SearchAnimatedHeader } from "../components/common/searchScreen/header/animated";
-import CategoryGrid from "../components/common/searchScreen/categories/categoryGrid";
 import { Results } from "../components/common/searchScreen/searchContent/results";
 import { useState, useEffect } from "react";
 import { Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { FlashList } from "@shopify/flash-list";
+import { categories } from "@constants/categories";
+import Category from "../components/common/searchScreen/categories/category";
 
 const springConfig = {
   mass: 0.4,
@@ -19,31 +21,19 @@ const springConfig = {
   stiffness: 120,
 };
 
+const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
+
 export function SearchScreen() {
   const scrollY = useSharedValue(0);
   const insets = useSafeAreaInsets();
   const [isFocused, setIsFocused] = useState(false);
-
   const [type, setType] = useState("post");
   const [query, setQuery] = useState("");
-
-  const categoryOpacity = useSharedValue(1);
   const resultsOpacity = useSharedValue(0);
 
   const onScroll = useAnimatedScrollHandler((event) => {
     scrollY.value = event.contentOffset.y;
   });
-
-  useEffect(() => {
-    categoryOpacity.value = withSpring(isFocused ? 0 : 1, springConfig);
-    resultsOpacity.value = withSpring(isFocused ? 1 : 0, springConfig);
-  }, [isFocused]);
-
-  const categoryStyle = useAnimatedStyle(() => ({
-    opacity: categoryOpacity.value,
-    display: categoryOpacity.value === 0 ? "none" : "flex",
-    pointerEvents: categoryOpacity.value === 0 ? "none" : "auto",
-  }));
 
   const resultsStyle = useAnimatedStyle(() => ({
     opacity: resultsOpacity.value,
@@ -51,33 +41,54 @@ export function SearchScreen() {
     zIndex: 100,
     top: 58 + (Platform.OS === "ios" ? insets.top : insets.top + 10),
     left: 0,
+    height: "100%",
     right: 0,
+    backgroundColor: "#000",
     pointerEvents: resultsOpacity.value === 0 ? "none" : "auto",
   }));
+
+  const renderItem = ({ item, index }) => (
+    <View style={{ flex: 1, margin: 8 }}>
+      <Category category={item} colIndex={index % 2} />
+    </View>
+  );
+
+  useEffect(() => {
+    resultsOpacity.value = withSpring(isFocused ? 1 : 0, springConfig);
+  }, [isFocused]);
 
   return (
     <YStack f={1} backgroundColor="$black">
       <SearchAnimatedHeader
         scrollY={scrollY}
-        setIsFocused={setIsFocused}setQuery
+        setIsFocused={setIsFocused}
         isFocused={isFocused}
       />
 
-      <Animated.ScrollView
+      <AnimatedFlashList
+        data={categories}
+        renderItem={renderItem}
+        keyExtractor={(_, index) => index.toString()}
+        numColumns={2}
+        ListHeaderComponent={
+          <SearchHeader
+            scrollY={scrollY}
+            setIsFocused={setIsFocused}
+            isFocused={isFocused}
+            setQuery={setQuery}
+          />
+        }
+        estimatedItemSize={220}
+        contentContainerStyle={{
+          paddingHorizontal: 8,
+        }}
+        columnWrapperStyle={{
+          justifyContent: "space-between",
+          marginBottom: 24,
+        }}
         scrollEventThrottle={16}
         onScroll={onScroll}
-        contentContainerStyle={{ gap: 16 }}
-      >
-        <SearchHeader
-          scrollY={scrollY}
-          setIsFocused={setIsFocused}
-          isFocused={isFocused}
-          setQuery={setQuery}
-        />
-        <Animated.View style={categoryStyle}>
-          <CategoryGrid/>
-        </Animated.View>
-      </Animated.ScrollView>
+      />
       <Animated.View style={resultsStyle}>
         <Results query={query} type={type} />
       </Animated.View>

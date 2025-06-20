@@ -55,7 +55,8 @@ export const SearchHeader = ({ scrollY, setIsFocused, isFocused }) => {
   return (
     <AnimatedYStack
       style={bigHeaderStyle}
-      ph="$6"
+      ph="$3"
+      pb="$3"
       pt={Platform.OS === "ios" ? insets.top : insets.top + 10}
     >
       <AnimatedXStack
