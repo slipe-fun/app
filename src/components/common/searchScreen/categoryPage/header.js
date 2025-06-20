@@ -6,9 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as Haptics from "expo-haptics";
 import { useNavigation } from "@react-navigation/native";
 import Animated, { FadeInDown } from "react-native-reanimated";
-import useFetchCategoryPosts from "@hooks/useFetchCategoryPosts";
 import { GradientBorder } from "@components/ui/gradientBorder";
-import HeaderParallaxImage from "./parallaxImage";
 import useFetchCategoryStatistics from "@hooks/useFetchCategoryStatistics";
 
 const AnimatedView = Animated.createAnimatedComponent(View);
@@ -19,10 +17,6 @@ const CategoryPageHeader = ({ category, scrollY }) => {
   const borderRadius = getVariableValue("$7", "radius");
   const { statistics, isLoading, error } = useFetchCategoryStatistics();
 
-  const { posts, setPage } = useFetchCategoryPosts(
-    category?.name?.toLowerCase()
-  );
-
   return (
     <GradientBorder
       style={{
@@ -32,6 +26,7 @@ const CategoryPageHeader = ({ category, scrollY }) => {
         aspectRatio: "1/1",
         overflow: "hidden",
         justifyContent: "space-between",
+        borderRadius: 0,
         borderBottomLeftRadius: borderRadius,
         borderBottomRightRadius: borderRadius,
       }}
@@ -93,7 +88,21 @@ const CategoryPageHeader = ({ category, scrollY }) => {
           icon={<Icon size={24} icon="heart" color={category.color} />}
         />
       </AnimatedView>
-      <HeaderParallaxImage category={category} />
+      <AnimatedView
+        flex={1}
+        alignItems="center"
+        justifyContent="center"
+        entering={FadeInDown.delay(150)
+          .springify()
+          .mass(0.5)
+          .damping(15)
+          .stiffness(100)}
+      >
+        <Image
+          source={category.thumbnail}
+          style={{ height: "120%", aspectRatio: "1/1" }}
+        />
+      </AnimatedView>
       <AnimatedView
         alignSelf="stretch"
         gap="$2"
@@ -122,7 +131,10 @@ const CategoryPageHeader = ({ category, scrollY }) => {
           opacity={0.5}
           color={category.color}
         >
-          {statistics?.find(o => o.category === category.name.toLowerCase()).post_count}{" "}
+          {
+            statistics?.find((o) => o.category === category.name.toLowerCase())
+              .post_count
+          }{" "}
           постов
         </Text>
       </AnimatedView>

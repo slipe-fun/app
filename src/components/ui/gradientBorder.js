@@ -12,9 +12,9 @@ export const GradientBorder = forwardRef(
       borderWidth = 1,
       borderRadius = 10,
       gradientColors = [
-        "rgba(255, 255, 255, 0.18)",
+        "rgba(255, 255, 255, 0.24)",
         "rgba(255, 255, 255, 0)",
-        "rgba(255, 255, 255, 0.18)",
+        "rgba(255, 255, 255, 0.24)",
       ],
       gradientStart = { x: 0, y: 0 },
       gradientEnd = { x: 1, y: 1 },

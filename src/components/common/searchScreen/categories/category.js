@@ -15,7 +15,6 @@ const Category = ({ category }) => {
       unstyled
       flex={1}
       alignItems="stretch"
-      aspectRatio="3/4"
       p="$0"
       overflow="hidden"
       br="$7"
@@ -55,12 +54,12 @@ const Category = ({ category }) => {
         <View alignSelf="stretch" w="$full" alignItems="flex-end" p="$5.5">
           <Icon size={18} icon="arrowUpRight" color={category.color} />
         </View>
-        <View flex={1} p="$5" alignItems="center" justifyContent="center">
+        <View w="$full" p="$1" aspectRatio="9/7" alignItems="center" justifyContent="center">
           <Image
             source={category.thumbnail}
             style={{
               aspectRatio: "1/1",
-              height: "120%",
+              height: "100%",
             }}
           />
         </View>
