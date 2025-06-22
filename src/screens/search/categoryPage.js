@@ -27,26 +27,24 @@ const CategoryPage = ({ route }) => {
 
   return (
     <View f={1} backgroundColor="$black">
-      <View position="absolute" top={0} left={0} right={0} zIndex={1}>
+      {/* <View position="absolute" top={0} left={0} right={0} zIndex={1}>
         <CategoryPageHeader category={category} scrollY={scrollY} />
-      </View>
+      </View> */}
       <AnimatedFlashList
-        contentContainerStyle={{ paddingTop: width + 16, paddingHorizontal: 8, }} // отступ под хедер
+        contentContainerStyle={{ paddingTop: 20, paddingHorizontal: 8, }}
         data={posts}
-        masonry
-        overrideItemLayout={(layout, item) => {
-          layout.size = item.height;
-        }}
         keyExtractor={(item) => item.id.toString()}
-        estimatedItemSize={300}
         numColumns={2}
-        onScroll={onScroll}
+        masonry
+        removeClippedSubviews
+        initialNumToRender={6}
+        maxToRenderPerBatch={10}
+        windowSize={5}
         scrollEventThrottle={16}
         renderItem={({ item }) => (
           <Post key={item.id} post={item} width={(width - 48) / 2} />
         )}
         onEndReached={() => setPage((prev) => prev + 1)}
-        onEndReachedThreshold={0.5}
         onLayout={(e) => setWidth(e.nativeEvent.layout.width)}
       />
     </View>

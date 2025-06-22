@@ -1,4 +1,9 @@
-import { Canvas, RoundedRect, LinearGradient as SkiaLinearGradient, vec } from "@shopify/react-native-skia";
+import {
+  Canvas,
+  RoundedRect,
+  LinearGradient as SkiaLinearGradient,
+  vec,
+} from "@shopify/react-native-skia";
 import { View, StyleSheet } from "react-native";
 import { forwardRef, useState, useCallback } from "react";
 
@@ -26,8 +31,14 @@ export const GradientBorder = forwardRef(
       setLayout({ width, height });
     }, []);
 
-    const startVec = vec(gradientStart.x * layout.width, gradientStart.y * layout.height);
-    const endVec = vec(gradientEnd.x * layout.width, gradientEnd.y * layout.height);
+    const startVec = vec(
+      gradientStart.x * layout.width,
+      gradientStart.y * layout.height
+    );
+    const endVec = vec(
+      gradientEnd.x * layout.width,
+      gradientEnd.y * layout.height
+    );
 
     return (
       <View
@@ -41,7 +52,7 @@ export const GradientBorder = forwardRef(
         ]}
       >
         {layout.width > 0 && layout.height > 0 && (
-          <Canvas style={StyleSheet.absoluteFill}>
+          <Canvas style={[StyleSheet.absoluteFill, {zIndex: 1}]}>
             <RoundedRect
               x={borderWidth / 2}
               y={borderWidth / 2}

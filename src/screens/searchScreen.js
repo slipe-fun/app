@@ -70,6 +70,9 @@ export function SearchScreen() {
         renderItem={renderItem}
         keyExtractor={(_, index) => index.toString()}
         numColumns={2}
+        removeClippedSubviews
+        initialNumToRender={6}
+        maxToRenderPerBatch={2}
         ListHeaderComponent={
           <SearchHeader
             scrollY={scrollY}
