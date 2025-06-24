@@ -59,7 +59,7 @@ const TabBarItem = ({ route, isFocused, onPress }) => {
       alignItems="center"
       onPress={onPress}
     >
-      <Icon color={inactiveColor} icon={iconName} size={30} animatedProps={iconColorProps} />
+      <Icon color={inactiveColor} icon={iconName} size={28} animatedProps={iconColorProps} />
       <AnimatedText fz="$0.75" fw="$3" lh="$0.75" style={textAnimatedStyles}>
         {route.name}
       </AnimatedText>

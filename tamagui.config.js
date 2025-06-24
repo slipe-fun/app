@@ -58,6 +58,7 @@ const openRundeFont = createFont({
 
 export const tokens = createTokens({
   size: {
+    0.5: 5,
     1: 13,
     2: 14,
     3: 15,
@@ -156,8 +157,7 @@ export const tokens = createTokens({
   color: {
     white: '#fff',
     primary: '#0A84FF',
-    iosGlassButton: 'rgba(0, 0, 0, 0.24)',
-    glassButton: 'rgba(0, 0, 0, 0.5)',
+    glassButton: 'rgba(61, 61, 61, 0.24)',
     red: '#E82132',
     elemBackgroundDark: '#1F1F1F',
     elemBackgroundLight: '#E0E0E0',
@@ -210,6 +210,7 @@ const configUI = createTamagui({
     light: {
       secondaryText: tokens.color.transparentIconLight,
       bg: tokens.color.white,
+      glassButton: tokens.color.glassButton,
       primary: tokens.color.primary,
       color: tokens.color.black,
       navigationBackground: tokens.color.navigationBackgroundLight,
@@ -220,6 +221,7 @@ const configUI = createTamagui({
       secondaryText: tokens.color.transparentIconDark,
       bg: tokens.color.black,
       primary: tokens.color.primary,
+      glassButton: tokens.color.glassButton,
       color: tokens.color.white,
       navigationBackground: tokens.color.navigationBackgroundDark,
       separator: tokens.color.separatorDark,
