@@ -30,7 +30,7 @@ const ProfileAvatar = ({ user, averageColor }) => {
 			<View onLayout={(e) => setLayout(e.nativeEvent.layout)} w="$full" position="relative" zIndex="$1">
 				<LinearGradient w={layout.width} h={layout.height} position="absolute" start={[0.5, 0]} end={[0.5, 1]} colors={['transparent', `rgba(${averageColor}, 1)`]}/>
 				<View gap="$5" w="$full" alignItems="center" pb="$3" ph="$6" pt="$6">
-					<Text fz="$7" lh="$7" fw="$3">{user?.nickname}</Text>
+					<Text fz="$7" lh="$7" fw="$3">{user?.nickname || user?.username}</Text>
 					<View opacity={0.7} flexDirection="row" alignItems="center" gap="$5">
 						<View flexDirection="row" alignItems="center" gap="$2">
 							<Icon icon="profile" size={19} color={color} />

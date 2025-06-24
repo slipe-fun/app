@@ -1,40 +1,21 @@
-import React, { useEffect } from "react";
-import { View, StyleSheet } from "react-native";
-import { COLORS } from "../constants/theme";
-import { Image } from "tamagui";
+import { View } from "tamagui";
 import useFetchUser from "../hooks/useFetchUser";
 import UserBlock from "@components/common/profileScreen/userBlock";
+import ProfileInfoBlock from "@components/common/profileScreen/infoBlock";
 
 const ProfileScreen = () => {
 	const { user, isLoading, error } = useFetchUser();
 
 	return (
-		<View style={styles.container}>
+		<View flex={1} backgroundColor="$bg">
 			<UserBlock
 				user={user}
 			/>
+			<View p="$6">
+				<ProfileInfoBlock user={user}/>
+			</View>
 		</View>
 	);
 };
 
 export default ProfileScreen;
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: COLORS.black,
-	},
-	shaderView: {
-		position: "absolute",
-		top: 0,
-		left: 0,
-		right: 0,
-		bottom: 0,
-	},
-	backgroundImage: {
-		flex: 1,
-		width: "100%",
-		height: "100%",
-		position: "absolute",
-	},
-});

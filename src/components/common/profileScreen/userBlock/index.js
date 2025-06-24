@@ -4,7 +4,7 @@ import { Blurhash } from "react-native-blurhash";
 import ProfileActions from "./actions";
 
 const UserBlock = ({ user }) => {
-	const color = Blurhash.getAverageColor('U2HetX9Fn%-pxuj@WBWB00_4xuM{-;?c?b%M');
+	const color = Blurhash.getAverageColor('UCG[p7Nf?w-:.Axu%MxatR%1M|t6M{xv-oIp');
     const averageColor = `${Math.round(color.r)}, ${Math.round(color.g)}, ${Math.round(color.b)}`
 
 	return (
