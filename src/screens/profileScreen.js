@@ -18,8 +18,8 @@ const ProfileScreen = () => {
 				<UserBlock scrollY={scrollY} user={user} />
 				<View p='$6' gap="$6">
 					<ProfileInfoBlock user={user} />
-					{Array.from({ length: 10 }, (_, index) => (
-						<View key={index} w='$full' h='$20' backgroundColor='$innerBlock' br='$7' />
+					{Array.from({ length: 3 }, (_, index) => (
+						<View key={index} w='$full' h='$2' backgroundColor='$innerBlock' br='$7' />
 					))}
 				</View>
 			</Animated.ScrollView>

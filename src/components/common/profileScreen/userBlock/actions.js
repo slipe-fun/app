@@ -55,7 +55,7 @@ const ProfileActions = ({ averageColor, scrollY }) => {
     const scale = interpolate(
       scrollY.value,
       [width, width + (viewHeight - 20)],
-      [1, 0],
+      [1, 0.3],
       "clamp"
     );
     return {
@@ -90,6 +90,7 @@ const ProfileActions = ({ averageColor, scrollY }) => {
           mb="$5"
           key={button.id}
           backgroundColor="$glassButton"
+		  overflow='hidden'
           unstyled
           f={1}
           position="relative"
