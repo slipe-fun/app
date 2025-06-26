@@ -4,19 +4,23 @@ import Animated, {
   interpolate,
   useSharedValue,
   withSpring,
+  useAnimatedRef,
 } from "react-native-reanimated";
 import { YStack, XStack, Text, Button } from "tamagui";
 import Icon from "../../../ui/icon";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Platform } from "react-native";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import SearchBar from "./searchBar";
+import { fastSpring } from "@constants/easings";
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 const AnimatedXStack = Animated.createAnimatedComponent(XStack);
 
+const color = getVariableValue("$primary", "color");
+
 export const SearchHeader = ({ scrollY, setIsFocused, isFocused }) => {
-  const color = getVariableValue("$primary", "color");
+  const ref = useAnimatedRef();
   const insets = useSafeAreaInsets();
   const [titleHeight, setTitleHeight] = useState(36);
   const titleOpacity = useSharedValue(1)
@@ -25,11 +29,8 @@ export const SearchHeader = ({ scrollY, setIsFocused, isFocused }) => {
     const t = scrollY.value;
     const opacity = interpolate(t, [0, 60], [1, 0], "clamp");
     const gap = interpolate(titleOpacity.value, [0, 1], [0, 16]);
-    const translateY = interpolate(t, [0, 60], [0, -20], "clamp");
-    const scale = interpolate(t, [0, 60], [1, 0.96], "clamp");
     return {
       opacity,
-      transform: [{ translateY }, { scale }],
       gap,
     };
   });
@@ -45,12 +46,12 @@ export const SearchHeader = ({ scrollY, setIsFocused, isFocused }) => {
   })
 
   useEffect(() => {
-    titleOpacity.value = withSpring(isFocused ? 0 : 1, {
-      mass: 0.3,
-      damping: 16,
-      stiffness: 120,
-    });
+    titleOpacity.value = withSpring(isFocused ? 0 : 1, fastSpring);
   }, [isFocused]);
+
+  useEffect(() => {
+    setTitleHeight(ref.current?.getBoundingClientRect()?.height);
+  }, []);
 
   return (
     <AnimatedYStack
@@ -60,12 +61,9 @@ export const SearchHeader = ({ scrollY, setIsFocused, isFocused }) => {
       pt={Platform.OS === "ios" ? insets.top : insets.top + 10}
     >
       <AnimatedXStack
+        ref={ref}
         justifyContent="space-between"
         alignItems="center"
-        onLayout={(e) => {
-          const height = Math.round(e.nativeEvent.layout.height);
-          if (titleHeight === 0 && height > 0) setTitleHeight(height);
-        }}
         style={titleStyle}
       >
         <Text color="$color" lh="$9" fw="$3" fz="$9">

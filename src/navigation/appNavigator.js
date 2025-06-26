@@ -63,7 +63,9 @@ const AppNavigator = () => {
 	return (
 		<AuthContext.Provider value={authContextValue}>
 			<NavigationContainer>
-				<RootStack.Navigator screenOptions={{ headerShown: false, animationTypeForReplace: 'push', }}>
+				<RootStack.Navigator screenOptions={{ headerShown: false, animation: 'simple_push',
+        presentation: 'card',
+        gestureEnabled: true }}>
 					{isAuthenticated ? (
 						<>
 							<RootStack.Screen name='MainApp' component={MainTabNavigator} />

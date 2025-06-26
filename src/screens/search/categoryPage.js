@@ -2,7 +2,6 @@ import { View } from "tamagui";
 import { Dimensions } from "react-native";
 import CategoryPageHeader from "@components/common/searchScreen/categoryPage/header";
 import { FlashList } from "@shopify/flash-list";
-import { useState } from "react";
 import Post from "@components/ui/post";
 import useFetchCategoryPosts from "@hooks/useFetchCategoryPosts";
 import Animated, {
@@ -12,12 +11,11 @@ import Animated, {
 
 const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
 
-const SCREEN_WIDTH = Dimensions.get("window").width;
+const { width } = Dimensions.get("window");
 
 const CategoryPage = ({ route }) => {
   const { category } = route.params;
   const scrollY = useSharedValue(0);
-  const [width, setWidth] = useState(SCREEN_WIDTH);
 
   const { posts, setPage } = useFetchCategoryPosts(category?.name?.toLowerCase());
 
@@ -45,7 +43,6 @@ const CategoryPage = ({ route }) => {
           <Post key={item.id} post={item} width={(width - 48) / 2} />
         )}
         onEndReached={() => setPage((prev) => prev + 1)}
-        onLayout={(e) => setWidth(e.nativeEvent.layout.width)}
       />
     </View>
   );

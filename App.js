@@ -1,3 +1,4 @@
+import configUI from "./tamagui.config";
 import { useCallback } from "react";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -11,7 +12,6 @@ import { Provider } from "react-redux";
 import store from "./src/store";
 import { enableScreens } from "react-native-screens";
 import { Platform } from "react-native";
-import configUI from "./tamagui.config";
 
 enableScreens();
 

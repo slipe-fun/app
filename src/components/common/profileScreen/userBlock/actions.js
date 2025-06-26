@@ -1,61 +1,118 @@
-import { GradientBorder } from "@components/ui/gradientBorder";
 import Icon from "@components/ui/icon";
 import { Button, Text, View, getVariableValue } from "tamagui";
-import { LinearGradient } from "tamagui/linear-gradient";
-import { useState } from "react";
 import * as Haptics from "expo-haptics";
+import { memo, useCallback, useEffect, useState } from "react";
+import Animated, {
+  useAnimatedStyle,
+  interpolate,
+  useAnimatedRef,
+} from "react-native-reanimated";
+import { Dimensions } from "react-native";
 
 const buttons = [
-	{ icon: "edit", label: "Изм." },
-	{ icon: "notifications", label: "Увед." },
-	{ icon: "gear", label: "Настр." },
-	{ icon: "menu", label: "Ещё" },
+  { id: "edit", icon: "edit", label: "Изм." },
+  { id: "notifications", icon: "notifications", label: "Увед." },
+  { id: "settings", icon: "gear", label: "Настр." },
+  { id: "more", icon: "menu", label: "Ещё" },
 ];
 
-const ProfileActions = ({ averageColor }) => {
-	const color = getVariableValue("$white", "color");
-	const [layout, setLayout] = useState({ width: 0, height: 0 });
-	const br = getVariableValue("$5", "radius");
+const iconColor = getVariableValue("$white", "color");
+const { width } = Dimensions.get("window");
+const AnimatedView = Animated.createAnimatedComponent(View);
 
-	return (
-		<View onLayout={e => setLayout(e.nativeEvent.layout)} w='$full' position='relative'>
-			<LinearGradient
-				w={layout.width}
-				h={layout.height}
-				position='absolute'
-				start={[0.5, 0]}
-				end={[0.5, 1]}
-				colors={[`rgba(${averageColor}, 1)`, `rgba(${averageColor}, 0.7)`]}
-			/>
-			<View w='$full' ph='$6' pb='$6' flexDirection='row' pt='$3' gap='$3'>
-				{buttons.map((button, index) => (
-					<Button
-						pressStyle={{
-							scale: 0.98,
-							opacity: 0.9,
-						}}
-						onPress={() => {
-							Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
-						}}
-						animation='fast'
-						key={index}
-						backgroundColor='$glassButton'
-						unstyled
-						br='$5'
-						f={1}
-						position='relative'
-					>
-						<GradientBorder gap='$0.5' borderRadius={br} pt='$2' pb='$3' alignItems='center' style={{ width: "100%" }}>
-							<Icon color={color} icon={button.icon} size={24} />
-							<Text w='$full' lh='$0.75' fw='$2' fz='$0.75'>
-								{button.label}
-							</Text>
-						</GradientBorder>
-					</Button>
-				))}
-			</View>
-		</View>
-	);
+const ProfileActions = ({ averageColor, scrollY }) => {
+  const ref = useAnimatedRef();
+  const [viewHeight, setViewHeight] = useState(0);
+
+  const handlePress = useCallback(() => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
+  }, []);
+
+  const animatedViewStyle = useAnimatedStyle(() => {
+    const height = interpolate(
+      scrollY.value,
+      [width, width + viewHeight],
+      [viewHeight, 0],
+      "clamp"
+    );
+
+    if (viewHeight < 30) {
+      return {};
+    }
+
+    return {
+      height,
+    };
+  }, [viewHeight]);
+
+  const animatedInnerViewStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      scrollY.value,
+      [width, width + (viewHeight - 20)],
+      [1, 0],
+      "clamp"
+    );
+    const scale = interpolate(
+      scrollY.value,
+      [width, width + (viewHeight - 20)],
+      [1, 0],
+      "clamp"
+    );
+    return {
+      opacity,
+      transform: [{ scale }],
+    };
+  }, [viewHeight]);
+
+  useEffect(() => {
+    setViewHeight(ref.current?.getBoundingClientRect()?.height);
+  }, []);
+
+  return (
+    <AnimatedView
+      ref={ref}
+      style={animatedViewStyle}
+      backgroundColor={`rgba(${averageColor}, 1)`}
+      w="$full"
+      ph="$6"
+      flexDirection="row"
+      gap="$3"
+    >
+      {buttons.map((button) => (
+        <Button
+          pressStyle={{
+            scale: 0.98,
+            opacity: 0.9,
+          }}
+          onPress={handlePress}
+          animation="fast"
+		  mt="$3"
+          mb="$5"
+          key={button.id}
+          backgroundColor="$glassButton"
+          unstyled
+          f={1}
+          position="relative"
+        >
+          <AnimatedView
+            br="$5"
+            pt="$2"
+            justifyContent="center"
+            alignItems="center"
+            pb="$3"
+            gap="$0.5"
+            f={1}
+            style={animatedInnerViewStyle}
+          >
+            <Icon color={iconColor} icon={button.icon} size={24} />
+            <Text w="$full" lh="$0.75" fw="$2" fz="$0.75">
+              {button.label}
+            </Text>
+          </AnimatedView>
+        </Button>
+      ))}
+    </AnimatedView>
+  );
 };
 
-export default ProfileActions;
+export default memo(ProfileActions);

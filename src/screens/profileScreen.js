@@ -14,11 +14,11 @@ const ProfileScreen = () => {
 
 	return (
 		<View flex={1} backgroundColor='$bg'>
-			<Animated.ScrollView  scrollEventThrottle={16} overScrollMode='never' onScroll={onScroll}>
+			<Animated.ScrollView contentContainerStyle={{ padding: 0 }} stickyHeaderIndices={[0]}  scrollEventThrottle={16} overScrollMode='never' onScroll={onScroll}>
 				<UserBlock scrollY={scrollY} user={user} />
 				<View p='$6' gap="$6">
 					<ProfileInfoBlock user={user} />
-					{Array.from({ length: 4 }, (_, index) => (
+					{Array.from({ length: 10 }, (_, index) => (
 						<View key={index} w='$full' h='$20' backgroundColor='$innerBlock' br='$7' />
 					))}
 				</View>

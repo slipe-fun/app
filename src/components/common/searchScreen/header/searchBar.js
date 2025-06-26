@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useCallback, useRef, useEffect, useState } from "react";
 import Animated, {
   useSharedValue,
   withSpring,
@@ -12,6 +12,7 @@ const AnimatedView = Animated.createAnimatedComponent(View);
 
 const SearchBar = ({ isButton = false, setIsFocused, isFocused }) => {
   const theme = useTheme();
+  const ref = useRef();
   const inputRef = useRef();
   const color = theme.secondaryText.get();
   const primary = theme.primary.get();
@@ -25,6 +26,14 @@ const SearchBar = ({ isButton = false, setIsFocused, isFocused }) => {
     opacity: cancelOpacity.value,
   }));
 
+  const onCancelPressed = useCallback((type) => {
+    setIsFocused(type === "cancel" ? false : true);
+    if (type === "cancel") {
+      inputRef.current?.blur();
+    } else {
+      inputRef.current?.focus()
+    }
+  }, []);
 
   useEffect(() => {
     if (keyboard.keyboardShown) {
@@ -53,14 +62,15 @@ const SearchBar = ({ isButton = false, setIsFocused, isFocused }) => {
     });
   }, [isFocused, cancelWidth]);
 
+  useEffect(() => {
+    setCancelWidth(ref.current?.getBoundingClientRect()?.width);
+  }, []);
+
   return (
     <XStack width="$full" gap="$6" alignItems="center">
       <XStack
         flex={1}
-        onPress={() => {
-          setIsFocused(true);
-          inputRef.current?.focus();
-        }}
+        onPress={() => onCancelPressed("focus")}
         alignItems="center"
         backgroundColor="$backgroundTransparent"
         br="$full"
@@ -107,18 +117,13 @@ const SearchBar = ({ isButton = false, setIsFocused, isFocused }) => {
         <Button
           backgroundColor="$transparent"
           alignItems="center"
-          onLayout={(e) => {
-            setCancelWidth(Math.round(e.nativeEvent.layout.width));
-          }}
+          ref={ref}
           p="$0"
           height="auto"
-          onPress={() => {
-            setIsFocused(false);
-            inputRef.current?.blur();
-          }}
+          onPress={() => onCancelPressed("cancel")}
         >
           <Text fz="$4" lh="$4" fw="$2" color="$primary">
-            Cancel
+            Отмена
           </Text>
         </Button>
       </AnimatedView>

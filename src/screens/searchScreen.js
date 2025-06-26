@@ -13,13 +13,8 @@ import { Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { FlashList } from "@shopify/flash-list";
 import { categories } from "@constants/categories";
-import Category from "../components/common/searchScreen/categories/category";
-
-const springConfig = {
-  mass: 0.4,
-  damping: 16,
-  stiffness: 120,
-};
+import Category from "../components/common/searchScreen/category";
+import { normalSpring } from "@constants/easings";
 
 const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
 
@@ -54,7 +49,7 @@ export function SearchScreen() {
   );
 
   useEffect(() => {
-    resultsOpacity.value = withSpring(isFocused ? 1 : 0, springConfig);
+    resultsOpacity.value = withSpring(isFocused ? 1 : 0, normalSpring);
   }, [isFocused]);
 
   return (
@@ -68,11 +63,10 @@ export function SearchScreen() {
       <AnimatedFlashList
         data={categories}
         renderItem={renderItem}
-        keyExtractor={(_, index) => index.toString()}
+        keyExtractor={(item) => item.name}
         numColumns={2}
-        removeClippedSubviews
-        initialNumToRender={6}
-        maxToRenderPerBatch={2}
+        initialNumToRender={10}
+        maxToRenderPerBatch={6}
         ListHeaderComponent={
           <SearchHeader
             scrollY={scrollY}
@@ -81,12 +75,11 @@ export function SearchScreen() {
             setQuery={setQuery}
           />
         }
-        estimatedItemSize={220}
+        estimatedItemSize={131}
         contentContainerStyle={{
           paddingHorizontal: 8,
         }}
         columnWrapperStyle={{
-          justifyContent: "space-between",
           marginBottom: 24,
         }}
         scrollEventThrottle={16}

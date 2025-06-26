@@ -11,7 +11,7 @@ const AuthNavigator = () => {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        animation: 'ios_from_right',
+        animation: 'simple_push',
         presentation: 'card',
         gestureEnabled: true,
       }}

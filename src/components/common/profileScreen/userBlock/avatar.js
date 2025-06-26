@@ -1,85 +1,57 @@
 import FastImage from "react-native-fast-image";
-import { useState } from "react";
+import { memo, useState, useCallback } from "react";
 import { Blurhash } from "react-native-blurhash";
+import { View } from "tamagui";
 import Animated, { useAnimatedStyle, withSpring, interpolate } from "react-native-reanimated";
 import { URLS } from "@constants/urls";
-import { BlurView } from "expo-blur";
+import { Dimensions, StyleSheet } from "react-native";
+import { fastSpring } from "@constants/easings";
+import { useInsets } from "@hooks/useInsets";
 
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
-const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
+const AnimatedView = Animated.createAnimatedComponent(View);
 
-const ProfileAvatar = ({ user, scrollY }) => {
+const { width } = Dimensions.get("window");
+
+const ProfileAvatar = ({ user, scrollY, viewHeight }) => {
 	const [loaded, setLoaded] = useState(false);
+	const insets = useInsets();
 
-	const animatedImageStyles = useAnimatedStyle(() => {
-		const opacity = withSpring(loaded ? 1 : 0, {
-			mass: 0.3,
-			damping: 16,
-			stiffness: 120,
-		});
-		return { opacity };
-	});
+	const handleLoad = useCallback(() => {
+		setLoaded(true);
+	}, []);
 
-	const animatedBlurContainerStyle = useAnimatedStyle(() => {
-		const opacity = interpolate(scrollY.value, [0, 100], [0, 1], "clamp");
-		return { opacity };
-	});
+	const animatedImageStyle = useAnimatedStyle(() => {
+		const opacity = withSpring(loaded ? 1 : 0, fastSpring);
+		const scale = interpolate(scrollY.value, [0, width], [1, 1.25], "clamp");
+		return {
+			opacity,
+			transform: [{ scale }],
+		};
+	}, [loaded]);
+
+	const animatedViewStyle = useAnimatedStyle(() => {
+		const opacity = interpolate(scrollY.value, [0, width], [1, 0], "clamp");
+		const height = interpolate(scrollY.value, [0, width], [width, viewHeight + insets.top], "clamp");
+		return {
+			opacity,
+			height,
+		};
+	}, [viewHeight, insets.top]);
 
 	return (
-		<>
-			<AnimatedBlurView
-				pointerEvents='none'
-				style={[
-					{
-						position: "absolute",
-						top: 0,
-						left: 0,
-						right: 0,
-						zIndex: 9,
-						bottom: 0,
-						width: "100%",
-						height: "100%",
-					},
-					animatedBlurContainerStyle,
-				]}
-				intensity={100}
-				tint='dark'
-				experimentalBlurMethod='dimezisBlurView'
-			/>
-
+		<AnimatedView width="$full" height={width} style={animatedViewStyle}>
 			<AnimatedFastImage
-				style={[
-					{
-						width: "100%",
-						height: "100%",
-						position: "absolute",
-						top: 0,
-						left: 0,
-					},
-					animatedImageStyles,
-				]}
+				style={[StyleSheet.absoluteFill, animatedImageStyle]}
 				source={{
 					uri: `${URLS.CDN_AVATARS_URL}${user?.avatar}`,
 					priority: FastImage.priority.high,
 				}}
-				onLoad={() => setLoaded(true)}
+				onLoad={handleLoad}
 			/>
-
-			{!loaded && (
-				<Blurhash
-					style={{
-						width: "100%",
-						height: "100%",
-						position: "absolute",
-						top: 0,
-						left: 0,
-					}}
-					decodeAsync
-					blurhash={user?.avatar_information?.blurhash}
-				/>
-			)}
-		</>
+			{!loaded && <Blurhash style={StyleSheet.absoluteFill} decodeAsync blurhash={user?.avatar_information?.blurhash} />}
+		</AnimatedView>
 	);
 };
 
-export default ProfileAvatar;
+export default memo(ProfileAvatar);

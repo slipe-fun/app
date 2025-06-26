@@ -1,6 +1,7 @@
 export * from "./useCameraBlur";
 export * from "./useEmojiState"
 export * from "./useFetchCategoryPosts"
+export * from "./useFetchCategoryStatistics"
 export * from "./useFetchNotifications"
 export * from "./useFetchPostsByQuery"
 export * from "./useFetchUser"
