@@ -31,7 +31,7 @@ const ProfileActions = ({ averageColor, scrollY }) => {
   const animatedViewStyle = useAnimatedStyle(() => {
     const height = interpolate(
       scrollY.value,
-      [width, width + viewHeight],
+      [width - viewHeight, width + 20],
       [viewHeight, 0],
       "clamp"
     );
@@ -48,13 +48,13 @@ const ProfileActions = ({ averageColor, scrollY }) => {
   const animatedInnerViewStyle = useAnimatedStyle(() => {
     const opacity = interpolate(
       scrollY.value,
-      [width, width + (viewHeight - 20)],
+      [width - viewHeight, width + 20],
       [1, 0],
       "clamp"
     );
     const scale = interpolate(
       scrollY.value,
-      [width, width + (viewHeight - 20)],
+      [width - viewHeight, width + 20],
       [1, 0.3],
       "clamp"
     );
@@ -86,11 +86,11 @@ const ProfileActions = ({ averageColor, scrollY }) => {
           }}
           onPress={handlePress}
           animation="fast"
-		  mt="$3"
           mb="$5"
+          mt="$1"
           key={button.id}
           backgroundColor="$glassButton"
-		  overflow='hidden'
+		      overflow='hidden'
           unstyled
           f={1}
           position="relative"

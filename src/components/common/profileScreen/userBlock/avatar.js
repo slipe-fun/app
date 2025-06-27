@@ -13,7 +13,7 @@ const AnimatedView = Animated.createAnimatedComponent(View);
 
 const { width } = Dimensions.get("window");
 
-const ProfileAvatar = ({ user, scrollY, viewHeight }) => {
+const ProfileAvatar = ({ user, scrollY }) => {
 	const [loaded, setLoaded] = useState(false);
 	const insets = useInsets();
 
@@ -23,25 +23,24 @@ const ProfileAvatar = ({ user, scrollY, viewHeight }) => {
 
 	const animatedImageStyle = useAnimatedStyle(() => {
 		const opacity = withSpring(loaded ? 1 : 0, fastSpring);
-		const scale = interpolate(scrollY.value, [0, width], [1, 1.25], "clamp");
 		return {
 			opacity,
-			transform: [{ scale }],
 		};
 	}, [loaded]);
 
 	const animatedViewStyle = useAnimatedStyle(() => {
-		const opacity = interpolate(scrollY.value, [0, width], [1, 0], "clamp");
-		const height = interpolate(scrollY.value, [0, width], [width, viewHeight + insets.top], "clamp");
+		const opacity = interpolate(scrollY.value, [0, width - insets.top], [1, 0], "clamp");
+		const height = interpolate(scrollY.value, [0, width + insets.top], [width, 0], "clamp");
 		return {
 			opacity,
-			height,
+			height
 		};
-	}, [viewHeight, insets.top]);
+	}, []);
 
 	return (
-		<AnimatedView width="$full" height={width} style={animatedViewStyle}>
+		<AnimatedView position="absolute" width={width} style={animatedViewStyle}>
 			<AnimatedFastImage
+				resizeMode={FastImage.resizeMode.cover}
 				style={[StyleSheet.absoluteFill, animatedImageStyle]}
 				source={{
 					uri: `${URLS.CDN_AVATARS_URL}${user?.avatar}`,

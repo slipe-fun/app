@@ -260,13 +260,13 @@ const configUI = createTamagui({
 
   defaultProps: {
     Text: {
-      color: tokens.color.primary,
+      color: '$color',
       fontFamily: '$body',
       fontSize: '$4',
       lineHeight: '$4',
     },
     Button: {
-      backgroundColor: tokens.color.primary,
+      backgroundColor: '$primary',
       borderRadius: '$3',
     },
   },
