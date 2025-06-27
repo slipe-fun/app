@@ -4,6 +4,7 @@ import CategoryPageHeader from "@components/common/searchScreen/categoryPage/hea
 import { FlashList } from "@shopify/flash-list";
 import Post from "@components/ui/post";
 import useFetchCategoryPosts from "@hooks/useFetchCategoryPosts";
+import { useCallback } from "react";
 import Animated, {
   useSharedValue,
   useAnimatedScrollHandler, 
@@ -23,6 +24,14 @@ const CategoryPage = ({ route }) => {
     scrollY.value = event.contentOffset.y;
   });
 
+  const renderItem = useCallback(({ item }) => (
+    <Post post={item} width={(width - 48) / 2} />
+  ), []);
+
+  const handleEndReached = useCallback(() => {
+    setPage((prev) => prev + 1);
+  }, []);
+
   return (
     <View f={1} backgroundColor="$black">
       {/* <View position="absolute" top={0} left={0} right={0} zIndex={1}>
@@ -34,15 +43,12 @@ const CategoryPage = ({ route }) => {
         keyExtractor={(item) => item.id.toString()}
         numColumns={2}
         masonry
-        removeClippedSubviews
-        initialNumToRender={6}
-        maxToRenderPerBatch={10}
+        initialNumToRender={8}
+        maxToRenderPerBatch={12}
         windowSize={5}
         scrollEventThrottle={16}
-        renderItem={({ item }) => (
-          <Post key={item.id} post={item} width={(width - 48) / 2} />
-        )}
-        onEndReached={() => setPage((prev) => prev + 1)}
+        renderItem={renderItem}
+        onEndReached={handleEndReached}
       />
     </View>
   );

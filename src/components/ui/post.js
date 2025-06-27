@@ -1,52 +1,55 @@
-import { useState, useEffect, memo } from "react";
-import { Button, Image, View, getVariableValue } from "tamagui";
-import { Image as RNImage } from "react-native";
+import { memo, useMemo, useCallback, useState } from "react";
+import { Button } from "tamagui";
 import { URLS } from "@constants/urls";
-import { GradientBorder } from "./gradientBorder";
 import * as Haptics from "expo-haptics";
 import FastImage from "react-native-fast-image";
+import { StyleSheet } from "react-native";
+import { Blurhash } from "react-native-blurhash";
 
 const Post = ({ post, width }) => {
-  const [h, setH] = useState(0);
-  const readyImage = `${URLS.CDN_POSTS_URL}${post.image}`;
-  const borderRadius = getVariableValue("$7", "radius");
+	const readyImage = `${URLS.CDN_POSTS_URL}${post.image}`;
+	const [loaded, setLoaded] = useState(false);
 
-  // useEffect(() => {
-  //   RNImage.getSize(readyImage, (w, h0) => setH((width * h0) / w));
-  // }, [post.image]);
+	const imageHeight = useMemo(() => {
+		return (width * post?.size.height) / post?.size.width;
+	}, [post?.size]);
 
-  return (
-    <Button
-      unstyled
-      m="$3"
-      p="$0"
-      overflow="hidden"
-      br="$7"
-      style={{
-        height: 220,
-      }}
-      position="relative"
-      animation="fast"
-      backgroundColor="$transparent"
-      pressStyle={{
-        scale: 0.98,
-        opacity: 0.9,
-      }}
-      onPress={() => {
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
-      }}
-    >
-        <FastImage
-          source={{ uri: readyImage }}
-          resizeMode="cover"
-          style={{
-            width: "100%",
-            height: "100%",
-            backgroundPosition: "center",
-          }}
-        />
-    </Button>
-  )
+	const handleLoad = useCallback(() => {
+		setLoaded(true);
+	}, []);
+
+	const handlePress = useCallback(() => {
+		Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
+	}, []);
+
+	return (
+		<Button
+			unstyled
+			m='$3'
+			p='$0'
+			overflow='hidden'
+			br='$7'
+			style={{
+				height: imageHeight || 220,
+			}}
+			position='relative'
+			animation='fast'
+			backgroundColor='$transparent'
+			pressStyle={{
+				scale: 0.98,
+				opacity: 0.9,
+			}}
+			onPress={handlePress}
+		>
+			<FastImage
+        resizeMode={FastImage.resizeMode.cover}
+        onLoad={handleLoad}
+				source={{ uri: readyImage, priority: FastImage.priority.high }}
+        style={[StyleSheet.absoluteFill, {backgroundPosition: "center"}]}
+			/>
+			{!loaded && <Blurhash style={StyleSheet.absoluteFill} decodeAsync blurhash={post?.blurhash} />}
+		</Button>
+	);
 };
 
 export default memo(Post);
