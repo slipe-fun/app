@@ -1,11 +1,11 @@
 import Icon from "@components/ui/icon";
 import { Button, Text, View, getVariableValue } from "tamagui";
 import * as Haptics from "expo-haptics";
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect } from "react";
 import Animated, {
   useAnimatedStyle,
-  interpolate,
   useAnimatedRef,
+  interpolate,
 } from "react-native-reanimated";
 import { Dimensions } from "react-native";
 
@@ -20,59 +20,40 @@ const iconColor = getVariableValue("$white", "color");
 const { width } = Dimensions.get("window");
 const AnimatedView = Animated.createAnimatedComponent(View);
 
-const ProfileActions = ({ averageColor, scrollY }) => {
+const ProfileActions = ({ actionsHeight, setActionsHeight, scrollY, viewHeight }) => {
   const ref = useAnimatedRef();
-  const [viewHeight, setViewHeight] = useState(0);
-
+  
   const handlePress = useCallback(() => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
   }, []);
 
   const animatedViewStyle = useAnimatedStyle(() => {
-    const height = interpolate(
-      scrollY.value,
-      [width - viewHeight, width + 20],
-      [viewHeight, 0],
-      "clamp"
-    );
+    if (actionsHeight < 30) return {};
 
-    if (viewHeight < 30) {
-      return {};
-    }
+    const height = interpolate(scrollY.value, [width - viewHeight, width], [actionsHeight, 0], 'clamp');
 
-    return {
-      height,
-    };
-  }, [viewHeight]);
+    return { height };
+
+  }, [actionsHeight]);
 
   const animatedInnerViewStyle = useAnimatedStyle(() => {
-    const opacity = interpolate(
-      scrollY.value,
-      [width - viewHeight, width + 20],
-      [1, 0],
-      "clamp"
-    );
-    const scale = interpolate(
-      scrollY.value,
-      [width - viewHeight, width + 20],
-      [1, 0.3],
-      "clamp"
-    );
+    const t = interpolate(scrollY.value, [width - viewHeight, width], [1, 0], 'clamp');
+
     return {
-      opacity,
-      transform: [{ scale }],
+      opacity: t, 
+      transform: [{ scale: t }],
     };
-  }, [viewHeight]);
+  }, [actionsHeight]);
 
   useEffect(() => {
-    setViewHeight(ref.current?.getBoundingClientRect()?.height);
+    setActionsHeight(ref.current?.getBoundingClientRect()?.height);
   }, []);
 
   return (
     <AnimatedView
       ref={ref}
       style={animatedViewStyle}
-      backgroundColor={`rgba(${averageColor}, 1)`}
+      backgroundColor={`rgba(28, 114, 69, 1)`}
       w="$full"
       ph="$6"
       flexDirection="row"
@@ -90,7 +71,7 @@ const ProfileActions = ({ averageColor, scrollY }) => {
           mt="$1"
           key={button.id}
           backgroundColor="$glassButton"
-		      overflow='hidden'
+          overflow="hidden"
           unstyled
           f={1}
           position="relative"
@@ -102,6 +83,7 @@ const ProfileActions = ({ averageColor, scrollY }) => {
             alignItems="center"
             pb="$3"
             gap="$0.5"
+            transformOrigin="center"
             f={1}
             style={animatedInnerViewStyle}
           >

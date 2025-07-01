@@ -11,8 +11,12 @@ const Post = ({ post, width }) => {
 	const [loaded, setLoaded] = useState(false);
 
 	const imageHeight = useMemo(() => {
-		return (width * post?.size.height) / post?.size.width;
-	}, [post?.size]);
+		const calculated = (width * post?.size.height) / post?.size.width;
+		if (calculated > 256) {
+			return Math.max(calculated / 5, 256);
+		}
+		return calculated;
+	}, [post?.size, width]);
 
 	const handleLoad = useCallback(() => {
 		setLoaded(true);
@@ -42,10 +46,10 @@ const Post = ({ post, width }) => {
 			onPress={handlePress}
 		>
 			<FastImage
-        resizeMode={FastImage.resizeMode.cover}
-        onLoad={handleLoad}
+				resizeMode={FastImage.resizeMode.cover}
+				onLoad={handleLoad}
 				source={{ uri: readyImage, priority: FastImage.priority.high }}
-        style={[StyleSheet.absoluteFill, {backgroundPosition: "center"}]}
+				style={[StyleSheet.absoluteFill, { backgroundPosition: "center" }]}
 			/>
 			{!loaded && <Blurhash style={StyleSheet.absoluteFill} decodeAsync blurhash={post?.blurhash} />}
 		</Button>

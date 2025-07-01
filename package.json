@@ -55,7 +55,6 @@
     "react-native-view-shot": "~4.0.3",
     "react-native-vision-camera": "^4.6.4",
     "react-redux": "^9.2.0",
-    "rxjs": "^7.8.2",
     "tamagui": "^1.126.13"
   },
   "devDependencies": {

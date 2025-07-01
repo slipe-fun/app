@@ -158,7 +158,7 @@ export const tokens = createTokens({
   },
   color: {
     white: '#fff',
-    primary: '#0A84FF',
+    primary: '#1A6AFF',
     glassButton: 'rgba(61, 61, 61, 0.24)',
     red: '#E82132',
     innerBlockDark: '#333333',
@@ -237,6 +237,7 @@ const configUI = createTamagui({
 
   shorthands: {
     ph: 'paddingHorizontal',
+    mh: 'marginHorizontal',
     pv: 'paddingVertical',
     p: 'padding',
     m: 'margin',

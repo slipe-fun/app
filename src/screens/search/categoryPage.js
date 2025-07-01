@@ -45,7 +45,6 @@ const CategoryPage = ({ route }) => {
         masonry
         initialNumToRender={8}
         maxToRenderPerBatch={12}
-        windowSize={5}
         scrollEventThrottle={16}
         renderItem={renderItem}
         onEndReached={handleEndReached}
