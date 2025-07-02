@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { captureRef } from "react-native-view-shot";
 
-export function useCameraBlur({ cameraRef, zoom, device, setFacing }) {
+export default function useCameraBlur({ cameraRef, zoom, device, setFacing }) {
 	const [isBlurring, setIsBlurring] = useState(false);
 	const [snapshotUri, setSnapshotUri] = useState(null);
 

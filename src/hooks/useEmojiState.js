@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { api } from "../lib/api";
 
-export function useEmojiState(post) {
+export default function useEmojiState(post) {
     const [postReactions, setPostReactions] = useState([]);
 
     const defaultEmojis = {

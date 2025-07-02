@@ -18,6 +18,7 @@
     "@reduxjs/toolkit": "^2.7.0",
     "@shopify/flash-list": "v2.0.0-alpha.20",
     "@shopify/react-native-skia": "^1.12.4",
+    "@somesoap/react-native-image-palette": "^1.2.1",
     "@tamagui/animations-moti": "^1.126.13",
     "axios": "^1.9.0",
     "babel-plugin-module-resolver": "^5.0.2",

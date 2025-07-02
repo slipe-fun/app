@@ -2,7 +2,7 @@ import { Platform, View } from "react-native";
 import { COLORS } from "../constants/theme";
 import VerticalSlider from "../components/ui/verticalSlider";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useFetchUsers } from "../hooks/useFetchUsers";
+import useFetchUsers from "@hooks/useFetchUsers";
 import { useState, useEffect } from "react";
 
 const BlogsScreen = () => {

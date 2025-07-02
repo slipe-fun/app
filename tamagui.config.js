@@ -86,6 +86,7 @@ export const tokens = createTokens({
     24: 140,
     25: 160,
     26: 200,
+    27: 240,
     true: 16,
   },
   weight: {

@@ -5,7 +5,7 @@ import { memo, useMemo, useRef, useEffect } from "react";
 import { Dimensions } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Animated, { interpolate, useAnimatedStyle } from "react-native-reanimated";
-import { useInsets } from "@hooks/useInsets";
+import useInsets from "@hooks/useInsets";
 import UserInfo from "./userInfo";
 
 const { width } = Dimensions.get("window"); 

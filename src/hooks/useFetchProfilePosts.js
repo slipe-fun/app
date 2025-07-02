@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { api } from "../lib/api";
 
-const useFetchProfilePosts = (userId) => {
+export default function useFetchProfilePosts(userId, selfUser) {
 	const [posts, setPosts] = useState([]);
 	const [page, setPage] = useState(1);
 
 	useEffect(() => {
-		setPosts([]);
+		setPosts([selfUser && { type: "publish" }]);
 		setPage(1);
 	}, [userId]);
 
@@ -21,5 +21,3 @@ const useFetchProfilePosts = (userId) => {
 
 	return { posts, setPage };
 };
-
-export default useFetchProfilePosts;

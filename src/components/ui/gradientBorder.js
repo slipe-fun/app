@@ -8,16 +8,16 @@ export const GradientBorder = forwardRef(
   (
     {
       children,
-      style,
       borderWidth = 1,
-      borderRadius = 10,
+      br,
       gradientColors = [
-        "rgba(255, 255, 255, 0.18)",
+        "rgba(255, 255, 255, 0.2)",
         "rgba(255, 255, 255, 0)",
-        "rgba(255, 255, 255, 0.18)",
+        "rgba(255, 255, 255, 0.2)",
       ],
       gradientStart = { x: 0, y: 0 },
       gradientEnd = { x: 1, y: 1 },
+      ...props
     },
     ref
   ) => {
@@ -27,18 +27,17 @@ export const GradientBorder = forwardRef(
           maskElementContainer: {
             flex: 1,
             borderWidth,
-            borderRadius,
           },
         }),
-      [borderRadius, borderWidth]
+      [br, borderWidth]
     );
 
     return (
-      <View ref={ref} style={[{ borderRadius, position: "relative" }, style]}>
+      <View ref={ref} {...props}>
         {children}
         <MaskedView
           style={StyleSheet.absoluteFill}
-          maskElement={<View style={maskStyles.maskElementContainer} />}
+          maskElement={<View br={br} style={maskStyles.maskElementContainer} />}
         >
           <LinearGradient
             colors={gradientColors}

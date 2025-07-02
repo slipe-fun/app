@@ -3,7 +3,7 @@ import { api } from "../lib/api";
 
 const unique = arr => [...new Map(arr.map(item => [item.date, item])).values()];
 
-export function useFetchNotifications() {
+export default function useFetchNotifications() {
     const [notifications, setNotifications] = useState([]);
     const [page, setPage] = useState(1);
 

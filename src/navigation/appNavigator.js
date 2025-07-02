@@ -2,9 +2,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CustomTabBar from "../components/ui/tabBar/tabBar";
-import { BlogsScreen, SearchScreen, CategoryPage, ProfileScreen, EditorScreen } from "../screens";
+import { BlogsScreen, SearchScreen, ProfileScreen, EditorScreen } from "../screens";
 import AuthNavigator from "./AuthNavigator";
 import { ROUTES } from "../constants/routes";
+import EditorNavigator from "./editorNavigator";
 import { useState, createContext, useContext, useEffect } from "react";
 import { storage } from "../lib/storage";
 
@@ -63,14 +64,11 @@ const AppNavigator = () => {
 	return (
 		<AuthContext.Provider value={authContextValue}>
 			<NavigationContainer>
-				<RootStack.Navigator screenOptions={{ headerShown: false, animation: 'simple_push',
-        presentation: 'card',
-        gestureEnabled: true }}>
+				<RootStack.Navigator screenOptions={{ headerShown: false, animation: "simple_push", presentation: "card", gestureEnabled: true }}>
 					{isAuthenticated ? (
 						<>
 							<RootStack.Screen name='MainApp' component={MainTabNavigator} />
-							<RootStack.Screen name={ROUTES.PUBLISH_EDITOR} component={EditorScreen} />
-							<RootStack.Screen name={ROUTES.CATEGORY_PAGE} component={CategoryPage} />
+							<RootStack.Screen name={ROUTES.PUBLISH} component={EditorNavigator} />
 						</>
 					) : (
 						<RootStack.Screen name={ROUTES.AUTH} component={AuthNavigator} />

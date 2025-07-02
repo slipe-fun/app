@@ -3,7 +3,7 @@ import { api } from "../lib/api";
 
 const unique = arr => [...new Map(arr.map(item => [item.author_id, item])).values()];
 
-export function useFetchUsers() {
+export default function useFetchUsers() {
 	const [users, setUsers] = useState([]);
 
 	async function fetchPosts() {

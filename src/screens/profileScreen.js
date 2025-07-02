@@ -10,6 +10,8 @@ import { Dimensions } from "react-native";
 import { useState, memo } from "react";
 import ProfileAvatar from "@components/common/profileScreen/userBlock/avatar";
 import { FlashList } from "@shopify/flash-list";
+import useFetchProfilePosts from "@hooks/useFetchProfilePosts";
+import PublishButton from "@components/common/profileScreen/publishButton";
 
 const { width } = Dimensions.get("window");
 const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
@@ -18,6 +20,7 @@ const ProfileScreen = () => {
   const { user, isLoading, error } = useFetchUser();
   const [actionsHeight, setActionsHeight] = useState(0);
   const scrollY = useSharedValue(0);
+  const { posts } = useFetchProfilePosts(user?.id, true);
   const [viewHeight, setViewHeight] = useState(0);
 
   const onScroll = useAnimatedScrollHandler({
@@ -27,12 +30,31 @@ const ProfileScreen = () => {
   });
 
   const renderItem = ({ item }) => {
-    return <View m="$3" w="$full" h="$25" backgroundColor="$innerBlock" br="$7" />;
+    switch (item?.type) {
+      case "publish":
+        return <PublishButton />;
+
+      default:
+        return (
+          <View
+            m="$3"
+            w="$full"
+            h="$27"
+            backgroundColor="$innerBlock"
+            br="$7"
+          />
+        );
+    }
   };
 
   return (
     <View flex={1} backgroundColor="$bg">
-      <ProfileAvatar viewHeight={viewHeight} actionsHeight={actionsHeight} scrollY={scrollY} user={user} />
+      <ProfileAvatar
+        viewHeight={viewHeight}
+        actionsHeight={actionsHeight}
+        scrollY={scrollY}
+        user={user}
+      />
       <UserBlock
         actionsHeight={actionsHeight}
         setViewHeight={setViewHeight}
@@ -42,9 +64,12 @@ const ProfileScreen = () => {
         user={user}
       />
       <AnimatedFlashList
-        contentContainerStyle={{ paddingTop: width + actionsHeight, paddingHorizontal: 8 }}
+        contentContainerStyle={{
+          paddingTop: width + actionsHeight,
+          paddingHorizontal: 8,
+        }}
         ListHeaderComponent={<ProfileInfoBlock user={user} />}
-        data={[1, 2, 3, 4, 5, 6, 7, 8]}
+        data={posts}
         scrollEventThrottle={16}
         masonry
         numColumns={2}

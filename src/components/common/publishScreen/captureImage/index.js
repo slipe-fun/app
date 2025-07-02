@@ -79,7 +79,7 @@ export const CaptureImage = () => {
 				<View style={styles.zoomDetector} />
 			</GestureDetector>
 			<ReanimatedCamera
-				photoQualityBalance='speed'
+				photoQualityBalance='balance'
 				photo
 				format={format}
 				torch={torch}
