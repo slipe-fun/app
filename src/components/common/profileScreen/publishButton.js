@@ -24,7 +24,7 @@ const PublishButton = () => {
 
 	const handlePress = useCallback(() => {
 		Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
-		navigation.navigate("Publish", { screen: "Publish_capture" });
+		navigation.navigate("Publish");
 	}, []);
 
 	return (
