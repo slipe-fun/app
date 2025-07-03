@@ -1,7 +1,7 @@
 import { View, Image, ScrollView } from "react-native";
 import styles from "../styles/userCardStyles";
 import { COLORS } from "@constants/theme";
-import { useEmojiState } from "@hooks/useEmojiState";
+import useEmojiState from "@hooks/useEmojiState";
 import AnimatedButton from "@components/ui/animatedButton";
 import Animated, { interpolateColor, useAnimatedStyle, useSharedValue, withTiming, Easing } from "react-native-reanimated";
 import { memo, useEffect } from "react";

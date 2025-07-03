@@ -20,7 +20,7 @@ const iconColor = getVariableValue("$white", "color");
 const { width } = Dimensions.get("window");
 const AnimatedView = Animated.createAnimatedComponent(View);
 
-const ProfileActions = ({ actionsHeight, setActionsHeight, scrollY, viewHeight }) => {
+const ProfileActions = ({ actionsHeight, setActionsHeight, scrollY, viewHeight, averageColor }) => {
   const ref = useAnimatedRef();
   
   const handlePress = useCallback(() => {
@@ -53,7 +53,7 @@ const ProfileActions = ({ actionsHeight, setActionsHeight, scrollY, viewHeight }
     <AnimatedView
       ref={ref}
       style={animatedViewStyle}
-      backgroundColor={`rgba(28, 114, 69, 1)`}
+      backgroundColor={`rgba(${averageColor}, 1)`}
       w="$full"
       ph="$6"
       flexDirection="row"

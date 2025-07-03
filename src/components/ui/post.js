@@ -1,22 +1,14 @@
-import { memo, useMemo, useCallback, useState } from "react";
-import { Button } from "tamagui";
+import { memo, useCallback, useState } from "react";
+import { View } from "tamagui";
 import { URLS } from "@constants/urls";
 import * as Haptics from "expo-haptics";
 import FastImage from "react-native-fast-image";
 import { StyleSheet } from "react-native";
 import { Blurhash } from "react-native-blurhash";
+import { Pressable } from "react-native-gesture-handler";
 
-const Post = ({ post, width }) => {
-	const readyImage = `${URLS.CDN_POSTS_URL}${post.image}`;
+const Post = ({ post }) => {
 	const [loaded, setLoaded] = useState(false);
-
-	const imageHeight = useMemo(() => {
-		const calculated = (width * post?.size.height) / post?.size.width;
-		if (calculated > 256) {
-			return Math.max(calculated / 5, 256);
-		}
-		return calculated;
-	}, [post?.size, width]);
 
 	const handleLoad = useCallback(() => {
 		setLoaded(true);
@@ -27,32 +19,30 @@ const Post = ({ post, width }) => {
 	}, []);
 
 	return (
-		<Button
-			unstyled
-			m='$3'
-			p='$0'
-			overflow='hidden'
-			br='$7'
-			style={{
-				height: imageHeight || 220,
-			}}
-			position='relative'
-			animation='fast'
-			backgroundColor='$transparent'
-			pressStyle={{
-				scale: 0.98,
-				opacity: 0.9,
-			}}
-			onPress={handlePress}
-		>
-			<FastImage
-				resizeMode={FastImage.resizeMode.cover}
-				onLoad={handleLoad}
-				source={{ uri: readyImage, priority: FastImage.priority.high }}
-				style={[StyleSheet.absoluteFill, { backgroundPosition: "center" }]}
-			/>
-			{!loaded && <Blurhash style={StyleSheet.absoluteFill} decodeAsync blurhash={post?.blurhash} />}
-		</Button>
+			<View
+				p='$0'
+				m='$3'
+				overflow='hidden'
+				br='$7'
+				w='$full'
+				position='relative'
+				animation='fast'
+				onPress={handlePress}
+				backgroundColor='$transparent'
+				pressStyle={{
+					scale: 0.98,
+					opacity: 0.9,
+				}}
+			>
+				<View position="absolute" top={0} left={0} right={0} bottom={0} aspectRatio="6/9" br="$7" zIndex="$2" borderWidth={1} borderColor="rgba(255, 255, 255, 0.2)"  />
+				<FastImage
+					resizeMode='cover'
+					onLoad={handleLoad}	
+					source={{ uri: `${URLS.CDN_POSTS_URL}${post.image}`, priority: FastImage.priority.normal, cache: FastImage.cacheControl.immutable }}
+					style={[{ aspectRatio: '6/9', width: '100%'}]}
+				/>
+				{!loaded && <Blurhash style={StyleSheet.absoluteFill} decodeAsync blurhash={post?.blurhash} />}
+			</View>
 	);
 };
 

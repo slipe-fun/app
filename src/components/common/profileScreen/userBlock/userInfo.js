@@ -19,22 +19,22 @@ const nicknameAnimatedLine = getVariableValue("$4", "lineHeight");
 const AnimatedText = Animated.createAnimatedComponent(Text);
 const AnimatedView = Animated.createAnimatedComponent(View);
 
-const UserInfo = memo(({ user, top, scrollY, actionsHeight }) => { 
+const UserInfo = memo(({ user, top, scrollY, viewHeight }) => { 
     const insets = useInsets();
     
     const animatedViewStyle = useAnimatedStyle(() => {
-        const opacity = interpolate(scrollY.value, [width - actionsHeight, (width - actionsHeight) + insets.top], [0.7 , 0.35], 'clamp');
+        const opacity = interpolate(scrollY.value, [width - viewHeight, width], [0.7 , 0.35], 'clamp');
         return {
             opacity,
         };
     });
 
     const animatedNicknameStyle = useAnimatedStyle(() => {
-        const fontSize = interpolate(scrollY.value, [width - actionsHeight, (width - actionsHeight) + insets.top], [nicknameStart , nicknameAnimated], 'clamp');
-        const lineHeight = interpolate(scrollY.value, [width - actionsHeight, (width - actionsHeight) + insets.top], [nicknameStartLine , nicknameAnimatedLine], 'clamp');
-        const marginBottom = interpolate(scrollY.value, [width - actionsHeight, (width - actionsHeight) + insets.top], [marginBottomVar , marginAnimatedBottomVar], 'clamp');
+        const fontSize = interpolate(scrollY.value, [width - viewHeight, width], [nicknameStart , nicknameAnimated], 'clamp');
+        const lineHeight = interpolate(scrollY.value, [width - viewHeight, width], [nicknameStartLine , nicknameAnimatedLine], 'clamp');
+        const marginBottom = interpolate(scrollY.value, [width - viewHeight, width], [marginBottomVar , marginAnimatedBottomVar], 'clamp');
         return {
-            fontSize,
+            fontSize, 
             lineHeight,
             marginBottom
         };

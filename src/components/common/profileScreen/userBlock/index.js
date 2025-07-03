@@ -22,7 +22,7 @@ const UserBlock = ({ user, scrollY, setActionsHeight, actionsHeight, viewHeight,
 	}, [user?.avatar_information?.blurhash]);
 
 	const animatedFillStyle = useAnimatedStyle(() => {
-		const opacity = interpolate(scrollY.value, [width - actionsHeight, (width - actionsHeight) + insets.top], [0, 1], 'clamp');
+		const opacity = interpolate(scrollY.value, [width - viewHeight, width], [0, 1], 'clamp');
 		return {
 			opacity,
 		};
@@ -50,13 +50,13 @@ const UserBlock = ({ user, scrollY, setActionsHeight, actionsHeight, viewHeight,
 		<AnimatedView borderBottomLeftRadius="$7" borderBottomRightRadius="$7" overflow='hidden' style={animatedViewStyle} w='$full' position="absolute" zIndex="$1">
 			<View w={width} position='relative' zIndex="$1" ref={ref}>
 				<LinearGradient
-					colors={[`rgba(28, 114, 69, 0)`, `rgba(28, 114, 69, 1)`]}
+					colors={[`rgba(${averageColor}, 0)`, `rgba(${averageColor}, 1)`]}
 					start={{ x: 0.5, y: 0 }}
 					end={{ x: 0.5, y: 0.95 }}
-					style={gradientStyle}
+					style={gradientStyle} 
 				/> 
-				<AnimatedView bottom={0} position='absolute' w={width} h={viewHeight} backgroundColor={`rgb(28, 114, 69)`} style={animatedFillStyle} />
-				<UserInfo scrollY={scrollY} top={insets.top} user={user} actionsHeight={actionsHeight} />
+				<AnimatedView bottom={0} position='absolute' w={width} h={viewHeight} backgroundColor={`rgba(${averageColor}, 1)`} style={animatedFillStyle} />
+				<UserInfo scrollY={scrollY} top={insets.top} user={user} viewHeight={viewHeight} />
 			</View>
 
 			<ProfileActions viewHeight={viewHeight} scrollY={scrollY} averageColor={averageColor} actionsHeight={actionsHeight} setActionsHeight={setActionsHeight} />
