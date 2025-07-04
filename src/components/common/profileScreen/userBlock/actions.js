@@ -1,13 +1,14 @@
 import Icon from "@components/ui/icon";
 import { Button, Text, View, getVariableValue } from "tamagui";
 import * as Haptics from "expo-haptics";
-import { memo, useCallback, useEffect } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import Animated, {
   useAnimatedStyle,
   useAnimatedRef,
   interpolate,
 } from "react-native-reanimated";
 import { Dimensions } from "react-native";
+import rgbToHsl from "@lib/rgbTohsl";
 
 const buttons = [
   { id: "edit", icon: "edit", label: "Изм." },
@@ -22,6 +23,7 @@ const AnimatedView = Animated.createAnimatedComponent(View);
 
 const ProfileActions = ({ actionsHeight, setActionsHeight, scrollY, viewHeight, averageColor }) => {
   const ref = useAnimatedRef();
+  const [hslColor, setHslColor] = useState({});
   
   const handlePress = useCallback(() => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
@@ -49,6 +51,11 @@ const ProfileActions = ({ actionsHeight, setActionsHeight, scrollY, viewHeight, 
     setActionsHeight(ref.current?.getBoundingClientRect()?.height);
   }, []);
 
+  useEffect(() => {
+    const hslColor = rgbToHsl(...averageColor.split(",").map((c) => parseInt(c)));
+    setHslColor(hslColor);
+  }, []);
+
   return (
     <AnimatedView
       ref={ref}
@@ -61,6 +68,7 @@ const ProfileActions = ({ actionsHeight, setActionsHeight, scrollY, viewHeight, 
     >
       {buttons.map((button) => (
         <Button
+          br="$5"
           pressStyle={{
             scale: 0.98,
             opacity: 0.9,
@@ -70,14 +78,13 @@ const ProfileActions = ({ actionsHeight, setActionsHeight, scrollY, viewHeight, 
           mb="$5"
           mt="$1"
           key={button.id}
-          backgroundColor="$glassButton"
+          backgroundColor={`hsl(${hslColor.h}, ${hslColor.s}%, ${hslColor.l - 10}%)`}
           overflow="hidden"
           unstyled
           f={1}
           position="relative"
         >
           <AnimatedView
-            br="$5"
             pt="$2"
             justifyContent="center"
             alignItems="center"
