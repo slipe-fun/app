@@ -1,13 +1,17 @@
 import useInsets from "@hooks/useInsets"
-import { View } from "tamagui"
+import { View, XStack } from "tamagui"
 import CapturePickGalleryImage from "./pickGalleryImage";
+import CaptureRotateButton from "./rotateButton";
+import SwitchFormat from "./formatSwitcher";
 
 const CaptureFooter = () => {
     const insets = useInsets();
     return(
-        <View pb={insets.bottom} pt="$6" ph="$7" w='$full' flexDirection="row">
+        <XStack pb={insets.bottom} pt="$6" ph="$7" w='$full'>
             <CapturePickGalleryImage/>
-        </View>
+            <SwitchFormat/>
+            <CaptureRotateButton/>
+        </XStack>
     )
 }
 
