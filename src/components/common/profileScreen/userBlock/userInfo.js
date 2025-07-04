@@ -1,6 +1,6 @@
 import GetNormalDate from "@lib/getNormalDate";
 import { Dimensions } from "react-native";
-import useInsets from "@hooks/useInsets";
+import useInsets from "@hooks/ui/useInsets";
 import { memo } from "react";
 import Animated, { interpolate, useAnimatedStyle } from "react-native-reanimated";
 import { View, Text, getVariableValue } from "tamagui";

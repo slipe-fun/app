@@ -14,7 +14,7 @@ module.exports = {
           '@constants': './src/constants',
           '@hooks': './src/hooks',
           '@lib': './src/lib',
-          '@reducers': './src/reducers',
+          '@stores': './src/stores',
         },
       },
     ],

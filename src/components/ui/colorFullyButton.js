@@ -1,4 +1,4 @@
-const ColorFullyView = ({children, ...props}) => {
+const ColorfullyView = ({children, ...props}) => {
     return (
         <View {...props}>
             {children}
@@ -6,4 +6,4 @@ const ColorFullyView = ({children, ...props}) => {
     )
 }
 
-export default ColorFullyView
+export default ColorfullyView

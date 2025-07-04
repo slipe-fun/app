@@ -1,4 +1,4 @@
-import useInsets from "@hooks/useInsets"
+import useInsets from "@hooks/ui/useInsets"
 import { View, XStack } from "tamagui"
 import CapturePickGalleryImage from "./pickGalleryImage";
 import CaptureRotateButton from "./rotateButton";

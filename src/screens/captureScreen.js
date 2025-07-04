@@ -1,6 +1,6 @@
 import { View } from "tamagui";
-import useInsets from "@hooks/useInsets";
-import CaptureCamera from "@components/common/captureScreen/camera";
+import useInsets from "@hooks/ui/useInsets";
+import CaptureCamera from "@components/common/captureScreen/captureCamera";
 import CaptureFooter from "@components/common/captureScreen/footer";
 
 const CaptureScreen = () => {

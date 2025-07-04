@@ -2,8 +2,9 @@ import { normalSpring } from "@constants/easings";
 import { useState, useRef, memo, useCallback, useEffect } from "react";
 import Animated, { useSharedValue, useAnimatedStyle, interpolateColor, withSpring } from "react-native-reanimated";
 import { XStack, Text, Button, View, useTheme } from "tamagui";
+import useCaptureStore from "@stores/captureScreen";
 
-const formats = ["ФОТО", "ВИДЕО"];
+const formats = ["ВИДЕО", "ФОТО"];
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 const AnimatedText = Animated.createAnimatedComponent(Text);
@@ -11,7 +12,7 @@ const AnimatedText = Animated.createAnimatedComponent(Text);
 const FormatButton = memo(({ format, index, selectedIndex, onSelect, onLayout }) => {
   const theme = useTheme();
   const inactiveColor = theme.secondaryText.get();
-	const isActive = useSharedValue(index === selectedIndex ? 1 : 0);
+  const isActive = useSharedValue(index === selectedIndex ? 1 : 0);
 
 	const animatedTextStyle = useAnimatedStyle(() => ({
 		color: interpolateColor(isActive.value, [0, 1], [inactiveColor, 'white']),
@@ -23,7 +24,7 @@ const FormatButton = memo(({ format, index, selectedIndex, onSelect, onLayout })
 
 	return (
 		<Button unstyled alignItems='center' justifyContent="center" backgroundColor='$transparent' ph='$7' h='$12' onPress={() => onSelect(index)} onLayout={onLayout}>
-			<AnimatedText fw={500} style={animatedTextStyle}>
+			<AnimatedText fz="$2" lh="$2" fw={500} style={animatedTextStyle}>
 				{format}
 			</AnimatedText>
 		</Button>
@@ -32,6 +33,7 @@ const FormatButton = memo(({ format, index, selectedIndex, onSelect, onLayout })
 
 const CaptureFormatSwitcher = () => {
 	const [selectedIndex, setSelectedIndex] = useState(1);
+	const setFormat = useCaptureStore((state) => state.setFormat);
 
 	const indicatorX = useSharedValue(0);
 	const indicatorW = useSharedValue(0);
@@ -40,6 +42,7 @@ const CaptureFormatSwitcher = () => {
 
 	const onSelect = useCallback(index => {
 		setSelectedIndex(index);
+		setFormat(index);
 		const layout = layouts.current[index];
 		if (layout) {
 			indicatorX.value = withSpring(layout.x, normalSpring);

@@ -6,7 +6,7 @@
         "@hooks/*": ["src/hooks/*"],
         "@constants/*": ["src/constants/*"],
         "@lib/*": ["src/lib/*"],
-        "@reducers/*": ["src/reducers/*"],
+        "@stores/*": ["src/stores/*"],
       }
     }
   }

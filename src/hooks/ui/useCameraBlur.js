@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { captureRef } from "react-native-view-shot";
 
-export default function useCameraBlur({ cameraRef, zoom, device, setFacing }) {
+export default function useCameraBlur({ cameraRef, zoom, device }) {
 	const [isBlurring, setIsBlurring] = useState(false);
 	const [snapshotUri, setSnapshotUri] = useState(null);
 
@@ -10,17 +9,10 @@ export default function useCameraBlur({ cameraRef, zoom, device, setFacing }) {
 		zoom.value = device.neutralZoom;
 		setIsBlurring(true);
 		try {
-			const result = await captureRef(cameraRef.current, {
-				result: "data-uri",
-				handleGLSurfaceViewOnAndroid: true,
-				quality: 0.1,
-				format: "jpg",
-				width: Math.round(500 * 0.25),
-				height: Math.round(800 * 0.25),
+			const result = await cameraRef?.current?.takeSnapshot({
+				quality: 50,
 			});
-
-			setSnapshotUri(result);
-			setFacing(prev => (prev === "front" ? "back" : "front"));
+			setSnapshotUri(`file://${result.path}`);
 		} finally {
 			setTimeout(() => {
 				setIsBlurring(false);

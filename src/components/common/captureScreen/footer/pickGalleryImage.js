@@ -1,11 +1,17 @@
-import useGetAlbumPhotos from "@hooks/useGetAlbumPhotos";
+import useGetAlbumPhotos from "@hooks/ui/useGetAlbumPhotos";
 import { Button, Image, View } from "tamagui";
+import * as Haptics from "expo-haptics";
 
 const CapturePickGalleryImage = () => {
 	const photos = useGetAlbumPhotos(1);
 
+	const handlePress = () => {
+		Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
+	}
+
 	return (
 		<Button
+		onPress={handlePress}
 			pressStyle={{
 				scale: 0.98,
 				opacity: 0.9,

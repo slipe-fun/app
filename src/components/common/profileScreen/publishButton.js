@@ -4,7 +4,7 @@ import * as Haptics from "expo-haptics";
 import { useNavigation } from "@react-navigation/native";
 import { getAverageColor } from "@somesoap/react-native-image-palette";
 import Icon from "@components/ui/icon";
-import useGetAlbumPhotos from "@hooks/useGetAlbumPhotos";
+import useGetAlbumPhotos from "@hooks/ui/useGetAlbumPhotos";
 import toSafeFileUri from "@lib/toSafeFileUrl";
 
 const PublishButton = () => {

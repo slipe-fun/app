@@ -3,10 +3,14 @@ import { Button } from "tamagui";
 import Icon from "@components/ui/icon";
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from "react-native-reanimated";
 import { normalSpring } from "@constants/easings";
+import useCaptureStore from "@stores/captureScreen";
+import * as Haptics from "expo-haptics";
 
-const CaptureRotateButton = () => {
+const CaptureRotateButton = ({}) => {
 	const rotation = useSharedValue(0);
 	const [disabled, setDisabled] = useState(false);
+	const captureFacing = useCaptureStore((state) => state.facing);
+	const setFacing = useCaptureStore((state) => state.setFacing);
 
 	const animatedIconStyles = useAnimatedStyle(() => ({
 		transform: [{ rotate: `${rotation.value}deg` }],
@@ -14,7 +18,8 @@ const CaptureRotateButton = () => {
 
 	const handlePress = () => {
 		if (disabled) return;
-
+		Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
+		setFacing(captureFacing === "back" ? "front" : "back");
 		rotation.value = withSpring(rotation.value + 180, normalSpring);
 		setDisabled(true);
 

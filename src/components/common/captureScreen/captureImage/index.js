@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Image, View } from "react-native";
-import { useCameraBlur } from "@hooks/useCameraBlur";
+import { useCameraBlur } from "@hooks/ui/useCameraBlur";
 import { styles } from "./styles/captureImageStyles";
 import { GradientBorder } from "@components/ui/gradientBorder";
 import { CaptureImageFooter } from "./footer";

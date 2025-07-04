@@ -8,8 +8,6 @@ import * as NavigationBar from "expo-navigation-bar";
 import { useFonts } from "expo-font";
 import { TamaguiProvider, Theme } from "tamagui";
 import * as SplashScreen from "expo-splash-screen";
-import { Provider } from "react-redux";
-import store from "./src/store";
 import { enableScreens } from "react-native-screens";
 import { Platform } from "react-native";
 
@@ -46,13 +44,11 @@ export default function App() {
         onLayout={onLayoutRootView}
       >
         <StatusBar translucent style="light" />
-        <Provider store={store}>
           <TamaguiProvider config={configUI}>
             <Theme name="dark">
               <AppNavigator />
             </Theme>
           </TamaguiProvider>
-        </Provider>
       </GestureHandlerRootView>
     </SafeAreaProvider>
   );
