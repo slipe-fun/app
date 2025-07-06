@@ -13,7 +13,7 @@ const CapturePickGalleryImage = () => {
 		<Button
 		onPress={handlePress}
 			pressStyle={{
-				scale: 0.98,
+				scale: 0.95,
 				opacity: 0.9,
 			}}
 			animation='fast'

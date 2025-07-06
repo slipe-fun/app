@@ -23,7 +23,11 @@ const FormatButton = memo(({ format, index, selectedIndex, onSelect, onLayout })
 	}, [selectedIndex]);
 
 	return (
-		<Button unstyled alignItems='center' justifyContent="center" backgroundColor='$transparent' ph='$7' h='$12' onPress={() => onSelect(index)} onLayout={onLayout}>
+		<Button pressStyle={{
+			scale: 0.95,
+			opacity: 0.9,
+		}}
+		animation='fast' unstyled alignItems='center' justifyContent="center" backgroundColor='$transparent' ph='$7.5' h='$13' onPress={() => onSelect(index)} onLayout={onLayout}>
 			<AnimatedText fz="$2" lh="$2" fw={500} style={animatedTextStyle}>
 				{format}
 			</AnimatedText>
@@ -68,8 +72,8 @@ const CaptureFormatSwitcher = () => {
 	);
 
 	return (
-		<XStack f={1} borderRadius={20} justifyContent='center' alignItems='center' position='relative'>
-			<AnimatedView position='absolute' left={0} right={0} height='$12' borderRadius='$full' backgroundColor='$primary' style={animatedStyle} />
+		<XStack h="$13" br="$full" backgroundColor="$backgroundTransparent" justifyContent='center' alignItems='center' position='relative'>
+			<AnimatedView position='absolute' left={0} right={0} height='$13' br="$full" backgroundColor='$innerBlock' style={animatedStyle} />
 			{formats.map((format, index) => (
 				<FormatButton
 					key={format}
