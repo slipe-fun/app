@@ -11,26 +11,34 @@ export default function useBestCameraFormat() {
   const device = useCameraDevice(facing || "back");
 
   const format = useMemo(() => {
-    if (!device) return undefined;
+    if (!device?.formats?.length) return undefined;
 
     const isPhoto = formatIdx === 1;
-    const formats = device.formats;
 
-    const getResolution = (f) =>
-      isPhoto ? f.photoResolution : f.videoResolution;
+    const getResolution = (f) => {
+      if (isPhoto) {
+        return f.photoWidth && f.photoHeight
+          ? { width: f.photoWidth, height: f.photoHeight }
+          : undefined;
+      } else {
+        return f.videoWidth && f.videoHeight
+          ? { width: f.videoWidth, height: f.videoHeight }
+          : undefined;
+      }
+    };
 
-    const scoredFormats = formats
-      .filter((f) => {
-        const res = getResolution(f);
-        return res?.width && res?.height;
-      })
+    const scoredFormats = device.formats
       .map((f) => {
         const res = getResolution(f);
+        if (!res) return null;
+
         const dx = res.width - TARGET_WIDTH;
         const dy = res.height - TARGET_HEIGHT;
         const distanceSq = dx * dx + dy * dy;
+
         return { format: f, score: distanceSq };
-      });
+      })
+      .filter(Boolean);
 
     if (scoredFormats.length === 0) return undefined;
 

@@ -20,6 +20,7 @@ import useBestCameraFormat from "@hooks/ui/useBestCameraFormat";
 
 import CameraOverlay from "./cameraOverlay";
 import CameraSnapshotColor from "./cameraSnapshotColor";
+import CaptureCameraFooter from "../cameraFooter"
 
 const AnimatedCamera = Animated.createAnimatedComponent(Camera);
 const styles = StyleSheet.create({ flex: 1 });
@@ -52,7 +53,7 @@ const CaptureCamera = () => {
 
   return (
       <GestureDetector gesture={gesture}>
-        <View f={1} br="$7" overflow="hidden">
+        <View f={1} br="$7" position="relative" overflow="hidden">
           <CameraOverlay isBlurring={isBlurring} snapshotUri={snapshotUri} />
           <CameraSnapshotColor enabled={init} cameraRef={camRef} />
           <AnimatedCamera
@@ -67,6 +68,7 @@ const CaptureCamera = () => {
             animatedProps={animatedProps}
             onInitialized={() => setInit(true)}
           />
+          <CaptureCameraFooter cameraRef={camRef} />
         </View>
       </GestureDetector>
   );

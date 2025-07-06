@@ -7,6 +7,8 @@ const useCaptureStore = create((set) => ({
   setFormat: (newFormat) => set({ format: newFormat }),
   facing: 'back',
   setFacing: (newFacing) => set({ facing: newFacing }),
+  aspect: '16:9',
+  setAspect: (newAspect) => set({ aspect: newAspect }),
 }))
 
 export default useCaptureStore
