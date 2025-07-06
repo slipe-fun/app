@@ -16,6 +16,7 @@ import useCaptureStore from "@stores/captureScreen";
 import usePinchZoom from "@hooks/ui/usePinchZoom";
 import useAppLifecycle from "@hooks/ui/useAppLifecycle";
 import useCameraBlur from "@hooks/ui/useCameraBlur";
+import useBestCameraFormat from "@hooks/ui/useBestCameraFormat";
 
 import CameraOverlay from "./cameraOverlay";
 import CameraSnapshotColor from "./cameraSnapshotColor";
@@ -23,7 +24,7 @@ import CameraSnapshotColor from "./cameraSnapshotColor";
 const AnimatedCamera = Animated.createAnimatedComponent(Camera);
 const styles = StyleSheet.create({ flex: 1 });
 
-const CaptureCamera = () => {
+const CaptureCamera = () => { 
   const [init, setInit] = useState(false);
 
   const formatIdx = useCaptureStore((s) => s.format);
@@ -37,13 +38,7 @@ const CaptureCamera = () => {
   const animatedProps = useAnimatedProps(() => ({ zoom: zoom.value }), [zoom]);
 
   const camRef = useRef(null);
-
-  const format = useCameraFormat(
-    device,
-    formatIdx === 1
-      ? [{ photoResolution: { width: 1280, height: 720 } }]
-      : [{ videoResolution: { width: 1280, height: 720 }, fps: 60 }]
-  );
+  const format = useBestCameraFormat();
 
   const { applyCameraBlur, isBlurring, snapshotUri } = useCameraBlur({
     cameraRef: camRef,
