@@ -13,7 +13,6 @@ import {
 import { View } from "tamagui";
 
 import useCaptureStore from "@stores/captureScreen";
-import useCameraPermission from "@hooks/ui/useCameraPermission";
 import usePinchZoom from "@hooks/ui/usePinchZoom";
 import useAppLifecycle from "@hooks/ui/useAppLifecycle";
 import useCameraBlur from "@hooks/ui/useCameraBlur";
@@ -38,7 +37,6 @@ const CaptureCamera = () => {
   const animatedProps = useAnimatedProps(() => ({ zoom: zoom.value }), [zoom]);
 
   const camRef = useRef(null);
-  const permission = useCameraPermission();
 
   const format = useCameraFormat(
     device,
@@ -58,7 +56,6 @@ const CaptureCamera = () => {
   }, [facing, formatIdx]);
 
   return (
-    permission === "granted" && (
       <GestureDetector gesture={gesture}>
         <View f={1} br="$7" overflow="hidden">
           <CameraOverlay isBlurring={isBlurring} snapshotUri={snapshotUri} />
@@ -77,7 +74,6 @@ const CaptureCamera = () => {
           />
         </View>
       </GestureDetector>
-    )
   );
 };
 

@@ -13,7 +13,7 @@ const CameraOverlay = ({ isBlurring, snapshotUri }) => {
           bottom={0}
           f={1}
           zIndex="$1"
-          blurRadius={20}
+          blurRadius={40}
           fadeDuration={125}
         />
       )}
