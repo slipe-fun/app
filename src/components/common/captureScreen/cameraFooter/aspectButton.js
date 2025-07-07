@@ -1,38 +1,71 @@
 import ColorfullyView from "@components/ui/colorfullyView";
 import useCaptureStore from "@stores/captureScreen";
-import { View } from "tamagui";
-import { memo } from "react";
-import Icon from "@components/ui/icon";
+import { View, Text } from "tamagui";
+import { memo, useState } from "react";
 import * as Haptics from "expo-haptics";
-import { getVariableValue } from "tamagui";
 
-const colorVar = getVariableValue("$white", "color");
+import Animated, { FadeInUp, FadeOutDown } from "react-native-reanimated";
+import { fastSpring } from "@constants/easings";
+
+const AnimatedText = Animated.createAnimatedComponent(Text);
 
 const AspectButton = () => {
   const color = useCaptureStore((s) => s.color);
   const aspect = useCaptureStore((s) => s.aspect);
   const setAspect = useCaptureStore((s) => s.setAspect);
 
+  const displayAspect = aspect ? "16:9" : "4:3";
+
   const handlePress = () => {
-     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
     setAspect(!aspect);
-  }
+  };
 
   return (
     <View flex={1} justifyContent="center" alignItems="center">
       <ColorfullyView
         unstyled
         w="$13"
-        onPress={() => handlePress()}
         h="$13"
         br="$full"
         isButton
+        onPress={handlePress}
+        textAlign="center"
         justifyContent="center"
         alignItems="center"
         position="relative"
         color={color}
+        overflow="hidden"
+        flexDirection="row"
       >
-        <Icon icon="aspect" size={26} color={colorVar} />
+        <View
+          flexDirection="row"
+          justifyContent="center"
+          position="absolute"
+          alignItems="center"
+          w="$13"
+          h="$13"
+        >
+          {displayAspect.split("")?.map((char, index) => (
+            <AnimatedText
+              key={`${char}-${index}`}
+              fz="$2"
+              lh="$2"
+              fw="$3"
+              color="white"
+              entering={FadeInUp.springify()
+                .damping(fastSpring.damping)
+                .mass(fastSpring.mass + index * 0.2)
+                .stiffness(fastSpring.stiffness)}
+              exiting={FadeOutDown.springify()
+                .damping(fastSpring.damping)
+                .mass(fastSpring.mass + index * 0.2)
+                .stiffness(fastSpring.stiffness)}
+            >
+              {char}
+            </AnimatedText>
+          ))}
+        </View>
       </ColorfullyView>
     </View>
   );
