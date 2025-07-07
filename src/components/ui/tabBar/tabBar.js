@@ -1,7 +1,6 @@
 import useInsets from "@hooks/ui/useInsets";
 import TabBarItem from "./tabBarItem";
-import * as Haptics from "expo-haptics";
-import { useTheme, View } from "tamagui";
+import { View } from "tamagui";
 
 const CustomTabBar = ({ state, navigation }) => {
   const insets = useInsets();
@@ -25,7 +24,6 @@ const CustomTabBar = ({ state, navigation }) => {
           });
 
           if (!isFocused && !event.defaultPrevented) {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
             navigation.navigate(route.name);
           }
         };
