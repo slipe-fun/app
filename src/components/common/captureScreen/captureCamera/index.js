@@ -59,7 +59,6 @@ const CaptureCamera = () => {
   }));
 
   useEffect(() => {
-    console.log(formatIdx)
     applyCameraBlur();
   }, [facing, formatIdx, aspect]);
 
