@@ -9,6 +9,8 @@ const useCaptureStore = create((set) => ({
   setFacing: (newFacing) => set({ facing: newFacing }),
   aspect: false,
   setAspect: (newAspect) => set({ aspect: newAspect }),
+  recording: false,
+  setRecording: (newRecording) => set({ recording: newRecording }),
 }))
 
 export default useCaptureStore

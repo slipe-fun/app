@@ -14,7 +14,7 @@ const AspectButton = () => {
   const aspect = useCaptureStore((s) => s.aspect);
   const setAspect = useCaptureStore((s) => s.setAspect);
 
-  const displayAspect = aspect ? "16:9" : "4:3";
+  const displayAspect = aspect ? "4:3" : "16:9";
 
   const handlePress = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
