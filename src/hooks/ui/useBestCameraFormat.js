@@ -29,12 +29,12 @@ export default function useBestCameraFormat() {
 			return Math.abs(ratio - 4 / 3) < 0.01;
 		};
 
-		const scoredFormats = device.formats
+		const scoredFormats = device.formats 
 			.map(f => {
 				const res = getResolution(f);
 				if (!res) return null;
 
-				if (aspect && !aspectRatioMatch(res.width, res.height)) return null;
+				if (aspect && isPhoto && !aspectRatioMatch(res.width, res.height)) return null;
 
 				const dx = res.width - TARGET_WIDTH;
 				const dy = res.height - TARGET_HEIGHT;

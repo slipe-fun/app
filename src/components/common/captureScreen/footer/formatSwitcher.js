@@ -1,5 +1,5 @@
 import { normalSpring } from "@constants/easings";
-import { useState, useRef, memo, useCallback, useEffect } from "react";
+import { useRef, memo, useCallback, useEffect } from "react";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -15,10 +15,10 @@ const AnimatedView = Animated.createAnimatedComponent(View);
 const AnimatedText = Animated.createAnimatedComponent(Text);
 
 const FormatButton = memo(
-  ({ format, index, selectedIndex, onSelect, onLayout }) => {
+  ({ format, index, selectedFormat, onSelect, onLayout }) => {
     const theme = useTheme();
     const inactiveColor = theme.secondaryText.get();
-    const isActive = useSharedValue(index === selectedIndex ? 1 : 0);
+    const isActive = useSharedValue(index === selectedFormat ? 1 : 0);
 
     const animatedTextStyle = useAnimatedStyle(() => ({
       color: interpolateColor(isActive.value, [0, 1], [inactiveColor, "white"]),
@@ -26,10 +26,10 @@ const FormatButton = memo(
 
     useEffect(() => {
       isActive.value = withSpring(
-        index === selectedIndex ? 1 : 0,
+        index === selectedFormat ? 1 : 0,
         normalSpring
       );
-    }, [selectedIndex]);
+    }, [selectedFormat]);
 
     return (
       <Button
@@ -56,7 +56,7 @@ const FormatButton = memo(
 );
 
 const CaptureFormatSwitcher = () => {
-  const [selectedIndex, setSelectedIndex] = useState(1);
+  const format = useCaptureStore((state) => state.format);
   const setFormat = useCaptureStore((state) => state.setFormat);
 
   const indicatorX = useSharedValue(0);
@@ -64,15 +64,17 @@ const CaptureFormatSwitcher = () => {
 
   const layouts = useRef([]);
 
-  const onSelect = useCallback((index) => {
-    setSelectedIndex(index);
-    setFormat(index);
-    const layout = layouts.current[index];
-    if (layout) {
-      indicatorX.value = withSpring(layout.x, normalSpring);
-      indicatorW.value = withSpring(layout.width, normalSpring);
-    }
-  }, []);
+  const onSelect = useCallback(
+    (index) => {
+      setFormat(index);
+      const layout = layouts.current[index];
+      if (layout) {
+        indicatorX.value = withSpring(layout.x, normalSpring);
+        indicatorW.value = withSpring(layout.width, normalSpring);
+      }
+    },
+    [setFormat]
+  );
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: indicatorX.value }],
@@ -83,12 +85,12 @@ const CaptureFormatSwitcher = () => {
     (index, e) => {
       const { x, width } = e.nativeEvent.layout;
       layouts.current[index] = { x, width };
-      if (indicatorW.value === 0 && index === selectedIndex) {
+      if (indicatorW.value === 0 && index === format) {
         indicatorX.value = x;
         indicatorW.value = width;
       }
     },
-    [selectedIndex]
+    [format]
   );
 
   return (
@@ -109,12 +111,12 @@ const CaptureFormatSwitcher = () => {
         backgroundColor="$innerBlock"
         style={animatedStyle}
       />
-      {formats.map((format, index) => (
+      {formats.map((f, index) => (
         <FormatButton
-          key={format}
-          format={format}
+          key={f}
+          format={f}
           index={index}
-          selectedIndex={selectedIndex}
+          selectedFormat={format}
           onSelect={onSelect}
           onLayout={(e) => handleLayout(index, e)}
         />

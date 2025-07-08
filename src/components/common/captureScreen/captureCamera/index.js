@@ -34,6 +34,7 @@ const CaptureCamera = () => {
   const formatIdx = useCaptureStore((s) => s.format);
   const facing = useCaptureStore((s) => s.facing);
   const aspect = useCaptureStore((s) => s.aspect);
+  const setAspect = useCaptureStore((s) => s.setAspect);
   const device = useCameraDevice(facing || "back");
 
   const active = useAppLifecycle();
@@ -58,12 +59,18 @@ const CaptureCamera = () => {
   }));
 
   useEffect(() => {
+    console.log(formatIdx)
     applyCameraBlur();
   }, [facing, formatIdx, aspect]);
 
   useEffect(() => {
-    aspectValue.value = withSpring(aspect ? 1 : 0, normalSpring);
-  }, [aspect]);
+    if (formatIdx === 1) {
+      aspectValue.value = withSpring(aspect ? 1 : 0, normalSpring);
+    } else {
+      setAspect(false); 
+      aspectValue.value = withSpring(0, normalSpring);
+    }
+  }, [aspect, formatIdx]);
 
   useEffect(() => {
     setViewHeight(ref.current?.getBoundingClientRect()?.height);
@@ -103,7 +110,7 @@ const CaptureCamera = () => {
             style={{ flex: 1 }}
             device={device}
             isActive={active}
-            pixelFormat="rgb"
+            lowLightBoost
             format={format}
             audio={true}
             photoQualityBalance="balance"

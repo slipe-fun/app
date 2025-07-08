@@ -1,17 +1,20 @@
 import ColorfullyView from "@components/ui/colorfullyView";
 import useCaptureStore from "@stores/captureScreen";
 import { View, Text } from "tamagui";
-import { memo, useState } from "react";
+import { memo } from "react";
 import * as Haptics from "expo-haptics";
 
 import Animated, { FadeInUp, FadeOutDown } from "react-native-reanimated";
 import { fastSpring } from "@constants/easings";
+import { getFadeIn, getFadeOut } from "@constants/fadeAnimations";
 
 const AnimatedText = Animated.createAnimatedComponent(Text);
+const AnimatedView = Animated.createAnimatedComponent(View);
 
 const AspectButton = () => {
   const color = useCaptureStore((s) => s.color);
   const aspect = useCaptureStore((s) => s.aspect);
+  const formatIdx = useCaptureStore((s) => s.format);
   const setAspect = useCaptureStore((s) => s.setAspect);
 
   const displayAspect = aspect ? "4:3" : "16:9";
@@ -22,7 +25,14 @@ const AspectButton = () => {
   };
 
   return (
-    <View flex={1} justifyContent="center" alignItems="center">
+    <AnimatedView
+      flex={1}
+      pointerEvents={formatIdx === 1 ? "auto" : "none"}
+      justifyContent="center"
+      alignItems="center"
+      entering={getFadeIn()}
+      exiting={getFadeOut()}
+    >
       <ColorfullyView
         unstyled
         w="$13"
@@ -67,7 +77,7 @@ const AspectButton = () => {
           ))}
         </View>
       </ColorfullyView>
-    </View>
+    </AnimatedView>
   );
 };
 
