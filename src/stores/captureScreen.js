@@ -11,6 +11,8 @@ const useCaptureStore = create((set) => ({
   setAspect: (newAspect) => set({ aspect: newAspect }),
   recording: false,
   setRecording: (newRecording) => set({ recording: newRecording }),
+  content: '',
+  setContent: (newContent) => set({ content: newContent }),
 }))
 
 export default useCaptureStore

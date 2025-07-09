@@ -8,10 +8,16 @@ import { useNavigation } from "@react-navigation/native";
 const CaptureCameraHeader = () => {
   const color = useCaptureStore((s) => s.color);
   const navigation = useNavigation();
+  const content = useCaptureStore((s) => s.content);
+  const setContent = useCaptureStore((s) => s.setContent);
 
   const handlePress = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
-    navigation.goBack();
+    if (content) {
+      setContent('');
+    } else {
+      navigation.goBack();
+    }
   };
 
   return (

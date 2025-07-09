@@ -1,4 +1,4 @@
-import { FadeInUp, FadeOut, FadeOutDown } from "react-native-reanimated";
+import { FadeInUp, FadeOutDown } from "react-native-reanimated";
 import { fastSpring, normalSpring } from "./easings";
 
 export const getFadeIn = () =>
@@ -8,7 +8,7 @@ export const getFadeIn = () =>
     .stiffness(normalSpring.stiffness);
 
 export const getFadeOut = () =>
-  FadeOut.springify()
+  FadeOutDown.springify()
     .damping(normalSpring.damping)
     .mass(normalSpring.mass)
     .stiffness(normalSpring.stiffness);

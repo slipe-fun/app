@@ -20,6 +20,7 @@ const CaptureButton = ({ cameraRef }) => {
   const formatIdx = useCaptureStore((s) => s.format);
   const recording = useCaptureStore((s) => s.recording);
   const setRecording = useCaptureStore((s) => s.setRecording);
+  const setContent = useCaptureStore((s) => s.setContent);
 
   const format = useSharedValue(1);
   const recordingValue = useSharedValue(0);
@@ -43,14 +44,14 @@ const CaptureButton = ({ cameraRef }) => {
       } else {
         setRecording(true);
         await cameraRef?.current?.startRecording({
-          onRecordingFinished: (video) => console.log(video),
-          onRecordingError: (error) => console.error(error),
+          onRecordingFinished: (video) => setContent(`file://${video?.path}`),
         });
       }
     } else {
       const photo = await cameraRef?.current?.takePhoto({
         enableShutterSound: true,
       });
+      setContent(`file://${photo?.path}`);
     }
   }, [cameraRef, recording, formatIdx]);
 

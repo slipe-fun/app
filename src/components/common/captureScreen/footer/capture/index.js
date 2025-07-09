@@ -1,5 +1,5 @@
 import useInsets from "@hooks/ui/useInsets";
-import { XStack } from "tamagui";
+import { XStack, View } from "tamagui";
 import CapturePickGalleryImage from "./pickGalleryImage";
 import CaptureRotateButton from "./rotateButton";
 import SwitchFormat from "./formatSwitcher";
@@ -12,8 +12,10 @@ import Animated, {
 import useCaptureStore from "@stores/captureScreen";
 import { useEffect } from "react";
 import { normalSpring } from "@constants/easings";
+import { getFadeIn, getFadeOut } from "@constants/fadeAnimations";
 
 const AnimatedXStack = Animated.createAnimatedComponent(XStack);
+const AnimatedView = Animated.createAnimatedComponent(View);
 
 const CaptureFooter = () => {
   const insets = useInsets();
@@ -30,19 +32,21 @@ const CaptureFooter = () => {
   }, [recording]);
 
   return (
-    <AnimatedXStack
-      pointerEvents={recording ? "none" : "auto"}
-      style={animatedXStackStyles}
-      pb={insets.bottom}
-      justifyContent="space-between"
-      pt="$6"
-      ph="$7"
-      w="$full"
-    >
-      <CapturePickGalleryImage />
-      <SwitchFormat />
-      <CaptureRotateButton />
-    </AnimatedXStack>
+    <AnimatedView entering={getFadeIn()} exiting={getFadeOut()}>
+      <AnimatedXStack
+        pointerEvents={recording ? "none" : "auto"}
+        style={animatedXStackStyles}
+        pb={insets.bottom}
+        justifyContent="space-between"
+        pt="$6"
+        ph="$7"
+        w="$full"
+      >
+        <CapturePickGalleryImage />
+        <SwitchFormat />
+        <CaptureRotateButton />
+      </AnimatedXStack>
+    </AnimatedView>
   );
 };
 
