@@ -6,7 +6,6 @@ import * as Haptics from "expo-haptics";
 
 import Animated, { FadeInUp, FadeOutDown } from "react-native-reanimated";
 import { fastSpring } from "@constants/easings";
-import { getFadeIn, getFadeOut } from "@constants/fadeAnimations";
 
 const AnimatedText = Animated.createAnimatedComponent(Text);
 const AnimatedView = Animated.createAnimatedComponent(View);
@@ -30,8 +29,6 @@ const AspectButton = () => {
       pointerEvents={formatIdx === 1 ? "auto" : "none"}
       justifyContent="center"
       alignItems="center"
-      entering={getFadeIn()}
-      exiting={getFadeOut()}
     >
       <ColorfullyView
         unstyled

@@ -21,6 +21,7 @@ import CameraSnapshotColor from "./cameraSnapshotColor";
 import CaptureCameraFooter from "../cameraFooter";
 import { normalSpring } from "@constants/easings";
 import { Dimensions } from "react-native";
+import CaptureCameraHeader from "../cameraHeader";
 
 const AnimatedCamera = Animated.createAnimatedComponent(Camera);
 const AnimatedView = Animated.createAnimatedComponent(View);
@@ -96,6 +97,7 @@ const CaptureCamera = () => {
           borderColor="rgba(255,255,255,0.2)"
           zIndex="$2"
         />
+        <CaptureCameraHeader/>
         <AnimatedView
           w={width}
           position="relative"
