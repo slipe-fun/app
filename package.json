@@ -53,6 +53,7 @@
     "react-native-screens": "~4.4.0",
     "react-native-sensors": "^7.3.6",
     "react-native-svg": "15.8.0",
+    "react-native-video": "^6.16.1",
     "react-native-view-shot": "~4.0.3",
     "react-native-vision-camera": "^4.6.4",
     "tamagui": "^1.126.13",

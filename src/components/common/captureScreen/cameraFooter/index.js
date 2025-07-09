@@ -3,20 +3,30 @@ import CaptureButton from "./captureButton";
 import AspectButton from "./aspectButton";
 import CaptureRecordingTimer from "./recordingTimer";
 import { useRef, useState, useEffect } from "react";
+import Animated from "react-native-reanimated";
+import { getFadeInSimple, getFadeOutSimple } from "@constants/fadeAnimations";
+import useCaptureStore from "@stores/captureScreen";
+
+const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
 const CaptureCameraFooter = ({ cameraRef }) => {
   const ref = useRef(null);
   const [viewHeight, setViewHeight] = useState(0);
+
+  const content = useCaptureStore((s) => s.content);
 
   useEffect(() => {
     setViewHeight(ref.current?.getBoundingClientRect()?.height);
   }, []);
 
   return (
-    <YStack
+    !content ? (
+      <AnimatedYStack
       position="absolute"
       bottom={0}
       left={0}
+      exiting={getFadeOutSimple()}
+      entering={getFadeInSimple()}
       right={0}
       justifyContent=""
       alignItems="center"
@@ -31,7 +41,8 @@ const CaptureCameraFooter = ({ cameraRef }) => {
         <CaptureButton cameraRef={cameraRef} />
         <AspectButton />
       </XStack>
-    </YStack>
+    </AnimatedYStack>
+  ) : null
   );
 };
 
