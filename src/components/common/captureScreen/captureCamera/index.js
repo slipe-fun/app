@@ -8,7 +8,7 @@ import Animated, {
   interpolate,
 } from "react-native-reanimated";
 import { Camera, useCameraDevice } from "react-native-vision-camera";
-import { View } from "tamagui";
+import { View, YStack } from "tamagui";
 
 import useCaptureStore from "@stores/captureScreen";
 import usePinchZoom from "@hooks/ui/usePinchZoom";
@@ -78,7 +78,7 @@ const CaptureCamera = () => {
 
   return (
     <GestureDetector gesture={gesture}>
-      <View
+      <YStack
         ref={ref}
         f={1}
         br="$7"
@@ -122,7 +122,7 @@ const CaptureCamera = () => {
         </AnimatedView>
 
         <CaptureCameraFooter cameraRef={camRef} />
-      </View>
+      </YStack>
     </GestureDetector>
   );
 };
