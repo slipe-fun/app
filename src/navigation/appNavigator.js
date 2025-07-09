@@ -7,6 +7,7 @@ import AuthNavigator from "./AuthNavigator";
 import { ROUTES } from "../constants/routes";
 import { useState, createContext, useContext, useEffect } from "react";
 import { storage } from "../lib/storage";
+import { useTheme } from "tamagui";
 
 export const AuthContext = createContext(null);
 
@@ -31,6 +32,8 @@ const MainTabNavigator = () => {
 const AppNavigator = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
+	const theme = useTheme();
+	const backgroundColor = theme.bg;
 
 	useEffect(() => {
 		const checkAuth = async () => {
@@ -63,7 +66,7 @@ const AppNavigator = () => {
 	return (
 		<AuthContext.Provider value={authContextValue}>
 			<NavigationContainer>
-				<RootStack.Navigator screenOptions={{ headerShown: false, animation: "simple_push", presentation: "card", gestureEnabled: true }}>
+				<RootStack.Navigator screenOptions={{ headerShown: false, animation: "simple_push", presentation: "card", gestureEnabled: true, contentStyle: { backgroundColor } }}>
 					{isAuthenticated ? (
 						<>
 							<RootStack.Screen name='MainApp' component={MainTabNavigator} />
@@ -74,7 +77,7 @@ const AppNavigator = () => {
 					)}
 				</RootStack.Navigator>
 			</NavigationContainer>
-		</AuthContext.Provider>
+		</AuthContext.Provider> 
 	);
 };
 

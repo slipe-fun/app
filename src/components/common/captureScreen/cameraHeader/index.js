@@ -7,9 +7,9 @@ import { useNavigation } from "@react-navigation/native";
 
 const CaptureCameraHeader = () => {
   const color = useCaptureStore((s) => s.color);
-  const navigation = useNavigation();
   const content = useCaptureStore((s) => s.content);
   const setContent = useCaptureStore((s) => s.setContent);
+  const navigation = useNavigation();
 
   const handlePress = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
@@ -19,6 +19,17 @@ const CaptureCameraHeader = () => {
       navigation.goBack();
     }
   };
+
+// TODO: Uncomment this code after writing the warning modal
+//   useEffect(() => {
+//     const unsubscribe = navigation.addListener('beforeRemove', () => {
+//       if (content) {
+//         setContent('');
+//       }
+//     });
+
+//     return unsubscribe;
+//   }, [navigation, content, setContent]);
 
   return (
     <XStack

@@ -45,6 +45,7 @@ const CaptureButton = ({ cameraRef }) => {
         setRecording(true);
         await cameraRef?.current?.startRecording({
           onRecordingFinished: (video) => setContent(`file://${video?.path}`),
+          onRecordingError: (error) => console.log(error),
         });
       }
     } else {

@@ -1,4 +1,3 @@
-import useInsets from "@hooks/ui/useInsets";
 import { XStack, View } from "tamagui";
 import CapturePickGalleryImage from "./pickGalleryImage";
 import CaptureRotateButton from "./rotateButton";
@@ -18,7 +17,6 @@ const AnimatedXStack = Animated.createAnimatedComponent(XStack);
 const AnimatedView = Animated.createAnimatedComponent(View);
 
 const CaptureFooter = () => {
-  const insets = useInsets();
   const recording = useCaptureStore((s) => s.recording);
 
   const recordingValue = useSharedValue(0);
@@ -36,10 +34,9 @@ const CaptureFooter = () => {
       <AnimatedXStack
         pointerEvents={recording ? "none" : "auto"}
         style={animatedXStackStyles}
-        pb={insets.bottom}
         justifyContent="space-between"
         pt="$6"
-        ph="$7"
+        ph="$6"
         w="$full"
       >
         <CapturePickGalleryImage />
