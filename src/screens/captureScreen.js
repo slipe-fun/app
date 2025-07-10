@@ -5,17 +5,14 @@ import CaptureFooter from "@components/common/captureScreen/footer/capture";
 import CaptureFooterPublish from "@components/common/captureScreen/footer/publish";
 import useCaptureStore from "@stores/captureScreen";
 import Animated, {
-  interpolate,
   useAnimatedKeyboard,
   useAnimatedStyle,
-  withSpring,
 } from "react-native-reanimated";
-import { fastSpring } from "@constants/easings";
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
-const AnimatedView = Animated.createAnimatedComponent(View);
 
-const paddingBottomVar = getVariableValue("$6", "space");
+const paddingVar = getVariableValue("$6", "space");
+const heightVar = getVariableValue("$13", "size");
 
 const CaptureScreen = () => {
   const insets = useInsets();
@@ -25,34 +22,32 @@ const CaptureScreen = () => {
     isNavigationBarTranslucentAndroid: true,
   });
 
-  const animatedViewStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateY: -keyboard.height.value }],
-    };
-  });
-
-  const AnimatedYStackStyle = useAnimatedStyle(() => {
+  const animatedYstackStyle = useAnimatedStyle(() => {
     const keyboardHeight = keyboard.height;
     return {
-      paddingBottom: withSpring(
-        keyboardHeight.value > 0 ? paddingBottomVar : insets.bottom,
-        fastSpring
-      ),
+      paddingBottom: keyboardHeight.value > 0 ? paddingVar : insets.bottom,
+      transform: [{ translateY: -keyboardHeight.value }],
     };
   });
 
   return (
-    <AnimatedView
-      f={1} 
+    <AnimatedYStack
+      f={1}
       backgroundColor="$bg"
       pt={insets.top}
-      style={animatedViewStyle}
+      style={animatedYstackStyle}
     >
-      <AnimatedYStack flexDirection="column" f={1} style={AnimatedYStackStyle}>
-        <CaptureCamera />
+      <CaptureCamera />
+      <View
+        w="$full"
+        gap="$6"
+        justifyContent="flex-end"
+        h={heightVar + paddingVar}
+        ph="$6"
+      >
         {content ? <CaptureFooterPublish /> : <CaptureFooter />}
-      </AnimatedYStack>
-    </AnimatedView>
+      </View>
+    </AnimatedYStack>
   );
 };
 

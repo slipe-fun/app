@@ -35,8 +35,6 @@ const CaptureFooter = () => {
         pointerEvents={recording ? "none" : "auto"}
         style={animatedXStackStyles}
         justifyContent="space-between"
-        pt="$6"
-        ph="$6"
         w="$full"
       >
         <CapturePickGalleryImage />

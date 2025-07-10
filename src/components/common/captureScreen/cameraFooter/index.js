@@ -4,7 +4,7 @@ import AspectButton from "./aspectButton";
 import CaptureRecordingTimer from "./recordingTimer";
 import { useRef, useState, useEffect } from "react";
 import Animated from "react-native-reanimated";
-import { getFadeInSimple, getFadeOutSimple } from "@constants/fadeAnimations";
+import { getFadeIn, getFadeOut } from "@constants/fadeAnimations";
 import useCaptureStore from "@stores/captureScreen";
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
@@ -25,8 +25,8 @@ const CaptureCameraFooter = ({ cameraRef }) => {
       position="absolute"
       bottom={0}
       left={0}
-      exiting={getFadeOutSimple()}
-      entering={getFadeInSimple()}
+      exiting={getFadeOut()}
+      entering={getFadeIn()}
       right={0}
       justifyContent=""
       alignItems="center"

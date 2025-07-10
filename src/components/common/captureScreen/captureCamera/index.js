@@ -38,6 +38,7 @@ const CaptureCamera = () => {
   const aspect = useCaptureStore((s) => s.aspect);
   const setAspect = useCaptureStore((s) => s.setAspect);
   const device = useCameraDevice(facing || "back");
+  const content = useCaptureStore((s) => s.content);
 
   const active = useAppLifecycle();
 
@@ -68,7 +69,7 @@ const CaptureCamera = () => {
     if (formatIdx === 1) {
       aspectValue.value = withSpring(aspect ? 1 : 0, normalSpring);
     } else {
-      setAspect(false); 
+      setAspect(false);
       aspectValue.value = withSpring(0, normalSpring);
     }
   }, [aspect, formatIdx]);
@@ -78,54 +79,54 @@ const CaptureCamera = () => {
   }, []);
 
   return (
-    <GestureDetector gesture={gesture}>
-      <YStack
-        ref={ref}
-        f={1}
-        br="$7"
-        position="relative"
-        justifyContent="center"
-        overflow="hidden"
-      >
-        <View
-          position="absolute"
-          top={0}
-          left={0}
-          right={0}
-          bottom={0}
-          br="$7"
-          borderWidth={1}
-          borderColor="rgba(255,255,255,0.2)"
-          zIndex="$2"
-        />
-        <CaptureCameraResult/>
-        <CaptureCameraHeader/>
-        <AnimatedView
-          w={width}
-          position="relative"
-          overflow="hidden"
-          style={animatedCameraWrapperStyle}
-        >
-          <CameraOverlay isBlurring={isBlurring} snapshotUri={snapshotUri} />
-          <CameraSnapshotColor enabled={init} cameraRef={camRef} />
-          <AnimatedCamera
-            ref={camRef}
-            style={{ flex: 1 }}
-            device={device}
-            isActive={active}
-            lowLightBoost
-            format={format}
-            audio={true}
-            photoQualityBalance="balance"
-            {...(formatIdx === 1 ? { photo: true } : { video: true })}
-            animatedProps={animatedProps}
-            onInitialized={() => setInit(true)}
+    <YStack
+      ref={ref}
+      f={1}
+      br="$7"
+      position="relative"
+      justifyContent="center"
+      overflow="hidden"
+    >
+      <GestureDetector gesture={gesture}>
+        <>
+          <View
+            position="absolute"
+            top={0}
+            left={0}
+            right={0}
+            bottom={0}
+            br="$7"
+            borderWidth={1}
+            borderColor="rgba(255,255,255,0.2)"
+            zIndex="$2"
           />
-        </AnimatedView>
-
-        <CaptureCameraFooter cameraRef={camRef} />
-      </YStack>
-    </GestureDetector>
+          <CaptureCameraResult />
+          <CaptureCameraHeader />
+          <AnimatedView
+            w={width}
+            position="relative"
+            overflow="hidden"
+            style={animatedCameraWrapperStyle}
+          >
+            <CameraOverlay isBlurring={isBlurring} snapshotUri={snapshotUri} />
+            <CameraSnapshotColor enabled={init} cameraRef={camRef} />
+            <AnimatedCamera
+              ref={camRef}
+              style={{ flex: 1 }}
+              device={device}
+              isActive={active || !content}
+              format={format}
+              audio={true}
+              photoQualityBalance="balance"
+              {...(formatIdx === 1 ? { photo: true } : { video: true })}
+              animatedProps={animatedProps}
+              onInitialized={() => setInit(true)}
+            />
+          </AnimatedView>
+        </>
+      </GestureDetector>
+      <CaptureCameraFooter cameraRef={camRef} />
+    </YStack>
   );
 };
 

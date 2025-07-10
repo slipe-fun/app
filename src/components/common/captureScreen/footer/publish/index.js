@@ -12,8 +12,6 @@ const CaptureFooterPublish = () => {
       <AnimatedXStack
         entering={getFadeIn()} exiting={getFadeOut()}
         gap="$6"
-        pt="$6"
-        ph="$6"
         w="$full"
       >
         <CaptureFooterPublishInput/>
