@@ -15,6 +15,8 @@ const useCaptureStore = create((set) => ({
   setContent: (newContent) => set({ content: newContent }),
   category: 'Food',
   setCategory: (newCategory) => set({ category: newCategory }),
+  postName: '',
+  setPostName: (newPostName) => set({ postName: newPostName }),
 }))
 
 export default useCaptureStore

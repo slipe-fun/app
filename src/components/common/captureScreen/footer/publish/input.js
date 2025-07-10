@@ -1,12 +1,13 @@
 import { View, Input, Text } from "tamagui";
 import Animated from "react-native-reanimated";
 import { getCharEnter, getCharExit } from "@constants/fadeAnimations";
-import { useState } from "react";
+import useCaptureStore from "@stores/captureScreen";
 
 const AnimatedText = Animated.createAnimatedComponent(Text);
 
 const CaptureFooterPublishInput = () => {
-  const [value, setValue] = useState("");
+  const postName = useCaptureStore((s) => s.postName);
+  const setPostName = useCaptureStore((s) => s.setPostName);
 
   return (
       <View
@@ -20,7 +21,7 @@ const CaptureFooterPublishInput = () => {
         <Input
           f={1}
           p="$6"
-          onChangeText={setValue}
+          onChangeText={(text) => {setPostName(text)}}
           pv="$0"
           fz="$2"
           lh="$2"
@@ -32,7 +33,7 @@ const CaptureFooterPublishInput = () => {
           placeholder="Название поста"
         />
         <View p="$6" pv="$0" flexDirection="row" alignItems="center">
-          {String(value.length)
+          {String(postName.length)
             .split("")
             .map((char, i) => (
               <AnimatedText

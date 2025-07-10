@@ -6,12 +6,17 @@ import * as Haptics from "expo-haptics";
 import CircularIndicator from "@components/ui/circularIndicator";
 import { View } from "tamagui";
 import { getFadeIn, getFadeOut } from "@constants/fadeAnimations";
+import useCaptureStore from "@stores/captureScreen";
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
 const CaptureFooterPublishButton = () => {
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
+
+  const postName = useCaptureStore((s) => s.postName);
+  const category = useCaptureStore((s) => s.category);
+  const content = useCaptureStore((s) => s.content);
 
   const handlePress = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
