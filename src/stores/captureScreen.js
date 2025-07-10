@@ -13,6 +13,8 @@ const useCaptureStore = create((set) => ({
   setRecording: (newRecording) => set({ recording: newRecording }),
   content: '',
   setContent: (newContent) => set({ content: newContent }),
+  category: 'Food',
+  setCategory: (newCategory) => set({ category: newCategory }),
 }))
 
 export default useCaptureStore

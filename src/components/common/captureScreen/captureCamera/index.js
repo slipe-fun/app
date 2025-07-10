@@ -114,7 +114,7 @@ const CaptureCamera = () => {
               ref={camRef}
               style={{ flex: 1 }}
               device={device}
-              isActive={active || !content}
+              isActive={active && !content}
               format={format}
               audio={true}
               photoQualityBalance="balance"
