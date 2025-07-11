@@ -7,7 +7,7 @@ import CircularIndicator from "@components/ui/circularIndicator";
 import { View } from "tamagui";
 import { getFadeIn, getFadeOut } from "@constants/fadeAnimations";
 import useCaptureStore from "@stores/captureScreen";
-
+import publishBlog from "@lib/publishBlog";
 const AnimatedView = Animated.createAnimatedComponent(View);
 
 const CaptureFooterPublishButton = () => {
@@ -22,17 +22,17 @@ const CaptureFooterPublishButton = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
     setLoading(true);
 
-    let value = 0;
-    const interval = setInterval(() => {
-      value += 0.1;
-      if (value >= 1) {
-        clearInterval(interval);
-        setLoading(false);
-        setProgress(0);
-      } else {
-        setProgress(value);
-      }
-    }, 500);
+    publishBlog(postName, category, content, (progress) => {
+      setProgress(progress);
+    }).then(() => {
+      setLoading(false);
+      setProgress(0);
+      // THIS CODE RUNS IF THERE IS NO ERROR AND API REPLIED OKAY SUPER KRUTO
+    }).catch(() => {
+      setLoading(false);
+      setProgress(0);
+      // THIS CODE RUNS IF THERE IS AN ERROR (FOR DIKIY)
+    });
   };
 
   return (
@@ -50,7 +50,7 @@ const CaptureFooterPublishButton = () => {
         <CircularIndicator size={30} progress={progress} />
       ) : (
         <AnimatedView entering={getFadeIn()} exiting={getFadeOut()}>
-            <Icon icon="publish" size={28} color="white" />
+          <Icon icon="publish" size={28} color="white" />
         </AnimatedView>
       )}
     </Button>
