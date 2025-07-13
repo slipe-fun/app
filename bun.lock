@@ -41,6 +41,7 @@
         "react-native-fast-image": "^8.6.3",
         "react-native-gesture-handler": "~2.20.2",
         "react-native-keychain": "^10.0.0",
+        "react-native-mime-types": "^2.5.0",
         "react-native-mmkv": "^3.2.0",
         "react-native-randombytes": "^3.6.1",
         "react-native-reanimated": "~3.16.1",
@@ -1671,6 +1672,8 @@
     "react-native-gesture-handler": ["react-native-gesture-handler@2.20.2", "", { "dependencies": { "@egjs/hammerjs": "^2.0.17", "hoist-non-react-statics": "^3.3.0", "invariant": "^2.2.4", "prop-types": "^15.7.2" }, "peerDependencies": { "react": "*", "react-native": "*" } }, "sha512-HqzFpFczV4qCnwKlvSAvpzEXisL+Z9fsR08YV5LfJDkzuArMhBu2sOoSPUF/K62PCoAb+ObGlTC83TKHfUd0vg=="],
 
     "react-native-keychain": ["react-native-keychain@10.0.0", "", {}, "sha512-YzPKSAnSzGEJ12IK6CctNLU79T1W15WDrElRQ+1/FsOazGX9ucFPTQwgYe8Dy8jiSEDJKM4wkVa3g4lD2Z+Pnw=="],
+
+    "react-native-mime-types": ["react-native-mime-types@2.5.0", "", { "dependencies": { "mime-db": "~1.52.0" } }, "sha512-l1NIGxa0MBFPGBFDd3yeGe2f8+Qb+U4M1FEK7l3Fob0R7kOecwgRau2CCCmu6W5QzyhKdBxRC8SOTuTIEKKAUw=="],
 
     "react-native-mmkv": ["react-native-mmkv@3.3.0", "", { "peerDependencies": { "react": "*", "react-native": "*" } }, "sha512-2iPjIJ+IAODXN35wm53EN6nv+hR/0NXLLiLWOdPA/0gXDB2dYVrr6MqvoiFpxhLhdj0B8fkf5ARNVavJaSvuuQ=="],
 

@@ -19,12 +19,12 @@ const ProfilePostsList = ({ scrollY, actionsHeight, viewHeight, user }) => {
     },
   });
 
-  const renderItem = useCallback(({ item }) => {
+  const renderItem = useCallback(({ item, index}) => {
     switch (item?.type) {
       case "publish":
-        return <PublishButton key={item?.id} />;
+        return <PublishButton key={`${index}-publish`} />;
       default:
-        return <Post post={item} />;
+        return <Post key={`${index}-${item?.id}`} post={item} />;
     }
   }, []);
 
