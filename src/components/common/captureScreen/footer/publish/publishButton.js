@@ -8,6 +8,7 @@ import { View } from "tamagui";
 import { getFadeIn, getFadeOut } from "@constants/fadeAnimations";
 import useCaptureStore from "@stores/captureScreen";
 import publishBlog from "@lib/publishBlog";
+import { useNavigation } from "@react-navigation/native";
 const AnimatedView = Animated.createAnimatedComponent(View);
 
 const CaptureFooterPublishButton = () => {
@@ -18,20 +19,21 @@ const CaptureFooterPublishButton = () => {
   const category = useCaptureStore((s) => s.category);
   const content = useCaptureStore((s) => s.content);
 
+  const navigation = useNavigation();
+
   const handlePress = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
     setLoading(true);
 
-    publishBlog(postName, category, content, (progress) => {
+    publishBlog(postName, category?.name, content, (progress) => {
       setProgress(progress);
     }).then(() => {
       setLoading(false);
       setProgress(0);
-      // THIS CODE RUNS IF THERE IS NO ERROR AND API REPLIED OKAY SUPER KRUTO
+      navigation.navigate("MainApp");
     }).catch(() => {
       setLoading(false);
       setProgress(0);
-      // THIS CODE RUNS IF THERE IS AN ERROR (FOR DIKIY)
     });
   };
 
