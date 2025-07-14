@@ -11,17 +11,12 @@ import { Blurhash } from "react-native-blurhash";
 const UserCard = ({
   user,
   posts,
-  active,
-  usersNavigation,
-  goToNext,
-  goToPrevious,
+  active
 }) => {
   const { userPosts, fetchPosts } = useFetchUserPosts(user, posts);
 
   const [loaded, setLoaded] = useState(false);
-  const [postsLength, setPostsLength] = useState(0);
   const [idx, setIdx] = useState(0);
-  const [currentPage, setCurrentPage] = useState(0);
 
   const blurhash = userPosts[idx]?.blurhash;
 
@@ -32,30 +27,14 @@ const UserCard = ({
       : "0,0,0";
   }, [blurhash]);
 
-  const changeUser = (user) => {
-    setIdx(user?.idx);
-    setCurrentPage(user?.currentPage);
-  };
-
-  const navigationUser = useMemo(() => {
-    return usersNavigation.find((_user) => _user.id === user.id);
-  }, [usersNavigation, user.id]);
-
   const handleLoad = useCallback(() => {
     setLoaded(true);
   }, []);
 
-  const handleIndicatorFinish = useCallback(() => {
-    goToNext(user?.id, changeUser);
-  }, [goToNext, user?.id]);
 
   useEffect(() => {
     fetchPosts();
-  }, [navigationUser?.currentPage]);
-
-  useEffect(() => {
-    setPostsLength(userPosts.length);
-  }, [userPosts]);
+  }, [idx]);
 
   return (
     <View flex={1} justifyContent="space-between" overflow="hidden" br="$7">
@@ -91,19 +70,17 @@ const UserCard = ({
 
       <UserCardHeader
         pause={!active}
-        handleIndicatorFinish={handleIndicatorFinish}
         activeIdx={idx}
-        pages={navigationUser?.paginationPages}
+        setActiveIdx={setIdx}
         post={userPosts[idx]}
         user={user}
         averageColor={averageColor}
-        page={currentPage}
       /> 
 
-      {postsLength > 1 && (
+      {userPosts.length > 1 && (
         <View f={1} flexDirection="row" zIndex="$1">
-          <View f={1} onPress={() => goToPrevious(user?.id, changeUser)} />
-          <View f={1} onPress={() => goToNext(user?.id, changeUser)} />
+          <View f={1} onPress={() => setIdx(prev => prev - 1)} />
+          <View f={1} onPress={() => setIdx(prev => prev + 1)} />
         </View>
       )}
 

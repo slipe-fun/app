@@ -11,12 +11,14 @@ const UserCardHeader = ({
   user,
   post,
   activeIdx,
-  handleIndicatorFinish,
-  pages,
-  page,
+  setActiveIdx,
   pause,
-  averageColor
+  averageColor,
 }) => {
+  const handleIndicatorFinish = () => {
+    setActiveIdx(activeIdx + 1);
+  };
+
   return (
     <View style={styles.header}>
       <LinearGradient
@@ -25,7 +27,12 @@ const UserCardHeader = ({
         end={{ x: 0.5, y: 1 }}
         style={styles.gradient}
       />
-      {/* <Indicators isPaused={pause} onFinish={() => handleIndicatorFinish()} pages={pages} page={page} currentIndex={activeIdx} /> */}
+      <Indicators
+        postsLength={parseInt(user?.postsCount)}
+        isPaused={pause}
+        onFinish={() => handleIndicatorFinish()}
+        currentIndex={activeIdx}
+      />
       <View style={styles.headerBlock}>
         <Image
           style={styles.headerAvatar}

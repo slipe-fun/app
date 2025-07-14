@@ -2,7 +2,6 @@ import React, { useState, useRef, useCallback, useMemo } from "react";
 import { View, Dimensions, FlatList } from "react-native";
 import UserCard from "@components/common/blogsScreen/userCard";
 import styles from "./styles/verticalSliderStyles";
-import usePostNavigation from "@hooks/usePostNavigation";
 
 const { height: windowHeight, width: windowWidth } = Dimensions.get("window");
 const VIEWABILITY_CONFIG = { itemVisiblePercentThreshold: 50 };
@@ -14,9 +13,6 @@ const SliderItem = React.memo(
     index,
     isActive,
     containerHeight,
-    usersNavigation,
-    goToNext,
-    goToPrevious,
   }) => {
     const style = useMemo(
       () => ({
@@ -33,9 +29,6 @@ const SliderItem = React.memo(
           user={item.author}
           posts={item.posts}
           active={isActive}
-          usersNavigation={usersNavigation}
-          goToNext={goToNext}
-          goToPrevious={goToPrevious}
         />
       </View>
     );
@@ -49,12 +42,6 @@ const VerticalSlider = ({ users, onSlideChange = () => {} }) => {
     () => containerHeight + SPACING,
     [containerHeight]
   );
-
-  const {
-    users: usersNavigation,
-    goToNext,
-    goToPrevious,
-  } = usePostNavigation(users);
 
   const handleLayout = useCallback(
     (e) => {
@@ -94,12 +81,9 @@ const VerticalSlider = ({ users, onSlideChange = () => {} }) => {
         index={index}
         isActive={index === activeIndex}
         containerHeight={containerHeight}
-        usersNavigation={usersNavigation}
-        goToNext={goToNext}
-        goToPrevious={goToPrevious}
       />
     ),
-    [activeIndex, containerHeight, usersNavigation, goToNext, goToPrevious]
+    [activeIndex, containerHeight]
   );
 
   return (
