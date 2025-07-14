@@ -26,7 +26,6 @@ const Post = ({ post }) => {
 				br='$7'
 				w='$full'
 				position='relative'
-				animation='fast'
 				onPress={handlePress}
 				backgroundColor='$transparent'
 				pressStyle={{

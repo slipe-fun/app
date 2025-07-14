@@ -65,7 +65,6 @@ const CategoryPageHeader = ({ category, scrollY }) => {
           height="$12"
           br="$full"
           onPress={() => navigation.goBack()}
-          animation="fast"
           backgroundColor={`${category.color}23`}
           pressStyle={{
             scale: 0.9,
@@ -80,7 +79,6 @@ const CategoryPageHeader = ({ category, scrollY }) => {
           onPress={() => {
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
           }}
-          animation="fast"
           backgroundColor={`${category.color}23`}
           pressStyle={{
             scale: 0.9,

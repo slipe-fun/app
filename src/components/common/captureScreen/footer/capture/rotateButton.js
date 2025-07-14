@@ -36,7 +36,6 @@ const CaptureRotateButton = ({}) => {
 				scale: 0.98,
 				opacity: 0.9,
 			}}
-			animation='fast'
 			backgroundColor='$backgroundTransparent'
 			unstyled
 			br='$full'

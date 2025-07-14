@@ -46,7 +46,6 @@ const TabBarItem = ({ route, isFocused, onPress }) => {
 
   return (
     <Button
-      animation="fast"
       pressStyle={{
         opacity: 0.9,
         scale: 0.9,

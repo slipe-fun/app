@@ -36,7 +36,6 @@ export const NotifsDefaultHeader = ({ scrollY, refresh }) => {
         <Button
             p={0}
             backgroundColor="transparent"
-            animation="fast"
             pressStyle={{
               scale: 0.9,
             }}
@@ -56,7 +55,6 @@ export const NotifsDefaultHeader = ({ scrollY, refresh }) => {
           />
           <Button
             p={0}
-            animation="fast"
             backgroundColor="transparent"
             pressStyle={{
               scale: 0.9,

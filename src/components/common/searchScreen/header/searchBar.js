@@ -32,10 +32,19 @@ const SearchBar = ({ isButton = false }) => {
   const onCancelPressed = useCallback((type) => {
     setIsFocused(type === "cancel" ? false : true);
     if (type === "cancel") {
+      setQuery("")
       inputRef.current?.blur();
     } else {
       inputRef.current?.focus()
     }
+  }, []);
+
+  const onBlur = useCallback(() => {
+    setQuery("");
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    } 
+    setIsFocused(false)
   }, []);
 
   useEffect(() => {
@@ -45,7 +54,7 @@ const SearchBar = ({ isButton = false }) => {
       mass: 0.4,
       damping: 18,
       stiffness: 140,
-      overshootClamping: false,
+      overshootClamping: false, 
       restDisplacementThreshold: 0.1,
       restSpeedThreshold: 0.1,
     });
@@ -87,8 +96,10 @@ const SearchBar = ({ isButton = false }) => {
             onChangeText={setQuery}
             fz="$2"
             f={1}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
+            onFocus={() => {
+              setIsFocused(true)
+            }}
+            onBlur={onBlur}
             indicatorColor={color}
             placeholder="Поиск по вселенной"
             placeholderTextColor={color}

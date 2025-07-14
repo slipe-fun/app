@@ -38,7 +38,6 @@ const FormatButton = memo(
           scale: 0.95,
           opacity: 0.9,
         }}
-        animation="fast"
         unstyled
         alignItems="center"
         justifyContent="center"

@@ -76,7 +76,6 @@ export const SearchHeader = ({ scrollY }) => {
           width="$11"
           height="$11"
           br="$full"
-          animation="fast"
           backgroundColor="$backgroundTransparent"
           pressStyle={{
             opacity: 0.9,

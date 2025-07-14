@@ -16,7 +16,6 @@ const Category = ({ category }) => {
 			overflow='hidden'
 			br='$7'
 			position='relative'
-			animation='fast'
 			backgroundColor='$backgroundTransparent'
 			pressStyle={{
 				scale: 0.98,

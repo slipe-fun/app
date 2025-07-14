@@ -16,7 +16,6 @@ const CapturePickGalleryImage = () => {
 				scale: 0.95,
 				opacity: 0.9,
 			}}
-			animation='fast'
 			backgroundColor='$transparent'
 			unstyled
 			br='$full'

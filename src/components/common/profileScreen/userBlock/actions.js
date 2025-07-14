@@ -74,7 +74,6 @@ const ProfileActions = ({ actionsHeight, setActionsHeight, scrollY, viewHeight, 
             opacity: 0.9,
           }}
           onPress={handlePress}
-          animation="fast"
           mb="$5"
           mt="$1"
           key={button.id}

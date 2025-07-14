@@ -33,7 +33,6 @@ const PublishButton = () => {
 			m='$3'
 			w='$full'
 			br='$7'
-			animation='fast'
 			backgroundColor='$transparent'
 			overflow='hidden'
 			pressStyle={{

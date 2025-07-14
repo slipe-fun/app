@@ -52,7 +52,6 @@ export const NotifsAnimatedHeader = ({ scrollY, refresh }) => {
           <Button
             p={0}
             backgroundColor="transparent"
-            animation="fast"
             pressStyle={{
               scale: 0.9,
             }}
@@ -76,7 +75,6 @@ export const NotifsAnimatedHeader = ({ scrollY, refresh }) => {
           <Button
             p={0}
             backgroundColor="transparent"
-            animation="fast"
             pressStyle={{
               scale: 0.9,
             }}

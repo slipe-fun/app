@@ -31,7 +31,6 @@ const ProfileInfoBlock = ({ user }) => {
               scale: 0.98,
               opacity: 0.9,
             }}
-            animation="fast"
             unstyled
             br="$full"
             justifyContent="center"

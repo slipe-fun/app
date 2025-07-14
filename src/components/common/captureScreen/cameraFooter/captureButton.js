@@ -70,7 +70,6 @@ const CaptureButton = ({ cameraRef }) => {
       <Button
         onPress={handlePress}
         pressStyle={{ scale: 0.95, opacity: 0.5 }}
-        animation="fast"
         w="$18"
         h="$18"
         br="$full"

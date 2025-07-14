@@ -167,6 +167,7 @@ export const tokens = createTokens({
     innerBlockDark: '#333333',
     innerBlockLight: '#CCCCCC',
     elemBackgroundDark: '#1F1F1F',
+    yellow: '#FF9F0A',
     elemBackgroundLight: '#E0E0E0',
     indicator: 'rgba(255, 255, 255, 0.3)',
     navigationBackgroundDark: 'rgba(0, 0, 0, 0.6)',
