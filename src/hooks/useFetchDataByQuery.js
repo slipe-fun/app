@@ -5,6 +5,11 @@ export default function useFetchDataByQuery (query, type) {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(1);
 
+    useEffect(() => {
+        setPage(1);
+        setData([]); 
+    }, [query])
+    
     async function fetchData () {
         const request = await api.v2.get(`/search/${type}?q=${query}&page=${page}`);
         setData(prev => [...prev, ...request?.data]);

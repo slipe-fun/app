@@ -10,7 +10,9 @@ import { FlashList } from "@shopify/flash-list";
 import { categories } from "@constants/categories";
 import Category from "../components/common/searchScreen/category";
 import useSearchStore from "@stores/searchScreen";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
+import useFetchDataByQuery from "@hooks/useFetchDataByQuery";
+import Post from "@components/ui/post";
 
 const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
 
@@ -18,16 +20,35 @@ export function SearchScreen() {
   const scrollY = useSharedValue(0);
 
   const setIsFocused = useSearchStore((state) => state.setIsFocused);
+  const type = useSearchStore((state) => state.type);
+  const isFocused = useSearchStore((state) => state.isFocused);
+  const isSearch = useSearchStore((state) => state.isSearch);
+  const setIsSearch = useSearchStore((state) => state.setIsSearch);
+  const query = useSearchStore((state) => state.query);
+
+  const { data, setPage } = useFetchDataByQuery(isSearch ? query : "", type);
 
   const onScroll = useAnimatedScrollHandler((event) => {
     scrollY.value = event.contentOffset.y;
   });
 
-  const renderItem = ({ item, index }) => (
-    <View style={{ flex: 1, margin: 8 }}>
-      <Category category={item} colIndex={index % 2} />
-    </View>
+  const renderItem = useCallback(
+    ({ item, index }) => {
+      if (isSearch) {
+        return <Post key={`${index}-${item?.id}`} post={item} />;
+      }
+      return (
+        <View style={{ flex: 1, margin: 8 }}>
+          <Category category={item} colIndex={index % 2} />
+        </View>
+      );
+    },
+    [isSearch]
   );
+
+  const handleEndReached = useCallback(() => {
+    setPage((prev) => prev + 1);
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -35,25 +56,36 @@ export function SearchScreen() {
     };
   }, []);
 
+  useEffect(() => {
+    if (isFocused) {
+      setIsSearch(false);
+    }
+  }, [isFocused]);
+
   return (
     <YStack f={1} backgroundColor="$black">
       <SearchAnimatedHeader scrollY={scrollY} />
-
       <AnimatedFlashList
-        data={categories}
+        data={isSearch ? data : categories}
+        extraData={isSearch}
+        onEndReached={isSearch ? handleEndReached : null}
         renderItem={renderItem}
-        keyExtractor={(item) => item.name}
+        keyExtractor={(item, index) =>
+          isSearch
+            ? `post-${item?.id ?? index}`
+            : `category-${item?.id ?? index}`
+        }
         numColumns={2}
         initialNumToRender={10}
-        maxToRenderPerBatch={6}
+        maxToRenderPerBatch={isSearch ? 12 : 6}
         ListHeaderComponent={<SearchHeader scrollY={scrollY} />}
-        estimatedItemSize={131}
+        estimatedItemSize={isSearch ? 250 : 131}
         contentContainerStyle={{
           paddingHorizontal: 8,
         }}
         columnWrapperStyle={{
           marginBottom: 24,
-        }} 
+        }}
         scrollEventThrottle={16}
         onScroll={onScroll}
       />

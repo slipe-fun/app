@@ -10,19 +10,24 @@ import useSearchStore from "@stores/searchScreen";
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
-const SearchBar = ({ isButton = false }) => {
+const SearchBar = () => {
   const theme = useTheme();
   const ref = useRef();
   const inputRef = useRef();
+
   const color = theme.secondaryText.get();
-  const primary = theme.primary.get();
+
   const [cancelWidth, setCancelWidth] = useState(0);
+
   const cancelOpacity = useSharedValue(0);
   const cancelMarginRight = useSharedValue(0);
+
   const query = useSearchStore((state) => state.query);
   const setQuery = useSearchStore((state) => state.setQuery);
   const isFocused = useSearchStore((state) => state.isFocused);
   const setIsFocused = useSearchStore((state) => state.setIsFocused);
+  const setIsSearch = useSearchStore((state) => state.setIsSearch);
+  const isSearch = useSearchStore((state) => state.isSearch);
 
   const cancelStyle = useAnimatedStyle(() => ({
     marginRight: -cancelMarginRight.value,
@@ -32,19 +37,11 @@ const SearchBar = ({ isButton = false }) => {
   const onCancelPressed = useCallback((type) => {
     setIsFocused(type === "cancel" ? false : true);
     if (type === "cancel") {
-      setQuery("")
+      setQuery("");
       inputRef.current?.blur();
     } else {
-      inputRef.current?.focus()
+      inputRef.current?.focus();
     }
-  }, []);
-
-  const onBlur = useCallback(() => {
-    setQuery("");
-    if (inputRef.current) {
-      inputRef.current.value = "";
-    } 
-    setIsFocused(false)
   }, []);
 
   useEffect(() => {
@@ -54,7 +51,7 @@ const SearchBar = ({ isButton = false }) => {
       mass: 0.4,
       damping: 18,
       stiffness: 140,
-      overshootClamping: false, 
+      overshootClamping: false,
       restDisplacementThreshold: 0.1,
       restSpeedThreshold: 0.1,
     });
@@ -69,6 +66,12 @@ const SearchBar = ({ isButton = false }) => {
   useEffect(() => {
     setCancelWidth(ref.current?.getBoundingClientRect()?.width);
   }, []);
+
+  useEffect(() => {
+    if (isSearch) {
+      inputRef.current?.blur();
+    }
+  }, [isSearch]);
 
   return (
     <XStack width="$full" gap="$6" alignItems="center">
@@ -92,14 +95,17 @@ const SearchBar = ({ isButton = false }) => {
           <Icon size={22} icon="search" color={color} />
           <Input
             ref={inputRef}
+            onSubmitEditing={() => {
+              setIsSearch(true);
+            }}
             value={query}
             onChangeText={setQuery}
             fz="$2"
             f={1}
             onFocus={() => {
-              setIsFocused(true)
+              setIsFocused(true);
             }}
-            onBlur={onBlur}
+            onBlur={() => setIsFocused(false)}
             indicatorColor={color}
             placeholder="Поиск по вселенной"
             placeholderTextColor={color}
@@ -109,18 +115,6 @@ const SearchBar = ({ isButton = false }) => {
             h="$13"
           />
         </View>
-        {isButton && (
-          <Button
-            backgroundColor="$transparent"
-            width="$13"
-            alignItems="center"
-            justifyContent="center"
-            height="$13"
-            right="0"
-          >
-            <Icon size={24} icon="gear" color={primary} />
-          </Button>
-        )}
       </XStack>
 
       <AnimatedView style={cancelStyle}>

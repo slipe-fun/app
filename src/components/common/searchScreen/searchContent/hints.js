@@ -45,7 +45,7 @@ const Hints = () => {
       style={resultsStyle}
     >
       {data.map((item, index) => (
-        <RecentlyQuery key={index} result={item} index={index} />
+        <RecentlyQuery isHint key={index} result={item} index={index} />
       ))}
     </AnimatedView>
   );

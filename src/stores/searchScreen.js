@@ -7,6 +7,8 @@ const useSearchStore = create((set) => ({
     setType: (newType) => set({ type: newType }),
     isFocused: false,
     setIsFocused: (newIsFocused) => set({ isFocused: newIsFocused }),
+    isSearch: false,
+    setIsSearch: (newIsSearch) => set({ isSearch: newIsSearch })
 }))
 
 export default useSearchStore

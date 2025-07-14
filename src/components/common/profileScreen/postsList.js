@@ -42,7 +42,6 @@ const ProfilePostsList = ({ scrollY, actionsHeight, viewHeight, user }) => {
       ListHeaderComponent={<ProfileInfoBlock user={user} />}
       data={posts}
       scrollEventThrottle={16}
-      optimizeItemArrangement={false}
       numColumns={2}
       initialNumToRender={4}
       maxToRenderPerBatch={12}

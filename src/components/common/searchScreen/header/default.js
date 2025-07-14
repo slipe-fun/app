@@ -1,4 +1,4 @@
-import { getVariableValue } from "tamagui";
+import { useTheme } from "tamagui";
 import Animated, {
   useAnimatedStyle,
   interpolate,
@@ -18,14 +18,14 @@ import { fastSpring } from "@constants/easings";
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 const AnimatedXStack = Animated.createAnimatedComponent(XStack);
 
-const color = getVariableValue("$primary", "color");
-
 export const SearchHeader = ({ scrollY }) => {
   const ref = useAnimatedRef();
   const insets = useSafeAreaInsets();
   const isFocused = useSearchStore((state) => state.isFocused);
-  const [titleHeight, setTitleHeight] = useState(36);
+  const [titleHeight, setTitleHeight] = useState(40);
   const titleOpacity = useSharedValue(1)
+  const theme = useTheme();
+  const color = theme.color.get();
 
   const bigHeaderStyle = useAnimatedStyle(() => {
     const t = scrollY.value;
@@ -73,8 +73,8 @@ export const SearchHeader = ({ scrollY }) => {
         </Text>
         <Button
           p={0}
-          width="$11"
-          height="$11"
+          width="$12"
+          height="$12"
           br="$full"
           backgroundColor="$backgroundTransparent"
           pressStyle={{
