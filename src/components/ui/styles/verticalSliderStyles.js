@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
 	outerContainer: {
 		width: "100%",
 		overflow: "hidden",
-		borderRadius: BORDER_RADIUS.medium,
+		borderRadius: 20,
 		height: "100%",
 	},
 	animatedContainer: {
