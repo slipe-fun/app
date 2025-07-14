@@ -44,7 +44,7 @@ export default function useEmojiState(post) {
                 if (postEmojis[reaction.name]) {
                     postEmojis[reaction.name] = {
                         count: Number(reaction.count),
-                        isActive: reaction.name === post.reaction?.name
+                        isActive: reaction.name === post.reaction
                     };
                 }
             });
@@ -83,11 +83,7 @@ export default function useEmojiState(post) {
             });
         });
 
-        const formData = new FormData();
-        formData.append("to_post", post.id);
-        formData.append("name", emoji);
-
-        await api.media.post("/reaction/add", formData);
+        await api.v2.post(`/post/${post.id}/react`, JSON.stringify({ name: emoji }));
     };
 
     const currentPostEmojis = postReactions.find(p => p.postId === post?.id)?.emojis || defaultEmojis;
