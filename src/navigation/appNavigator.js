@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CustomTabBar from "../components/ui/tabBar/tabBar";
-import { BlogsScreen, SearchScreen, ProfileScreen, CaptureScreen } from "../screens";
+import { BlogsScreen, SearchScreen, ProfileScreen, CaptureScreen, CategoryPage } from "../screens";
 import AuthNavigator from "./AuthNavigator";
 import { ROUTES } from "../constants/routes";
 import { useState, createContext, useContext, useEffect } from "react";
@@ -71,6 +71,7 @@ const AppNavigator = () => {
 						<>
 							<RootStack.Screen name='MainApp' component={MainTabNavigator} />
 						<RootStack.Screen name={ROUTES.PUBLISH} component={CaptureScreen} />
+						<RootStack.Screen name={ROUTES.CATEGORY_PAGE} component={CategoryPage} />
 						</>
 					) : (
 						<RootStack.Screen name={ROUTES.AUTH} component={AuthNavigator} />

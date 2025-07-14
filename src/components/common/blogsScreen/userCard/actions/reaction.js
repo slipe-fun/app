@@ -70,22 +70,24 @@ const Reaction = memo(
             source={emojiImages[reaction]}
           />
 
-          {String(emojis[reaction]?.count)
-            .split("")
-            .map((char, i) => (
-              <AnimatedText
-                key={`${char}-${i}`}
-                fz="$2"
-                lh="$2"
-                style={animatedTextStyles}
-                fw="$2"
-                color="white"
-                entering={getCharEnter(i)}
-                exiting={getCharExit(i)}
-              >
-                {char}
-              </AnimatedText>
-            ))}
+          <View flexDirection="row">
+            {String(emojis[reaction]?.count)
+              .split("")
+              .map((char, i) => (
+                <AnimatedText
+                  key={`${char}-${i}`}
+                  fz="$2"
+                  lh="$2"
+                  style={animatedTextStyles}
+                  fw="$2"
+                  color="white"
+                  entering={getCharEnter(i)}
+                  exiting={getCharExit(i)}
+                >
+                  {char}
+                </AnimatedText>
+              ))}
+          </View>
         </AnimatedView>
       </ColorfullyView>
     );

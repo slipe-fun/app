@@ -24,8 +24,8 @@ const CategoryPage = ({ route }) => {
     scrollY.value = event.contentOffset.y;
   });
 
-  const renderItem = useCallback(({ item }) => (
-    <Post post={item} width={(width - 48) / 2} />
+  const renderItem = useCallback(({ item, index }) => (
+    <Post key={`${item.id}-${index}`} post={item} width={(width - 48) / 2} />
   ), []);
 
   const handleEndReached = useCallback(() => {
