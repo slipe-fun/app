@@ -1,6 +1,4 @@
-import { ScrollView } from "react-native";
-import styles from "../../styles/userCardStyles";
-import { View } from "tamagui";
+import { View, ScrollView } from "tamagui";
 import useEmojiState from "@hooks/useEmojiState";
 import ColorfullyView from "@components/ui/colorfullyView";
 import Reaction from "./reaction";
@@ -28,11 +26,10 @@ const UserCardActions = ({ post, averageColor }) => {
   return (
     <View>
       <ScrollView
-        contentContainerStyle={styles.scrollView}
         horizontal
+        contentContainerStyle={{ gap: 16, padding: 18 }}
         overScrollMode="never"
         showsHorizontalScrollIndicator={false}
-        style={styles.actions}
       >
         <ColorfullyView
           isButton

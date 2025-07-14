@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import { View } from "tamagui";
 import UserCardHeader from "./user";
 import UserCardActions from "./actions";
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { URLS } from "@constants/urls";
 import FastImage from "react-native-fast-image";
 import { Blurhash } from "react-native-blurhash";

@@ -172,7 +172,7 @@ export const tokens = createTokens({
     indicator: 'rgba(255, 255, 255, 0.3)',
     navigationBackgroundDark: 'rgba(0, 0, 0, 0.6)',
     navigationBackgroundLight: 'rgba(255, 255, 255, 0.6)',
-    transparentText: 'rgba(255, 255, 255, 0.65)',
+    transparentText: 'rgba(255, 255, 255, 0.7)',
     transparentIconDark: 'rgba(255, 255, 255, 0.35)',
     transparentIconLight: 'rgba(0, 0, 0, 0.35)',
     black: '#000',

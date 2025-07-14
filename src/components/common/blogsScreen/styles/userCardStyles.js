@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
 	// Indicator styles
 	container: {
 		gap: 6,
-		padding: SPACING.large,
+		padding: 18,
 		paddingBottom: 0,
 		flexDirection: "row",
 	},
