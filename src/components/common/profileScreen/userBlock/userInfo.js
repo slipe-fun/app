@@ -49,7 +49,7 @@ const UserInfo = memo(({ user, top, scrollY, viewHeight }) => {
                 <View flexDirection='row' alignItems='center' gap='$2'>
                     <Icon icon='profile' size={18} color={iconColor} />
                     <Text fz='$2' lh='$2' fw='$2' color='$white'>
-                        {user?.subscribers}
+                        {user?.followers}
                     </Text>
                 </View>
                 <View br='$7' w='$0.5' h='$0.5' backgroundColor='$white' />

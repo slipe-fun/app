@@ -79,6 +79,7 @@ const Indicators = ({
   currentIndex = 0,
   postsLength,
   onFinish,
+  userId,
   duration = 5500,
 }) => {
   return (
@@ -86,7 +87,7 @@ const Indicators = ({
       {Array.from({ length: postsLength }, (_, index) => index).map((index) => (
         <>
           <Indicator
-            key={index}
+            key={`${userId}-${index}`}
             index={index}
             duration={duration}
             postsLength={postsLength}

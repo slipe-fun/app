@@ -4,7 +4,6 @@ import UserCardHeader from "./user";
 import UserCardActions from "./actions";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { URLS } from "@constants/urls";
-import useFetchUserPosts from "@hooks/useFetchUserPosts";
 import FastImage from "react-native-fast-image";
 import { Blurhash } from "react-native-blurhash";
 
@@ -13,12 +12,11 @@ const UserCard = ({
   posts,
   active
 }) => {
-  const { userPosts, fetchPosts } = useFetchUserPosts(user, posts);
 
   const [loaded, setLoaded] = useState(false);
   const [idx, setIdx] = useState(0);
 
-  const blurhash = userPosts[idx]?.blurhash;
+  const blurhash = posts[idx]?.blurhash;
 
   const averageColor = useMemo(() => {
     const color = Blurhash.getAverageColor(blurhash);
@@ -30,11 +28,6 @@ const UserCard = ({
   const handleLoad = useCallback(() => {
     setLoaded(true);
   }, []);
-
-
-  useEffect(() => {
-    fetchPosts();
-  }, [idx]);
 
   return (
     <View flex={1} justifyContent="space-between" overflow="hidden" br="$7">
@@ -54,7 +47,7 @@ const UserCard = ({
         resizeMode="cover"
         onLoad={handleLoad}
         source={{
-          uri: `${URLS.CDN_POSTS_URL}${userPosts[idx]?.image}`,
+          uri: `${URLS.CDN_POSTS_URL}${posts[idx]?.image}`,
           priority: FastImage.priority.high,
           cache: FastImage.cacheControl.immutable,
         }}
@@ -69,22 +62,23 @@ const UserCard = ({
       )}
 
       <UserCardHeader
+        postCount={posts?.length}
         pause={!active}
         activeIdx={idx}
-        setActiveIdx={setIdx}
-        post={userPosts[idx]}
+        setActiveIdx={setIdx} 
+        post={posts[idx]}
         user={user}
         averageColor={averageColor}
       /> 
 
-      {userPosts.length > 1 && (
+      {posts?.length > 1 && (
         <View f={1} flexDirection="row" zIndex="$1">
           <View f={1} onPress={() => setIdx(prev => prev - 1)} />
           <View f={1} onPress={() => setIdx(prev => prev + 1)} />
         </View>
       )}
 
-      <UserCardActions averageColor={averageColor}  post={userPosts[idx]} /> 
+      <UserCardActions averageColor={averageColor}  post={posts[idx]} /> 
     </View>
   );
 };

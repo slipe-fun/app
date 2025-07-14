@@ -10,6 +10,7 @@ import Icon from "@components/ui/icon";
 const UserCardHeader = ({
   user,
   post,
+  postCount,
   activeIdx,
   setActiveIdx,
   pause,
@@ -28,10 +29,11 @@ const UserCardHeader = ({
         style={styles.gradient}
       />
       <Indicators
-        postsLength={parseInt(user?.postsCount)}
+        postsLength={postCount}
         isPaused={pause}
         onFinish={() => handleIndicatorFinish()}
         currentIndex={activeIdx}
+		userId={user.id}
       />
       <View style={styles.headerBlock}>
         <Image

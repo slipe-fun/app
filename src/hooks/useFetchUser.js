@@ -8,9 +8,9 @@ export default function useFetchUser () {
 
     async function fetchUser () {      
         try {
-            const request = await api.v1.get("/account/info/get");
+            const request = await api.v2.get("/user/by/token");
 
-            setUser(request?.data?.success[0]) 
+            setUser(request?.data) 
         } catch (err) {
             setError(err)
         }

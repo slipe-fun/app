@@ -6,7 +6,6 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Platform } from "react-native";
 import SearchBar from "./searchBar";
 import { YStack } from "tamagui";
-import useSearchStore from "@stores/searchScreen";
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
