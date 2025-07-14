@@ -8,23 +8,23 @@ import Animated, {
 import { SearchHeader } from "../components/common/searchScreen/header/default";
 import { SearchAnimatedHeader } from "../components/common/searchScreen/header/animated";
 import { Results } from "../components/common/searchScreen/searchContent/results";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { FlashList } from "@shopify/flash-list";
 import { categories } from "@constants/categories";
 import Category from "../components/common/searchScreen/category";
 import { normalSpring } from "@constants/easings";
+import useSearchStore from "@stores/searchScreen";
 
 const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
 
 export function SearchScreen() {
   const scrollY = useSharedValue(0);
   const insets = useSafeAreaInsets();
-  const [isFocused, setIsFocused] = useState(false);
-  const [type, setType] = useState("post");
-  const [query, setQuery] = useState("");
   const resultsOpacity = useSharedValue(0);
+
+  const isFocused = useSearchStore((state) => state.isFocused);
 
   const onScroll = useAnimatedScrollHandler((event) => {
     scrollY.value = event.contentOffset.y;
@@ -56,8 +56,6 @@ export function SearchScreen() {
     <YStack f={1} backgroundColor="$black">
       <SearchAnimatedHeader
         scrollY={scrollY}
-        setIsFocused={setIsFocused}
-        isFocused={isFocused}
       />
 
       <AnimatedFlashList
@@ -70,9 +68,6 @@ export function SearchScreen() {
         ListHeaderComponent={
           <SearchHeader
             scrollY={scrollY}
-            setIsFocused={setIsFocused}
-            isFocused={isFocused}
-            setQuery={setQuery}
           />
         }
         estimatedItemSize={131}
@@ -86,7 +81,7 @@ export function SearchScreen() {
         onScroll={onScroll}
       />
       <Animated.View style={resultsStyle}>
-        <Results query={query} type={type} />
+        <Results />
       </Animated.View>
     </YStack>
   );

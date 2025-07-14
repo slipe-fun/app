@@ -6,11 +6,11 @@ import Animated, {
 } from "react-native-reanimated";
 import { View, XStack, Text, Input, useTheme, Button } from "tamagui";
 import Icon from "../../../ui/icon";
-import { useKeyboard } from "@react-native-community/hooks";
+import useSearchStore from "@stores/searchScreen";
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
-const SearchBar = ({ isButton = false, setIsFocused, isFocused }) => {
+const SearchBar = ({ isButton = false }) => {
   const theme = useTheme();
   const ref = useRef();
   const inputRef = useRef();
@@ -19,7 +19,10 @@ const SearchBar = ({ isButton = false, setIsFocused, isFocused }) => {
   const [cancelWidth, setCancelWidth] = useState(0);
   const cancelOpacity = useSharedValue(0);
   const cancelMarginRight = useSharedValue(0);
-  const keyboard = useKeyboard();
+  const query = useSearchStore((state) => state.query);
+  const setQuery = useSearchStore((state) => state.setQuery);
+  const isFocused = useSearchStore((state) => state.isFocused);
+  const setIsFocused = useSearchStore((state) => state.setIsFocused);
 
   const cancelStyle = useAnimatedStyle(() => ({
     marginRight: -cancelMarginRight.value,
@@ -34,14 +37,6 @@ const SearchBar = ({ isButton = false, setIsFocused, isFocused }) => {
       inputRef.current?.focus()
     }
   }, []);
-
-  useEffect(() => {
-    if (keyboard.keyboardShown) {
-      setIsFocused(true);
-    } else {
-      setIsFocused(false);
-    }
-  }, [keyboard]);
 
   useEffect(() => {
     if (cancelWidth === 0) return;
@@ -88,8 +83,12 @@ const SearchBar = ({ isButton = false, setIsFocused, isFocused }) => {
           <Icon size={22} icon="search" color={color} />
           <Input
             ref={inputRef}
+            value={query}
+            onChangeText={setQuery}
             fz="$2"
             f={1}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
             indicatorColor={color}
             placeholder="Поиск по вселенной"
             placeholderTextColor={color}

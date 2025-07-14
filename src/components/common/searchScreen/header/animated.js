@@ -6,10 +6,11 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Platform } from "react-native";
 import SearchBar from "./searchBar";
 import { YStack } from "tamagui";
+import useSearchStore from "@stores/searchScreen";
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
-export const SearchAnimatedHeader = ({ scrollY, setIsFocused, isFocused }) => {
+export const SearchAnimatedHeader = ({ scrollY }) => {
   const insets = useSafeAreaInsets();
 
   const smallHeaderStyle = useAnimatedStyle(() => {
@@ -34,7 +35,7 @@ export const SearchAnimatedHeader = ({ scrollY, setIsFocused, isFocused }) => {
       gap="$6"
       pt={Platform.OS === "ios" ? insets.top : insets.top + 10}
     >
-      <SearchBar isButton setIsFocused={setIsFocused} isFocused={isFocused}/>
+      <SearchBar isButton/>
     </AnimatedYStack>
   );
 };

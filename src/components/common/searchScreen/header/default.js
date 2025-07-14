@@ -10,7 +10,8 @@ import { YStack, XStack, Text, Button } from "tamagui";
 import Icon from "../../../ui/icon";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Platform } from "react-native";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import useSearchStore from "@stores/searchScreen";
 import SearchBar from "./searchBar";
 import { fastSpring } from "@constants/easings";
 
@@ -19,9 +20,10 @@ const AnimatedXStack = Animated.createAnimatedComponent(XStack);
 
 const color = getVariableValue("$primary", "color");
 
-export const SearchHeader = ({ scrollY, setIsFocused, isFocused }) => {
+export const SearchHeader = ({ scrollY }) => {
   const ref = useAnimatedRef();
   const insets = useSafeAreaInsets();
+  const isFocused = useSearchStore((state) => state.isFocused);
   const [titleHeight, setTitleHeight] = useState(36);
   const titleOpacity = useSharedValue(1)
 
@@ -83,7 +85,7 @@ export const SearchHeader = ({ scrollY, setIsFocused, isFocused }) => {
           icon={<Icon size={24} icon="gear" color={color} />}
         />
       </AnimatedXStack>
-      <SearchBar isFocused={isFocused} setIsFocused={setIsFocused}/>
+      <SearchBar/>
     </AnimatedYStack>
   );
 };
