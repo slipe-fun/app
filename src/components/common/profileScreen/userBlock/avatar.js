@@ -12,7 +12,7 @@ const AnimatedView = Animated.createAnimatedComponent(View);
 
 const { width } = Dimensions.get("window");
 
-const ProfileAvatar = ({ user, scrollY, actionsHeight, viewHeight }) => {
+const ProfileAvatar = ({ user, scrollY, viewHeight }) => {
 	const [loaded, setLoaded] = useState(false);
 
 	const handleLoad = useCallback(() => {
@@ -28,7 +28,7 @@ const ProfileAvatar = ({ user, scrollY, actionsHeight, viewHeight }) => {
 
 	const animatedViewStyle = useAnimatedStyle(() => {
 		const opacity = interpolate(scrollY.value, [0, width], [1, 0], 'clamp');
-		const height = interpolate(scrollY.value, [0, width ], [width, viewHeight], 'clamp');
+		const height = interpolate(scrollY.value, [0, width], [width, viewHeight], 'clamp');
 	  
 		return {
 		  opacity,

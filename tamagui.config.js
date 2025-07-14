@@ -5,6 +5,7 @@ import { Easing } from 'react-native-reanimated'
 const openRundeFont = createFont({
   family: 'OpenRunde',
   size: {
+    0.5: 11,
     0.75: 12,
     1: 13,
     2: 14,
@@ -26,6 +27,7 @@ const openRundeFont = createFont({
     true: '500',
   },
   lineHeight: {
+    0.5: 13,
     0.75: 15,
     1: 16,
     2: 17,

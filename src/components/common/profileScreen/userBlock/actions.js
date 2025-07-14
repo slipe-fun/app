@@ -54,7 +54,7 @@ const ProfileActions = ({ actionsHeight, setActionsHeight, scrollY, viewHeight, 
   useEffect(() => {
     const hslColor = rgbToHsl(...averageColor.split(",").map((c) => parseInt(c)));
     setHslColor(hslColor);
-  }, []);
+  }, [averageColor]);
 
   return (
     <AnimatedView
@@ -94,7 +94,7 @@ const ProfileActions = ({ actionsHeight, setActionsHeight, scrollY, viewHeight, 
             style={animatedInnerViewStyle}
           >
             <Icon color={iconColor} icon={button.icon} size={24} />
-            <Text w="$full" lh="$0.75" fw="$2" fz="$0.75">
+            <Text w="$full" lh="$0.5" fw="$2" fz="$0.5">
               {button.label}
             </Text>
           </AnimatedView>
