@@ -59,6 +59,18 @@ const UserCard = ({
 
   return (
     <View flex={1} justifyContent="space-between" overflow="hidden" br="$7">
+       <View
+        position="absolute"
+        top={0}
+        left={0}
+        right={0}
+        bottom={0}
+        br="$7"
+        borderWidth={1}
+        borderColor="rgba(255,255,255,0.1)"
+        zIndex="$2"
+        pointerEvents="none"
+      />
       <FastImage
         resizeMode="cover"
         onLoad={handleLoad}
