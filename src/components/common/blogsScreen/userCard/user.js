@@ -8,6 +8,8 @@ import ColorfullyView from "@components/ui/colorfullyView";
 import Icon from "@components/ui/icon";
 import FastImage from "react-native-fast-image";
 import { Blurhash } from "react-native-blurhash";
+import { toast } from "sonner-native";
+import * as Haptics from "expo-haptics";
 
 const UserCardHeader = ({
   user,
@@ -27,6 +29,13 @@ const UserCardHeader = ({
   const handleLoad = useCallback(() => {
     setLoaded(true);
   }, []);
+
+  const handlePress = () => {
+    toast.success("Репорт успешно отправлен!");
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
+
+    // TODO: PIP PLS ADD SOME GENIUS CODE FOR REPORTING RH
+  };
 
   return (
     <View w="$full" position="relative">
@@ -106,11 +115,12 @@ const UserCardHeader = ({
           justifyContent="center"
           alignItems="center"
           w="$12"
+          onPress={handlePress}
           br="$full"
           color={`rgb(${averageColor})`}
           unstyled
         >
-          <Icon icon="menu" size={24} />
+          <Icon icon="flag" size={22} />
         </ColorfullyView>
       </View>
     </View>
