@@ -51,7 +51,7 @@ const PublishButton = () => {
 				br='$7'
 				zIndex='$2'
 				borderWidth={1}
-				borderColor='rgba(255, 255, 255, 0.2)'
+				borderColor='rgba(255, 255, 255, 0.1)'
 			/>
 			<View w='$full' justifyContent='center' aspectRatio='6/9' alignItems='center' position='relative'>
 				{rows.map((row, rowIndex) => (
@@ -71,7 +71,7 @@ const PublishButton = () => {
 						br='$full'
 						zIndex='$2'
 						borderWidth={1}
-						borderColor='rgba(255, 255, 255, 0.2)'
+						borderColor='rgba(255, 255, 255, 0.1)'
 					/>
 					<Icon icon='publish' size={44} color='white' />
 				</View>
