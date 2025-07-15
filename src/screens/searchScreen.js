@@ -13,6 +13,7 @@ import useSearchStore from "@stores/searchScreen";
 import { useEffect, useCallback } from "react";
 import useFetchDataByQuery from "@hooks/useFetchDataByQuery";
 import Post from "@components/ui/post";
+import { Text } from "tamagui";
 
 const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
 
@@ -33,9 +34,9 @@ export function SearchScreen() {
   });
 
   const renderItem = useCallback(
-    ({ item, index }) => {
+    ({ item }) => {
       if (isSearch) {
-        return <Post key={`${index}-${item?.id}`} post={item} />;
+        return <Post post={item} />;
       }
       return (
         <View style={{ flex: 1, margin: 8 }}>
@@ -71,9 +72,7 @@ export function SearchScreen() {
         onEndReached={isSearch ? handleEndReached : null}
         renderItem={renderItem}
         keyExtractor={(item, index) =>
-          isSearch
-            ? `post-${item?.id ?? index}`
-            : `category-${item?.id ?? index}`
+          isSearch ? `post-${item?.id}` : `category-${index}`
         }
         numColumns={2}
         initialNumToRender={10}

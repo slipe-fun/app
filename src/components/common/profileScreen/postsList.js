@@ -19,22 +19,24 @@ const ProfilePostsList = ({ scrollY, actionsHeight, viewHeight, user }) => {
     },
   });
 
-  const renderItem = useCallback(({ item, index}) => {
-    switch (item?.type) {
-      case "publish":
-        return <PublishButton key={`${index}-publish`} />;
-      default:
-        return <Post key={`${index}-${item?.id}`} post={item} />;
+  const renderItem = ({item}) => {
+    if (item?.type === "publish") {
+      return <PublishButton />;
     }
-  }, []);
+    return <Post post={item} />;
+  };
 
   const handleEndReached = useCallback(() => {
     setPage((prev) => prev + 1);
   }, []);
 
+  const keyExtractor = useCallback((item) => {
+    return item?.id?.toString(); 
+  }, []);
+
   return (
     <AnimatedFlashList
-      keyExtractor={(item) => item?.id?.toString()}
+      keyExtractor={keyExtractor}
       contentContainerStyle={{
         paddingTop: width + actionsHeight,
         paddingHorizontal: 8,
