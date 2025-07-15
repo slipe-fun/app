@@ -5,14 +5,14 @@ const jsonConfig = {
 	headers: {
 		"Content-Type": "application/json",
 	},
-	timeout: 30000,
+	timeout: 256000,
 };
 
 const mediaConfig = {
 	headers: {
 		"Content-Type": "multipart/form-data",
 	},
-	timeout: 30000,
+	timeout: 256000,
 };
 
 const v1Instance = axios.create({

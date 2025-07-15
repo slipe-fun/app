@@ -58,6 +58,7 @@
     "react-native-video": "^6.16.1",
     "react-native-view-shot": "~4.0.3",
     "react-native-vision-camera": "^4.6.4",
+    "sonner-native": "^0.21.0",
     "tamagui": "^1.126.13",
     "zustand": "^5.0.6"
   },

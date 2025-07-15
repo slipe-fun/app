@@ -13,7 +13,7 @@ const useCaptureStore = create((set) => ({
   setRecording: (newRecording) => set({ recording: newRecording }),
   content: '',
   setContent: (newContent) => set({ content: newContent }),
-  category: 'Food',
+  category: 'food',
   setCategory: (newCategory) => set({ category: newCategory }),
   postName: '',
   setPostName: (newPostName) => set({ postName: newPostName }),

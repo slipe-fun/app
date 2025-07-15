@@ -76,6 +76,7 @@ const Post = ({ post }) => {
         position="absolute"
         p="$6.5"
         pr="$3"
+		pb="$6"
         left={0}
         right={0}
         bottom={0}

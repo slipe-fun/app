@@ -8,6 +8,7 @@ import { api } from "../../lib/api";
 import isRegistrationDataCorrect from "../../lib/auth/signUp/isDataCorrect";
 import { useKeyboard } from "@react-native-community/hooks";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming, Easing, ReduceMotion } from "react-native-reanimated";
+import { toast } from "sonner-native";
 
 const RegisterScreen = ({ navigation }) => {
 	const { login } = useAuth();
@@ -17,8 +18,6 @@ const RegisterScreen = ({ navigation }) => {
 
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-
-	const [error, setError] = useState();
 
 	const buttonAnimatedStyles = useAnimatedStyle(() => {
 		return {
@@ -31,7 +30,7 @@ const RegisterScreen = ({ navigation }) => {
 
 		for (const key in isDataCorrect) {
 			if (!isDataCorrect[key]?.success) {
-				setError(isDataCorrect[key]?.message);
+				toast.error(isDataCorrect[key]?.message);
 				return;
 			}
 		}
@@ -47,11 +46,9 @@ const RegisterScreen = ({ navigation }) => {
 			
 			const storageInstance = await storage();
 			await storageInstance.set("token", res?.data?.token);
-			
-			setError(null);
 			login();
 		} catch (err) {
-			setError(err?.response?.data?.error);
+			toast.error(err?.response?.data?.error);
 		}
 	}
 

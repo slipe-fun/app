@@ -1,7 +1,8 @@
 import { Button, getVariableValue, View } from "tamagui";
 import * as Haptics from "expo-haptics";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import useCaptureStore from "@stores/captureScreen";
+import { toast } from "sonner-native";
 import { normalSpring } from "@constants/easings";
 import Animated, {
   useSharedValue,
@@ -45,7 +46,7 @@ const CaptureButton = ({ cameraRef }) => {
         setRecording(true);
         await cameraRef?.current?.startRecording({
           onRecordingFinished: (video) => setContent(`file://${video?.path}`),
-          onRecordingError: (error) => console.log(error),
+          onRecordingError: (error) => toast.error(error),
         });
       }
     } else {

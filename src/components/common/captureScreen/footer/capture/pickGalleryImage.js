@@ -16,7 +16,7 @@ const CapturePickGalleryImage = () => {
 
     const result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: false,
-	  mediaTypes: ['images'],
+	  mediaTypes: ['images', 'videos'],
       quality: 1,
     });
 

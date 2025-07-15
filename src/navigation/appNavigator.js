@@ -8,6 +8,7 @@ import { ROUTES } from "../constants/routes";
 import { useState, createContext, useContext, useEffect } from "react";
 import { storage } from "../lib/storage";
 import { useTheme } from "tamagui";
+import { Toaster } from "sonner-native";
 
 export const AuthContext = createContext(null);
 
@@ -78,6 +79,7 @@ const AppNavigator = () => {
 					)}
 				</RootStack.Navigator>
 			</NavigationContainer>
+			<Toaster/>
 		</AuthContext.Provider> 
 	);
 };

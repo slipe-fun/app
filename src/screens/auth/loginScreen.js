@@ -7,6 +7,7 @@ import { storage } from "../../lib/storage";
 import { api } from "../../lib/api";
 import { useKeyboard } from "@react-native-community/hooks";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming, Easing, ReduceMotion } from "react-native-reanimated";
+import { toast } from "sonner-native";
 
 const LoginScreen = ({ navigation }) => {
 	const { login } = useAuth();
@@ -17,8 +18,6 @@ const LoginScreen = ({ navigation }) => {
 	const [username, setUsername] = useState();
 	const [password, setPassword] = useState();
 
-	const [error, setError] = useState();
-
 	const buttonAnimatedStyles = useAnimatedStyle(() => {
 		return {
 			paddingBottom: buttonOffset.value,
@@ -27,7 +26,7 @@ const LoginScreen = ({ navigation }) => {
 
 	async function handleLogin() {
 		if (!username.trim().length || !password.trim().length) {
-			return setError("Username and password are required");
+			return toast.error("Username and password are required");
 		}
 
 		try {
@@ -41,11 +40,9 @@ const LoginScreen = ({ navigation }) => {
 			
 			const storageInstance = await storage();
 			await storageInstance.set("token", res?.data?.token);
-			
-			setError(null);
 			login();
 		} catch (err) {
-			setError(err?.response?.data?.error);
+			toast.error(err?.response?.data?.error);
 		}
 	}
 

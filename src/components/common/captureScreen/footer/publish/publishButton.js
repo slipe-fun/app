@@ -9,6 +9,8 @@ import { getFadeIn, getFadeOut } from "@constants/fadeAnimations";
 import useCaptureStore from "@stores/captureScreen";
 import publishBlog from "@lib/publishBlog";
 import { useNavigation } from "@react-navigation/native";
+import { toast } from "sonner-native";
+
 const AnimatedView = Animated.createAnimatedComponent(View);
 
 const CaptureFooterPublishButton = () => {
@@ -31,7 +33,8 @@ const CaptureFooterPublishButton = () => {
       setLoading(false);
       setProgress(0);
       navigation.navigate("MainApp");
-    }).catch(() => {
+    }).catch((error) => {
+      toast.error(error?.response?.data);
       setLoading(false);
       setProgress(0);
     });
