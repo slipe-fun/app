@@ -38,6 +38,9 @@ const SearchBar = () => {
     setIsFocused(type === "cancel" ? false : true);
     if (type === "cancel") {
       setQuery("");
+      if (inputRef?.current) {
+        inputRef.current.value = "";
+      }
       inputRef.current?.blur();
     } else {
       inputRef.current?.focus();
@@ -77,7 +80,7 @@ const SearchBar = () => {
     <XStack width="$full" gap="$6" alignItems="center">
       <XStack
         flex={1}
-        onPress={() => onCancelPressed("focus")}
+        onPressIn={() => onCancelPressed("focus")}
         alignItems="center"
         backgroundColor="$backgroundTransparent"
         br="$full"
@@ -119,12 +122,12 @@ const SearchBar = () => {
 
       <AnimatedView style={cancelStyle}>
         <Button
+          onPressIn={() => onCancelPressed("cancel")}
           backgroundColor="$transparent"
           alignItems="center"
           ref={ref}
           p="$0"
           height="auto"
-          onPress={() => onCancelPressed("cancel")}
         >
           <Text fz="$4" lh="$4" fw="$2" color="$primary">
             Отмена

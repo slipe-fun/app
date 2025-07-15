@@ -40,7 +40,7 @@ export function SearchScreen() {
       }
       return (
         <View style={{ flex: 1, margin: 8 }}>
-          <Category category={item} colIndex={index % 2} />
+          <Category category={item} />
         </View>
       );
     },
@@ -67,6 +67,7 @@ export function SearchScreen() {
     <YStack f={1} backgroundColor="$black">
       <SearchAnimatedHeader scrollY={scrollY} />
       <AnimatedFlashList
+      keyboardShouldPersistTaps="handled"
         data={isSearch ? data : categories}
         extraData={isSearch}
         onEndReached={isSearch ? handleEndReached : null}
