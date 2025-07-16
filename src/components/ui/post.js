@@ -13,13 +13,6 @@ const Post = ({ post }) => {
 
   const blurhash = post.blurhash;
 
-  const averageColor = useMemo(() => {
-    const color = Blurhash.getAverageColor(blurhash);
-    return color
-      ? `${Math.round(color.r)}, ${Math.round(color.g)}, ${Math.round(color.b)}`
-      : "0,0,0";
-  }, [blurhash]);
-
   const handleLoad = useCallback(() => {
     setLoaded(true);
   }, []);
@@ -103,7 +96,7 @@ const Post = ({ post }) => {
           </Text>
         </XStack>
         <LinearGradient
-          colors={[`rgba(${averageColor}, 0)`, `rgba(${averageColor}, 1)`]}
+          colors={["rgba(0, 0, 0, 0)", "rgba(0, 0, 0, 0.5)"]}
           start={{ x: 0.5, y: 0 }}
           end={{ x: 0.5, y: 1 }}
           style={StyleSheet.absoluteFill}
