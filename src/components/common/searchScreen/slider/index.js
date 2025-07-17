@@ -52,7 +52,7 @@ const SearchSlider = () => {
         style={{ justifyContent: "center", width: "100%" }}
         modeConfig={{
           parallaxScrollingScale: 1,
-          parallaxScrollingOffset: ITEM_SPACING,
+          parallaxScrollingOffset: 26,
         }}
         onProgressChange={(_, absProgress) => {
           progress.value = absProgress;

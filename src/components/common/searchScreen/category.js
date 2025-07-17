@@ -3,6 +3,10 @@ import { useNavigation } from "@react-navigation/native";
 import * as Haptics from "expo-haptics";
 import { memo } from "react";
 import { LinearGradient } from "expo-linear-gradient";
+import MaskedView from "@react-native-masked-view/masked-view";
+import { Blurhash } from "react-native-blurhash";
+import { StyleSheet } from "react-native";
+import FastImage from "react-native-fast-image";
 
 const Category = ({ category }) => {
   const navigation = useNavigation();
@@ -10,13 +14,14 @@ const Category = ({ category }) => {
   return (
     <Button
       unstyled
-      flex={1}
+      w="$full"
+      aspectRatio="4/3"
       alignItems="stretch"
       p="$0"
       overflow="hidden"
       br="$7"
+      justifyContent="flex-end"
       position="relative"
-      backgroundColor="$backgroundTransparent"
       pressStyle={{
         scale: 0.98,
         opacity: 0.9,
@@ -26,38 +31,45 @@ const Category = ({ category }) => {
         navigation.navigate("Category_Page", { category });
       }}
     >
-      <LinearGradient
-        start={[0, 0]}
-        end={[1, 1]}
-        style={{
-          width: "100%",
-          height: "100%",
-          position: "absolute",
-          opacity: 0.4,
-        }}
-        colors={[category.color, `#00000000`]}
+      <View
+        position="absolute"
+        top={0}
+        left={0}
+        right={0}
+        bottom={0}
+        br="$7"
+        borderWidth={1}
+        borderColor="rgba(255,255,255,0.1)"
+        zIndex="$2"
+        pointerEvents="none"
       />
-      <View alignSelf="stretch" w="$full" p="$5">
-        <View
-          br="$full"
-          p="$3"
-          backgroundColor={`${category.color}52`}
-          w="$12"
-          h="$12"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Image
-            resizeMethod="resize"
-            source={category.thumbnail}
-            style={{
-              width: "100%",
-              height: "100%",
-            }}
+      <FastImage
+        source={{
+          uri: category.thumbnail,
+          priority: FastImage.priority.normal,
+          cache: FastImage.cacheControl.immutable,
+        }}
+        style={StyleSheet.absoluteFill}
+        resizeMode="cover"
+      />
+      <MaskedView
+        style={StyleSheet.absoluteFill}
+        maskElement={
+          <LinearGradient
+            colors={["rgba(0,0,0,1)", "rgba(0,0,0,0)"]}
+            start={{ x: 0.5, y: 0.8 }}
+            end={{ x: 0.5, y: 0 }}
+            style={{ flex: 1 }}
           />
-        </View>
-      </View>
-      <View alignSelf="stretch" w="$full" p="$6">
+        }
+      >
+        <Blurhash
+          style={{ flex: 1 }}
+          decodeAsync
+          blurhash={category.blurhash}
+        />
+      </MaskedView>
+      <View alignSelf="stretch" w="$full" p="$6.5">
         <Text textAlign="start" fz="$4" lh="$4" fw="$3" color={category.color}>
           {category.name}
         </Text>
