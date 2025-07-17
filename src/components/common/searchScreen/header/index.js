@@ -7,7 +7,7 @@ import Animated, {
   useDerivedValue,
   withSpring,
 } from "react-native-reanimated";
-import { YStack, XStack, Text, Button } from "tamagui";
+import { YStack, XStack, Text, Button, View } from "tamagui";
 import Icon from "../../../ui/icon";
 import { useEffect, useState, useRef } from "react";
 import useSearchStore from "@stores/searchScreen";
@@ -79,9 +79,11 @@ export const SearchHeader = ({ scrollY }) => {
         alignItems="flex-start"
         style={titleStyle}
       >
-        <Text color="$color" h="$12" lh="$9" fw="$3" fz="$9">
+        <View h="$12" justifyContent="center">
+        <Text color="$color" lh="$9" fw="$3" fz="$9">
           Search
         </Text>
+        </View>
         <Button
           p={0}
           width="$12"
