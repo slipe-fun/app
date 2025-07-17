@@ -39,7 +39,7 @@ const Hints = () => {
       position="absolute"
       zIndex="$2"
       ph="$6"
-      top={60 + insets.top}
+      top={56 + insets.top}
       pt="$6"
       gap="$6"
       style={resultsStyle}

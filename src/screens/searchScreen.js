@@ -81,7 +81,7 @@ export function SearchScreen() {
         ListHeaderComponent={
           <YStack pt="$7" gap="$10" pb="$3">
             {!isSearch && <SearchSlider />}
-            <Text lh="$8" fw="$3" fz="$8" color="$color" mh="$3">Категории</Text>
+            <Text lh="$8" fw="$3" fz="$8" color="$color" mh="$3">{isSearch ? "Результаты" : "Категории"}</Text>
           </YStack>
         }
         estimatedItemSize={isSearch ? 250 : 131}
