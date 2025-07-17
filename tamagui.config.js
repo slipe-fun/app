@@ -61,6 +61,7 @@ const openRundeFont = createFont({
 export const tokens = createTokens({
   size: {
     0.5: 5,
+    0.75: 6,
     1: 13,
     2: 14,
     3: 15,

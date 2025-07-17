@@ -18,125 +18,15 @@ const CategoryPageHeader = ({ category, scrollY }) => {
   const { statistics, isLoading, error } = useFetchCategoryStatistics();
 
   return (
-    <GradientBorder
-      style={{
-        flexDirection: "column",
-        alignItems: "stretch",
-        width: "100%",
-        aspectRatio: "1/1",
-        overflow: "hidden",
-        justifyContent: "space-between",
-        borderRadius: 0,
-        borderBottomLeftRadius: borderRadius,
-        borderBottomRightRadius: borderRadius,
-      }}
-      borderWidth={1.5}
-      gradientColors={[
-        `${category.color}12`,
-        "#00000000",
-        `${category.color}12`,
-      ]}
-    >
-      <LinearGradient
-        alignSelf="stretch"
-        flex={1}
-        position="absolute"
-        opacity={0.4}
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-        colors={[category.color, "#00000000", category.color]}
-        start={[0, 1]}
-        end={[1, 0]}
-      />
-      <AnimatedView
-        w="$full"
-        zIndex="$1"
-        entering={FadeInDown.springify().mass(0.5).damping(15).stiffness(100)}
-        flexDirection="row"
-        justifyContent="space-between"
-        pt={Platform.OS === "ios" ? insets.top : insets.top + 10}
-        ph="$6"
-      >
-        <Button
-          p={0}
-          width="$12"
-          height="$12"
-          br="$full"
-          onPress={() => navigation.goBack()}
-          backgroundColor={`${category.color}23`}
-          pressStyle={{
-            scale: 0.9,
-          }}
-          icon={<Icon size={24} icon="chevronLeft" color={category.color} />}
-        />
-        <Button
-          p={0}
-          width="$12"
-          height="$12"
-          br="$full"
-          onPress={() => {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
-          }}
-          backgroundColor={`${category.color}23`}
-          pressStyle={{
-            scale: 0.9,
-          }}
-          icon={<Icon size={24} icon="heart" color={category.color} />}
-        />
-      </AnimatedView>
-      <AnimatedView
-        flex={1}
-        alignItems="center"
-        justifyContent="center"
-        entering={FadeInDown.delay(150)
-          .springify()
-          .mass(0.5)
-          .damping(15)
-          .stiffness(100)}
-      >
-        <Image
-          source={category.thumbnail}
-          style={{ height: "120%", aspectRatio: "1/1" }}
-        />
-      </AnimatedView>
-      <AnimatedView
-        alignSelf="stretch"
-        gap="$2"
-        w="$full"
-        p="$7"
-        entering={FadeInDown.delay(300)
-          .springify()
-          .mass(0.5)
-          .damping(15)
-          .stiffness(100)}
-      >
-        <Text
-          textAlign="center"
-          fz="$7.5"
-          lh="$7.5"
-          fw="$3"
-          color={category.color}
-        >
-          {category.name}
-        </Text>
-        <Text
-          textAlign="center"
-          fz="$5"
-          lh="$5"
-          fw="$2"
-          opacity={0.5}
-          color={category.color}
-        >
-          {
-            statistics?.find((o) => o.category === category.name.toLowerCase())
-              .post_count
-          }{" "}
-          постов
-        </Text>
-      </AnimatedView>
-    </GradientBorder>
+    <View>
+      <View>
+        <Button onPress={() => navigation.goBack()}>
+          <Icon icon="chevronLeft" /> 
+        </Button>
+        <Text>{category.name}</Text>
+      </View>
+      <Image source={category.thumbnail} style={{ height: "120%", aspectRatio: "1/1" }} />
+    </View>
   );
 };
 

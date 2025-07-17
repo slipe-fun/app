@@ -13,7 +13,7 @@ import useSearchStore from "@stores/searchScreen";
 import { useEffect, useCallback } from "react";
 import useFetchDataByQuery from "@hooks/useFetchDataByQuery";
 import Post from "@components/ui/post";
-import { Text } from "tamagui";
+import SearchSlider from "@components/common/searchScreen/slider";
 
 const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
 
@@ -78,7 +78,7 @@ export function SearchScreen() {
         numColumns={2}
         initialNumToRender={10}
         maxToRenderPerBatch={isSearch ? 12 : 6}
-        ListHeaderComponent={<SearchHeader scrollY={scrollY} />}
+        ListHeaderComponent={<YStack pb="$8" gap="$10"><SearchHeader scrollY={scrollY} /><SearchSlider /></YStack>}
         estimatedItemSize={isSearch ? 250 : 131}
         contentContainerStyle={{
           paddingHorizontal: 8,
