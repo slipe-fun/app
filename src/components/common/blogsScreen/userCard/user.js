@@ -10,6 +10,7 @@ import FastImage from "react-native-fast-image";
 import { Blurhash } from "react-native-blurhash";
 import { toast } from "sonner-native";
 import * as Haptics from "expo-haptics";
+import sendReport from "@lib/sendReport";
 
 const UserCardHeader = ({
   user,
@@ -31,10 +32,16 @@ const UserCardHeader = ({
   }, []);
 
   const handlePress = () => {
-    toast.success("Репорт успешно отправлен!");
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
-
     // TODO: PIP PLS ADD SOME GENIUS CODE FOR REPORTING RH
+    // PIP: READY
+
+    sendReport(post?.id).then(() => {
+      toast.success("Репорт успешно отправлен!");
+    }).catch(() => {
+      toast.error("Репорт не отправлен!");
+    })
+    
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
   };
 
   return (
