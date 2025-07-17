@@ -10,7 +10,9 @@ const useSearchStore = create((set) => ({
     isSearch: false,
     setIsSearch: (newIsSearch) => set({ isSearch: newIsSearch }),
     headerHeight: 0,
-    setHeaderHeight: (newHeaderHeight) => set({ headerHeight: newHeaderHeight })
+    setHeaderHeight: (newHeaderHeight) => set({ headerHeight: newHeaderHeight }),
+    statistics: {},
+    setStatistics: (newStatistics) => set({ statistics: newStatistics })
 }))
 
 export default useSearchStore

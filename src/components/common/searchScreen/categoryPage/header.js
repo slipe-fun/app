@@ -8,16 +8,17 @@ import Animated, {
   useAnimatedStyle,
   withSpring,
 } from "react-native-reanimated";
-import useFetchCategoryStatistics from "@hooks/useFetchCategoryStatistics";
 import { Blurhash } from "react-native-blurhash";
 import FastImage from "react-native-fast-image";
 import { fastSpring } from "@constants/easings";
+import useSearchStore from "@stores/searchScreen";
 
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
 const CategoryPageHeader = ({ category, scrollY }) => {
   const navigation = useNavigation();
-  const { statistics, isLoading, error } = useFetchCategoryStatistics();
+
+  const statistics = useSearchStore((state) => state.statistics);
 
   const [loaded, setLoaded] = useState(false);
 
@@ -30,6 +31,9 @@ const CategoryPageHeader = ({ category, scrollY }) => {
       opacity: withSpring(loaded ? 1 : 0, fastSpring),
     };
   }, [loaded]);
+
+  const categoryStatistics = statistics?.find(cat => cat?.category === category?.name?.toLowerCase());
+  const topNumber = statistics?.indexOf(categoryStatistics) + 1
 
   return (
     <View
@@ -71,7 +75,7 @@ const CategoryPageHeader = ({ category, scrollY }) => {
           <View flexDirection="row" alignItems="center" gap="$2">
             <Icon icon="crown" size={17} />
             <Text fz="$2" lh="$2" fw="$3" color="$white">
-              TOP 10
+              TOP {topNumber || 16}
             </Text>
           </View>
           <View br="$7" w="$0.5" h="$0.5" backgroundColor="$white" />

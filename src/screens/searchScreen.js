@@ -13,6 +13,7 @@ import { useEffect, useCallback } from "react";
 import useFetchDataByQuery from "@hooks/useFetchDataByQuery";
 import Post from "@components/ui/post";
 import SearchSlider from "@components/common/searchScreen/slider";
+import useFetchCategoryStatistics from "@hooks/useFetchCategoryStatistics";
 
 const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
 
@@ -26,8 +27,10 @@ export function SearchScreen() {
   const setIsSearch = useSearchStore((state) => state.setIsSearch);
   const headerHeight = useSearchStore((state) => state.headerHeight);
   const query = useSearchStore((state) => state.query);
+  const setStatistics = useSearchStore((state) => state.setStatistics);
 
   const { data, setPage } = useFetchDataByQuery(isSearch ? query : "", type);
+  const { statistics, isLoading, error } = useFetchCategoryStatistics();
 
   const onScroll = useAnimatedScrollHandler((event) => {
     scrollY.value = event.contentOffset.y;
@@ -62,6 +65,10 @@ export function SearchScreen() {
       setIsSearch(false);
     }
   }, [isFocused]);
+
+  useEffect(() => {
+    setStatistics(statistics?.filter(statistic => statistic?.category !== "story"))
+  }, [statistics])
 
   return (
     <YStack f={1} backgroundColor="$black">

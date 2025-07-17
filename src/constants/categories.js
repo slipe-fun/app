@@ -35,7 +35,7 @@ export const categories = [
         blurhash: 'L3AS=1=;^+}*}:~W^$Em+E-;o}nh',
     },
     {
-        name: 'Travelenging',
+        name: 'Traveling',
         thumbnail: "https://cdn.slipe.fun/app/categories/movies.webp",
         blurhash: 'L3AS=1=;^+}*}:~W^$Em+E-;o}nh',
     },
