@@ -3,8 +3,7 @@ import Animated, {
   useSharedValue,
   useAnimatedScrollHandler,
 } from "react-native-reanimated";
-import { SearchHeader } from "../components/common/searchScreen/header/default";
-import { SearchAnimatedHeader } from "../components/common/searchScreen/header/animated";
+import { SearchHeader } from "../components/common/searchScreen/header";
 import Hints from "@components/common/searchScreen/searchContent/hints";
 import { FlashList } from "@shopify/flash-list";
 import { categories } from "@constants/categories";
@@ -25,6 +24,7 @@ export function SearchScreen() {
   const isFocused = useSearchStore((state) => state.isFocused);
   const isSearch = useSearchStore((state) => state.isSearch);
   const setIsSearch = useSearchStore((state) => state.setIsSearch);
+  const headerHeight = useSearchStore((state) => state.headerHeight);
   const query = useSearchStore((state) => state.query);
 
   const { data, setPage } = useFetchDataByQuery(isSearch ? query : "", type);
@@ -65,9 +65,9 @@ export function SearchScreen() {
 
   return (
     <YStack f={1} backgroundColor="$black">
-      <SearchAnimatedHeader scrollY={scrollY} />
+      <SearchHeader scrollY={scrollY} />
       <AnimatedFlashList
-      keyboardShouldPersistTaps="handled"
+        keyboardShouldPersistTaps="handled"
         data={isSearch ? data : categories}
         extraData={isSearch}
         onEndReached={isSearch ? handleEndReached : null}
@@ -78,9 +78,14 @@ export function SearchScreen() {
         numColumns={2}
         initialNumToRender={10}
         maxToRenderPerBatch={isSearch ? 12 : 6}
-        ListHeaderComponent={<YStack pb="$8" gap="$10"><SearchHeader scrollY={scrollY} /><SearchSlider /></YStack>}
+        ListHeaderComponent={
+          <YStack pt="$7" gap="$10">
+            {!isSearch && <SearchSlider />}
+          </YStack>
+        }
         estimatedItemSize={isSearch ? 250 : 131}
         contentContainerStyle={{
+          paddingTop: headerHeight,
           paddingHorizontal: 8,
         }}
         columnWrapperStyle={{
