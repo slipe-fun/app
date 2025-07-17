@@ -34,9 +34,7 @@ const CategoryPage = ({ route }) => {
 
   return (
     <View f={1} backgroundColor="$black">
-      {/* <View position="absolute" top={0} left={0} right={0} zIndex={1}>
         <CategoryPageHeader category={category} scrollY={scrollY} />
-      </View> */}
       <AnimatedFlashList
         contentContainerStyle={{ paddingTop: 20, paddingHorizontal: 8, }}
         data={posts}

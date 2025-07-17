@@ -1,15 +1,30 @@
-import { Button, View, Text, Image } from "tamagui";
+import { Button, View, Text } from "tamagui";
 import { useNavigation } from "@react-navigation/native";
 import * as Haptics from "expo-haptics";
-import { memo } from "react";
+import { memo, useState, useCallback } from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import MaskedView from "@react-native-masked-view/masked-view";
 import { Blurhash } from "react-native-blurhash";
 import { StyleSheet } from "react-native";
 import FastImage from "react-native-fast-image";
+import Animated, { useAnimatedStyle, withSpring } from "react-native-reanimated";
+import { fastSpring } from "@constants/easings";
+
+const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
 const Category = ({ category }) => {
   const navigation = useNavigation();
+
+  const [loaded, setLoaded] = useState(false);
+
+  const handleLoad = useCallback(() => {
+    setLoaded(true);
+  }, []);
+
+  const animatedOpacity = useAnimatedStyle(() => {
+    return {
+      opacity: withSpring(loaded ? 1 : 0, fastSpring),
+    };
+  }, [loaded]);
 
   return (
     <Button
@@ -20,6 +35,7 @@ const Category = ({ category }) => {
       p="$0"
       overflow="hidden"
       br="$7"
+      backgroundColor="$transparent"
       justifyContent="flex-end"
       position="relative"
       pressStyle={{
@@ -43,33 +59,31 @@ const Category = ({ category }) => {
         zIndex="$2"
         pointerEvents="none"
       />
-      <FastImage
+       <AnimatedFastImage
+        onLoad={handleLoad}
         source={{
           uri: category.thumbnail,
           priority: FastImage.priority.normal,
           cache: FastImage.cacheControl.immutable,
         }}
-        style={StyleSheet.absoluteFill}
+        style={[StyleSheet.absoluteFill, animatedOpacity]}
         resizeMode="cover"
       />
-      <MaskedView
-        style={StyleSheet.absoluteFill}
-        maskElement={
-          <LinearGradient
-            colors={["rgba(0,0,0,1)", "rgba(0,0,0,0)"]}
-            start={{ x: 0.5, y: 0.8 }}
-            end={{ x: 0.5, y: 0 }}
-            style={{ flex: 1 }}
-          />
-        }
-      >
+      {!loaded && category.blurhash && (
         <Blurhash
-          style={{ flex: 1 }}
+          style={[StyleSheet.absoluteFill, { zIndex: 10 }]}
           decodeAsync
           blurhash={category.blurhash}
         />
-      </MaskedView>
+      )}
+     
       <View alignSelf="stretch" w="$full" p="$6.5">
+        <LinearGradient
+          colors={["rgba(0,0,0,0.5)", "rgba(0,0,0,0)"]}
+          start={{ x: 0.5, y: 1 }}
+          end={{ x: 0.5, y: 0 }}
+          style={StyleSheet.absoluteFill}
+        />
         <Text textAlign="start" fz="$4" lh="$4" fw="$3" color={category.color}>
           {category.name}
         </Text>

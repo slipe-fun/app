@@ -6,8 +6,12 @@ import { useState, useCallback, useMemo } from "react";
 import { URLS } from "@constants/urls";
 import FastImage from "react-native-fast-image";
 import { Blurhash } from "react-native-blurhash";
+import { fastSpring } from "@constants/easings";
+import Animated, { useAnimatedStyle, withSpring } from "react-native-reanimated";
 
-const UserCard = ({
+const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
+
+const UserCard = ({ 
   user,
   posts,
   active
@@ -29,6 +33,12 @@ const UserCard = ({
     setLoaded(true);
   }, []);
 
+  const animatedOpacity = useAnimatedStyle(() => {
+    return {
+      opacity: withSpring(loaded ? 1 : 0, fastSpring),
+    };
+  }, [loaded]);
+
   return (
     <View flex={1} justifyContent="space-between" overflow="hidden" br="$7">
        <View
@@ -43,7 +53,7 @@ const UserCard = ({
         zIndex="$2"
         pointerEvents="none"
       />
-      <FastImage
+      <AnimatedFastImage
         resizeMode="cover"
         onLoad={handleLoad}
         source={{
@@ -51,7 +61,7 @@ const UserCard = ({
           priority: FastImage.priority.high,
           cache: FastImage.cacheControl.immutable,
         }}
-        style={StyleSheet.absoluteFill}
+        style={[StyleSheet.absoluteFill, animatedOpacity]}
       />
       {!loaded && blurhash && (
         <Blurhash

@@ -11,7 +11,7 @@ def blurhash_from_url(image_url, x_components=4, y_components=3):
 		pixels = np.array(img)
 		return encode(pixels, x_components, y_components)
 
-url = "https://i.pinimg.com/1200x/e1/81/c3/e181c38330f26e4323f8bcdb79167edd.jpg"
+url = "https://preview.redd.it/helldiver-x-seaf-v0-g55jewd8qr2f1.png?width=1080&crop=smart&auto=webp&s=7af8a0f897a977ac905dda57a3c36641847a497a"
 hash_str = blurhash_from_url(url)
 
 print("bh:", hash_str)
