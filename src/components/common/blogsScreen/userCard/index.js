@@ -2,12 +2,13 @@ import { StyleSheet } from "react-native";
 import { View } from "tamagui";
 import UserCardHeader from "./user";
 import UserCardActions from "./actions";
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import { URLS } from "@constants/urls";
 import FastImage from "react-native-fast-image";
 import { Blurhash } from "react-native-blurhash";
 import { fastSpring } from "@constants/easings";
 import Animated, { useAnimatedStyle, withSpring } from "react-native-reanimated";
+import addView from "@lib/addView";
 
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
@@ -38,6 +39,11 @@ const UserCard = ({
       opacity: withSpring(loaded ? 1 : 0, fastSpring),
     };
   }, [loaded]);
+
+  useEffect(() => {
+    const currentPost = posts[idx];
+    if (active && !currentPost?.viewed) addView(currentPost?.id)
+  }, [idx, active])
 
   return (
     <View flex={1} justifyContent="space-between" overflow="hidden" br="$7">
