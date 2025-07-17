@@ -41,6 +41,7 @@ const CategoryPage = ({ route }) => {
         keyExtractor={(item) => item.id.toString()}
         numColumns={2}
         masonry
+        onScroll={onScroll}
         initialNumToRender={8}
         maxToRenderPerBatch={12}
         scrollEventThrottle={16}

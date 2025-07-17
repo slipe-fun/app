@@ -40,7 +40,6 @@ const CategoryPageHeader = ({ category, scrollY }) => {
       justifyContent="flex-end"
       overflow="hidden"
     >
-      <>
         <AnimatedFastImage
           resizeMode="cover"
           onLoad={handleLoad}
@@ -58,7 +57,6 @@ const CategoryPageHeader = ({ category, scrollY }) => {
             blurhash={category?.blurhash}
           />
         )}
-      </>
       <YStack w="$full" p="$6" gap="$4" alignItems="center">
         <LinearGradient
           colors={["rgba(0,0,0,0.5)", "rgba(0,0,0,0)"]}
