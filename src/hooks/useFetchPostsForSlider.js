@@ -1,8 +1,8 @@
 import { api } from "@lib/api";
 import { useState, useEffect } from "react";
 
-export default async function (type) {
-    const [data, setData] = useState();
+export default function useFetchPostsForSlider (type) {
+    const [data, setData] = useState([]);
     const [error, setError] = useState();
     const [isLoading, setIsLoading] = useState();
 
@@ -17,7 +17,6 @@ export default async function (type) {
     }
 
     useEffect(() => {
-        setData()
         setError(null);
         setIsLoading(true);
         fetchPosts()

@@ -23,7 +23,7 @@ export default function useFetchSearchHints(query, type) {
         const res = await api.v2.get(`/search/${type}/hints?q=${debouncedQuery}`);
         setData(res?.data || []);
       } catch (e) {
-        console.error("Failed to fetch data:", e);
+        throw e
       }
     })();
   }, [debouncedQuery, isValidType, type]);

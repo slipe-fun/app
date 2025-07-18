@@ -10,19 +10,33 @@ import { XStack, YStack, View } from "tamagui";
 import { normalSpring } from "@constants/easings";
 import SearchSliderSlide from "./slide";
 import * as Haptics from "expo-haptics";
+import { useEffect } from "react";
+import useSearchStore from "@stores/searchScreen";
+import useFetchPostsForSlider from "@hooks/useFetchPostsForSlider";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
 const ITEM_SPACING = 16;
 const ITEM_WIDTH = SCREEN_WIDTH - ITEM_SPACING * 2;
 const ITEM_HEIGHT = 200;
-const data = [0, 1, 2];
+const data = [
+  {title: "Подходящие для вас посты", type: "relevant"},
+  {title: "Топ 10 популярных постов", type: "popular"},
+  {title: "Похожие на ваши посты", type: "similar"},
+];
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
 const SearchSlider = () => {
   const progress = useSharedValue(0);
   const roundedProgress = useDerivedValue(() => Math.round(progress.value));
+
+  const setSlidePosts = useSearchStore((state) => state.setSlidePosts);
+  const slidePosts = useSearchStore((state) => state.slidePosts);
+
+  const { data: relevant } = useFetchPostsForSlider("relevant");
+  const { data: popular } = useFetchPostsForSlider("popular");
+  const { data: similar } = useFetchPostsForSlider("similar");
 
   const renderItem = ({ index }) => (
     <View
@@ -34,9 +48,17 @@ const SearchSlider = () => {
       br="$8"
       overflow="hidden"
     >
-      <SearchSliderSlide />
+      <SearchSliderSlide post={slidePosts[data[index].type][0]} title={data[index].title} />
     </View>
   );
+
+  useEffect(() => {
+    setSlidePosts({
+      relevant: relevant,
+      popular: popular,
+      similar: similar,
+    });
+  }, [relevant, popular, similar]);
 
   return (
     <YStack gap="$6">
@@ -73,7 +95,7 @@ const SearchSlider = () => {
             ),
           }));
 
-          return ( 
+          return (
             <AnimatedView
               key={i}
               backgroundColor="$color"

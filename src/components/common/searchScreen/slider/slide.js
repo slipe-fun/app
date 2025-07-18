@@ -1,15 +1,79 @@
-import { Button, Image, Text, XStack, View } from "tamagui";
+import { Button, Text, XStack, View } from "tamagui";
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet } from "react-native";
+import FastImage from "react-native-fast-image";
+import Video from "react-native-video";
+import { Blurhash } from "react-native-blurhash";
+import { URLS } from "@constants/urls";
+import Animated, {
+  useAnimatedStyle,
+  withSpring,
+  fastSpring,
+} from "react-native-reanimated";
+import { useState } from "react";
 
-const SearchSliderSlide = () => {
+const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
+
+const SearchSliderSlide = ({ post, title }) => {
+  const [loaded, setLoaded] = useState(false);
+  const isVideo = post?.image
+    ? /\.(mp4|mov|webm|mkv|avi)$/i.test(post?.image)
+    : false;
+
+  const handleLoad = () => {
+    setLoaded(true);
+  };
+
+  const animatedOpacity = useAnimatedStyle(() => {
+    return {
+      opacity: withSpring(loaded ? 1 : 0, fastSpring),
+    };
+  }, [loaded]);
+
   return (
     <View justifyContent="flex-end" f={1}>
-      <Image
-        source={require("@assets/test/bg-example.png")}
-        style={{ width: "100%", height: "100%", position: "absolute" }}
-        objectFit="cover"
+      <View
+        position="absolute"
+        top={0}
+        left={0}
+        right={0}
+        bottom={0}
+        aspectRatio="6/9"
+        br="$8"
+        zIndex="$2"
+        borderWidth={1}
+        borderColor="rgba(255, 255, 255, 0.1)"
       />
+      {isVideo ? (
+        <Video
+          source={{ uri: `${URLS.CDN_POSTS_URL}${post?.image}` }}
+          repeat
+          muted
+          resizeMode="cover"
+          style={StyleSheet.absoluteFill}
+          onLoad={handleLoad}
+        />
+      ) : (
+        <>
+          <AnimatedFastImage
+            resizeMode="cover"
+            onLoad={handleLoad}
+            source={{
+              uri: `${URLS.CDN_POSTS_URL}${post?.image}`,
+              priority: FastImage.priority.high,
+              cache: FastImage.cacheControl.immutable,
+            }}
+            style={[StyleSheet.absoluteFill, animatedOpacity]}
+          />
+          {!loaded && post?.blurhash && (
+            <Blurhash
+              style={StyleSheet.absoluteFill}
+              decodeAsync
+              blurhash={post?.blurhash}
+            />
+          )}
+        </>
+      )}
       <XStack
         alignItems="center"
         w="$full"
@@ -27,7 +91,7 @@ const SearchSliderSlide = () => {
           textOverflow="ellipsis"
           numberOfLines={2}
         >
-          Топ 10 постов для подходящих для вас
+          {title}
         </Text>
         <Button
           h="$12"

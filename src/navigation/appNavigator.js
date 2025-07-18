@@ -59,7 +59,7 @@ const AppNavigator = () => {
 				storageInstance.delete("token");
 				setIsAuthenticated(false);
 			} catch (error) {
-				console.error("Error during logout:", error);
+				throw error
 			}
 		},
 	};

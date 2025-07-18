@@ -20,11 +20,8 @@ const UserCard = ({ user, posts, active }) => {
   const [loaded, setLoaded] = useState(false);
   const [idx, setIdx] = useState(0);
   const [duration, setDuration] = useState(0);
-
-  const blurhash = posts[idx]?.blurhash;
-  const isVideo = posts[idx]?.image
-    ? /\.(mp4|mov|webm|mkv|avi)$/i.test(posts[idx]?.image)
-    : false;
+  const [blurhash, setBlurhash] = useState(null);
+  const [isVideo, setIsVideo] = useState(false);
 
   const averageColor = useMemo(() => {
     const color = Blurhash.getAverageColor(blurhash);
@@ -50,6 +47,9 @@ const UserCard = ({ user, posts, active }) => {
   useEffect(() => {
     const currentPost = posts[idx];
     if (active && !currentPost?.viewed) addView(currentPost?.id);
+    setBlurhash(currentPost?.blurhash);
+    setLoaded(false);
+    setIsVideo(currentPost?.image ? /\.(mp4|mov|webm|mkv|avi)$/i.test(currentPost?.image) : false);
   }, [idx, active]);
 
   return (
@@ -70,6 +70,7 @@ const UserCard = ({ user, posts, active }) => {
         <Video
           source={{ uri: `${URLS.CDN_POSTS_URL}${posts[idx]?.image}` }}
           repeat
+          paused={!active}
           resizeMode="cover"
           style={StyleSheet.absoluteFill}
           onLoad={handleLoadVideo}
@@ -88,7 +89,7 @@ const UserCard = ({ user, posts, active }) => {
           />
           {!loaded && blurhash && (
             <Blurhash
-              style={[StyleSheet.absoluteFill, { zIndex: 10 }]}
+              style={StyleSheet.absoluteFill}
               decodeAsync
               blurhash={blurhash}
             />

@@ -14,7 +14,7 @@ export default function useFetchNotifications() {
             if (Object.keys(localNotifications).length === 0) return;
             setNotifications(notifications => unique([...notifications, ...Object.values(localNotifications) || []]));
         } catch (error) {
-            console.error("Error fetching notifications:", error);
+            throw error
         }
     }
 
