@@ -1,80 +1,55 @@
 import { View, Text, YStack, getVariableValue } from "tamagui";
-import Icon from "@components/ui/icon";
-import { LinearGradient } from "tamagui/linear-gradient";
-import CategoryPageHeaderActions from "./headerActions";
-import { StyleSheet } from "react-native";
-import { useState, useCallback, memo } from "react";
-import Animated, {
-  interpolate,
-  useAnimatedStyle
-} from "react-native-reanimated";
-import { Blurhash } from "react-native-blurhash";
+import { memo, useState } from "react";
+import { StyleSheet, Dimensions } from "react-native";
+import Animated from "react-native-reanimated";
 import FastImage from "react-native-fast-image";
+import { Blurhash } from "react-native-blurhash";
+import { LinearGradient } from "expo-linear-gradient";
+import Icon from "@components/ui/icon";
+import CategoryPageHeaderActions from "./headerActions";
 import useSearchStore from "@stores/searchScreen";
-import { Dimensions } from "react-native";
 import useInsets from "@hooks/ui/useInsets";
+import useCategoryAnimations from "@hooks/ui/useCategoryAnimations";
+import { getCategoryStats } from "@lib/getCategoryStats";
 
-const {width} = Dimensions.get("window");
+const { width } = Dimensions.get("window");
+const headerHeight = width * 0.75;
 
-const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
+const sizes = {
+  height: getVariableValue("$12", "size"),
+  padding: getVariableValue("$6", "space"),
+  fontBig: getVariableValue("$7", "size"),
+  fontSmall: getVariableValue("$4", "size"),
+  lineBig: getVariableValue("$7", "lineHeight"),
+  lineSmall: getVariableValue("$4", "lineHeight"),
+  gapBig: getVariableValue("$4", "space"),
+  gapSmall: getVariableValue("$2", "space"),
+};
+
 const AnimatedView = Animated.createAnimatedComponent(View);
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
-const AnimatedText = Animated.createAnimatedComponent(Text); 
+const AnimatedText = Animated.createAnimatedComponent(Text);
+const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
 
-const heightVar = getVariableValue("$12", "size");
-const paddingVar = getVariableValue("$6", "space");
-const fontBigVar = getVariableValue("$7", "size");
-const fontSmallVar = getVariableValue("$4", "size");
-const lineHeightBigVar = getVariableValue("$7", "lineHeight");
-const lineHeightSmallVar = getVariableValue("$4", "lineHeight");
-const gapBigVar = getVariableValue("$4", "space");
-const gapSmallVar = getVariableValue("$2", "space");
-
-const headerHeight = width * (3/4);
-
-const CategoryPageHeader = memo(({ category, scrollY }) => { 
-  const insets = useInsets(); 
-
-  const calculatedInnerHeight = insets.top + paddingVar + heightVar;
-
-  const statistics = useSearchStore((state) => state.statistics);
-
+const CategoryPageHeader = memo(({ category, scrollY }) => {
+  const insets = useInsets();
   const [loaded, setLoaded] = useState(false);
 
-  const handleLoad = useCallback(() => {
-    setLoaded(true);
-  }, []);
+  const calculatedInnerHeight = insets.top + sizes.padding + sizes.height;
+  const animationRange = [0, headerHeight - calculatedInnerHeight];
 
-  const animatedOpacity = useAnimatedStyle(() => {
-    const opacity = interpolate(scrollY.value, [0, headerHeight - calculatedInnerHeight], [1, 0.35], "clamp");
-    return {
-      opacity,
-    };
-  }, []);
+  const { opacityStyle, heightStyle, fontStyle, gapStyle, gradientStyle } =
+    useCategoryAnimations(
+      scrollY,
+      animationRange,
+      sizes,
+      headerHeight,
+      calculatedInnerHeight,
+      category?.isSlides
+    );
 
-  const animatedHeight = useAnimatedStyle(() => {
-      const height = interpolate(scrollY.value, [0, headerHeight - calculatedInnerHeight], [headerHeight, calculatedInnerHeight], "clamp");
-      return {height}
-  })
-
-  const animatedFontSize = useAnimatedStyle(() => {
-    const fontSize = interpolate(scrollY.value, [0, headerHeight - calculatedInnerHeight], [fontBigVar, fontSmallVar], "clamp");
-    const lineHeight = interpolate(scrollY.value, [0, headerHeight - calculatedInnerHeight], [lineHeightBigVar, lineHeightSmallVar], "clamp");
-    return {
-      fontSize,
-      lineHeight,
-    };
-  }, []);
-
-  const animatedGap = useAnimatedStyle(() => {
-    const gap = interpolate(scrollY.value, [0, headerHeight - calculatedInnerHeight], [gapBigVar, gapSmallVar], "clamp");
-    return {
-      gap,
-    };
-  }, []);
-
-  const categoryStatistics = statistics?.find(cat => cat?.category === category?.name?.toLowerCase());
-  const topNumber = statistics?.indexOf(categoryStatistics) + 1
+  const statistics = useSearchStore((state) => state.statistics);
+  const { topNumber, postCount } = getCategoryStats(statistics, category?.name);
 
   return (
     <AnimatedView
@@ -82,62 +57,83 @@ const CategoryPageHeader = memo(({ category, scrollY }) => {
       left={0}
       right={0}
       position="absolute"
+      style={heightStyle}
       h={headerHeight}
-      style={animatedHeight}
-      borderBottomLeftRadius="$12"
       backgroundColor="$black"
-      zIndex={300}
+      borderBottomLeftRadius="$12"
       borderBottomRightRadius="$12"
+      zIndex={300}
       justifyContent="flex-end"
       overflow="hidden"
     >
-        <CategoryPageHeaderActions blurhash={category?.blurhash} />
-        <AnimatedFastImage
-          resizeMode="cover"
-          onLoad={handleLoad}
-          source={{
-            uri: category?.thumbnail,
-            priority: FastImage.priority.normal,
-            cache: FastImage.cacheControl.immutable,
-          }}
-          style={[StyleSheet.absoluteFill, animatedOpacity]}
-        />
+      <CategoryPageHeaderActions
+        isSlides={category?.isSlides}
+        blurhash={category?.blurhash}
+      />
+
+      <AnimatedView style={[opacityStyle, StyleSheet.absoluteFill]}>
+          <FastImage
+            resizeMode="cover"
+            onLoad={() => setLoaded(true)}
+            source={{
+              uri: category?.thumbnail,
+              priority: FastImage.priority.normal,
+              cache: FastImage.cacheControl.immutable,
+            }}
+            style={StyleSheet.absoluteFill}
+          />
         {!loaded && category?.blurhash && (
           <Blurhash
-            style={[StyleSheet.absoluteFill, { zIndex: 10 }]}
+            style={StyleSheet.absoluteFill}
             decodeAsync
             blurhash={category?.blurhash}
           />
         )}
-      <AnimatedYStack style={animatedGap} w="$full" p="$6" alignItems="center">
-        <LinearGradient
+      </AnimatedView>
+      <AnimatedYStack
+        minHeight="$12"
+        justifyContent="center"
+        style={gapStyle}
+        w="$full"
+        p={category?.isSlides ? "$8" : "$6"}
+        alignItems="center"
+      >
+        <AnimatedLinearGradient
           colors={["rgba(0,0,0,0.5)", "rgba(0,0,0,0)"]}
           start={{ x: 0.5, y: 1 }}
           end={{ x: 0.5, y: 0 }}
-          style={StyleSheet.absoluteFill}
+          style={[StyleSheet.absoluteFill, gradientStyle]}
         />
-        <AnimatedText fw="$3" color="$white" style={animatedFontSize}>
-          {category.name}
+
+        <AnimatedText
+          w="$full"
+          textAlign="center"
+          fw="$3"
+          color="$white"
+          style={fontStyle}
+        >
+          {category?.name}
         </AnimatedText>
-        <View opacity={0.7} flexDirection="row" alignItems="center" gap="$5">
-          <View flexDirection="row" alignItems="center" gap="$2">
-            <Icon icon="crown" size={17} />
-            <Text fz="$2" lh="$2" fw="$3" color="$white">
-              TOP {topNumber || 16}
-            </Text>
+
+        {!category?.isSlides && (
+          <View opacity={0.7} flexDirection="row" alignItems="center" gap="$5">
+            <View flexDirection="row" alignItems="center" gap="$2">
+              <Icon icon="crown" size={17} />
+              <Text fz="$2" lh="$2" fw="$3" color="$white">
+                TOP {topNumber}
+              </Text>
+            </View>
+
+            <View br="$7" w="$0.5" h="$0.5" backgroundColor="$white" />
+
+            <View flexDirection="row" alignItems="center" gap="$2">
+              <Icon icon="blogs" size={17} />
+              <Text fz="$2" lh="$2" fw="$2" color="$white">
+                {postCount}
+              </Text>
+            </View>
           </View>
-          <View br="$7" w="$0.5" h="$0.5" backgroundColor="$white" />
-          <View flexDirection="row" alignItems="center" gap="$2">
-            <Icon icon="blogs" size={17} />
-            <Text fz="$2" lh="$2" fw="$2" color="$white">
-              {
-                statistics?.find(
-                  (o) => o.category === category.name.toLowerCase()
-                )?.post_count
-              }
-            </Text>
-          </View>
-        </View>
+        )}
       </AnimatedYStack>
     </AnimatedView>
   );

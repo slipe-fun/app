@@ -38,16 +38,18 @@ const CategoryPage = ({ route }) => {
         <CategoryPageHeader category={category} scrollY={scrollY} />
       <AnimatedFlashList
         contentContainerStyle={{ paddingTop: headerHeight + 8, paddingHorizontal: 8, }}
-        data={posts}
+        data={category?.isSlides ? category?.posts : posts}
         keyExtractor={(item) => item.id.toString()}
         numColumns={2}
+        extraData={category?.isSlides}
+        estimatedListSize={250}
         masonry
         onScroll={onScroll}
         initialNumToRender={8}
         maxToRenderPerBatch={12}
         scrollEventThrottle={16}
         renderItem={renderItem}
-        onEndReached={handleEndReached}
+        onEndReached={category?.isSlides ? null : handleEndReached}
       />
     </View>
   );

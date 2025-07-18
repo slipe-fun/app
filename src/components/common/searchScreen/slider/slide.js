@@ -11,11 +11,17 @@ import Animated, {
   fastSpring,
 } from "react-native-reanimated";
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
-const SearchSliderSlide = ({ post, title }) => {
+const SearchSliderSlide = ({ title, posts }) => {
   const [loaded, setLoaded] = useState(false);
+
+  const post = posts[0];
+
+  const navigation = useNavigation();
+
   const isVideo = post?.image
     ? /\.(mp4|mov|webm|mkv|avi)$/i.test(post?.image)
     : false;
@@ -31,7 +37,21 @@ const SearchSliderSlide = ({ post, title }) => {
   }, [loaded]);
 
   return (
-    <View justifyContent="flex-end" f={1}>
+    <View
+      onPress={() =>
+        navigation.navigate("Category_Page", {
+          category: {
+            blurhash: post?.blurhash,
+            thumbnail: `${URLS.CDN_POSTS_URL}${post?.image}`,
+            name: title,
+            isSlides: true,
+            posts,
+          },
+        })
+      }
+      justifyContent="flex-end"
+      f={1}
+    >
       <View
         position="absolute"
         top={0}

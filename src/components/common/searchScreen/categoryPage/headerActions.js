@@ -5,7 +5,7 @@ import useInsets from "@hooks/ui/useInsets";
 import useBlurhashColor from "@hooks/ui/useBlurhashColor";
 import ColorfullyView from "@components/ui/colorfullyView";
 
-const CategoryPageHeaderActions = ({ blurhash }) => {
+const CategoryPageHeaderActions = ({ blurhash, isSlides }) => {
   const navigation = useNavigation();
   const insets = useInsets();
   const color = useBlurhashColor({ blurhash });
@@ -13,7 +13,7 @@ const CategoryPageHeaderActions = ({ blurhash }) => {
   const handleBack = () => {
     navigation.goBack();
   };
-  
+
   return (
     <XStack
       zIndex="$1"
@@ -22,7 +22,7 @@ const CategoryPageHeaderActions = ({ blurhash }) => {
       left={0}
       right={0}
       alignItems="center"
-      justifyContent="space-between"
+      justifyContent={isSlides ? "flex-start" : "space-between"}
       p="$6"
       w="$full"
       pt={insets.top}
@@ -44,6 +44,7 @@ const CategoryPageHeaderActions = ({ blurhash }) => {
       >
         <Icon icon="chevronLeft" size={24} />
       </ColorfullyView>
+      {!isSlides && (
       <ColorfullyView
         unstyled
         isButton
@@ -60,6 +61,7 @@ const CategoryPageHeaderActions = ({ blurhash }) => {
       >
         <Icon icon="heart" size={24} />
       </ColorfullyView>
+      )}
     </XStack>
   );
 };

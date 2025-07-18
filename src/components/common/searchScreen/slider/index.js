@@ -48,7 +48,7 @@ const SearchSlider = () => {
       br="$8"
       overflow="hidden"
     >
-      <SearchSliderSlide post={slidePosts[data[index].type][0]} title={data[index].title} />
+      <SearchSliderSlide posts={slidePosts[data[index].type]} title={data[index].title} />
     </View>
   );
 
