@@ -34,7 +34,7 @@ const CaptureFooterPublishButton = () => {
       setProgress(0);
       navigation.navigate("MainApp");
     }).catch((error) => {
-      toast.error(error?.response?.data);
+      toast.error(error?.response?.data?.error);
       setLoading(false);
       setProgress(0);
     });

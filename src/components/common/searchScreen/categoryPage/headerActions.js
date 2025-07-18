@@ -13,6 +13,7 @@ const CategoryPageHeaderActions = ({ blurhash }) => {
   const handleBack = () => {
     navigation.goBack();
   };
+  
   return (
     <XStack
       zIndex="$1"

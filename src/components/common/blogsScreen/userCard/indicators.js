@@ -80,7 +80,7 @@ const Indicators = ({
   postsLength,
   onFinish,
   userId,
-  duration = 5500,
+  duration = 5.5,
 }) => {
   return (
     <View style={styles.container}>
@@ -89,7 +89,7 @@ const Indicators = ({
           <Indicator
             key={`${userId}-${index}`}
             index={index}
-            duration={duration}
+            duration={duration * 1000}
             postsLength={postsLength}
             currentIndex={currentIndex}
             onFinished={onFinish}

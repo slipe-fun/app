@@ -7,9 +7,8 @@ export default async function (post_id, type = "spam", to_type = "post") {
         formData.append("to_type", to_type);
         formData.append("to", post_id);
 
-        await api.media.post("/report/send", formData)?.then(data => console.log(data?.data));
+        await api.media.post("/report/send", formData);
     } catch (error) {
-        console.log(error?.response?.data)
         throw error?.response?.data;
     }
 }

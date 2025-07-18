@@ -17,6 +17,7 @@ const UserCardHeader = ({
   post,
   postCount,
   activeIdx,
+  duration,
   setActiveIdx,
   pause,
   averageColor,
@@ -65,6 +66,7 @@ const UserCardHeader = ({
         onFinish={() => handleIndicatorFinish()}
         currentIndex={activeIdx}
         userId={user.id}
+        duration={duration}
       />
       <View
         w="$full"
