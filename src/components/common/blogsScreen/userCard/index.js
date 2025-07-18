@@ -19,7 +19,7 @@ const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 const UserCard = ({ user, posts, active }) => {
   const [loaded, setLoaded] = useState(false);
   const [idx, setIdx] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState(5.5);
   const [blurhash, setBlurhash] = useState(null);
   const [isVideo, setIsVideo] = useState(false);
 
@@ -101,7 +101,7 @@ const UserCard = ({ user, posts, active }) => {
         postCount={posts?.length}
         pause={!active}
         activeIdx={idx}
-        duration={isVideo ? (duration >= 0 ? duration : 5.5) : 5.5}
+        duration={duration}
         setActiveIdx={setIdx}
         post={posts[idx]}
         user={user}
