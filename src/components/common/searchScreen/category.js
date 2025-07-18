@@ -16,7 +16,7 @@ const Category = ({ category }) => {
 
   const [loaded, setLoaded] = useState(false);
 
-  const handleLoad = useCallback(() => {
+  const handleLoad =  useCallback(() => {
     setLoaded(true);
   }, []);
 

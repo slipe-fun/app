@@ -13,6 +13,7 @@ import Animated, {
 const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
 
 const { width } = Dimensions.get("window");
+const headerHeight = width * (3/4);
 
 const CategoryPage = ({ route }) => {
   const { category } = route.params;
@@ -36,7 +37,7 @@ const CategoryPage = ({ route }) => {
     <View f={1} backgroundColor="$black">
         <CategoryPageHeader category={category} scrollY={scrollY} />
       <AnimatedFlashList
-        contentContainerStyle={{ paddingTop: 20, paddingHorizontal: 8, }}
+        contentContainerStyle={{ paddingTop: headerHeight + 8, paddingHorizontal: 8, }}
         data={posts}
         keyExtractor={(item) => item.id.toString()}
         numColumns={2}
