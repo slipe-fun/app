@@ -1,8 +1,9 @@
-import { Button, XStack } from "tamagui";
+import { XStack } from "tamagui";
 import Icon from "@components/ui/icon";
 import { useNavigation } from "@react-navigation/native";
 import useInsets from "@hooks/ui/useInsets";
 import useBlurhashColor from "@hooks/ui/useBlurhashColor";
+import ColorfullyView from "@components/ui/colorfullyView";
 
 const CategoryPageHeaderActions = ({ blurhash }) => {
   const navigation = useNavigation();
@@ -25,12 +26,13 @@ const CategoryPageHeaderActions = ({ blurhash }) => {
       w="$full"
       pt={insets.top}
     >
-      <Button
+      <ColorfullyView
         unstyled
+        isButton
         w="$12"
         onPress={handleBack}
         h="$12"
-        backgroundColor={color}
+        color={color}
         br="$full"
         justifyContent="center"
         alignItems="center"
@@ -40,12 +42,13 @@ const CategoryPageHeaderActions = ({ blurhash }) => {
         }}
       >
         <Icon icon="chevronLeft" size={24} />
-      </Button>
-      <Button
+      </ColorfullyView>
+      <ColorfullyView
         unstyled
+        isButton
         w="$12"
         h="$12"
-        backgroundColor={color}
+        color={color}
         br="$full"
         justifyContent="center"
         alignItems="center"
@@ -55,7 +58,7 @@ const CategoryPageHeaderActions = ({ blurhash }) => {
         }}
       >
         <Icon icon="heart" size={24} />
-      </Button>
+      </ColorfullyView>
     </XStack>
   );
 };
