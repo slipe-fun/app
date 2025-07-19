@@ -71,7 +71,7 @@ const Category = ({ category }) => {
       />
       {!loaded && category.blurhash && (
         <Blurhash
-          style={[StyleSheet.absoluteFill, { zIndex: 10 }]}
+          style={StyleSheet.absoluteFill}
           decodeAsync
           blurhash={category.blurhash}
         />
