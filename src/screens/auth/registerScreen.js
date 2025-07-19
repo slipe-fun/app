@@ -63,14 +63,14 @@ const RegisterScreen = ({ navigation }) => {
 	return (
 		<View style={[styles.container, { paddingBottom: Platform.OS === "ios" ? insets.bottom : insets.bottom + 6 }]}>
 			<View style={styles.wrapper}>
-				<Text style={styles.title}>Sign up</Text>
+				<Text style={styles.title}>Зарегистрироваться</Text>
 				<TextInput
 					style={styles.input}
 					onChangeText={text => setUsername(text)}
 					cursorColor={COLORS.white}
 					maxLength={32}
 					placeholderTextColor={COLORS.transparentText}
-					placeholder='Username here'
+					placeholder='Имя пользователя'
 				/>
 				<TextInput
 					secureTextEntry
@@ -79,16 +79,16 @@ const RegisterScreen = ({ navigation }) => {
 					cursorColor={COLORS.white}
 					maxLength={32}
 					placeholderTextColor={COLORS.transparentText}
-					placeholder='Password here'
+					placeholder='Пароль'
 				/>
 				<TouchableOpacity onPress={() => navigation.navigate("Login")} activeOpacity={0.8} style={{ width: "100%" }}>
-					<Text style={styles.dontText}>Already have an account?</Text>
+					<Text style={styles.dontText}>Уже есть аккаунт?</Text>
 				</TouchableOpacity>
 			</View>
 
 			<Animated.View style={[buttonAnimatedStyles, { width: "100%" }]}>
 				<TouchableOpacity onPress={handleRegister} activeOpacity={0.8} style={styles.button}>
-					<Text style={styles.buttonText}>Sign up</Text>
+					<Text style={styles.buttonText}>Зарегистрироваться</Text>
 				</TouchableOpacity>
 			</Animated.View>
 		</View>

@@ -19,13 +19,13 @@ const NotificationContent = ({ type, comment }) => {
       case "subscribe":
         return (
           <Text lh="$1" fz="$1" color="$secondaryText">
-            Subscribed to you
+            Подписался на вас
           </Text>
         );
       case "reaction":
         return (
           <Text lh="$1" fz="$1" color="$secondaryText">
-            Reacted your post
+            Отреагировал на ваш пост
           </Text>
         );
       case "comment":

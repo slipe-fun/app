@@ -30,7 +30,7 @@ export const NotifsDefaultHeader = ({ scrollY, refresh }) => {
     <AnimatedYStack style={bigHeaderStyle} gap="$3" pt="$6" pb="$4">
       <XStack ph="$6" justifyContent="space-between" alignItems="center">
         <Text color="$color" lh="$8" fw="$3" fz="$8">
-          Notifications
+          Уведомления
         </Text>
         <XStack gap="$6">
         <Button

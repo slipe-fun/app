@@ -9,6 +9,8 @@ import Animated, {
 } from "react-native-reanimated";
 import { Dimensions } from "react-native";
 import rgbToHsl from "@lib/rgbTohsl";
+import { ROUTES } from "@constants/routes";
+import { useNavigation } from "@react-navigation/native";
 
 const buttons = [
   { id: "edit", icon: "edit", label: "Изм." },
@@ -23,10 +25,24 @@ const AnimatedView = Animated.createAnimatedComponent(View);
 
 const ProfileActions = ({ actionsHeight, setActionsHeight, scrollY, viewHeight, averageColor }) => {
   const ref = useAnimatedRef();
+
   const [hslColor, setHslColor] = useState({});
   
-  const handlePress = useCallback(() => {
+  const navigation = useNavigation();
+
+  const handlePress = useCallback((type) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
+    switch (type) {
+      case "edit":
+        break;
+      case "notifications":
+        navigation.navigate(ROUTES.NOTIFS);
+        break;
+      case "settings":
+        break;
+      case "more":
+        break;
+    }
   }, []);
 
   const animatedViewStyle = useAnimatedStyle(() => {
@@ -73,7 +89,7 @@ const ProfileActions = ({ actionsHeight, setActionsHeight, scrollY, viewHeight, 
             scale: 0.98,
             opacity: 0.9,
           }}
-          onPress={handlePress}
+          onPress={() => handlePress(button.id)}
           mb="$5"
           mt="$1"
           key={button.id}

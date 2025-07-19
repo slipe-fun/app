@@ -70,7 +70,7 @@ export const NotifsAnimatedHeader = ({ scrollY, refresh }) => {
             }
           />
           <Text color="white" fw="$3" fz="$4" lh="$4">
-            Notifications
+            Уведомления
           </Text>
           <Button
             p={0}

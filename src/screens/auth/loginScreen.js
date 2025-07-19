@@ -57,14 +57,14 @@ const LoginScreen = ({ navigation }) => {
 	return (
 		<View style={[styles.container, { paddingBottom: Platform.OS === "ios" ? insets.bottom : insets.bottom + 6 }]}>
 			<View style={styles.wrapper}>
-				<Text style={styles.title}>Log in</Text>
+				<Text style={styles.title}>Войти</Text>
 				<TextInput
 					onChangeText={text => setUsername(text)}
 					style={styles.input}
 					cursorColor={COLORS.white}
 					maxLength={32}
 					placeholderTextColor={COLORS.transparentText}
-					placeholder='Username here'
+					placeholder='Имя пользователя'
 				/>
 				<TextInput
 					onChangeText={text => setPassword(text)}
@@ -73,16 +73,16 @@ const LoginScreen = ({ navigation }) => {
 					maxLength={32}
 					secureTextEntry
 					placeholderTextColor={COLORS.transparentText}
-					placeholder='Password here'
+					placeholder='Пароль'
 				/>
 				<TouchableOpacity onPress={() => navigation.navigate("Register")} activeOpacity={0.8} style={{ width: "100%" }}>
-					<Text style={styles.dontText}>Don't have an account?</Text>
+					<Text style={styles.dontText}>Нет аккаунта?</Text>
 				</TouchableOpacity>
 			</View>
 
 			<Animated.View style={[buttonAnimatedStyles, { width: "100%" }]}>
 				<TouchableOpacity onPress={handleLogin} activeOpacity={0.8} style={styles.button}>
-					<Text style={styles.buttonText}>Log in</Text>
+					<Text style={styles.buttonText}>Войти</Text>
 				</TouchableOpacity>
 			</Animated.View>
 		</View>

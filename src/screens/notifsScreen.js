@@ -11,7 +11,7 @@ import { FlashList } from "@shopify/flash-list";
 import { NotifsDefaultHeader } from "../components/common/notifsScreen/header/default";
 import { NotifsAnimatedHeader } from "../components/common/notifsScreen/header/animated";
 import Notification from "../components/common/notifsScreen/notification";
-import { useFetchNotifications } from "../hooks/useFetchNotifications";
+import useFetchNotifications from "@hooks/useFetchNotifications";
 
 const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
 
