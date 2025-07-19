@@ -85,7 +85,7 @@ const Category = ({ category }) => {
           style={StyleSheet.absoluteFill}
         />
         <Text textAlign="start" fz="$4" lh="$4" fw="$3" color={category.color}>
-          {category.name}
+          {category.title}
         </Text>
       </View>
     </Button>

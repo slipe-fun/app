@@ -81,7 +81,7 @@ export const SearchHeader = ({ scrollY }) => {
       >
         <View h="$12" justifyContent="center">
         <Text color="$color" lh="$9" fw="$3" fz="$9">
-          Search
+          Поиск
         </Text>
         </View>
         <Button

@@ -8,6 +8,7 @@ import Animated, {
   useAnimatedProps,
   withSpring,
 } from "react-native-reanimated";
+import { ROUTES_TITLES } from "@constants/routes";
 
 const AnimatedText = Animated.createAnimatedComponent(Text);
 
@@ -60,7 +61,7 @@ const TabBarItem = ({ route, isFocused, onPress }) => {
     >
       <Icon color={inactiveColor} icon={iconName} size={28} animatedProps={iconColorProps} />
       <AnimatedText fz="$0.75" fw="$3" lh="$0.75" style={textAnimatedStyles}>
-        {route.name}
+        {ROUTES_TITLES[route.name]}
       </AnimatedText>
     </Button>
   );
