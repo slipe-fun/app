@@ -8,7 +8,7 @@ import ColorfullyView from "@components/ui/colorfullyView";
 const CategoryPageHeaderActions = ({ blurhash, isSlides }) => {
   const navigation = useNavigation();
   const insets = useInsets();
-  const color = useBlurhashColor({ blurhash });
+  const color = useBlurhashColor(blurhash);
 
   const handleBack = () => {
     navigation.goBack();

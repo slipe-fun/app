@@ -126,7 +126,7 @@ const UserCardHeader = ({
           w="$12"
           onPress={handlePress}
           br="$full"
-          color={`rgb(${averageColor})`}
+          color={averageColor}
           unstyled
         >
           <Icon icon="flag" size={22} />

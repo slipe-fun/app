@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import { View } from "tamagui";
 import UserCardHeader from "./user";
 import UserCardActions from "./actions";
-import { useState, useCallback, useMemo, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { URLS } from "@constants/urls";
 import FastImage from "react-native-fast-image";
 import { Blurhash } from "react-native-blurhash";
@@ -13,6 +13,7 @@ import Animated, {
 } from "react-native-reanimated";
 import Video from "react-native-video";
 import addView from "@lib/addView";
+import useBlurhashColor from "@hooks/ui/useBlurhashColor";
 
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
@@ -20,18 +21,14 @@ const UserCard = ({ user, posts, active }) => {
   const [loaded, setLoaded] = useState(false);
   const [idx, setIdx] = useState(0);
   const [duration, setDuration] = useState(5.5);
-  const [blurhash, setBlurhash] = useState(null);
   const [isVideo, setIsVideo] = useState(false);
+  const [currentPost, setCurrentPost] = useState(posts[idx]);
+  const [blurhash, setBlurhash] = useState("");
 
-  const averageColor = useMemo(() => {
-    const color = Blurhash.getAverageColor(blurhash);
-    return color
-      ? `${Math.round(color.r)}, ${Math.round(color.g)}, ${Math.round(color.b)}`
-      : "0,0,0";
-  }, [blurhash]);
+  const averageColor = useBlurhashColor(blurhash);
 
   const handleLoad = useCallback(() => {
-    setLoaded(true);
+      setLoaded(true);
   }, []);
 
   const handeSlideClick = (direction) => {
@@ -53,12 +50,15 @@ const UserCard = ({ user, posts, active }) => {
   };
 
   useEffect(() => {
-    const currentPost = posts[idx];
+    setCurrentPost(posts[idx]);
+    setBlurhash(posts[idx]?.blurhash || "");
     if (active && !currentPost?.viewed) addView(currentPost?.id);
-    setBlurhash(currentPost?.blurhash);
-    setLoaded(false);
     setIsVideo(currentPost?.image ? /\.(mp4|mov|webm|mkv|avi)$/i.test(currentPost?.image) : false);
   }, [idx, active]);
+
+  useEffect(() => {
+    setLoaded(false);
+  }, [currentPost]); 
 
   return (
     <View flex={1} justifyContent="space-between" overflow="hidden" br="$7">
@@ -76,7 +76,7 @@ const UserCard = ({ user, posts, active }) => {
       />
       {isVideo ? (
         <Video
-          source={{ uri: `${URLS.CDN_POSTS_URL}${posts[idx]?.image}` }}
+          source={{ uri: `${URLS.CDN_POSTS_URL}${currentPost?.image}` }}
           repeat
           paused={!active}
           resizeMode="cover"
@@ -89,7 +89,7 @@ const UserCard = ({ user, posts, active }) => {
             resizeMode="cover"
             onLoad={handleLoad}
             source={{
-              uri: `${URLS.CDN_POSTS_URL}${posts[idx]?.image}`,
+              uri: `${URLS.CDN_POSTS_URL}${currentPost?.image}`,
               priority: FastImage.priority.high,
               cache: FastImage.cacheControl.immutable,
             }}

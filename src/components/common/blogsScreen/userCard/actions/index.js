@@ -38,7 +38,7 @@ const UserCardActions = ({ post, averageColor }) => {
           alignItems="center"
           w="$12"
           br="$full"
-          color={`rgb(${averageColor})`}
+          color={averageColor}
           unstyled
         >
           <Icon icon="message" size={24} />
@@ -50,7 +50,7 @@ const UserCardActions = ({ post, averageColor }) => {
           alignItems="center"
           w="$12"
           br="$full"
-          color={`rgb(${averageColor})`}
+          color={averageColor}
           unstyled
         >
           <Icon icon="smile" size={24} />

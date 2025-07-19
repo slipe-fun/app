@@ -53,7 +53,7 @@ const Reaction = memo(
         backgroundColor="$transparent"
         br="$full"
         overflow="hidden"
-        color={`rgb(${averageColor})`}
+        color={averageColor}
         unstyled
         onPress={() => handleEmojiClick(reaction)}
       >
