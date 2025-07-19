@@ -46,15 +46,19 @@ const UserCard = ({ user, posts, active }) => {
   }, [loaded]);
 
   const handleLoadVideo = (meta) => {
-    setDuration(meta.duration);
+    const duration = meta.duration || 5.5;
+    setDuration(duration > 0 ? duration : 5.5);
   };
 
   useEffect(() => {
     setCurrentPost(posts[idx]);
     setBlurhash(posts[idx]?.blurhash || "");
     if (active && !currentPost?.viewed) addView(currentPost?.id);
-    setIsVideo(currentPost?.image ? /\.(mp4|mov|webm|mkv|avi)$/i.test(currentPost?.image) : false);
   }, [idx, active]);
+
+  useEffect(() => {
+    setIsVideo(currentPost?.image ? /\.(mp4|mov|webm|mkv|avi)$/i.test(currentPost?.image) : false);
+  }, [currentPost]);
 
   useEffect(() => {
     setLoaded(false);
