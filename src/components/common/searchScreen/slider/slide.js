@@ -10,21 +10,19 @@ import Animated, {
   withSpring,
   fastSpring,
 } from "react-native-reanimated";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 
-const SearchSliderSlide = ({ title, posts }) => {
+const SearchSliderSlide = ({ isActive, title, posts }) => {
   const [loaded, setLoaded] = useState(false);
 
   const post = posts[0];
 
   const navigation = useNavigation();
 
-  const isVideo = post?.image
-    ? /\.(mp4|mov|webm|mkv|avi)$/i.test(post?.image)
-    : false;
+  const [isVideo, setIsVideo] = useState(false);
 
   const handleLoad = () => {
     setLoaded(true);
@@ -35,6 +33,12 @@ const SearchSliderSlide = ({ title, posts }) => {
       opacity: withSpring(loaded ? 1 : 0, fastSpring),
     };
   }, [loaded]);
+
+  useEffect(() => {
+    setIsVideo(post?.image
+      ? /\.(mp4|mov|webm|mkv|avi)$/i.test(post?.image)
+      : false);
+  }, [post]);
 
   return (
     <View
@@ -69,6 +73,10 @@ const SearchSliderSlide = ({ title, posts }) => {
           source={{ uri: `${URLS.CDN_POSTS_URL}${post?.image}` }}
           repeat
           muted
+          paused={!isActive}
+          ignoreSilentSwitch="ignore"
+          playInBackground={false}
+          playWhenInactive={false}
           resizeMode="cover"
           style={StyleSheet.absoluteFill}
           onLoad={handleLoad}

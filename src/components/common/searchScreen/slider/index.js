@@ -10,7 +10,7 @@ import { XStack, YStack, View } from "tamagui";
 import { normalSpring } from "@constants/easings";
 import SearchSliderSlide from "./slide";
 import * as Haptics from "expo-haptics";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useSearchStore from "@stores/searchScreen";
 import useFetchPostsForSlider from "@hooks/useFetchPostsForSlider";
 
@@ -20,14 +20,16 @@ const ITEM_SPACING = 16;
 const ITEM_WIDTH = SCREEN_WIDTH - ITEM_SPACING * 2;
 const ITEM_HEIGHT = 200;
 const data = [
-  {title: "Подходящие для вас посты", type: "relevant"},
-  {title: "Топ 10 популярных постов", type: "popular"},
-  {title: "Похожие на ваши посты", type: "similar"},
+  { title: "Подходящие для вас посты", type: "relevant" },
+  { title: "Топ 10 популярных постов", type: "popular" },
+  { title: "Похожие на ваши посты", type: "similar" },
 ];
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
 const SearchSlider = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   const progress = useSharedValue(0);
   const roundedProgress = useDerivedValue(() => Math.round(progress.value));
 
@@ -48,7 +50,7 @@ const SearchSlider = () => {
       br="$8"
       overflow="hidden"
     >
-      <SearchSliderSlide posts={slidePosts[data[index].type]} title={data[index].title} />
+      <SearchSliderSlide isActive={index === currentIndex} posts={slidePosts[data[index].type]} title={data[index].title} />
     </View>
   );
 
@@ -80,6 +82,9 @@ const SearchSlider = () => {
           progress.value = absProgress;
         }}
         renderItem={renderItem}
+        onScrollEnd={(current) => {
+          setCurrentIndex(current)
+        }}
       />
 
       <XStack justifyContent="center">
