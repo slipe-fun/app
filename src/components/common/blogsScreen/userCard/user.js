@@ -18,14 +18,14 @@ const UserCardHeader = ({
   postCount,
   activeIdx,
   duration,
-  setActiveIdx,
+  handeSlideClick,
   pause,
   averageColor,
 }) => {
   const [loaded, setLoaded] = useState(false);
 
   const handleIndicatorFinish = () => {
-    setActiveIdx(activeIdx + 1);
+    handeSlideClick("right");
   };
 
   const handleLoad = useCallback(() => {

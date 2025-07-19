@@ -34,6 +34,14 @@ const UserCard = ({ user, posts, active }) => {
     setLoaded(true);
   }, []);
 
+  const handeSlideClick = (direction) => {
+    if (direction === "left" && idx > 0) {
+      setIdx((prev) => prev - 1);
+    } else if (direction === "right" && idx < posts.length - 1) {
+      setIdx((prev) => prev + 1);
+    }
+  }
+
   const animatedOpacity = useAnimatedStyle(() => {
     return {
       opacity: withSpring(loaded ? 1 : 0, fastSpring),
@@ -102,7 +110,7 @@ const UserCard = ({ user, posts, active }) => {
         pause={!active}
         activeIdx={idx}
         duration={duration}
-        setActiveIdx={setIdx}
+        handeSlideClick={handeSlideClick}
         post={posts[idx]}
         user={user}
         averageColor={averageColor}
@@ -110,8 +118,8 @@ const UserCard = ({ user, posts, active }) => {
 
       {posts?.length > 1 && (
         <View f={1} flexDirection="row" zIndex="$1">
-          <View f={1} onPress={() => setIdx((prev) => prev - 1)} />
-          <View f={1} onPress={() => setIdx((prev) => prev + 1)} />
+          <View f={1} onPress={() => handeSlideClick("left")} />
+          <View f={1} onPress={() => handeSlideClick("right")} />
         </View>
       )}
 
