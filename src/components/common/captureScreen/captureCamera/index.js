@@ -38,7 +38,7 @@ const CaptureCamera = () => {
   const facing = useCaptureStore((s) => s.facing);
   const aspect = useCaptureStore((s) => s.aspect);
   const setAspect = useCaptureStore((s) => s.setAspect);
-  const device = useCameraDevice(facing || "back");
+  const device = useCameraDevice(facing || "front");
   const content = useCaptureStore((s) => s.content);
 
   const active = useAppLifecycle();
@@ -112,10 +112,11 @@ const CaptureCamera = () => {
           >
             <CameraOverlay isBlurring={isBlurring} snapshotUri={snapshotUri} />
             <CameraSnapshotColor enabled={init} cameraRef={camRef} />
-            <AnimatedCamera
-              ref={camRef}
-              style={{ flex: 1 }}
-              device={device}
+            {permission === "granted" && (
+              <AnimatedCamera
+                ref={camRef}
+                style={{ flex: 1 }}
+                device={device}
               isActive={active && !content}
               format={format}
               audio={true}
@@ -124,6 +125,7 @@ const CaptureCamera = () => {
               animatedProps={animatedProps}
               onInitialized={() => setInit(true)}
             />
+          )}
           </AnimatedView>
         </>
       </GestureDetector>
