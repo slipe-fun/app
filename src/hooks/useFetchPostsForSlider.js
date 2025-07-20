@@ -9,7 +9,7 @@ export default function useFetchPostsForSlider (type) {
     async function fetchPosts () {
         if (!["popular", "relevant", "similar"].includes(type)) return setError("Undefined type");
         try {
-            const request = await api.v2.get(`/post/${type}`);
+            const request = await api.v2.get(`/posts/${type}`);
             setData(request?.data || []);
         } catch (error) {
             setError(error);
