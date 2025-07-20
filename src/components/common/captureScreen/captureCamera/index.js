@@ -14,6 +14,7 @@ import useCaptureStore from "@stores/captureScreen";
 import usePinchZoom from "@hooks/ui/usePinchZoom";
 import useAppLifecycle from "@hooks/ui/useAppLifecycle";
 import useCameraBlur from "@hooks/ui/useCameraBlur";
+import useCameraPermission from "@hooks/ui/useCameraPermission";
 import useBestCameraFormat from "@hooks/ui/useBestCameraFormat";
 
 import CameraOverlay from "./cameraOverlay";
@@ -41,6 +42,7 @@ const CaptureCamera = () => {
   const content = useCaptureStore((s) => s.content);
 
   const active = useAppLifecycle();
+  const permission = useCameraPermission();
 
   const zoom = useSharedValue(device.neutralZoom);
   const aspectValue = useSharedValue(0);
@@ -62,7 +64,7 @@ const CaptureCamera = () => {
   }));
 
   useEffect(() => {
-    applyCameraBlur();
+    applyCameraBlur(); 
   }, [facing, formatIdx, aspect]);
 
   useEffect(() => {

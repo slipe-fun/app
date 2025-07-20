@@ -112,7 +112,7 @@ const CategoryPageHeader = memo(({ category, scrollY }) => {
           color="$white"
           style={fontStyle}
         >
-          {category?.name}
+          {category?.title}
         </AnimatedText>
 
         {!category?.isSlides && (

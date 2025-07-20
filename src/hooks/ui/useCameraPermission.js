@@ -1,15 +1,15 @@
-import { useEffect } from 'react';
-import { Camera } from 'react-native-vision-camera';
+import { useEffect } from "react";
+import { Camera } from "react-native-vision-camera";
 
 const useCameraPermission = () => {
-  const permission = Camera.getCameraPermissionStatus();
+  const camPermission = Camera.getCameraPermissionStatus();
+
+  const micPermission = Camera.getMicrophonePermissionStatus();
   useEffect(() => {
-    (async () => {
-      if (permission !== 'granted') await Camera.requestCameraPermission();
-    })();
+    if (camPermission !== "granted") Camera.requestCameraPermission();
+    if (micPermission !== "granted") Camera.requestMicrophonePermission();
   }, []);
-  return permission;
-}
+  return { camPermission, micPermission };
+};
 
 export default useCameraPermission;
-
