@@ -28,7 +28,7 @@ const UserCard = ({ user, posts, active }) => {
   const averageColor = useBlurhashColor(blurhash);
 
   const handleLoad = useCallback(() => {
-      setLoaded(true);
+    setLoaded(true);
   }, []);
 
   const handeSlideClick = (direction) => {
@@ -51,10 +51,11 @@ const UserCard = ({ user, posts, active }) => {
   };
 
   useEffect(() => {
-    setCurrentPost(posts[idx]);
-    setBlurhash(posts[idx]?.blurhash || "");
-    if (active && !currentPost?.viewed) addView(currentPost?.id);
-  }, [idx, active]);
+    const post = posts[idx];
+    setCurrentPost(post);
+    setBlurhash(post?.blurhash || "");
+    if (active && !post?.viewed) addView(post?.id);
+  }, [idx, active, posts]);
 
   useEffect(() => {
     setIsVideo(currentPost?.image ? /\.(mp4|mov|webm|mkv|avi)$/i.test(currentPost?.image) : false);
@@ -62,7 +63,7 @@ const UserCard = ({ user, posts, active }) => {
 
   useEffect(() => {
     setLoaded(false);
-  }, [currentPost]); 
+  }, [currentPost?.image]);
 
   return (
     <View flex={1} justifyContent="space-between" overflow="hidden" br="$7">
@@ -80,6 +81,7 @@ const UserCard = ({ user, posts, active }) => {
       />
       {isVideo ? (
         <Video
+          key={currentPost?.id}
           source={{ uri: `${URLS.CDN_POSTS_URL}${currentPost?.image}` }}
           repeat
           paused={!active}
@@ -90,6 +92,7 @@ const UserCard = ({ user, posts, active }) => {
       ) : (
         <>
           <AnimatedFastImage
+            key={currentPost?.id}
             resizeMode="cover"
             onLoad={handleLoad}
             source={{
@@ -99,13 +102,6 @@ const UserCard = ({ user, posts, active }) => {
             }}
             style={[StyleSheet.absoluteFill, animatedOpacity]}
           />
-          {!loaded && blurhash && (
-            <Blurhash
-              style={StyleSheet.absoluteFill}
-              decodeAsync
-              blurhash={blurhash}
-            />
-          )}
         </>
       )}
 
