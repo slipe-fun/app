@@ -128,6 +128,7 @@ export const tokens = createTokens({
     8: 24,
     9: 28,
     10: 32,
+    10.5: 34,
     11: 42,
     12: 60,
     true: 16,

@@ -1,35 +1,19 @@
-import { StyleSheet } from "react-native";
 import { View } from "tamagui";
 import UserCardHeader from "./user";
 import UserCardActions from "./actions";
-import { useState, useCallback, useEffect } from "react";
-import { URLS } from "@constants/urls";
+import { useState, useEffect } from "react";
 import FastImage from "react-native-fast-image";
-import { Blurhash } from "react-native-blurhash";
-import { fastSpring } from "@constants/easings";
-import Animated, {
-  useAnimatedStyle,
-  withSpring,
-} from "react-native-reanimated";
-import Video from "react-native-video";
 import addView from "@lib/addView";
 import useBlurhashColor from "@hooks/ui/useBlurhashColor";
-
-const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
+import MediaPreview from "@components/ui/mediaPreview";
 
 const UserCard = ({ user, posts, active }) => {
-  const [loaded, setLoaded] = useState(false);
   const [idx, setIdx] = useState(0);
   const [duration, setDuration] = useState(5.5);
-  const [isVideo, setIsVideo] = useState(false);
   const [currentPost, setCurrentPost] = useState(posts[idx]);
   const [blurhash, setBlurhash] = useState("");
 
   const averageColor = useBlurhashColor(blurhash);
-
-  const handleLoad = useCallback(() => {
-    setLoaded(true);
-  }, []);
 
   const handeSlideClick = (direction) => {
     if (direction === "left" && idx > 0) {
@@ -38,12 +22,6 @@ const UserCard = ({ user, posts, active }) => {
       setIdx((prev) => prev + 1);
     }
   }
-
-  const animatedOpacity = useAnimatedStyle(() => {
-    return {
-      opacity: withSpring(loaded ? 1 : 0, fastSpring),
-    };
-  }, [loaded]);
 
   const handleLoadVideo = (meta) => {
     const duration = meta.duration || 5.5;
@@ -56,14 +34,6 @@ const UserCard = ({ user, posts, active }) => {
     setBlurhash(post?.blurhash || "");
     if (active && !post?.viewed) addView(post?.id);
   }, [idx, active, posts]);
-
-  useEffect(() => {
-    setIsVideo(currentPost?.image ? /\.(mp4|mov|webm|mkv|avi)$/i.test(currentPost?.image) : false);
-  }, [currentPost]);
-
-  useEffect(() => {
-    setLoaded(false);
-  }, [currentPost?.image]);
 
   return (
     <View flex={1} justifyContent="space-between" overflow="hidden" br="$7">
@@ -79,32 +49,15 @@ const UserCard = ({ user, posts, active }) => {
         zIndex="$2"
         pointerEvents="none"
       />
-      {isVideo ? (
-        <Video
-          key={currentPost?.id}
-          source={{ uri: `${URLS.CDN_POSTS_URL}${currentPost?.image}` }}
-          repeat
-          paused={!active}
-          resizeMode="cover"
-          style={StyleSheet.absoluteFill}
-          onLoad={handleLoadVideo}
-        />
-      ) : (
-        <>
-          <AnimatedFastImage
-            key={currentPost?.id}
-            resizeMode="cover"
-            onLoad={handleLoad}
-            source={{
-              uri: `${URLS.CDN_POSTS_URL}${currentPost?.image}`,
-              priority: FastImage.priority.high,
-              cache: FastImage.cacheControl.immutable,
-            }}
-            style={[StyleSheet.absoluteFill, animatedOpacity]}
-          />
-        </>
-      )}
-
+      <MediaPreview
+        media={currentPost?.image}
+        blurhash={blurhash}
+        priority={FastImage.priority.high}
+        isVideoEnable
+        active={active}
+        muted
+        videoOnLoad={handleLoadVideo}
+      />
       <UserCardHeader
         postCount={posts?.length}
         pause={!active}

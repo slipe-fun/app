@@ -1,44 +1,15 @@
 import { Button, Text, XStack, View } from "tamagui";
 import { LinearGradient } from "expo-linear-gradient";
-import { StyleSheet } from "react-native";
 import FastImage from "react-native-fast-image";
-import Video from "react-native-video";
-import { Blurhash } from "react-native-blurhash";
+import { StyleSheet } from "react-native";
 import { URLS } from "@constants/urls";
-import Animated, {
-  useAnimatedStyle,
-  withSpring,
-  fastSpring,
-} from "react-native-reanimated";
-import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-
-const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
+import MediaPreview from "@components/ui/mediaPreview";
 
 const SearchSliderSlide = ({ isActive, title, posts }) => {
-  const [loaded, setLoaded] = useState(false);
-
   const post = posts[0];
 
   const navigation = useNavigation();
-
-  const [isVideo, setIsVideo] = useState(false);
-
-  const handleLoad = () => {
-    setLoaded(true);
-  };
-
-  const animatedOpacity = useAnimatedStyle(() => {
-    return {
-      opacity: withSpring(loaded ? 1 : 0, fastSpring),
-    };
-  }, [loaded]);
-
-  useEffect(() => {
-    setIsVideo(post?.image
-      ? /\.(mp4|mov|webm|mkv|avi)$/i.test(post?.image)
-      : false);
-  }, [post]);
 
   return (
     <View
@@ -68,40 +39,14 @@ const SearchSliderSlide = ({ isActive, title, posts }) => {
         borderWidth={1}
         borderColor="rgba(255, 255, 255, 0.1)"
       />
-      {isVideo ? (
-        <Video
-          source={{ uri: `${URLS.CDN_POSTS_URL}${post?.image}` }}
-          repeat
-          muted
-          paused={!isActive}
-          ignoreSilentSwitch="ignore"
-          playInBackground={false}
-          playWhenInactive={false}
-          resizeMode="cover"
-          style={StyleSheet.absoluteFill}
-          onLoad={handleLoad}
-        />
-      ) : (
-        <>
-          <AnimatedFastImage
-            resizeMode="cover"
-            onLoad={handleLoad}
-            source={{
-              uri: `${URLS.CDN_POSTS_URL}${post?.image}`,
-              priority: FastImage.priority.high,
-              cache: FastImage.cacheControl.immutable,
-            }}
-            style={[StyleSheet.absoluteFill, animatedOpacity]}
-          />
-          {!loaded && post?.blurhash && (
-            <Blurhash
-              style={StyleSheet.absoluteFill}
-              decodeAsync
-              blurhash={post?.blurhash}
-            />
-          )}
-        </>
-      )}
+      <MediaPreview
+        media={post?.image}
+        blurhash={post?.blurhash}
+        priority={FastImage.priority.high}
+        isVideoEnable
+        active={isActive}
+        muted
+      />
       <XStack
         alignItems="center"
         w="$full"
