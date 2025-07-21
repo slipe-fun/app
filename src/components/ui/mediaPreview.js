@@ -62,6 +62,7 @@ const MediaPreview = ({
   active = false,
   videoOnLoad,
   muted = false,
+  avatar = false,
 }) => {
   const [loaded, setLoaded] = useState(false);
 
@@ -75,7 +76,7 @@ const MediaPreview = ({
     videoOnLoad?.(meta);
   };
 
-  const uri = useMemo(() => `${URLS.CDN_POSTS_URL}${media}`, [media]);
+  const uri = useMemo(() => `${avatar ? URLS.CDN_AVATARS_URL : URLS.CDN_POSTS_URL}${media}`, [media]);
 
   const videoSource = useMemo(() => ({ uri }), [uri]);
 
