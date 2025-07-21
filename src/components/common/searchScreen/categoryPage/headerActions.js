@@ -16,7 +16,7 @@ const CategoryPageHeaderActions = ({ blurhash, isSlides }) => {
 
   return (
     <XStack
-      zIndex="$1"
+      zIndex="$2"
       position="absolute"
       top={0}
       left={0}
@@ -45,22 +45,22 @@ const CategoryPageHeaderActions = ({ blurhash, isSlides }) => {
         <Icon icon="chevronLeft" size={26} />
       </ColorfullyView>
       {!isSlides && (
-      <ColorfullyView
-        unstyled
-        isButton
-        w="$13"
-        h="$13"
-        color={color}
-        br="$full"
-        justifyContent="center"
-        alignItems="center"
-        pressStyle={{
-          scale: 0.98,
-          opacity: 0.9,
-        }}
-      >
-        <Icon icon="heart" size={26} />
-      </ColorfullyView>
+        <ColorfullyView
+          unstyled
+          isButton
+          w="$13"
+          h="$13"
+          color={color}
+          br="$full"
+          justifyContent="center"
+          alignItems="center"
+          pressStyle={{
+            scale: 0.98,
+            opacity: 0.9,
+          }}
+        >
+          <Icon icon="heart" size={26} />
+        </ColorfullyView>
       )}
     </XStack>
   );

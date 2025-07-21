@@ -12,6 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import useNotifsStore from "@stores/notifsScreen";
 import useInsets from "@hooks/ui/useInsets";
 import { LinearGradient } from "expo-linear-gradient";
+import { StyleSheet } from "react-native";
 
 const AnimatedText = Animated.createAnimatedComponent(Text);
 
@@ -53,16 +54,10 @@ const NotifsHeader = ({ refresh, loading }) => {
   return (
     <XStack left={0} right={0} zIndex="$1" ref={ref} pt={insets.top} position="absolute" pb="$6" ph="$6" alignItems="center" justifyContent="space-between">
       <LinearGradient
-        colors={["#000", "#00000000"]}
+        colors={["#000", "transparent"]}
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
-        style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          top: 0,
-          bottom: 0,
-        }}
+        style={StyleSheet.absoluteFill}
       />
       <Button
         p={0}

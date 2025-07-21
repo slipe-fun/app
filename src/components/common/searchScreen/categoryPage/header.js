@@ -1,16 +1,16 @@
-import { View, Text, YStack, getVariableValue, XStack } from "tamagui";
+import { View, getVariableValue } from "tamagui";
 import { memo, useState } from "react";
 import { StyleSheet, Dimensions } from "react-native";
 import Animated from "react-native-reanimated";
 import FastImage from "react-native-fast-image";
 import { Blurhash } from "react-native-blurhash";
-import { LinearGradient } from "expo-linear-gradient";
-import Icon from "@components/ui/icon";
 import CategoryPageHeaderActions from "./headerActions";
 import useSearchStore from "@stores/searchScreen";
 import useInsets from "@hooks/ui/useInsets";
 import useCategoryAnimations from "@hooks/ui/useCategoryAnimations";
 import { getCategoryStats } from "@lib/getCategoryStats";
+import CategoryPageHeaderInfo from "./headerInfo";
+import { LinearGradient } from "expo-linear-gradient";
 
 const { width } = Dimensions.get("window");
 const headerHeight = width * 0.8;
@@ -19,14 +19,13 @@ const sizes = {
   height: getVariableValue("$13", "size"),
   padding: getVariableValue("$6", "space"),
   fontBig: getVariableValue("$7", "size"),
+  paddingDiffrence: getVariableValue("$3", "space"),
   fontSmall: getVariableValue("$4", "size"),
-  gapBig: getVariableValue("$4", "space")
+  gapBig: getVariableValue("$4", "space"),
+  sizeSmall: getVariableValue("$4.5", "size"),
 };
 
 const AnimatedView = Animated.createAnimatedComponent(View);
-const AnimatedXStack = Animated.createAnimatedComponent(XStack);
-const AnimatedText = Animated.createAnimatedComponent(Text);
-const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
 
 const CategoryPageHeader = memo(({ category, scrollY }) => {
   const insets = useInsets();
@@ -35,105 +34,84 @@ const CategoryPageHeader = memo(({ category, scrollY }) => {
   const calculatedInnerHeight = insets.top + sizes.padding + sizes.height;
   const animationRange = [0, headerHeight - calculatedInnerHeight];
 
-  const { opacityStyle, heightStyle, fontStyle, gradientStyle } =
-    useCategoryAnimations(
-      scrollY,
-      animationRange,
-      sizes,
-      headerHeight,
-      calculatedInnerHeight
-    );
+  const { opacityStyle, heightStyle, fontStyle } = useCategoryAnimations(
+    scrollY,
+    animationRange,
+    sizes,
+    headerHeight,
+    calculatedInnerHeight,
+    category?.isSlides
+  );
 
   const statistics = useSearchStore((state) => state.statistics);
   const { topNumber, postCount } = getCategoryStats(statistics, category?.name);
 
   return (
-    <AnimatedView
-      w="$full"
-      left={0}
-      right={0}
-      position="absolute"
-      style={heightStyle}
-      h={headerHeight}
-      backgroundColor="$black"
-      borderBottomLeftRadius="$12"
-      borderBottomRightRadius="$12"
-      zIndex={300}
-      justifyContent="flex-end"
-      overflow="hidden"
-    >
+    <>
+      <AnimatedView
+        w="$full"
+        left={0}
+        right={0}
+        top={0}
+        position="absolute"
+        style={heightStyle}
+        h={headerHeight}
+        zIndex="$1"
+        justifyContent="flex-end"
+        overflow="hidden"
+      >
+        <View
+          overflow="hidden"
+          borderBottomLeftRadius="$12"
+          borderBottomRightRadius="$12"
+          style={[opacityStyle, StyleSheet.absoluteFill]}
+        >
+          <AnimatedView style={[opacityStyle, StyleSheet.absoluteFill, {zIndex: 10}]}>
+            <FastImage
+              resizeMode="cover"
+              onLoad={() => setLoaded(true)}
+              source={{
+                uri: category?.thumbnail,
+                priority: FastImage.priority.normal,
+                cache: FastImage.cacheControl.immutable,
+              }}
+              style={StyleSheet.absoluteFill}
+            />
+            {!loaded && category?.blurhash && (
+              <Blurhash
+                style={StyleSheet.absoluteFill}
+                decodeAsync
+                blurhash={category?.blurhash}
+              />
+            )}
+          </AnimatedView>
+          <LinearGradient
+            colors={["#000", "transparent"]}
+            start={{ x: 0.5, y: 0 }}
+            end={{ x: 0.5, y: 1 }}
+            style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              zIndex: 1,
+              bottom: 0,
+              height: calculatedInnerHeight,
+            }}
+          />
+        </View>
+        <CategoryPageHeaderInfo
+          category={category}
+          topNumber={topNumber}
+          postCount={postCount}
+          opacityStyle={opacityStyle}
+          fontStyle={fontStyle}
+        />
+      </AnimatedView>
       <CategoryPageHeaderActions
         isSlides={category?.isSlides}
         blurhash={category?.blurhash}
       />
-
-      <AnimatedView style={[opacityStyle, StyleSheet.absoluteFill]}>
-          <FastImage
-            resizeMode="cover"
-            onLoad={() => setLoaded(true)}
-            source={{
-              uri: category?.thumbnail,
-              priority: FastImage.priority.normal,
-              cache: FastImage.cacheControl.immutable,
-            }}
-            style={StyleSheet.absoluteFill}
-          />
-        {!loaded && category?.blurhash && (
-          <Blurhash
-            style={StyleSheet.absoluteFill}
-            decodeAsync
-            blurhash={category?.blurhash}
-          />
-        )}
-      </AnimatedView>
-      <YStack
-        minHeight="$12"
-        justifyContent="center"
-        w="$full"
-        gap="$4"
-        p={category?.isSlides ? "$8" : "$6"}
-        alignItems="center"
-      >
-        <AnimatedLinearGradient
-          colors={["rgba(0,0,0,0.5)", "rgba(0,0,0,0)"]}
-          start={{ x: 0.5, y: 1 }}
-          end={{ x: 0.5, y: 0 }}
-          style={[StyleSheet.absoluteFill, gradientStyle]}
-        />
-
-        <AnimatedText
-          w="$full"
-          textAlign="center"
-          fw="$3"
-          fz="$7"
-          lh="$7"
-          color="$white"
-          style={fontStyle}
-        >
-          {category?.title}
-        </AnimatedText>
-
-        {!category?.isSlides && (
-          <AnimatedXStack opacity={0.7} flexDirection="row" alignItems="center" gap="$5">
-            <View flexDirection="row" alignItems="center" gap="$2">
-              <Icon icon="crown" size={17} />
-              <Text fz="$2" lh="$2" fw="$3" color="$white">
-                TOP {topNumber}
-              </Text>
-            </View>
-
-            <View br="$7" w="$0.5" h="$0.5" backgroundColor="$white" />
-
-            <View flexDirection="row" alignItems="center" gap="$2">
-              <Icon icon="blogs" size={17} />
-              <Text fz="$2" lh="$2" fw="$2" color="$white">
-                {postCount}
-              </Text>
-            </View>
-          </AnimatedXStack>
-        )}
-      </YStack>
-    </AnimatedView>
+    </>
   );
 });
 

@@ -26,18 +26,19 @@ export const SearchHeader = ({ scrollY }) => {
   const insets = useInsets();
   const isFocused = useSearchStore((state) => state.isFocused);
   const setHeaderHeight = useSearchStore((state) => state.setHeaderHeight);
+  const headerHeight = useSearchStore((state) => state.headerHeight);
   const [titleHeight, setTitleHeight] = useState(56);
   const theme = useTheme();
   const color = theme.color.get(); 
 
   const isFocusedShared = useSharedValue(isFocused);
 
-  const animatedParams = useDerivedValue(() => {
+  const animatedParams = useDerivedValue(() => { 
     const t = scrollY.value;
     const focus = isFocusedShared.value;
 
-    const interpolatedOpacity = interpolate(t, [0, 120], [1, 0], "clamp");
-    const interpolatedHeight = interpolate(t, [0, 120], [titleHeight, 0], "clamp");
+    const interpolatedOpacity = interpolate(t, [0, headerHeight - titleHeight - 32], [1, 0], "clamp");
+    const interpolatedHeight = interpolate(t, [0, headerHeight - titleHeight - 32], [titleHeight, 0], "clamp");
 
     const opacity = interpolate(focus, [0, 1], [interpolatedOpacity, 0], "clamp");
     const height = interpolate(focus, [0, 1], [interpolatedHeight, 0], "clamp");
@@ -66,11 +67,11 @@ export const SearchHeader = ({ scrollY }) => {
       ph="$6"
       w={width}
       ref={headerRef}
-      backgroundColor="$bg"
       position="absolute"
-      zIndex="$1"
+      zIndex="$2"
       pb="$5"
       pt={insets.top}
+      backgroundColor="$bg"
     >
       <AnimatedXStack
         ref={ref}

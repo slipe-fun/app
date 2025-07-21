@@ -5,14 +5,15 @@ export default function useCategoryAnimations(
   range,
   sizes,
   fullHeight,
-  minHeight
+  minHeight,
+  isSlides
 ) {
   const opacityStyle = useAnimatedStyle(() => ({
-    opacity: interpolate(scrollY.value, range, [1, 0.35], "clamp"),
+    opacity: interpolate(scrollY.value, range, [1, 0], "clamp"),
   }));
 
   const heightStyle = useAnimatedStyle(() => ({
-    height: interpolate(scrollY.value, range, [fullHeight, minHeight], "clamp"),
+    transform: [{ translateY: interpolate(scrollY.value, range, [0, minHeight - fullHeight], "clamp") }],
   }));
 
   const fontStyle = useAnimatedStyle(() => ({
@@ -24,7 +25,7 @@ export default function useCategoryAnimations(
           [1, sizes.fontSmall / sizes.fontBig],
           "clamp"
         ),
-      }, {translateY: interpolate(scrollY.value, range, [0, sizes.gapBig], "clamp")}
+      }, {translateY:  interpolate(scrollY.value, range, isSlides ? [0, -sizes.gapBig + sizes.sizeSmall - sizes.paddingDiffrence] : [0, sizes.gapBig], "clamp")}
     ],
   }));
 
