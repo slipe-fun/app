@@ -19,12 +19,12 @@ const ProfilePostsList = ({ scrollY, actionsHeight, viewHeight, user }) => {
     },
   });
 
-  const renderItem = ({item}) => {
+  const renderItem = useCallback(({item}) => {
     if (item?.type === "publish") {
       return <PublishButton />;
     }
     return <Post post={item} />;
-  };
+  }, []);
 
   const handleEndReached = useCallback(() => {
     setPage((prev) => prev + 1);

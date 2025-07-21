@@ -47,7 +47,7 @@ const UserBlock = ({ user, scrollY, setActionsHeight, actionsHeight, viewHeight,
 	}, [setViewHeight]);
 
 	return (
-		<AnimatedView borderBottomLeftRadius="$7" borderBottomRightRadius="$7" overflow='hidden' style={animatedViewStyle} w='$full' position="absolute" zIndex="$1">
+		<AnimatedView borderBottomLeftRadius="$12" borderBottomRightRadius="$12" overflow='hidden' style={animatedViewStyle} w='$full' position="absolute" zIndex="$1">
 			<View w={width} position='relative' zIndex="$1" ref={ref}>
 				<LinearGradient
 					colors={[`rgba(${averageColor}, 0)`, `rgba(${averageColor}, 1)`]}

@@ -48,11 +48,9 @@ const ProfileActions = ({ actionsHeight, setActionsHeight, scrollY, viewHeight, 
   const animatedViewStyle = useAnimatedStyle(() => {
     if (actionsHeight < 30) return {};
 
-    const height = interpolate(scrollY.value, [width - viewHeight, width], [actionsHeight, 0], 'clamp');
+    return { height: interpolate(scrollY.value, [width - viewHeight, width], [actionsHeight, 0], 'clamp') };
 
-    return { height };
-
-  }, [actionsHeight]);
+  }, []);
 
   const animatedInnerViewStyle = useAnimatedStyle(() => {
     const t = interpolate(scrollY.value, [width - viewHeight, width], [1, 0], 'clamp');
