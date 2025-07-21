@@ -2,8 +2,6 @@ import { View, getVariableValue } from "tamagui";
 import { memo, useState } from "react";
 import { StyleSheet, Dimensions } from "react-native";
 import Animated from "react-native-reanimated";
-import FastImage from "react-native-fast-image";
-import { Blurhash } from "react-native-blurhash";
 import CategoryPageHeaderActions from "./headerActions";
 import useSearchStore from "@stores/searchScreen";
 import useInsets from "@hooks/ui/useInsets";
@@ -11,6 +9,8 @@ import useCategoryAnimations from "@hooks/ui/useCategoryAnimations";
 import { getCategoryStats } from "@lib/getCategoryStats";
 import CategoryPageHeaderInfo from "./headerInfo";
 import { LinearGradient } from "expo-linear-gradient";
+import MediaPreview from "@components/ui/mediaPreview";
+import FastImage from "react-native-fast-image";
 
 const { width } = Dimensions.get("window");
 const headerHeight = width * 0.8;
@@ -67,23 +67,7 @@ const CategoryPageHeader = memo(({ category, scrollY }) => {
           style={[opacityStyle, StyleSheet.absoluteFill]}
         >
           <AnimatedView style={[opacityStyle, StyleSheet.absoluteFill, {zIndex: 10}]}>
-            <FastImage
-              resizeMode="cover"
-              onLoad={() => setLoaded(true)}
-              source={{
-                uri: category?.thumbnail,
-                priority: FastImage.priority.normal,
-                cache: FastImage.cacheControl.immutable,
-              }}
-              style={StyleSheet.absoluteFill}
-            />
-            {!loaded && category?.blurhash && (
-              <Blurhash
-                style={StyleSheet.absoluteFill}
-                decodeAsync
-                blurhash={category?.blurhash}
-              />
-            )}
+            <MediaPreview priority={FastImage.priority.high} type="category" blurhash={category?.blurhash} media={category?.thumbnail}/>
           </AnimatedView>
           <LinearGradient
             colors={["#000", "transparent"]}

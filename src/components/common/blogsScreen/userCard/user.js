@@ -1,16 +1,12 @@
 import { View, Text } from "tamagui";
 import { LinearGradient } from "expo-linear-gradient";
-import { StyleSheet } from "react-native";
 import Indicators from "./indicators";
-import { URLS } from "@constants/urls";
-import { useState, useCallback } from "react";
 import ColorfullyView from "@components/ui/colorfullyView";
 import Icon from "@components/ui/icon";
-import FastImage from "react-native-fast-image";
-import { Blurhash } from "react-native-blurhash";
 import { toast } from "sonner-native";
 import * as Haptics from "expo-haptics";
 import sendReport from "@lib/sendReport";
+import MediaPreview from "@components/ui/mediaPreview";
 
 const UserCardHeader = ({
   user,
@@ -22,15 +18,9 @@ const UserCardHeader = ({
   pause,
   averageColor,
 }) => {
-  const [loaded, setLoaded] = useState(false);
-
   const handleIndicatorFinish = () => {
     handeSlideClick("right");
   };
-
-  const handleLoad = useCallback(() => {
-    setLoaded(true);
-  }, []);
 
   const handlePress = () => {
     // TODO: PIP PLS ADD SOME GENIUS CODE FOR REPORTING RH
@@ -78,25 +68,7 @@ const UserCardHeader = ({
       >
         <View w="$12" h="$12" br="$full" overflow="hidden" position="relative">
           {user?.avatar ? (
-            <>
-              <FastImage
-                resizeMode="cover"
-                onLoad={handleLoad}
-                source={{
-                  uri: URLS.CDN_AVATARS_URL + user?.avatar,
-                  priority: FastImage.priority.normal,
-                  cache: FastImage.cacheControl.immutable,
-                }}
-                style={StyleSheet.absoluteFill}
-              />
-              {!loaded && user?.avatar_information?.blurhash && (
-                <Blurhash
-                  style={[StyleSheet.absoluteFill, { zIndex: 10 }]}
-                  decodeAsync
-                  blurhash={user?.avatar_information?.blurhash}
-                />
-              )}
-            </>
+            <MediaPreview type="avatar" blurhash={user?.avatar_information?.blurhash} media={user?.avatar}/>
           ) : (
             <View
               backgroundColor="$black"
@@ -110,11 +82,11 @@ const UserCardHeader = ({
             </View>
           )}
         </View>
-        <View w="$full" gap="$1" alignItems="center" justifyContent="center">
+        <View flex={1} gap="$1" alignItems="center" justifyContent="center">
           <Text fz="$2" lh="$2" fw="$3" color="$white">
             {user?.nickname || `${user?.username}`}
           </Text>
-          <Text fz="$1" lh="$1" fw="$2" color="$transparentText">
+          <Text numberOfLines={1} textOverflow="ellipsis" w="$full" fz="$1" lh="$1" fw="$2" color="$transparentText">
             {post?.in_search}
           </Text>
         </View>

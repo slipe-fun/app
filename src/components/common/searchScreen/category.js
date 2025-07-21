@@ -1,30 +1,13 @@
 import { Button, View, Text } from "tamagui";
 import { useNavigation } from "@react-navigation/native";
 import * as Haptics from "expo-haptics";
-import { memo, useState, useCallback } from "react";
+import { memo } from "react";
 import { LinearGradient } from "expo-linear-gradient";
-import { Blurhash } from "react-native-blurhash";
 import { StyleSheet } from "react-native";
-import FastImage from "react-native-fast-image";
-import Animated, { useAnimatedStyle, withSpring } from "react-native-reanimated";
-import { fastSpring } from "@constants/easings";
-
-const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
+import MediaPreview from "@components/ui/mediaPreview";
 
 const Category = ({ category }) => {
   const navigation = useNavigation();
-
-  const [loaded, setLoaded] = useState(false);
-
-  const handleLoad =  useCallback(() => {
-    setLoaded(true);
-  }, []);
-
-  const animatedOpacity = useAnimatedStyle(() => {
-    return {
-      opacity: withSpring(loaded ? 1 : 0, fastSpring),
-    };
-  }, [loaded]);
 
   return (
     <Button
@@ -59,23 +42,8 @@ const Category = ({ category }) => {
         zIndex="$2"
         pointerEvents="none"
       />
-       <AnimatedFastImage
-        onLoad={handleLoad}
-        source={{
-          uri: category.thumbnail,
-          priority: FastImage.priority.normal,
-          cache: FastImage.cacheControl.immutable,
-        }}
-        style={[StyleSheet.absoluteFill, animatedOpacity]}
-        resizeMode="cover"
-      />
-      {!loaded && category.blurhash && (
-        <Blurhash
-          style={StyleSheet.absoluteFill}
-          decodeAsync
-          blurhash={category.blurhash}
-        />
-      )}
+
+      <MediaPreview type="category" blurhash={category.blurhash} media={category.thumbnail}/>
      
       <View alignSelf="stretch" w="$full" p="$6.5">
         <LinearGradient

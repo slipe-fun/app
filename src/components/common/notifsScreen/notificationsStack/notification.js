@@ -57,7 +57,7 @@ const Notification = ({ notification }) => {
     <View w="$full" br="$7" overflow="hidden" backgroundColor="$backgroundTransparent">
       <View opacity={0.15} style={StyleSheet.absoluteFill}>
         <MediaPreview
-          avatar
+          type="avatar"
           media={notification?.from_user?.avatar}
           blurhash={notification?.from_user?.avatar_information?.blurhash}
           priority={FastImage.priority.normal}
@@ -68,7 +68,7 @@ const Notification = ({ notification }) => {
           <View w="$13" h="$13" br="$full" overflow="hidden">
             {notification?.from_user?.avatar ? (
               <MediaPreview
-                avatar
+                type="avatar"
                 media={notification?.from_user?.avatar}
                 blurhash={notification?.from_user?.avatar_information?.blurhash}
                 priority={FastImage.priority.normal}

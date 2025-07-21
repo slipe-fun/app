@@ -92,7 +92,7 @@ const NotificationStack = ({ notifications }) => {
           >
             <MediaPreview
               priority={FastImage.priority.low}
-              avatar
+              type="avatar"
               media={notification?.from_user?.avatar}
               blurhash={notification?.from_user?.avatar_information?.blurhash}
             />

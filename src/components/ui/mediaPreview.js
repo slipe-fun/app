@@ -54,7 +54,7 @@ const MediaPreview = ({
   active = false,
   videoOnLoad,
   muted = false,
-  avatar = false,
+  type = "post",
 }) => {
   const [loaded, setLoaded] = useState(false);
 
@@ -68,7 +68,20 @@ const MediaPreview = ({
     videoOnLoad?.(meta);
   };
 
-  const uri = useMemo(() => `${avatar ? URLS.CDN_AVATARS_URL : URLS.CDN_POSTS_URL}${media}`, [media]);
+   const cdn_url = () => {
+      switch (type) {
+        case "avatar":
+          return URLS.CDN_AVATARS_URL;
+        case "category":
+          return "";
+        case "post":
+          return URLS.CDN_POSTS_URL;
+        default:
+          return URLS.CDN_POSTS_URL;
+      }
+    };
+
+  const uri = useMemo(() => `${cdn_url()}${media}`, [media]);
 
   const videoSource = useMemo(() => ({ uri }), [uri]);
 
