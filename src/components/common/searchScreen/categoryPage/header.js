@@ -1,4 +1,4 @@
-import { View, Text, YStack, getVariableValue } from "tamagui";
+import { View, Text, YStack, getVariableValue, XStack } from "tamagui";
 import { memo, useState } from "react";
 import { StyleSheet, Dimensions } from "react-native";
 import Animated from "react-native-reanimated";
@@ -16,18 +16,15 @@ const { width } = Dimensions.get("window");
 const headerHeight = width * 0.8;
 
 const sizes = {
-  height: getVariableValue("$12", "size"),
+  height: getVariableValue("$13", "size"),
   padding: getVariableValue("$6", "space"),
   fontBig: getVariableValue("$7", "size"),
   fontSmall: getVariableValue("$4", "size"),
-  lineBig: getVariableValue("$7", "lineHeight"),
-  lineSmall: getVariableValue("$4", "lineHeight"),
-  gapBig: getVariableValue("$4", "space"),
-  gapSmall: getVariableValue("$2", "space"),
+  gapBig: getVariableValue("$4", "space")
 };
 
 const AnimatedView = Animated.createAnimatedComponent(View);
-const AnimatedYStack = Animated.createAnimatedComponent(YStack);
+const AnimatedXStack = Animated.createAnimatedComponent(XStack);
 const AnimatedText = Animated.createAnimatedComponent(Text);
 const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
 
@@ -38,14 +35,13 @@ const CategoryPageHeader = memo(({ category, scrollY }) => {
   const calculatedInnerHeight = insets.top + sizes.padding + sizes.height;
   const animationRange = [0, headerHeight - calculatedInnerHeight];
 
-  const { opacityStyle, heightStyle, fontStyle, gapStyle, gradientStyle } =
+  const { opacityStyle, heightStyle, fontStyle, gradientStyle } =
     useCategoryAnimations(
       scrollY,
       animationRange,
       sizes,
       headerHeight,
-      calculatedInnerHeight,
-      category?.isSlides
+      calculatedInnerHeight
     );
 
   const statistics = useSearchStore((state) => state.statistics);
@@ -90,11 +86,11 @@ const CategoryPageHeader = memo(({ category, scrollY }) => {
           />
         )}
       </AnimatedView>
-      <AnimatedYStack
+      <YStack
         minHeight="$12"
         justifyContent="center"
-        style={gapStyle}
         w="$full"
+        gap="$4"
         p={category?.isSlides ? "$8" : "$6"}
         alignItems="center"
       >
@@ -109,6 +105,8 @@ const CategoryPageHeader = memo(({ category, scrollY }) => {
           w="$full"
           textAlign="center"
           fw="$3"
+          fz="$7"
+          lh="$7"
           color="$white"
           style={fontStyle}
         >
@@ -116,7 +114,7 @@ const CategoryPageHeader = memo(({ category, scrollY }) => {
         </AnimatedText>
 
         {!category?.isSlides && (
-          <View opacity={0.7} flexDirection="row" alignItems="center" gap="$5">
+          <AnimatedXStack opacity={0.7} flexDirection="row" alignItems="center" gap="$5">
             <View flexDirection="row" alignItems="center" gap="$2">
               <Icon icon="crown" size={17} />
               <Text fz="$2" lh="$2" fw="$3" color="$white">
@@ -132,9 +130,9 @@ const CategoryPageHeader = memo(({ category, scrollY }) => {
                 {postCount}
               </Text>
             </View>
-          </View>
+          </AnimatedXStack>
         )}
-      </AnimatedYStack>
+      </YStack>
     </AnimatedView>
   );
 });

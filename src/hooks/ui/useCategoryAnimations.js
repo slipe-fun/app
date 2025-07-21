@@ -5,8 +5,7 @@ export default function useCategoryAnimations(
   range,
   sizes,
   fullHeight,
-  minHeight,
-  isSlides
+  minHeight
 ) {
   const opacityStyle = useAnimatedStyle(() => ({
     opacity: interpolate(scrollY.value, range, [1, 0.35], "clamp"),
@@ -17,36 +16,21 @@ export default function useCategoryAnimations(
   }));
 
   const fontStyle = useAnimatedStyle(() => ({
-    fontSize: interpolate(
-      scrollY.value,
-      range,
-      [sizes.fontBig, sizes.fontSmall],
-      "clamp"
-    ),
-    lineHeight: interpolate(
-      scrollY.value,
-      range,
-      [sizes.lineBig, sizes.lineSmall],
-      "clamp"
-    ),
+    transform: [
+      {
+        scale: interpolate(
+          scrollY.value,
+          range,
+          [1, sizes.fontSmall / sizes.fontBig],
+          "clamp"
+        ),
+      }, {translateY: interpolate(scrollY.value, range, [0, sizes.gapBig], "clamp")}
+    ],
   }));
 
   const gradientStyle = useAnimatedStyle(() => ({
     opacity: interpolate(scrollY.value, range, [1, 0], "clamp"),
   }));
 
-  if (!isSlides) {
-    const gapStyle = useAnimatedStyle(() => ({
-      gap: interpolate(
-        scrollY.value,
-        range,
-        [sizes.gapBig, sizes.gapSmall],
-        "clamp"
-      ),
-    }));
-
-    return { opacityStyle, heightStyle, fontStyle, gapStyle, gradientStyle };
-  } else {
-    return { opacityStyle, heightStyle, fontStyle, gradientStyle };
-  }
+  return { opacityStyle, heightStyle, fontStyle, gradientStyle };
 }
