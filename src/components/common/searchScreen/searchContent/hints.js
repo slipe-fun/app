@@ -37,7 +37,7 @@ const Hints = () => {
       bottom={0}
       backgroundColor="$bg"
       position="absolute"
-      zIndex="$2"
+      zIndex="$1"
       ph="$6"
       top={56 + insets.top}
       pt="$6"
