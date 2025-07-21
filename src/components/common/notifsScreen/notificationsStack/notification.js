@@ -4,11 +4,12 @@ import { XStack, YStack, View, Text, Image } from "tamagui";
 import FastImage from "react-native-fast-image";
 import Icon from "@components/ui/icon";
 import { memo } from "react";
+import { URLS } from "@constants/urls";
 
 const badgeColors = {
-    reaction: "$primary",
-    comment: "$purple",
-    follow: "$yellow",
+  reaction: "$primary",
+  comment: "$purple",
+  subscribe: "$yellow",
 }
 
 const NotificationBadge = ({ action }) => {
@@ -21,7 +22,7 @@ const NotificationBadge = ({ action }) => {
       return (
         <Icon icon="message" size={16} />
       );
-    case "follow":
+    case "subscribe":
       return (
         <Icon icon="profile" size={16} />
       );
@@ -30,20 +31,20 @@ const NotificationBadge = ({ action }) => {
   }
 }
 
-const NotificationActionText = ({ action }) => {
+const NotificationActionText = ({ action, reaction }) => {
   switch (action) {
     case "reaction":
       return (
         <XStack gap="$1">
-          <Text color="$transparentText" fw="$2" fz="$1" lh="$1">Оставил реакцию: </Text>
-         <Image width="$1" height="$1" source='' />
+          <Text color="$transparentText" fw="$2" fz="$1" lh="$1">Оставил реакцию: {reaction} </Text>
+          <Image width="$1" height="$1" source='' />
         </XStack>
       );
     case "comment":
       return (
         <Text color="$transparentText" fw="$2" fz="$1" lh="$1">Оставил комментарий</Text>
       );
-    case "follow":
+    case "subscribe":
       return (
         <Text color="$transparentText" fw="$2" fz="$1" lh="$1">Подписался на вас</Text>
       );
@@ -58,8 +59,8 @@ const Notification = ({ notification }) => {
       <View opacity={0.15} style={StyleSheet.absoluteFill}>
         <MediaPreview
           avatar
-          media="01cdea82-924f-49fd-8934-dd0b8a2fd569.jpg"
-          blurhash="ULF5]f%MtQxZ?^RkNaWVK5j[IVRjyDt7eSae"
+          media={URLS.CDN_AVATARS_URL + notification?.from_user?.avatar}
+          blurhash={notification?.from_user?.avatar_information?.blurhash}
           priority={FastImage.priority.normal}
         />
       </View>
@@ -68,22 +69,22 @@ const Notification = ({ notification }) => {
           <View w="$13" h="$13" br="$full" overflow="hidden">
             <MediaPreview
               avatar
-              media="01cdea82-924f-49fd-8934-dd0b8a2fd569.jpg"
-              blurhash="ULF5]f%MtQxZ?^RkNaWVK5j[IVRjyDt7eSae"
+              media={URLS.CDN_AVATARS_URL + notification?.from_user?.avatar}
+              blurhash={notification?.from_user?.avatar_information?.blurhash}
               priority={FastImage.priority.normal}
             />
           </View>
           <YStack f={1} justifyContent="center" gap="$1.5">
-            <Text color="$white" fw="$3" fz="$3" lh="$3">Mike Dean</Text>
-            <NotificationActionText action="comment" />
+            <Text color="$white" fw="$3" fz="$3" lh="$3">{notification?.from_user?.nickname || notification?.from_user?.username}</Text>
+            <NotificationActionText action={notification?.type} reaction={notification?.type === "reaction" && notification?.object?.name}/>
           </YStack>
-          <View justifyContent="center" alignItems="center" w="$6" h="$6" br="$full" backgroundColor={badgeColors.comment} overflow="hidden">
-            <NotificationBadge action="comment" />
+          <View justifyContent="center" alignItems="center" w="$6" h="$6" br="$full" backgroundColor={badgeColors[notification?.type]} overflow="hidden">
+            <NotificationBadge action={notification?.type} />
           </View>
         </XStack>
         {notification?.type === "comment" && (
           <Text fz="$2" lh="$2" fw="$2" pl="$12">
-            Нет, брат это не так делается 🎥🦆
+            {notification?.object?.text}
           </Text>
         )}
       </YStack>

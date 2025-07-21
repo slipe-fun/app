@@ -1,38 +1,45 @@
 import { useState, useEffect } from "react";
 import { api } from "../lib/api";
 
-const unique = arr => [...new Map(arr.map(item => [item.date, item])).values()];
-
 export default function useFetchNotifications() {
     const [notifications, setNotifications] = useState([]);
-    const [page, setPage] = useState(1);
+    const [afterDay, setAfterDay] = useState("");
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState();
 
-    async function fetchNotifications() {
+    async function fetchNotifications(customAfterDay) {
+        setLoading(true);
         try {
-            setLoading(true);
-            const request = await api.v1.get(`/notifications/get?page=${page}&type=all`);
-            const localNotifications = request.data?.success || [];
+            const request = await api.v2.get(`/notifications?after_day=${typeof customAfterDay === "string" ? customAfterDay : afterDay}`);
+            const localNotifications = request.data || [];
             if (Object.keys(localNotifications).length === 0) return;
-            setNotifications(notifications => unique([...notifications, ...Object.values(localNotifications) || []]));
+            setNotifications(notifications => [...notifications, ...Object.values(localNotifications) || []]);
             setLoading(false);
         } catch (error) {
+            setLoading(false);
+            setError(error?.response?.data);
             throw error
         }
     }
 
     function refresh () {
         setNotifications([]);
-        setPage(1);
+        setAfterDay("")
+        fetchNotifications("");
     }
 
     function addPage() {
-        setPage(page => page + 1);
+        try {
+            const lastNotificationDate = notifications[notifications?.length - 1];
+            const lastDay = Object.keys(lastNotificationDate)[0];
+            if (lastDay) setAfterDay(lastDay);
+        } catch {}
     }
 
     useEffect(() => {
         fetchNotifications();
-    }, [page])
+        addPage();
+    }, [afterDay]);
 
-    return { notifications, page, addPage, refresh, loading }
+    return { notifications, error, addPage, refresh, loading }
 }

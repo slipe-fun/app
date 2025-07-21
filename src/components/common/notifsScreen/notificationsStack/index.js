@@ -9,10 +9,14 @@ import Animated, {
   withSpring,
 } from "react-native-reanimated";
 import { quickSpring } from "@constants/easings";
+import formatDate from "@lib/formatDate";
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
-const NotificationStack = () => {
+const NotificationStack = ({ notifications }) => {
+  const date = Object.keys(notifications)[0]
+  const notificationsList = notifications[date];
+
   const scale = useSharedValue(1);
 
   const animatedStyle = useAnimatedStyle(() => ({
@@ -46,7 +50,7 @@ const NotificationStack = () => {
           pv="$0"
         >
           <Text fw="$3" fz="$4" lh="$4" color="$white">
-            Сегодня{" "}
+            {formatDate(date)}{" "}
             <Text fw="$3" fz="$4" lh="$4" color="$secondaryText">
               30
             </Text>
@@ -69,8 +73,8 @@ const NotificationStack = () => {
       </XStack>
       <YStack f={1}>
         <YStack w="$full" gap="$6">
-          {Array.from({ length: 4 }).map((_, index) => (
-            <Notification />
+          {notificationsList?.map((notification, index) => (
+            <Notification notification={notification}/>
           ))}
         </YStack>
         <View

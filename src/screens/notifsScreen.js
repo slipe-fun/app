@@ -19,7 +19,7 @@ const NotifsScreen = () => {
       
       <FlashList
         data={notifications}
-        renderItem={({ item }) => <NotificationStack />}
+        renderItem={({ item }) => <NotificationStack notifications={item} />}
         keyExtractor={(item, index) => String(item.id ?? index)}
         estimatedItemSize={120}
         contentContainerStyle={{ paddingTop: headerHeight + 12, paddingBottom: footerHeight + 12 }}
