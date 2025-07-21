@@ -11,6 +11,7 @@ const gap = getVariableValue("$8", "space");
 const NotifsScreen = () => {
   const { notifications, addPage, refresh, loading } = useFetchNotifications();
   const headerHeight = useNotifsStore((state) => state.headerHeight);
+  const footerHeight = useNotifsStore((state) => state.footerHeight);
 
   return (
     <YStack f={1} backgroundColor="$black">
@@ -21,15 +22,14 @@ const NotifsScreen = () => {
         renderItem={({ item }) => <NotificationStack />}
         keyExtractor={(item, index) => String(item.id ?? index)}
         estimatedItemSize={120}
-        contentContainerStyle={{ paddingTop: headerHeight + 12, paddingBottom: 20 }}
+        contentContainerStyle={{ paddingTop: headerHeight + 12, paddingBottom: footerHeight + 12 }}
         ItemSeparatorComponent={() => <YStack height={gap} />}
         onEndReached={addPage}
         onEndReachedThreshold={0.5}
-        ListFooterComponent={<NotifsFooter count={notifications.length} />}
       />
+      <NotifsFooter count={notifications.length} />
     </YStack>
   );
 }
 
 export default NotifsScreen;
-  

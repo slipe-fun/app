@@ -8,6 +8,8 @@ import Animated, {
 } from "react-native-reanimated";
 import { quickSpring } from "@constants/easings";
 import * as Haptics from 'expo-haptics';
+import { useRef, useEffect } from "react";
+import useNotifsStore from "@stores/notifsScreen";
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
@@ -15,6 +17,10 @@ const NotifsFooter = ({ count }) => {
   const insets = useInsets();
 
   const scale = useSharedValue(1);
+
+  const setFooterHeight = useNotifsStore((state) => state.setFooterHeight);
+
+  const footerRef = useRef(null);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
@@ -29,12 +35,17 @@ const NotifsFooter = ({ count }) => {
     scale.value = withSpring(1, quickSpring);
   };
 
+  useEffect(() => {
+    setFooterHeight(footerRef.current?.getBoundingClientRect()?.height);
+  }, []);
+
   return (
     <View
       position="absolute"
       justifyContent="center"
       alignItems="center"
       bottom={0}
+      ref={footerRef}
       left={0}
       pt="$6"
       ph="$6"
