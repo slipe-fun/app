@@ -1,19 +1,10 @@
-import { useState, useCallback, useRef } from "react";
-import { YStack, Separator, Text } from "tamagui";
-import Animated, {
-  useSharedValue,
-  useAnimatedScrollHandler,
-  useAnimatedRef,
-} from "react-native-reanimated";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Platform, View } from "react-native";
+import { useCallback } from "react";
+import { YStack, Separator } from "tamagui";
 import { FlashList } from "@shopify/flash-list";
-import { NotifsDefaultHeader } from "../components/common/notifsScreen/header/default";
-import { NotifsAnimatedHeader } from "../components/common/notifsScreen/header/animated";
 import Notification from "../components/common/notifsScreen/notification";
 import useFetchNotifications from "@hooks/useFetchNotifications";
-
-const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
+import NotifsHeader from "@components/common/notifsScreen/header";
+import useNotifsStore from "@stores/notifsScreen";
 
 const NotificationsList = ({ notifications }) => {
   return (
@@ -32,14 +23,9 @@ const NotificationsList = ({ notifications }) => {
 };
 
 export function NotifsScreen() {
-  const scrollY = useSharedValue(0);
-  const insets = useSafeAreaInsets();
-  const { notifications, addPage, refresh } = useFetchNotifications();
-  const listRef = useAnimatedRef();
+  const { notifications, addPage, refresh, loading } = useFetchNotifications();
 
-  const onScroll = useAnimatedScrollHandler((event) => {
-    scrollY.value = event.contentOffset.y;
-  });
+  const headerHeight = useNotifsStore((state) => state.headerHeight);
 
   const onEndReached = useCallback(() => {
     addPage();
@@ -55,10 +41,6 @@ export function NotifsScreen() {
     />
   ), [notifications]);
 
-  const ListHeaderComponent = useCallback(() => (
-    <NotifsDefaultHeader scrollY={scrollY} refresh={refresh} />
-  ), []);
-
   const keyExtractor = useCallback((item) => item.id || Math.random().toString(), []);
 
   const getItemType = useCallback((item) => {
@@ -67,25 +49,19 @@ export function NotifsScreen() {
 
   return (
     <YStack f={1} backgroundColor="$black">
-      <NotifsAnimatedHeader scrollY={scrollY} refresh={refresh} />
-      
-      <AnimatedFlashList
-        ref={listRef}
+      <NotifsHeader refresh={refresh} loading={loading} />
+      <FlashList
         data={notifications}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
-        onScroll={onScroll}
-        scrollEventThrottle={16}
         contentContainerStyle={{
-          paddingTop: Platform.OS === "ios" ? insets.top : insets.top,
+          paddingTop: headerHeight,
         }}
         estimatedItemSize={100}
         onEndReached={onEndReached}
         onEndReachedThreshold={0.5}
-        ListHeaderComponent={ListHeaderComponent}
         getItemType={getItemType}
         showsVerticalScrollIndicator={false}
-        removeClippedSubviews={true}
         updateCellsBatchingPeriod={50}
         maxToRenderPerBatch={10}
         windowSize={11}

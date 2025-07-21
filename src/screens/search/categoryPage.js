@@ -13,7 +13,7 @@ import Animated, {
 const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
 
 const { width } = Dimensions.get("window");
-const headerHeight = width * (3/4);
+const headerHeight = width * 0.8;
 
 const CategoryPage = ({ route }) => {
   const { category } = route.params;

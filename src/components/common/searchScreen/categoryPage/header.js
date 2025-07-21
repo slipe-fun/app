@@ -13,7 +13,7 @@ import useCategoryAnimations from "@hooks/ui/useCategoryAnimations";
 import { getCategoryStats } from "@lib/getCategoryStats";
 
 const { width } = Dimensions.get("window");
-const headerHeight = width * 0.75;
+const headerHeight = width * 0.8;
 
 const sizes = {
   height: getVariableValue("$12", "size"),

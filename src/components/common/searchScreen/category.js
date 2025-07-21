@@ -30,7 +30,7 @@ const Category = ({ category }) => {
     <Button
       unstyled
       w="$full"
-      aspectRatio="4/3"
+      aspectRatio="5/4"
       alignItems="stretch"
       p="$0"
       overflow="hidden"

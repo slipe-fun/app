@@ -6,13 +6,16 @@ const unique = arr => [...new Map(arr.map(item => [item.date, item])).values()];
 export default function useFetchNotifications() {
     const [notifications, setNotifications] = useState([]);
     const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(true);
 
     async function fetchNotifications() {
         try {
+            setLoading(true);
             const request = await api.v1.get(`/notifications/get?page=${page}&type=all`);
             const localNotifications = request.data?.success || [];
             if (Object.keys(localNotifications).length === 0) return;
             setNotifications(notifications => unique([...notifications, ...Object.values(localNotifications) || []]));
+            setLoading(false);
         } catch (error) {
             throw error
         }
@@ -31,5 +34,5 @@ export default function useFetchNotifications() {
         fetchNotifications();
     }, [page])
 
-    return { notifications, page, addPage, refresh }
+    return { notifications, page, addPage, refresh, loading }
 }

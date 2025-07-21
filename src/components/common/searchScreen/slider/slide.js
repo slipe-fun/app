@@ -47,7 +47,7 @@ const SearchSliderSlide = ({ isActive, title, posts }) => {
           category: {
             blurhash: post?.blurhash,
             thumbnail: `${URLS.CDN_POSTS_URL}${post?.image}`,
-            name: title,
+            title: title,
             isSlides: true,
             posts,
           },
