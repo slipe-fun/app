@@ -8,13 +8,14 @@ import Animated, {
   useAnimatedStyle,
   withSpring,
 } from "react-native-reanimated";
+import { memo } from "react";
 import { quickSpring } from "@constants/easings";
 import formatDate from "@lib/formatDate";
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
 const NotificationStack = ({ notifications }) => {
-  const date = Object.keys(notifications)[0]
+  const date = Object.keys(notifications)[0];
   const notificationsList = notifications[date];
 
   const scale = useSharedValue(1);
@@ -74,46 +75,32 @@ const NotificationStack = ({ notifications }) => {
       <YStack f={1}>
         <YStack w="$full" gap="$6">
           {notificationsList?.map((notification, index) => (
-            <Notification notification={notification}/>
+            <Notification notification={notification} />
           ))}
         </YStack>
-        <View
-          mh="$7"
-          opacity={0.3}
-          f={1}
-          w="$full"
-          h="$4"
-          overflow="hidden"
-          borderBottomLeftRadius="$5"
-          borderBottomRightRadius="$5"
-        >
-          <MediaPreview
-            priority={FastImage.priority.low}
-            avatar
-            media="01cdea82-924f-49fd-8934-dd0b8a2fd569.jpg"
-            blurhash="ULF5]f%MtQxZ?^RkNaWVK5j[IVRjyDt7eSae"
-          />
-        </View>
-        <View
-          mh="$10.5"
-          opacity={0.1}
-          f={1}
-          w="$full"
-          h="$2"
-          overflow="hidden"
-          borderBottomLeftRadius="$4"
-          borderBottomRightRadius="$4"
-        >
-          <MediaPreview
-            priority={FastImage.priority.low}
-            avatar
-            media="01cdea82-924f-49fd-8934-dd0b8a2fd569.jpg"
-            blurhash="ULF5]f%MtQxZ?^RkNaWVK5j[IVRjyDt7eSae"
-          />
-        </View>
+        {Array.from(6 - notificationsList.length).map((notification, index) => (
+          <View
+            key={index}
+            mh={`${index === 0 ? "$7" : "$10.5"}`}
+            opacity={index === 0 ? 0.3 : 0.1}
+            f={1}
+            w="$full"
+            h={`${index === 0 ? "$4" : "$2"}`}
+            overflow="hidden"
+            borderBottomLeftRadius={index === 0 ? "$5" : "$4"}
+            borderBottomRightRadius={index === 0 ? "$5" : "$4"}
+          >
+            <MediaPreview
+              priority={FastImage.priority.low}
+              avatar
+              media={notification?.from_user?.avatar}
+              blurhash={notification?.from_user?.avatar_information?.blurhash}
+            />
+          </View>
+        ))}
       </YStack>
     </AnimatedYStack>
   );
 };
 
-export default NotificationStack;
+export default memo(NotificationStack);

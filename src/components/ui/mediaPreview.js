@@ -3,15 +3,10 @@ import { StyleSheet } from "react-native";
 import { URLS } from "@constants/urls";
 import FastImage from "react-native-fast-image";
 import { Blurhash } from "react-native-blurhash";
-import Animated, {
-  useAnimatedStyle,
-  withSpring,
-  fastSpring,
-} from "react-native-reanimated";
+import Animated from "react-native-reanimated";
 import { Video } from "react-native-video";
 import { getFadeIn, getFadeOut } from "@constants/fadeAnimations";
 
-const AnimatedFastImage = Animated.createAnimatedComponent(FastImage);
 const AnimatedBlurhash = Animated.createAnimatedComponent(Blurhash);
 
 const MediaVideo = memo(({ source, active, muted, onLoad }) => (
@@ -29,17 +24,14 @@ const MediaVideo = memo(({ source, active, muted, onLoad }) => (
 ));
 
 const MediaImage = memo(({ source, blurhash, onLoad, loaded }) => {
-  const animatedOpacity = useAnimatedStyle(() => ({
-    opacity: withSpring(loaded ? 1 : 0, fastSpring),
-  }));
 
   return (
     <>
-      <AnimatedFastImage
+      <FastImage
         resizeMode="cover"
         source={source}
         onLoadEnd={onLoad}
-        style={[StyleSheet.absoluteFill, animatedOpacity]}
+        style={StyleSheet.absoluteFill}
       />
       {!loaded && blurhash && (
         <AnimatedBlurhash

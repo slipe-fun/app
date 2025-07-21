@@ -4,7 +4,6 @@ import { XStack, YStack, View, Text, Image } from "tamagui";
 import FastImage from "react-native-fast-image";
 import Icon from "@components/ui/icon";
 import { memo } from "react";
-import { URLS } from "@constants/urls";
 
 const badgeColors = {
   reaction: "$primary",
@@ -59,7 +58,7 @@ const Notification = ({ notification }) => {
       <View opacity={0.15} style={StyleSheet.absoluteFill}>
         <MediaPreview
           avatar
-          media={URLS.CDN_AVATARS_URL + notification?.from_user?.avatar}
+          media={notification?.from_user?.avatar}
           blurhash={notification?.from_user?.avatar_information?.blurhash}
           priority={FastImage.priority.normal}
         />
@@ -67,12 +66,25 @@ const Notification = ({ notification }) => {
       <YStack gap="$5.5" p="$5.5" w="$full">
         <XStack w="$full" alignItems="flex-start" gap="$5.5">
           <View w="$13" h="$13" br="$full" overflow="hidden">
-            <MediaPreview
-              avatar
-              media={URLS.CDN_AVATARS_URL + notification?.from_user?.avatar}
-              blurhash={notification?.from_user?.avatar_information?.blurhash}
-              priority={FastImage.priority.normal}
-            />
+            {notification?.from_user?.avatar ? (
+              <MediaPreview
+                avatar
+                media={notification?.from_user?.avatar}
+                blurhash={notification?.from_user?.avatar_information?.blurhash}
+                priority={FastImage.priority.normal}
+              />
+            ) : (
+              <View
+                backgroundColor="$black"
+                justifyContent="center"
+                alignItems="center"
+                w="$13"
+                h="$13"
+                br="$full"
+              >
+                <Icon icon="profile" size={24} />
+              </View>
+            )}
           </View>
           <YStack f={1} justifyContent="center" gap="$1.5">
             <Text color="$white" fw="$3" fz="$3" lh="$3">{notification?.from_user?.nickname || notification?.from_user?.username}</Text>
