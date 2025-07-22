@@ -8,10 +8,11 @@ import Animated, {
 } from "react-native-reanimated";
 import { quickSpring } from "@constants/easings";
 import * as Haptics from 'expo-haptics';
+import { GradientBorder } from "@components/ui/gradientBorder";
 import { useRef, useEffect } from "react";
 import useNotifsStore from "@stores/notifsScreen";
 
-const AnimatedView = Animated.createAnimatedComponent(View);
+const AnimatedGradientBorder = Animated.createAnimatedComponent(GradientBorder);
 
 const NotifsFooter = ({ count }) => {
   const insets = useInsets();
@@ -65,12 +66,13 @@ const NotifsFooter = ({ count }) => {
           bottom: 0,
         }}
       />
-      <AnimatedView
+      <AnimatedGradientBorder
         onPressIn={handlePressIn}
         onPressOut={handlePressOut}
+        isButton
         h="$13"
         br="$full"
-        backgroundColor="$lessGlassButton"
+        backgroundColor="$glassButton"
         ph="$7.5"
         justifyContent="center"
         alignItems="center"
@@ -79,7 +81,7 @@ const NotifsFooter = ({ count }) => {
         <Text color="$color" fw="$3" fz="$4" lh="$4">
           {count} уведомлений
         </Text>
-      </AnimatedView>
+      </AnimatedGradientBorder>
     </View>
   );
 };

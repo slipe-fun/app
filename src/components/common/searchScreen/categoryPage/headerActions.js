@@ -1,14 +1,15 @@
-import { XStack } from "tamagui";
+import { XStack, useTheme } from "tamagui";
 import Icon from "@components/ui/icon";
 import { useNavigation } from "@react-navigation/native";
 import useInsets from "@hooks/ui/useInsets";
-import useBlurhashColor from "@hooks/ui/useBlurhashColor";
-import ColorfullyView from "@components/ui/colorfullyView";
+import { GradientBorder } from "@components/ui/gradientBorder";
 
-const CategoryPageHeaderActions = ({ blurhash, isSlides }) => {
+const CategoryPageHeaderActions = ({ isSlides }) => {
   const navigation = useNavigation();
+  const theme = useTheme();
   const insets = useInsets();
-  const color = useBlurhashColor(blurhash);
+
+  const color = theme.color.get();
 
   const handleBack = () => {
     navigation.goBack();
@@ -27,14 +28,13 @@ const CategoryPageHeaderActions = ({ blurhash, isSlides }) => {
       w="$full"
       pt={insets.top}
     >
-      <ColorfullyView
-        unstyled
+      <GradientBorder
         isButton
         w="$13"
         onPress={handleBack}
         h="$13"
-        color={color}
         br="$full"
+        backgroundColor="$glassButton"
         justifyContent="center"
         alignItems="center"
         pressStyle={{
@@ -42,15 +42,14 @@ const CategoryPageHeaderActions = ({ blurhash, isSlides }) => {
           opacity: 0.9,
         }}
       >
-        <Icon icon="chevronLeft" size={26} />
-      </ColorfullyView>
+        <Icon icon="chevronLeft" size={26} color={color} />
+      </GradientBorder>
       {!isSlides && (
-        <ColorfullyView
-          unstyled
+        <GradientBorder
           isButton
           w="$13"
           h="$13"
-          color={color}
+          backgroundColor="$glassButton"
           br="$full"
           justifyContent="center"
           alignItems="center"
@@ -59,8 +58,8 @@ const CategoryPageHeaderActions = ({ blurhash, isSlides }) => {
             opacity: 0.9,
           }}
         >
-          <Icon icon="heart" size={26} />
-        </ColorfullyView>
+          <Icon icon="heart" size={26} color={color} />
+        </GradientBorder>
       )}
     </XStack>
   );

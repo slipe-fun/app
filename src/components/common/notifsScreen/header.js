@@ -1,4 +1,4 @@
-import { Button, Text, XStack, YStack } from "tamagui";
+import { Text, XStack, YStack } from "tamagui";
 import Icon from "@components/ui/icon";
 import { useEffect, useRef } from "react";
 import Animated, {
@@ -13,6 +13,7 @@ import useNotifsStore from "@stores/notifsScreen";
 import useInsets from "@hooks/ui/useInsets";
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet } from "react-native";
+import { GradientBorder } from "@components/ui/gradientBorder";
 
 const AnimatedText = Animated.createAnimatedComponent(Text);
 
@@ -59,21 +60,21 @@ const NotifsHeader = ({ refresh, loading }) => {
         end={{ x: 0, y: 1 }}
         style={StyleSheet.absoluteFill}
       />
-      <Button
+      <GradientBorder
         p={0}
-        unstyled
         justifyContent="center"
         alignItems="center"
         h="$13"
         w="$13"
         br="$full"
         onPress={handleBack}
-        backgroundColor="$lessGlassButton"
+        backgroundColor="$glassButton"
         pressStyle={{
           scale: 0.9,
         }}
-        icon={<Icon size={26} icon="chevronLeft" color={color} />}
-      />
+      >
+        <Icon size={26} icon="chevronLeft" color={color} />
+      </GradientBorder>
       <YStack gap='$1' h="$12" justifyContent="center" alignItems="center">
         <AnimatedText color="$color" fw="$3" fz="$5" lh="$5" style={animatedTitleStyle}>
           Уведомления
@@ -82,16 +83,15 @@ const NotifsHeader = ({ refresh, loading }) => {
           Загрузка...
         </AnimatedText>
       </YStack>
-      <Button
+      <GradientBorder
         p={0}
-        unstyled
         justifyContent="center"
         alignItems="center"
         h="$13"
         w="$13"
         pointerEvents={loading ? "none" : "auto"}
         br="$full"
-        backgroundColor="$lessGlassButton"
+        backgroundColor="$glassButton"
         pressStyle={{
           scale: 0.9,
         }}
@@ -99,12 +99,11 @@ const NotifsHeader = ({ refresh, loading }) => {
           rotation.value = withSpring(rotation.value + 180, fastSpring);
           refresh();
         }}
-        icon={
-          <Animated.View style={animatedIconStyle}>
-            <Icon size={28} icon="reload" color={color} />
-          </Animated.View>
-        }
-      />
+      >
+        <Animated.View style={animatedIconStyle}>
+          <Icon size={28} icon="reload" color={color} />
+        </Animated.View>
+      </GradientBorder>
     </XStack>
   );
 };
