@@ -22,12 +22,14 @@ const CaptureScreen = () => {
     }
   }, []);
 
-  const handleSettingsOpen = () => {
-    Linking.openSettings()
-  }
+  const handleSettingsOpen = async () => {
+    try {
+      await Linking.openSettings();
+    } catch {}
+  };
 
   return (
-    <YStack 
+    <YStack
       ref={ref}
       f={1}
       br="$12"
@@ -35,7 +37,9 @@ const CaptureScreen = () => {
       justifyContent="center"
       overflow="hidden"
     >
-      <CaptureCamera permission={permission} viewHeight={viewHeight} />
+      {permission === "granted" && (
+        <CaptureCamera permission={permission} viewHeight={viewHeight} />
+      )}
       <CaptureCameraHeader />
       {permission === "granted" ? (
         <>
@@ -44,7 +48,15 @@ const CaptureScreen = () => {
         </>
       ) : (
         <>
-          <ShaderShi style={{ width: "100%", height: "100%", position: "absolute", opacity: 0.5 }} colors={["#8257DB", "#FF9F0A", "#FF1A1A", "#FF668B"]} />
+          <ShaderShi
+            style={{
+              width: "100%",
+              height: "100%",
+              position: "absolute",
+              opacity: 0.5,
+            }}
+            colors={["#8257DB", "#FF9F0A", "#FF1A1A", "#FF668B"]}
+          />
           <View
             position="absolute"
             left={0}
@@ -52,9 +64,24 @@ const CaptureScreen = () => {
             p="$6"
             bottom={0}
             zIndex="$1"
+            pointerEvents="auto"
           >
-            <Button br="$full" backgroundColor="$lessGlassButton" alignItems="center" justifyContent="center" unstyled onPress={handleSettingsOpen} w="$full" h="$13"><Text fw="$3" fz="$3" lh="$3">Настройки</Text></Button>
-            </View>
+            <Button
+              br="$full"
+              backgroundColor="$lessGlassButton"
+              alignItems="center"
+              justifyContent="center"
+              unstyled
+              onPress={handleSettingsOpen}
+              w="$full"
+              h="$13"
+              pointerEvents="box-none"
+            >
+              <Text fw="$3" fz="$3" lh="$3">
+                Настройки
+              </Text>
+            </Button>
+          </View>
         </>
       )}
     </YStack>

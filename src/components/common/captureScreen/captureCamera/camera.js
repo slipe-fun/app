@@ -94,20 +94,19 @@ const CaptureCamera = ({ viewHeight, permission }) => {
         >
           <CameraOverlay isBlurring={isBlurring} snapshotUri={snapshotUri} />
           <CameraSnapshotColor enabled={init} cameraRef={camRef} />
-          {permission === "granted" && (
-            <AnimatedCamera
-              ref={camRef}
-              style={{ flex: 1 }}
-              device={device}
-              isActive={active && !content}
-              format={format}
-              audio={true}
-              photoQualityBalance="balance"
-              {...(formatIdx === 1 ? { photo: true } : { video: true })}
-              animatedProps={animatedProps}
-              onInitialized={() => setInit(true)}
-            />
-          )}
+
+          <AnimatedCamera
+            ref={camRef}
+            style={{ flex: 1 }}
+            device={device}
+            isActive={active && !content}
+            format={format}
+            audio={true}
+            photoQualityBalance="balance"
+            {...(formatIdx === 1 ? { photo: true } : { video: true })}
+            animatedProps={animatedProps}
+            onInitialized={() => setInit(true)}
+          />
         </AnimatedView>
       </>
     </GestureDetector>
