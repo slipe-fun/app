@@ -1,13 +1,12 @@
 import { XStack } from "tamagui";
-import ColorfullyView from "@components/ui/colorfullyView";
 import useCaptureStore from "@stores/captureScreen";
 import Icon from "@components/ui/icon";
 import * as Haptics from "expo-haptics";
 import { useNavigation } from "@react-navigation/native";
 import AnimatedMenuButton from "@components/ui/dropdownMenu";
+import { GradientBorder } from "@components/ui/gradientBorder";
 
 const CaptureCameraHeader = () => {
-  const color = useCaptureStore((s) => s.color);
   const content = useCaptureStore((s) => s.content);
   const setContent = useCaptureStore((s) => s.setContent);
   const setCategory = useCaptureStore((s) => s.setCategory);
@@ -45,19 +44,19 @@ const CaptureCameraHeader = () => {
       w="$full"
       p="$6"
     >
-      <ColorfullyView
+      <GradientBorder
         unstyled
         w="$13"
         h="$13"
+        backgroundColor="$glassButton"
         br="$full"
         isButton
         onPress={handlePress}
         justifyContent="center" 
-        alignItems="center"
-        color={color}
+        alignItems="center" 
       >
         <Icon icon="chevronLeft" size={26} />
-      </ColorfullyView>
+      </GradientBorder>
       {content ? <AnimatedMenuButton setActiveItem={setCategory} color={color} /> : null}
     </XStack>
   );

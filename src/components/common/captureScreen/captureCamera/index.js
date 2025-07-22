@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { Button, Text, YStack, View } from "tamagui";
+import { YStack } from "tamagui";
 
 import useCameraPermission from "@hooks/ui/useCameraPermission";
 
@@ -7,8 +7,7 @@ import CaptureCamera from "./camera";
 import CaptureCameraHeader from "../cameraHeader";
 import CaptureCameraFooter from "../cameraFooter";
 import CaptureCameraResult from "./result";
-import ShaderShi from "@components/ui/shaderShi";
-import { Linking } from "react-native";
+import CaptureCameraDenied from "./cameraDenied";
 
 const CaptureScreen = () => {
   const ref = useRef(null);
@@ -21,12 +20,6 @@ const CaptureScreen = () => {
       setViewHeight(ref.current.getBoundingClientRect().height);
     }
   }, []);
-
-  const handleSettingsOpen = async () => {
-    try {
-      await Linking.openSettings();
-    } catch {}
-  };
 
   return (
     <YStack
@@ -47,42 +40,7 @@ const CaptureScreen = () => {
           <CaptureCameraFooter />
         </>
       ) : (
-        <>
-          <ShaderShi
-            style={{
-              width: "100%",
-              height: "100%",
-              position: "absolute",
-              opacity: 0.5,
-            }}
-            colors={["#8257DB", "#FF9F0A", "#FF1A1A", "#FF668B"]}
-          />
-          <View
-            position="absolute"
-            left={0}
-            right={0}
-            p="$6"
-            bottom={0}
-            zIndex="$1"
-            pointerEvents="auto"
-          >
-            <Button
-              br="$full"
-              backgroundColor="$lessGlassButton"
-              alignItems="center"
-              justifyContent="center"
-              unstyled
-              onPress={handleSettingsOpen}
-              w="$full"
-              h="$13"
-              pointerEvents="box-none"
-            >
-              <Text fw="$3" fz="$3" lh="$3">
-                Настройки
-              </Text>
-            </Button>
-          </View>
-        </>
+        <CaptureCameraDenied /> 
       )}
     </YStack>
   );
