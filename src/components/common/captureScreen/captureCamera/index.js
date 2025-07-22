@@ -20,6 +20,7 @@ import useBestCameraFormat from "@hooks/ui/useBestCameraFormat";
 import CameraOverlay from "./cameraOverlay";
 import CameraSnapshotColor from "./cameraSnapshotColor";
 import CaptureCameraFooter from "../cameraFooter";
+import CapturePermissionDenied from "./permissionDenied";
 import CaptureCameraResult from "./result";
 import { normalSpring } from "@constants/easings";
 import { Dimensions } from "react-native";
@@ -112,7 +113,7 @@ const CaptureCamera = () => {
           >
             <CameraOverlay isBlurring={isBlurring} snapshotUri={snapshotUri} />
             <CameraSnapshotColor enabled={init} cameraRef={camRef} />
-            {permission === "granted" && (
+            {permission === "granted" ? (
               <AnimatedCamera
                 ref={camRef}
                 style={{ flex: 1 }}
@@ -125,6 +126,8 @@ const CaptureCamera = () => {
               animatedProps={animatedProps}
               onInitialized={() => setInit(true)}
             />
+          ) : (
+            <CapturePermissionDenied />
           )}
           </AnimatedView>
         </>
