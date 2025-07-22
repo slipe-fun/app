@@ -16,7 +16,7 @@ const ColorfullyView = memo(({ children, isButton, color, ...props }) => {
         bottom={0}
         br={borderRadius}
         borderWidth={1}
-        borderColor="rgba(255,255,255,0.1)"
+        borderColor="rgba(255,255,255,0.12)"
         zIndex="$2"
         pointerEvents="none"
       />
@@ -50,7 +50,7 @@ const ColorfullyView = memo(({ children, isButton, color, ...props }) => {
         bottom={0}
         br={borderRadius}
         borderWidth={1}
-        borderColor="rgba(255,255,255,0.2)"
+        borderColor="rgba(255,255,255,0.12)"
         zIndex="$2"
         pointerEvents="none"
       />

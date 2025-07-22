@@ -43,12 +43,12 @@ const CaptureCameraHeader = () => {
       alignItems="flex-start"
       zIndex="$2"
       w="$full"
-      p="$6.5"
+      p="$6"
     >
       <ColorfullyView
         unstyled
-        w="$12"
-        h="$12"
+        w="$13"
+        h="$13"
         br="$full"
         isButton
         onPress={handlePress}
@@ -56,7 +56,7 @@ const CaptureCameraHeader = () => {
         alignItems="center"
         color={color}
       >
-        <Icon icon="chevronLeft" size={24} />
+        <Icon icon="chevronLeft" size={26} />
       </ColorfullyView>
       {content ? <AnimatedMenuButton setActiveItem={setCategory} color={color} /> : null}
     </XStack>
