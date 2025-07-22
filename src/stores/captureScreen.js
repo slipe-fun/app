@@ -1,8 +1,6 @@
 import { create } from 'zustand'
 
 const useCaptureStore = create((set) => ({
-  color: '#000000',
-  setColor: (newColor) => set({ color: newColor }), 
   format: 1,
   setFormat: (newFormat) => set({ format: newFormat }),
   facing: 'back',

@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   useSharedValue,
@@ -19,7 +19,7 @@ import useBestCameraFormat from "@hooks/ui/useBestCameraFormat";
 import { normalSpring } from "@constants/easings";
 
 import CameraOverlay from "./cameraOverlay";
-import CameraSnapshotColor from "./cameraSnapshotColor";
+import { GradientBorder } from "@components/ui/gradientBorder";
 
 const AnimatedCamera = Animated.createAnimatedComponent(Camera);
 const AnimatedView = Animated.createAnimatedComponent(View);
@@ -28,8 +28,6 @@ const { width } = Dimensions.get("window");
 const aspectWidth = width * (4 / 3);
 
 const CaptureCamera = ({ viewHeight, permission }) => {
-  const [init, setInit] = useState(false);
-
   const formatIdx = useCaptureStore((s) => s.format);
   const facing = useCaptureStore((s) => s.facing);
   const aspect = useCaptureStore((s) => s.aspect);
@@ -74,18 +72,12 @@ const CaptureCamera = ({ viewHeight, permission }) => {
 
   return (
     <GestureDetector gesture={gesture}>
-      <>
-        <View
-          position="absolute"
-          top={0}
-          left={0}
-          right={0}
-          bottom={0}
-          br="$12"
-          borderWidth={1}
-          borderColor="rgba(255,255,255,0.12)"
-          zIndex="$2"
-        />
+      <GradientBorder
+        f={1}
+        br="$12"
+        justifyContent="center"
+        alignItems="center"
+      >
         <AnimatedView
           w={width}
           position="relative"
@@ -93,8 +85,6 @@ const CaptureCamera = ({ viewHeight, permission }) => {
           style={animatedCameraWrapperStyle}
         >
           <CameraOverlay isBlurring={isBlurring} snapshotUri={snapshotUri} />
-          <CameraSnapshotColor enabled={init} cameraRef={camRef} />
-
           <AnimatedCamera
             ref={camRef}
             style={{ flex: 1 }}
@@ -105,10 +95,9 @@ const CaptureCamera = ({ viewHeight, permission }) => {
             photoQualityBalance="balance"
             {...(formatIdx === 1 ? { photo: true } : { video: true })}
             animatedProps={animatedProps}
-            onInitialized={() => setInit(true)}
           />
         </AnimatedView>
-      </>
+      </GradientBorder>
     </GestureDetector>
   );
 };

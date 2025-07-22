@@ -48,7 +48,7 @@ const CaptureCameraHeader = () => {
         unstyled
         w="$13"
         h="$13"
-        backgroundColor="$glassButton"
+        backgroundColor="$glassButtonDark"
         br="$full"
         isButton
         onPress={handlePress}
@@ -57,7 +57,7 @@ const CaptureCameraHeader = () => {
       >
         <Icon icon="chevronLeft" size={26} />
       </GradientBorder>
-      {content ? <AnimatedMenuButton setActiveItem={setCategory} color={color} /> : null}
+      {content ? <AnimatedMenuButton setActiveItem={setCategory} /> : null}
     </XStack>
   );
 };

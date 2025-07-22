@@ -1,7 +1,7 @@
-import ColorfullyView from "@components/ui/colorfullyView";
 import useCaptureStore from "@stores/captureScreen";
 import { View, Text } from "tamagui";
 import { memo } from "react";
+import { GradientBorder } from "@components/ui/gradientBorder";
 import * as Haptics from "expo-haptics";
 
 import Animated, { FadeInUp, FadeOutDown } from "react-native-reanimated";
@@ -11,7 +11,6 @@ const AnimatedText = Animated.createAnimatedComponent(Text);
 const AnimatedView = Animated.createAnimatedComponent(View);
 
 const AspectButton = () => {
-  const color = useCaptureStore((s) => s.color);
   const aspect = useCaptureStore((s) => s.aspect);
   const formatIdx = useCaptureStore((s) => s.format);
   const setAspect = useCaptureStore((s) => s.setAspect);
@@ -30,18 +29,17 @@ const AspectButton = () => {
       justifyContent="center"
       alignItems="center"
     >
-      <ColorfullyView
-        unstyled
+      <GradientBorder
         w="$13"
         h="$13"
         br="$full"
+        backgroundColor="$glassButtonDark"
         isButton
         onPress={handlePress}
         textAlign="center"
         justifyContent="center"
         alignItems="center"
         position="relative"
-        color={color}
         overflow="hidden"
         flexDirection="row"
       >
@@ -73,7 +71,7 @@ const AspectButton = () => {
             </AnimatedText>
           ))}
         </View>
-      </ColorfullyView>
+      </GradientBorder>
     </AnimatedView>
   );
 };

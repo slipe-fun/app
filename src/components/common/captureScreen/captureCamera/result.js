@@ -13,7 +13,7 @@ const CaptureCameraResult = () => {
       <Video
         source={{ uri: content }}
         repeat
-        resizeMode="cover"
+        resizeMode="contain"
         style={[StyleSheet.absoluteFill, {zIndex: 10 }]}
       />
     ) : (
@@ -27,7 +27,7 @@ const CaptureCameraResult = () => {
         right={0}
         left={0}
         bottom={0}
-        resizeMethod="resize"
+        resizeMethod="contain"
         source={{ uri: content }}
       />
     )

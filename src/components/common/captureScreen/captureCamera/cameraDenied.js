@@ -30,7 +30,7 @@ const CaptureCameraDenied = () => {
       >
         <GradientBorder
           br="$full"
-          backgroundColor="$glassButton"
+          backgroundColor="$glassButtonDark"
           justifyContent="center"
           alignItems="center"
           w="$23.5"
@@ -46,8 +46,8 @@ const CaptureCameraDenied = () => {
             textAlign="center"
             fw="$2"
             color="$transparentText"
-            fz="$4"
-            lh="$4"
+            fz="$2"
+            lh="$2"
           >
             Нажмите Настройки {">"} Разрешения, и разрешите доступ к камере
           </Text>
@@ -69,7 +69,7 @@ const CaptureCameraDenied = () => {
           justifyContent="center"
           w="$full"
           h="$13"
-          backgroundColor="$glassButton"
+          backgroundColor="$glassButtonDark"
           onPress={handlePressIn}
           pressStyle={{
             scale: 0.98,
