@@ -20,11 +20,11 @@ const ProfileInfoBlock = () => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <View gap="$3">
+          <View gap="$4">
             <Text fz="$2" lh="$2" fw="$2" color="$secondaryText">
               Имя пользователя
             </Text>
-            <Text fz="$2" lh="$2" fw="$2" color="$color">
+            <Text fz="$3" lh="$3" fw="$2" color="$color">
               @{user?.username}
             </Text>
           </View>
@@ -44,11 +44,11 @@ const ProfileInfoBlock = () => {
             <Icon icon="clipboard" size={26} color={color} />
           </Button>
         </View>
-        <View gap="$3">
+        <View gap="$4">
           <Text fz="$2" lh="$2" fw="$2" color="$secondaryText">
             Обо мне
           </Text>
-          <Text fz="$2" lh="$2" fw="$2" color="$color">
+          <Text fz="$3" lh="$3" fw="$2" color="$color">
             {user?.description}
           </Text>
         </View>
