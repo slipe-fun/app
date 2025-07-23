@@ -20,11 +20,11 @@ const ProfileInfoBlock = () => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <View gap="$4">
-            <Text fz="$2" lh="$2" color="$secondaryText">
+          <View gap="$3">
+            <Text fz="$2" lh="$2" fw="$2" color="$secondaryText">
               Имя пользователя
             </Text>
-            <Text fz="$2" lh="$2" fw="$3" color="$color">
+            <Text fz="$2" lh="$2" fw="$2" color="$color">
               @{user?.username}
             </Text>
           </View>
@@ -37,18 +37,18 @@ const ProfileInfoBlock = () => {
             br="$full"
             justifyContent="center"
             alignItems="center"
-            w="$12"
-            h="$12"
+            w="$13"
+            h="$13"
             backgroundColor="$innerBlock"
           >
-            <Icon icon="qrcode" size={24} color={color} />
+            <Icon icon="clipboard" size={26} color={color} />
           </Button>
         </View>
-        <View gap="$4">
-          <Text fz="$2" lh="$2" color="$secondaryText">
+        <View gap="$3">
+          <Text fz="$2" lh="$2" fw="$2" color="$secondaryText">
             Обо мне
           </Text>
-          <Text fz="$2" lh="$2" fw="$3" color="$color">
+          <Text fz="$2" lh="$2" fw="$2" color="$color">
             {user?.description}
           </Text>
         </View>
