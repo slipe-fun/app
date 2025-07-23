@@ -27,7 +27,7 @@ const AnimatedView = Animated.createAnimatedComponent(View);
 const { width } = Dimensions.get("window");
 const aspectWidth = width * (4 / 3);
 
-const CaptureCamera = ({ viewHeight, permission }) => {
+const CaptureCamera = ({ viewHeight }) => {
   const formatIdx = useCaptureStore((s) => s.format);
   const facing = useCaptureStore((s) => s.facing);
   const aspect = useCaptureStore((s) => s.aspect);
@@ -54,8 +54,6 @@ const CaptureCamera = ({ viewHeight, permission }) => {
   const animatedCameraWrapperStyle = useAnimatedStyle(() => ({
     height: interpolate(aspectValue.value, [0, 1], [viewHeight, aspectWidth]),
   }));
-
-  console.log("permission", permission);
 
   useEffect(() => {
     applyCameraBlur();

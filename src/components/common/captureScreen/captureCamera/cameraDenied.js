@@ -1,7 +1,7 @@
 import Icon from "@components/ui/icon";
 import ShaderShi from "@components/ui/shaderShi";
 import { Linking } from "react-native";
-import { Button, Text, YStack, View } from "tamagui";
+import { Text, YStack, View } from "tamagui";
 import * as Haptics from "expo-haptics";
 import { GradientBorder } from "@components/ui/gradientBorder";
 
@@ -73,7 +73,7 @@ const CaptureCameraDenied = () => {
           onPress={handlePressIn}
           pressStyle={{
             scale: 0.98,
-            opacity: 0.9,
+            opacity: 0.9
           }}
           isButton
         >

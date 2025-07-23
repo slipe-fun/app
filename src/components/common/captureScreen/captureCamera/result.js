@@ -2,6 +2,7 @@ import { Image } from "tamagui";
 import useCaptureStore from "@stores/captureScreen";
 import Video from "react-native-video";
 import { StyleSheet } from "react-native";
+import FastImage from "react-native-fast-image";
 
 const CaptureCameraResult = () => {
   const content = useCaptureStore((s) => s.content);
@@ -27,7 +28,7 @@ const CaptureCameraResult = () => {
         right={0}
         left={0}
         bottom={0}
-        resizeMethod="contain"
+        resizeMethod={FastImage.resizeMode.contain}
         source={{ uri: content }}
       />
     )
