@@ -1,7 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { useProfileStore } from "@stores/profileScreen";
-import { useDerivedValue, interpolate, useAnimatedStyle } from "react-native-reanimated";
-import { Canvas, Image, useImage, Group, Blur } from "@shopify/react-native-skia";
+import { useState, useEffect, useRef } from "react";
+import { useProfileStore } from     "@stores/profileScreen";
+import {
+  useDerivedValue,
+  interpolate,
+  useAnimatedStyle,
+} from "react-native-reanimated";
+import {
+  Canvas,
+  Image,
+  useImage,
+  Group,
+  Blur,
+} from "@shopify/react-native-skia";
 import { URLS } from "@constants/urls";
 import Animated from "react-native-reanimated";
 import { Blurhash } from "react-native-blurhash";
@@ -12,12 +22,14 @@ import { getFadeIn, getFadeOut } from "@constants/fadeAnimations";
 const AnimatedView = Animated.createAnimatedComponent(View);
 const AnimatedBlurhash = Animated.createAnimatedComponent(Blurhash);
 
-const size = getVariableValue("$24", "size");
 const padding = getVariableValue("$6", "space");
 
 const ProfileAvatar = ({ scrollY }) => {
   const user = useProfileStore((state) => state.user);
+
   const [isLoaded, setIsLoaded] = useState(false);
+  const [size, setSize] = useState(140);
+  const ref = useRef();
 
   const image = useImage(`${URLS.CDN_AVATARS_URL}${user?.avatar}`);
 
@@ -33,13 +45,34 @@ const ProfileAvatar = ({ scrollY }) => {
 
   const scale = useAnimatedStyle(() => {
     return {
-      transform: [{ scale: interpolate(scrollY.value, [0, size + padding], [1, 0.5], "clamp") }],
+      transform: [
+        {
+          scale: interpolate(
+            scrollY.value,
+            [0, size + padding],
+            [1, 0.5],
+            "clamp"
+          ),
+        },
+      ],
       opacity: interpolate(scrollY.value, [0, size + padding], [1, 0], "clamp"),
     };
   }, [scrollY]);
 
+  useEffect(() => {
+    setSize(ref.current?.getBoundingClientRect()?.width);
+  }, [ref]);
+
   return (
-    <AnimatedView transformOrigin="bottom" overflow="hidden" br="$full" style={scale}>
+    <AnimatedView
+      ref={ref}
+      w="$24"
+      aspectRatio="1/1"
+      transformOrigin="bottom"
+      overflow="hidden"
+      br="$full"
+      style={scale}
+    >
       <Canvas style={{ width: size, height: size }}>
         <Group origin={{ x: size / 2, y: size / 2 }}>
           <Image
@@ -55,11 +88,11 @@ const ProfileAvatar = ({ scrollY }) => {
       </Canvas>
 
       {!isLoaded && (
-        <AnimatedBlurhash   
+        <AnimatedBlurhash
           blurhash={user?.avatar_information?.blurhash}
           style={[StyleSheet.absoluteFill, { zIndex: 10 }]}
           decodeAsync
-          exiting={getFadeOut()} 
+          exiting={getFadeOut()}
           entering={getFadeIn()}
         />
       )}
