@@ -1,0 +1,70 @@
+import React, { useState, useEffect } from "react";
+import { useProfileStore } from "@stores/profileScreen";
+import { useDerivedValue, interpolate, useAnimatedStyle } from "react-native-reanimated";
+import { Canvas, Image, useImage, Group, Blur } from "@shopify/react-native-skia";
+import { URLS } from "@constants/urls";
+import Animated from "react-native-reanimated";
+import { Blurhash } from "react-native-blurhash";
+import { getVariableValue, View } from "tamagui";
+import { StyleSheet } from "react-native";
+import { getFadeIn, getFadeOut } from "@constants/fadeAnimations";
+
+const AnimatedView = Animated.createAnimatedComponent(View);
+const AnimatedBlurhash = Animated.createAnimatedComponent(Blurhash);
+
+const size = getVariableValue("$24", "size");
+const padding = getVariableValue("$6", "space");
+
+const ProfileAvatar = ({ scrollY }) => {
+  const user = useProfileStore((state) => state.user);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const image = useImage(`${URLS.CDN_AVATARS_URL}${user?.avatar}`);
+
+  useEffect(() => {
+    if (image) {
+      setIsLoaded(true);
+    }
+  }, [image]);
+
+  const blur = useDerivedValue(() => {
+    return interpolate(scrollY.value, [0, size + padding], [0, 16], "clamp");
+  }, [scrollY]);
+
+  const scale = useAnimatedStyle(() => {
+    return {
+      transform: [{ scale: interpolate(scrollY.value, [0, size + padding], [1, 0.5], "clamp") }],
+      opacity: interpolate(scrollY.value, [0, size + padding], [1, 0], "clamp"),
+    };
+  }, [scrollY]);
+
+  return (
+    <AnimatedView transformOrigin="bottom" overflow="hidden" br="$full" style={scale}>
+      <Canvas style={{ width: size, height: size }}>
+        <Group origin={{ x: size / 2, y: size / 2 }}>
+          <Image
+            image={image}
+            x={0}
+            y={0}
+            width={size}
+            height={size}
+            fit="cover"
+          />
+          <Blur blur={blur} />
+        </Group>
+      </Canvas>
+
+      {!isLoaded && (
+        <AnimatedBlurhash   
+          blurhash={user?.avatar_information?.blurhash}
+          style={[StyleSheet.absoluteFill, { zIndex: 10 }]}
+          decodeAsync
+          exiting={getFadeOut()} 
+          entering={getFadeIn()}
+        />
+      )}
+    </AnimatedView>
+  );
+};
+
+export default ProfileAvatar;

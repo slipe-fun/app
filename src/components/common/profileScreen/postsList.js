@@ -4,14 +4,22 @@ import PublishButton from "@components/common/profileScreen/publishButton";
 import Post from "@components/ui/post";
 import { useCallback } from "react";
 import ProfileInfoBlock from "@components/common/profileScreen/infoBlock";
-import { Dimensions } from "react-native";
 import Animated, { useAnimatedScrollHandler } from "react-native-reanimated";
+import useInsets from "@hooks/ui/useInsets";
+import { useProfileStore } from "@stores/profileScreen";
+import { getVariableValue, YStack } from "tamagui";
+import ProfileBlock from "./profileBlock";
 
-const { width } = Dimensions.get("window");
 const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
 
-const ProfilePostsList = ({ scrollY, actionsHeight, viewHeight, user }) => {
+const buttonSize = getVariableValue("$13", "size");
+
+const ProfilePostsList = ({ scrollY }) => {
+  const user = useProfileStore((state) => state.user);
+
   const { posts, setPage } = useFetchProfilePosts(user?.id, true);
+
+  const insets = useInsets();
 
   const onScroll = useAnimatedScrollHandler({
     onScroll: (event) => {
@@ -38,18 +46,16 @@ const ProfilePostsList = ({ scrollY, actionsHeight, viewHeight, user }) => {
     <AnimatedFlashList
       keyExtractor={keyExtractor}
       contentContainerStyle={{
-        paddingTop: width + actionsHeight,
+        paddingTop: insets.top + (buttonSize / 2),
         paddingHorizontal: 8,
       }}
-      ListHeaderComponent={<ProfileInfoBlock user={user} />}
+      ListHeaderComponent={<YStack ph="$3" pb="$3" gap="$6"><ProfileBlock scrollY={scrollY}/><ProfileInfoBlock /></YStack>}
       data={posts}
-      scrollEventThrottle={16}
+      scrollEventThrottle={16} 
       numColumns={2}
       initialNumToRender={4}
       maxToRenderPerBatch={12}
-      estimatedListSize={{ width: width, height: width - viewHeight }}
       onEndReached={handleEndReached}
-      overScrollMode="never"
       onScroll={onScroll}
       renderItem={renderItem}
       estimatedItemSize={250}

@@ -1,10 +1,12 @@
 import Icon from "@components/ui/icon";
 import { View, Text, Button, getVariableValue } from "tamagui";
+import { useProfileStore } from "@stores/profileScreen";
 
-const ProfileInfoBlock = ({ user }) => {
+const ProfileInfoBlock = () => {
+  const user = useProfileStore((state) => state.user);
+
   const color = getVariableValue("$white", "color");
   return (
-    <View ph="$3" pb="$3" pt="$6" backgroundColor="$bg">
       <View
         w="$full"
         br="$7"
@@ -51,7 +53,6 @@ const ProfileInfoBlock = ({ user }) => {
           </Text>
         </View>
       </View>
-    </View>
   );
 };
 

@@ -5,7 +5,7 @@ import Animated from "react-native-reanimated";
 import CategoryPageHeaderActions from "./headerActions";
 import useSearchStore from "@stores/searchScreen";
 import useInsets from "@hooks/ui/useInsets";
-import useCategoryAnimations from "@hooks/ui/useCategoryAnimations";
+import useCategoryAnimations from "@hooks/ui/animations/useCategoryAnimations";
 import { getCategoryStats } from "@lib/getCategoryStats";
 import CategoryPageHeaderInfo from "./headerInfo";
 import { LinearGradient } from "expo-linear-gradient";
@@ -29,7 +29,6 @@ const AnimatedView = Animated.createAnimatedComponent(View);
 
 const CategoryPageHeader = memo(({ category, scrollY }) => {
   const insets = useInsets();
-  const [loaded, setLoaded] = useState(false);
 
   const calculatedInnerHeight = insets.top + sizes.padding + sizes.height;
   const animationRange = [0, headerHeight - calculatedInnerHeight];
