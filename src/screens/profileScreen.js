@@ -20,7 +20,7 @@ const ProfileScreen = () => {
 
   return (  
     <View flex={1} backgroundColor="$bg">
-      <ProfileHeader back scrollY={scrollY} />  
+      <ProfileHeader scrollY={scrollY} />  
       <ProfilePostsList scrollY={scrollY} />
     </View>
   );

@@ -7,8 +7,8 @@ const ProfileBlock = ({scrollY}) => {
     return (
         <YStack w="$full" alignItems="center" gap="$6">
             <ProfileAvatar scrollY={scrollY}/>
-            <ProfileUserInfo/>  
-            <ProfileActions/>
+            <ProfileUserInfo scrollY={scrollY}/>  
+            <ProfileActions />
         </YStack>
     )
 }

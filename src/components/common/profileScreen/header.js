@@ -1,4 +1,4 @@
-import { Text, XStack, YStack } from "tamagui";
+import { XStack } from "tamagui";
 import Icon from "@components/ui/icon";
 import Animated, {
     interpolateColor,
@@ -11,20 +11,18 @@ import useInsets from "@hooks/ui/useInsets";
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet } from "react-native";
 import { GradientBorder } from "@components/ui/gradientBorder";
-import { useProfileStore } from "@stores/profileScreen";
 import { useRef, useState, useEffect, memo } from "react";
+import ProfileUserInfo from "./profileBlock/userInfo";
 
 const AnimatedGradientBorder = Animated.createAnimatedComponent(GradientBorder);
 const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
 
-const ProfileHeader = ({ back, scrollY }) => {
+const ProfileHeader = ({ scrollY, back = false }) => {
   const navigation = useNavigation();
   const theme = useTheme();
   const insets = useInsets();
 
   const ref = useRef(null); 
-
-  const user = useProfileStore((state) => state.user);
 
   const color = theme.color.get();
   const glassButton = theme.glassButton.get();
@@ -49,13 +47,14 @@ const ProfileHeader = ({ back, scrollY }) => {
   }, [])
 
   return (
-    <XStack ref={ref} left={0} right={0} zIndex="$1" pt={insets.top} position="absolute" pb="$6" ph="$6" alignItems="center" justifyContent="space-between">
+    <XStack ref={ref} left={0} right={0} zIndex="$1" pt={insets.top} position="absolute" pb="$6" pr="$6" alignItems="center" pl={back ? "$6" : "$13"}>
       <AnimatedLinearGradient
         colors={["#000", "transparent"]}
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
         style={[StyleSheet.absoluteFill, animatedLinearGradientStyle]}
       />
+      {back && (
       <AnimatedGradientBorder
         p={0}
         justifyContent="center"
@@ -71,11 +70,8 @@ const ProfileHeader = ({ back, scrollY }) => {
       >
         <Icon size={26} icon="chevronLeft" color={color} />
       </AnimatedGradientBorder>
-      <YStack gap='$1' h="$12" justifyContent="center" alignItems="center">
-        <Text color="$color" fw="$3" fz="$4" lh="$4">
-        {/* {user?.nickname || user?.username} */}
-        </Text>
-      </YStack>
+      )}
+      <ProfileUserInfo header scrollY={scrollY}/>
       <AnimatedGradientBorder
         p={0}
         justifyContent="center"
