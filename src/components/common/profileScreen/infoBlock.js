@@ -1,5 +1,5 @@
 import Icon from "@components/ui/icon";
-import { View, Text, Button, getVariableValue } from "tamagui";
+import { Text, Button, getVariableValue, YStack, XStack } from "tamagui";
 import { useProfileStore } from "@stores/profileScreen";
 
 const ProfileInfoBlock = () => {
@@ -7,27 +7,27 @@ const ProfileInfoBlock = () => {
 
   const color = getVariableValue("$white", "color");
   return (
-      <View
+      <YStack
         w="$full"
         br="$7"
         gap="$6.5"
         backgroundColor="$backgroundTransparent"
         p="$6.5"
       >
-        <View
+        <XStack
           w="$full"
           flexDirection="row"
           justifyContent="space-between"
           alignItems="center"
         >
-          <View gap="$4">
+          <YStack gap="$4">
             <Text fz="$2" lh="$2" fw="$2" color="$secondaryText">
               Имя пользователя
             </Text>
             <Text fz="$3" lh="$3" fw="$2" color="$color">
               @{user?.username}
             </Text>
-          </View>
+          </YStack>
           <Button
             pressStyle={{
               scale: 0.98,
@@ -43,16 +43,16 @@ const ProfileInfoBlock = () => {
           >
             <Icon icon="clipboard" size={26} color={color} />
           </Button>
-        </View>
-        <View gap="$4">
+        </XStack>
+        <YStack gap="$4">
           <Text fz="$2" lh="$2" fw="$2" color="$secondaryText">
             Обо мне
           </Text>
           <Text fz="$3" lh="$3" fw="$2" color="$color">
             {user?.description}
           </Text>
-        </View>
-      </View>
+        </YStack>
+      </YStack>
   );
 };
 

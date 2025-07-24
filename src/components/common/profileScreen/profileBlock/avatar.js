@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useProfileStore } from     "@stores/profileScreen";
+import { useProfileStore } from "@stores/profileScreen";
 import {
   useDerivedValue,
   interpolate,
