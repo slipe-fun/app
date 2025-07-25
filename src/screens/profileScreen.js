@@ -15,6 +15,7 @@ const ProfileScreen = () => {
 
   useEffect(() => {
     setUser(user);
+    console.log(user);  
   }, [user]); 
 
   return (  
