@@ -1,13 +1,12 @@
-import { View, Text, YStack } from "tamagui";
+import { View, Text } from "tamagui";
 import { LinearGradient } from "expo-linear-gradient";
 import Indicators from "./indicators";
+import ColorfullyView from "@components/ui/colorfullyView";
 import Icon from "@components/ui/icon";
 import { toast } from "sonner-native";
-import { StyleSheet } from "react-native";
 import * as Haptics from "expo-haptics";
 import sendReport from "@lib/sendReport";
 import MediaPreview from "@components/ui/mediaPreview";
-import { GradientBorder } from "@components/ui/gradientBorder";
 
 const UserCardHeader = ({
   user,
@@ -17,7 +16,11 @@ const UserCardHeader = ({
   duration,
   handeSlideClick,
   pause,
+  averageColor,
 }) => {
+  const handleIndicatorFinish = () => {
+    handeSlideClick("right");
+  };
 
   const handlePress = () => {
     // TODO: PIP PLS ADD SOME GENIUS CODE FOR REPORTING RH
@@ -33,23 +36,32 @@ const UserCardHeader = ({
   };
 
   return (
-    <View w="$full" position="relative" p="$6" pt="$8" gap="$6">
+    <View w="$full" position="relative">
       <LinearGradient
-        style={StyleSheet.absoluteFill}
-        colors={["rgba(0, 0, 0, 0.5)", "rgba(0, 0, 0, 0)"]}
+        style={{
+          flex: 1,
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+        }}
+        colors={["rgba(0, 0, 0, 0.32)", "rgba(0, 0, 0, 0)"]}
         start={{ x: 0.5, y: 0 }}
         end={{ x: 0.5, y: 1 }}
       />
       <Indicators
         postsLength={postCount}
         isPaused={pause}
-        onFinish={() => handeSlideClick("right")}
+        onFinish={() => handleIndicatorFinish()}
         currentIndex={activeIdx}
         userId={user.id}
         duration={duration}
       />
       <View
         w="$full"
+        pt="$6"
+        p="$6.5"
         flexDirection="row"
         justifyContent="space-between"
         alignItems="center"
@@ -62,22 +74,23 @@ const UserCardHeader = ({
               backgroundColor="$black"
               justifyContent="center"
               alignItems="center"
-              f={1}
+              w="$12"
+              h="$12"
               br="$full"
             >
               <Icon icon="profile" size={22} />
             </View>
           )}
         </View>
-        <YStack flex={1} gap="$1" alignItems="center" justifyContent="center">
+        <View flex={1} gap="$1" alignItems="center" justifyContent="center">
           <Text fz="$2" lh="$2" fw="$3" color="$white">
             {user?.nickname || `${user?.username}`}
           </Text>
           <Text numberOfLines={1} textOverflow="ellipsis" w="$full" fz="$1" lh="$1" fw="$2" color="$transparentText">
             {post?.in_search}
           </Text>
-        </YStack>
-        <GradientBorder
+        </View>
+        <ColorfullyView
           isButton
           h="$12"
           justifyContent="center"
@@ -85,10 +98,11 @@ const UserCardHeader = ({
           w="$12"
           onPress={handlePress}
           br="$full"
-          backgroundColor="$glassButtonStatic"
+          color={averageColor}
+          unstyled
         >
           <Icon icon="flag" size={22} />
-        </GradientBorder>
+        </ColorfullyView>
       </View>
     </View>
   );
