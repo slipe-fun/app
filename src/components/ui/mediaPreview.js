@@ -1,118 +1,102 @@
-import { memo, useMemo, useState } from "react";
+import { memo, useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { URLS } from "@constants/urls";
 import FastImage from "react-native-fast-image";
 import { Blurhash } from "react-native-blurhash";
 import Animated from "react-native-reanimated";
 import { Video } from "react-native-video";
-import { getFadeIn, getFadeOut } from "@constants/fadeAnimations";
+import { getFadeOut } from "@constants/fadeAnimations";
 
 const AnimatedBlurhash = Animated.createAnimatedComponent(Blurhash);
 
 const MediaVideo = memo(({ source, active, muted, onLoad }) => (
-  <Video
-    source={source}
-    repeat
-    muted={muted}
-    paused={!active}
-    playInBackground={false}
-    playWhenInactive={false}
-    resizeMode="cover"
-    style={StyleSheet.absoluteFill}
-    onLoad={onLoad}
-  />
+	<Video
+		source={source}
+		repeat
+		muted={muted}
+		paused={!active}
+		playInBackground={false}
+		playWhenInactive={false}
+		resizeMode='cover'
+		style={StyleSheet.absoluteFill}
+		onLoad={onLoad}
+	/>
 ));
 
-const MediaImage = memo(({ source, blurhash, onLoad, loaded }) => {
+const MediaImage = memo(({ uri, blurhash }) => {
+  const [showBlur, setShowBlur] = useState(false);
+
+  useEffect(() => {
+    setShowBlur(false);
+  }, [uri]);
+
+  const handleLoadStart = () => {
+    setShowBlur(true);
+  };
+
+  const handleLoadEnd = () => {
+    setShowBlur(false);
+  };
 
   return (
     <>
       <FastImage
+        source={{
+          uri,
+          cache: FastImage.cacheControl.immutable,
+          priority: FastImage.priority.normal,
+        }}
         resizeMode="cover"
-        source={source}
-        onLoadEnd={onLoad}
         style={StyleSheet.absoluteFill}
+        onLoadStart={handleLoadStart}
+        onLoadEnd={handleLoadEnd}
       />
-      {!loaded && blurhash && (
+      {showBlur && blurhash && (
         <AnimatedBlurhash
-          exiting={getFadeOut()}
-          entering={getFadeIn()}
           style={StyleSheet.absoluteFill}
-          decodeAsync
           blurhash={blurhash}
+          decodeAsync
+          exiting={getFadeOut()}
         />
       )}
     </>
   );
 });
 
-const MediaPreview = ({
-  media,
-  blurhash,
-  priority = FastImage.priority.normal,
-  isVideoEnable = false,
-  active = false,
-  videoOnLoad,
-  muted = false,
-  type = "post",
-}) => {
-  const [loaded, setLoaded] = useState(false);
-
-  const isVideo = useMemo(
-    () => /\.(mp4|mov|webm|mkv|avi)$/i.test(media || ""),
-    [media]
-  );
-
-  const handleLoad = (meta) => {
-    setLoaded(true);
-    videoOnLoad?.(meta);
-  };
-
-   const cdn_url = () => {
-      switch (type) {
-        case "avatar":
-          return URLS.CDN_AVATARS_URL;
-        case "category":
-          return "";
-        case "post":
-          return URLS.CDN_POSTS_URL;
-        default:
-          return URLS.CDN_POSTS_URL;
-      }
-    };
-
-  const uri = useMemo(() => `${cdn_url()}${media}`, [media]);
-
-  const videoSource = useMemo(() => ({ uri }), [uri]);
-
-  const imageSource = useMemo(
-    () => ({
-      uri,
-      priority,
-      cache: FastImage.cacheControl.immutable,
-    }),
-    [uri, priority]
-  );
-
-  if (isVideo && isVideoEnable) {
-    return (
-      <MediaVideo
-        source={videoSource}
-        active={active}
-        muted={muted}
-        onLoad={handleLoad}
-      />
-    );
-  }
-
-  return (
-    <MediaImage
-      source={imageSource}
-      blurhash={blurhash}
-      onLoad={handleLoad}
-      loaded={loaded}
-    />
-  );
+const getCdnUrl = type => {
+	switch (type) {
+		case "avatar":
+			return URLS.CDN_AVATARS_URL;
+		case "category":
+			return "";
+		case "post":
+		default:
+			return URLS.CDN_POSTS_URL;
+	}
 };
 
-export default memo(MediaPreview);
+const isVideoFile = media => /\.(mp4|mov|webm|mkv|avi)$/i.test(media || "");
+
+const MediaPreview = memo(({ media, blurhash, isVideoEnable = false, active = false, videoOnLoad, muted = false, type = "post" }) => {
+	const [loaded, setLoaded] = useState(false);
+
+	const cdnBase = getCdnUrl(type);
+	const uri = `${cdnBase}${media}`; 
+
+	const handleLoad = meta => {
+		setLoaded(true);
+		if (videoOnLoad) videoOnLoad(meta);
+	};
+
+	useEffect(() => {
+		setLoaded(false);
+	}, [uri]);
+
+	if (isVideoEnable && isVideoFile(media)) {
+		return <MediaVideo source={{ uri }} active={active} muted={muted} onLoad={handleLoad} />;
+	}
+
+	return <MediaImage uri={uri} blurhash={blurhash} onLoadEnd={handleLoad} loaded={loaded} />;
+});
+
+export default MediaPreview;

@@ -1,35 +1,18 @@
-import React, { useState, useRef, useCallback, useMemo } from "react";
-import { View, Dimensions, FlatList } from "react-native";
+import { useState, useRef, useCallback, useMemo, memo } from "react";
+import { Dimensions } from "react-native";
+import { FlashList } from "@shopify/flash-list";
+import { View } from "tamagui";
 import UserCard from "@components/common/blogsScreen/userCard";
-import styles from "./styles/verticalSliderStyles";
 
 const { height: windowHeight, width: windowWidth } = Dimensions.get("window");
 const VIEWABILITY_CONFIG = { itemVisiblePercentThreshold: 50 };
-const SPACING = 16;
 
-const SliderItem = React.memo(
-  ({
-    item,
-    index,
-    isActive,
-    containerHeight,
-  }) => {
-    const style = useMemo(
-      () => ({
-        height: containerHeight,
-        width: windowWidth,
-        marginBottom: SPACING,
-      }),
-      [containerHeight]
-    );
+const SliderItem = memo(
+  ({ item, index, isActive, containerHeight }) => {
 
     return (
-      <View id={String(index + item?.author?.id)} style={style}>
-        <UserCard
-          user={item.author}
-          posts={item.posts}
-          active={isActive}
-        />
+      <View id={String(index + item?.author?.id)} h={containerHeight} w={windowWidth} mb="$6">
+        <UserCard user={item.author} posts={item.posts} active={isActive} />
       </View>
     );
   }
@@ -38,10 +21,7 @@ const SliderItem = React.memo(
 const VerticalSlider = ({ users, onSlideChange = () => {} }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [containerHeight, setContainerHeight] = useState(windowHeight);
-  const ITEM_LENGTH = useMemo(
-    () => containerHeight + SPACING,
-    [containerHeight]
-  );
+  const ITEM_LENGTH = useMemo(() => containerHeight + 16, [containerHeight]);
 
   const handleLayout = useCallback(
     (e) => {
@@ -63,15 +43,6 @@ const VerticalSlider = ({ users, onSlideChange = () => {} }) => {
     }
   }).current;
 
-  const getItemLayout = useCallback(
-    (_, index) => ({
-      length: ITEM_LENGTH,
-      offset: ITEM_LENGTH * index,
-      index,
-    }),
-    [ITEM_LENGTH]
-  );
-
   const keyExtractor = useCallback((_, index) => String(index), []);
 
   const renderItem = useCallback(
@@ -87,9 +58,8 @@ const VerticalSlider = ({ users, onSlideChange = () => {} }) => {
   );
 
   return (
-    <View style={styles.outerContainer} onLayout={handleLayout}>
-      <FlatList
-        overScrollMode="never"
+    <View f={1} overflow="hidden" br="$11" onLayout={handleLayout}>
+      <FlashList
         data={users}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
@@ -97,15 +67,14 @@ const VerticalSlider = ({ users, onSlideChange = () => {} }) => {
         showsVerticalScrollIndicator={false}
         initialNumToRender={4}
         maxToRenderPerBatch={2}
-        windowSize={5}
         pagingEnabled
         decelerationRate="fast"
         snapToAlignment="start"
         snapToInterval={ITEM_LENGTH}
-        getItemLayout={getItemLayout}
-        onViewableItemsChanged={onViewRef}
         viewabilityConfig={VIEWABILITY_CONFIG}
-        contentContainerStyle={{ paddingBottom: SPACING }}
+        onViewableItemsChanged={onViewRef}
+        contentContainerStyle={{ paddingBottom: 16 }}
+        overScrollMode="never"
       />
     </View>
   );

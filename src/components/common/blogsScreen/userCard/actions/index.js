@@ -1,11 +1,11 @@
 import { View, ScrollView } from "tamagui";
 import useEmojiState from "@hooks/useEmojiState";
-import ColorfullyView from "@components/ui/colorfullyView";
 import Reaction from "./reaction";
 import * as Haptics from "expo-haptics";
 import Icon from "@components/ui/icon";
+import { GradientBorder } from "@components/ui/gradientBorder";
 
-const UserCardActions = ({ post, averageColor }) => {
+const UserCardActions = ({ post }) => {
   const { emojis, handleEmojiClick } = useEmojiState(post);
 
   // it's just shit, i will move all emojis to cdn soon
@@ -27,34 +27,34 @@ const UserCardActions = ({ post, averageColor }) => {
     <View>
       <ScrollView
         horizontal
-        contentContainerStyle={{ gap: 16, padding: 18 }}
+        contentContainerStyle={{ gap: 16, padding: 16 }}
         overScrollMode="never"
         showsHorizontalScrollIndicator={false}
       >
-        <ColorfullyView
+        <GradientBorder
           isButton
           h="$12"
           justifyContent="center"
           alignItems="center"
+           backgroundColor="$glassButtonStatic"
           w="$12"
           br="$full"
-          color={averageColor}
           unstyled
         >
           <Icon icon="message" size={24} />
-        </ColorfullyView>
-        <ColorfullyView
+        </GradientBorder>
+        <GradientBorder
           isButton
           h="$12"
+          backgroundColor="$glassButtonStatic"
           justifyContent="center"
           alignItems="center"
           w="$12"
           br="$full"
-          color={averageColor}
           unstyled
         >
           <Icon icon="smile" size={24} />
-        </ColorfullyView>
+        </GradientBorder>
 
         {Object.keys(emojis).map((reaction, index) => (
           <Reaction
@@ -65,7 +65,6 @@ const UserCardActions = ({ post, averageColor }) => {
             isActive={emojis[reaction]?.isActive}
             handleEmojiClick={(reaction) => handleEmojiClickButton(reaction)}
             emojiImages={emojiImages}
-            averageColor={averageColor}
           />
         ))}
       </ScrollView>

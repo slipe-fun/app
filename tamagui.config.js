@@ -170,9 +170,10 @@ export const tokens = createTokens({
   color: {
     white: '#fff',
     primary: '#1A6AFF',
-    glassButtonDark: 'rgba(31, 31, 31, 0.6)',
-    glassButtonLight: 'rgba(224, 224, 224, 0.6)',
+    glassButtonDark: 'rgba(61, 61, 61, 0.24)',
+    glassButtonLight: 'rgba(194, 194, 194, 0.24)',
     red: '#FF1A1A',
+    glassButtonStatic: 'rgba(61, 61, 61, 0.24)',
     purple: '#BF5AF2',
     innerBlockDark: '#333333',
     innerBlockLight: '#CCCCCC',
