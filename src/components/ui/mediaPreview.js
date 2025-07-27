@@ -9,12 +9,12 @@ import { getFadeOut } from "@constants/fadeAnimations";
 
 const AnimatedBlurhash = Animated.createAnimatedComponent(Blurhash);
 
-const MediaVideo = memo(({ source, active, muted, onLoad }) => (
+const MediaVideo = memo(({ source, paused, muted, onLoad }) => (
 	<Video
 		source={source}
 		repeat
 		muted={muted}
-		paused={!active}
+		paused={paused}
 		playInBackground={false}
 		playWhenInactive={false}
 		resizeMode='cover'
@@ -77,7 +77,7 @@ const getCdnUrl = type => {
 
 const isVideoFile = media => /\.(mp4|mov|webm|mkv|avi)$/i.test(media || "");
 
-const MediaPreview = memo(({ media, blurhash, isVideoEnable = false, active = false, videoOnLoad, muted = false, type = "post" }) => {
+const MediaPreview = memo(({ media, blurhash, isVideoEnable = false, paused = false, videoOnLoad, muted = false, type = "post" }) => {
 	const [loaded, setLoaded] = useState(false);
 
 	const cdnBase = getCdnUrl(type);
@@ -93,7 +93,7 @@ const MediaPreview = memo(({ media, blurhash, isVideoEnable = false, active = fa
 	}, [uri]);
 
 	if (isVideoEnable && isVideoFile(media)) {
-		return <MediaVideo source={{ uri }} active={active} muted={muted} onLoad={handleLoad} />;
+		return <MediaVideo source={{ uri }} paused={paused} muted={muted} onLoad={handleLoad} />;
 	}
 
 	return <MediaImage uri={uri} blurhash={blurhash} onLoadEnd={handleLoad} loaded={loaded} />;

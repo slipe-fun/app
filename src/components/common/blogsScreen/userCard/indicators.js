@@ -1,7 +1,7 @@
 import { View, XStack } from "tamagui";
 import { useEffect, useState, useRef } from "react";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming, cancelAnimation, runOnJS, withSpring } from "react-native-reanimated";
-import { fastSpring } from "@constants/easings";
+import { quickSpring } from "@constants/easings";
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
@@ -27,11 +27,11 @@ const Indicator = ({ index, finished, active, paused, onFinished, duration, indi
 
 	useEffect(() => {
 		if (active) {
-			pausedHeightValue.value = withSpring(paused ? 6 : 2, fastSpring);
-			pausedValue.value = withSpring(paused ? containerWidth : indicatorWidth, fastSpring);
+			pausedHeightValue.value = withSpring(paused ? 6 : 2, quickSpring);
+			pausedValue.value = withSpring(paused ? containerWidth : indicatorWidth, quickSpring);
 		} else {
-			pausedValue.value = withSpring(paused ? 0 : indicatorWidth, fastSpring);
-			opacityValue.value = withSpring(paused ? 0 : 1, fastSpring);
+			pausedValue.value = withSpring(paused ? 0 : indicatorWidth, quickSpring);
+			opacityValue.value = withSpring(paused ? 0 : 1, quickSpring);
 			widthProgress.value = 0;
 			return;
 		}
@@ -51,7 +51,7 @@ const Indicator = ({ index, finished, active, paused, onFinished, duration, indi
 	}, [paused, active]);
 
 	return (
-		<AnimatedView w={indicatorWidth} style={animatedViewStyle} h={2} backgroundColor={finished ? "$white" : "$indicator"} br='$full'>
+		<AnimatedView w={indicatorWidth} overflow="hidden" style={animatedViewStyle} h={2} backgroundColor={finished ? "$white" : "$indicator"} br='$full'>
 			<AnimatedView f={1} h='$full' br='$full' backgroundColor='$white' style={animatedWidthStyle} />
 		</AnimatedView>
 	);

@@ -55,7 +55,7 @@ const UserCard = ({ user, posts, active }) => {
 				blurhash={posts[activeIndex]?.blurhash}
 				priority={FastImage.priority.high}
 				isVideoEnable
-				active={active}
+				paused={!active || isSeeking}
 				muted
 				videoOnLoad={handleLoadVideo}
 			/>
