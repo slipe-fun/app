@@ -68,6 +68,7 @@ const VerticalSlider = ({ users, onSlideChange = () => {} }) => {
         initialNumToRender={4}
         maxToRenderPerBatch={2}
         pagingEnabled
+        disableIntervalMomentum
         decelerationRate="fast"
         snapToAlignment="start"
         snapToInterval={ITEM_LENGTH}

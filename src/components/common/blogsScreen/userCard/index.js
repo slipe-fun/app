@@ -1,77 +1,69 @@
-import { View, XStack } from "tamagui";
+import { View, YStack } from "tamagui";
 import UserCardHeader from "./user";
 import UserCardActions from "./actions";
+import { LinearGradient } from "expo-linear-gradient";
+import { StyleSheet } from "react-native";
+import Indicators from "./indicators";
 import { useState, useEffect } from "react";
 import FastImage from "react-native-fast-image";
 import addView from "@lib/addView";
 import MediaPreview from "@components/ui/mediaPreview";
-import { Pressable } from "react-native-gesture-handler";
+import useBlogsGestures from "@hooks/ui/useBlogsGestures";
+import { GestureDetector } from "react-native-gesture-handler";
 
 const UserCard = ({ user, posts, active }) => {
-  const [idx, setIdx] = useState(0);
-  const [duration, setDuration] = useState(8);
+	const [duration, setDuration] = useState(5);
 
-  const handeSlideClick = (direction) => {
-    if (direction === "left" && idx > 0) {
-      setIdx((prev) => prev - 1);
-    } else if (direction === "right" && idx < posts.length - 1) {
-      setIdx((prev) => prev + 1);
-    }
-  }
+	const { gesture, activeIndex, updateIndex, isSeeking } = useBlogsGestures(active, posts?.length);
 
-  const handleLoadVideo = (meta) => {
-    const duration = meta.duration || 8;
-    setDuration(duration > 0 ? duration : 8);
-  }; 
+	const handleLoadVideo = meta => {
+		const duration = meta.duration || 5;
+		setDuration(duration > 0 ? duration : 5);
+	};
 
-  useEffect(() => { 
-    const post = posts[idx];
-    if (active && !post?.viewed) addView(post?.id);
-  }, [idx, active]);
+	useEffect(() => {
+		const post = posts[activeIndex];
+		if (active && !post?.viewed) addView(post?.id);
+	}, [activeIndex, active]);
 
-  return (
-    <View flex={1} justifyContent="space-between" overflow="hidden" br="$11">
-      <View
-        position="absolute"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-        br="$11"
-        borderWidth={1}
-        borderColor="rgba(255,255,255,0.1)"
-        zIndex="$2"
-        pointerEvents="none"
-      />
-      <MediaPreview
-        media={posts[idx]?.image}
-        blurhash={posts[idx]?.blurhash}
-        priority={FastImage.priority.high}
-        isVideoEnable
-        active={active}
-        muted
-        videoOnLoad={handleLoadVideo}
-      />
-      <UserCardHeader
-        postCount={posts?.length}
-        pause={!active}
-        activeIdx={idx}
-        duration={duration}
-        handeSlideClick={handeSlideClick}
-        post={posts[idx]}
-        user={user}
-      />
+	useEffect(() => {
+		console.log("isSeeking changed:", isSeeking);
+	}, [isSeeking])
 
-      {posts?.length > 1 && (
-        <XStack f={1} zIndex="$1">
-          <Pressable style={{ flex: 1 }} onPress={() => handeSlideClick("left")} />
-          <Pressable style={{ flex: 1 }} onPress={() => handeSlideClick("right")} />
-        </XStack>
-      )}
-
-      <UserCardActions post={posts[idx]} />
-    </View>
-  );
+	return (
+		<View flex={1} justifyContent='space-between' overflow='hidden' br='$11'>
+			<YStack zIndex='$1' w='$full' position='relative' p='$6' pt='$8' gap='$6'>
+				<LinearGradient
+					style={StyleSheet.absoluteFill}
+					colors={["rgba(0, 0, 0, 0.5)", "rgba(0, 0, 0, 0)"]}
+					start={{ x: 0.5, y: 0 }}
+					end={{ x: 0.5, y: 1 }}
+				/>
+				<Indicators
+					postsLength={posts?.length}
+					isPaused={!active}
+					onFinish={() => updateIndex(1)}
+					currentIndex={activeIndex}
+					userId={user.id}
+					duration={duration}
+				/>
+				<UserCardHeader post={posts[activeIndex]} user={user} />
+			</YStack>
+			<MediaPreview
+				media={posts[activeIndex]?.image}
+				blurhash={posts[activeIndex]?.blurhash}
+				priority={FastImage.priority.high}
+				isVideoEnable
+				active={active}
+				muted
+				videoOnLoad={handleLoadVideo}
+			/>
+			<GestureDetector gesture={gesture}>
+				<View zIndex='$3' flex={1} />
+			</GestureDetector>
+			<UserCardActions post={posts[activeIndex]} />
+		</View>
+	);
 };
 
 export default React.memo(UserCard);
