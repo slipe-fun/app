@@ -41,10 +41,11 @@ const UserCard = ({ user, posts, active }) => {
 				/>
 				<Indicators
 					postsLength={posts?.length}
-					isPaused={!active}
+					paused={isSeeking}
+					active={active}
 					onFinish={() => updateIndex(1)}
 					currentIndex={activeIndex}
-					userId={user.id}
+					userId={user?.id}
 					duration={duration}
 				/>
 				<UserCardHeader post={posts[activeIndex]} user={user} />
