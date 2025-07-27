@@ -1,12 +1,23 @@
 import { View, Text, YStack } from "tamagui";
 import Icon from "@components/ui/icon";
 import { toast } from "sonner-native";
+import { useEffect } from "react";
 import * as Haptics from "expo-haptics";
 import sendReport from "@lib/sendReport";
 import MediaPreview from "@components/ui/mediaPreview";
+import Animated, { useSharedValue, useAnimatedStyle, withSpring } from "react-native-reanimated";
 import { GradientBorder } from "@components/ui/gradientBorder";
+import { quickSpring } from "@constants/easings";
 
-const UserCardHeader = ({ user, post }) => {
+const AnimatedView = Animated.createAnimatedComponent(View);
+
+const UserCardHeader = ({ user, post, paused }) => {
+	const opacity = useSharedValue(1);
+
+	const opacityStyle = useAnimatedStyle(() => ({
+			opacity: opacity.value,
+		}), [paused]);
+
 	const handlePress = () => {
 		// TODO: PIP PLS ADD SOME GENIUS CODE FOR REPORTING RH
 		// PIP: READY
@@ -22,8 +33,12 @@ const UserCardHeader = ({ user, post }) => {
 		Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
 	};
 
+	useEffect(() => { 
+			opacity.value = withSpring(paused ? 0 : 1, quickSpring);
+		}, [paused])
+
 	return (
-			<View w='$full' flexDirection='row' justifyContent='space-between' alignItems='center'>
+			<AnimatedView style={opacityStyle} w='$full' flexDirection='row' justifyContent='space-between' alignItems='center'>
 				<View w='$12' h='$12' br='$full' overflow='hidden' position='relative'>
 					{user?.avatar ? (
 						<MediaPreview type='avatar' blurhash={user?.avatar_information?.blurhash} media={user?.avatar} />
@@ -53,7 +68,7 @@ const UserCardHeader = ({ user, post }) => {
 				>
 					<Icon icon='flag' size={22} />
 				</GradientBorder>
-			</View>
+			</AnimatedView>
 	);
 };
 

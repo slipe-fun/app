@@ -4,31 +4,38 @@ import UserCardActions from "./actions";
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet } from "react-native";
 import Indicators from "./indicators";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo, useRef } from "react";
 import FastImage from "react-native-fast-image";
+import { useSharedValue } from "react-native-reanimated";
 import addView from "@lib/addView";
 import MediaPreview from "@components/ui/mediaPreview";
 import useBlogsGestures from "@hooks/ui/useBlogsGestures";
 import { GestureDetector } from "react-native-gesture-handler";
 
 const UserCard = ({ user, posts, active }) => {
-	const [duration, setDuration] = useState(5);
+	const [duration, setDuration] = useState(8);
+	const progress = useSharedValue(0);
+	const videoRef = useRef(null);
 
-	const { gesture, activeIndex, updateIndex, isSeeking } = useBlogsGestures(active, posts?.length);
+	const { gesture, activeIndex, isSeeking, seekTimeSec } = useBlogsGestures(active, posts?.length, progress, duration * 1000);
 
 	const handleLoadVideo = meta => {
-		const duration = meta.duration || 5;
-		setDuration(duration > 0 ? duration : 5);
+		const duration = meta?.duration;
+		setDuration(duration);
 	};
 
 	useEffect(() => {
-		const post = posts[activeIndex];
-		if (active && !post?.viewed) addView(post?.id);
-	}, [activeIndex, active]);
+ if (videoRef.current && seekTimeSec > 0) {
+    videoRef.current.seek(seekTimeSec);
+  }
+}, [seekTimeSec]);
 
 	useEffect(() => {
-		console.log("isSeeking changed:", isSeeking);
-	}, [isSeeking])
+		const isVideoFile =  /\.(mp4|mov|webm|mkv|avi)$/i.test(posts[activeIndex]?.image || "");
+        if (!isVideoFile) setDuration(8);
+		const post = posts[activeIndex];
+		if (active && !post?.viewed) addView(post?.id);
+	}, [activeIndex]);
 
 	return (
 		<View flex={1} justifyContent='space-between' overflow='hidden' br='$11'>
@@ -40,21 +47,21 @@ const UserCard = ({ user, posts, active }) => {
 					end={{ x: 0.5, y: 1 }}
 				/>
 				<Indicators
+					progress={progress}
 					postsLength={posts?.length}
-					paused={isSeeking}
-					active={active}
-					onFinish={() => updateIndex(1)}
 					currentIndex={activeIndex}
+					paused={isSeeking}
 					userId={user?.id}
 					duration={duration}
 				/>
-				<UserCardHeader post={posts[activeIndex]} user={user} />
+				<UserCardHeader paused={isSeeking} post={posts[activeIndex]} user={user} />
 			</YStack>
 			<MediaPreview
 				media={posts[activeIndex]?.image}
 				blurhash={posts[activeIndex]?.blurhash}
 				priority={FastImage.priority.high}
 				isVideoEnable
+				videoRef={videoRef}
 				paused={!active || isSeeking}
 				muted
 				videoOnLoad={handleLoadVideo}
@@ -62,9 +69,10 @@ const UserCard = ({ user, posts, active }) => {
 			<GestureDetector gesture={gesture}>
 				<View zIndex='$3' flex={1} />
 			</GestureDetector>
-			<UserCardActions post={posts[activeIndex]} />
+			<UserCardActions paused={isSeeking} post={posts[activeIndex]} />
 		</View>
 	);
 };
 
-export default React.memo(UserCard);
+export default memo(UserCard);
+ 

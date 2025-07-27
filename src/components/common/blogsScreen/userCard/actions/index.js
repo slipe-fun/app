@@ -1,12 +1,23 @@
 import { View, ScrollView } from "tamagui";
 import useEmojiState from "@hooks/useEmojiState";
 import Reaction from "./reaction";
+import Animated, { useSharedValue, useAnimatedStyle, withSpring } from "react-native-reanimated";
+import { useEffect } from "react";
 import * as Haptics from "expo-haptics";
+import { quickSpring } from "@constants/easings"; 
 import Icon from "@components/ui/icon";
 import { GradientBorder } from "@components/ui/gradientBorder";
 
-const UserCardActions = ({ post }) => {
+const AnimatedView = Animated.createAnimatedComponent(View);
+
+const UserCardActions = ({ post, paused }) => {
   const { emojis, handleEmojiClick } = useEmojiState(post);
+
+  const opacity = useSharedValue(1);
+
+  const opacityStyle = useAnimatedStyle(() => ({
+      opacity: opacity.value,
+    }), [paused]);
 
   // it's just shit, i will move all emojis to cdn soon
   const emojiImages = {
@@ -23,8 +34,12 @@ const UserCardActions = ({ post }) => {
     handleEmojiClick(reaction);
   };
 
+  useEffect(() => { 
+        opacity.value = withSpring(paused ? 0 : 1, quickSpring);
+      }, [paused])
+
   return (
-    <View>
+    <AnimatedView style={opacityStyle}>
       <ScrollView
         horizontal
         contentContainerStyle={{ gap: 16, padding: 16 }}
@@ -68,7 +83,7 @@ const UserCardActions = ({ post }) => {
           />
         ))}
       </ScrollView>
-    </View>
+    </AnimatedView>
   );
 };
 
