@@ -15,7 +15,11 @@ const MediaVideo = memo(
       source={source}
       repeat
       ref={ref}
+      controls={false}
+      ignoreSilentSwitch="ignore"
+      volume={1.0}
       muted={muted}
+      hideShutterView
       paused={paused}
       playInBackground={false}
       playWhenInactive={false}

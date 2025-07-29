@@ -106,7 +106,7 @@ export default function useBlogsGestures(
     });
 
   const longPressGesture = Gesture.LongPress()
-    .minDuration(200)
+    .minDuration(150)
     .maxDistance(screenWidth)
     .onStart(() => {
       cancelAnimation(progress);
