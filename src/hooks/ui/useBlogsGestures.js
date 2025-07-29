@@ -126,6 +126,10 @@ export default function useBlogsGestures(
       runOnJS(setIsSeeking)(false);
     });
 
+  useEffect(() => {
+    setIsSeeking(false);
+  }, [activeIndex]);
+
   const gesture = Gesture.Simultaneous(
     tapGesture,
     longPressGesture,
