@@ -13,7 +13,7 @@ export default function useBlogsGestures(
   isActive,
   postsLength,
   progress,
-  durationMs = 4000
+  durationMs = 4000,
 ) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isSeeking, setIsSeeking] = useState(false);
@@ -28,6 +28,24 @@ export default function useBlogsGestures(
       if (next < 0 || next >= postsLength) return prev;
       return next;
     });
+  };
+
+  const resumeProgressAnimation = () => {
+    "worklet";
+    const currentProgress = progress.value;
+    const remaining = 1 - currentProgress;
+    const remainingDuration = durationMs * remaining;
+
+    progress.value = withTiming(
+      1,
+      { duration: remainingDuration, easing: Easing.linear },
+      (finished) => {
+        "worklet";
+        if (finished) {
+          runOnJS(updateIndex)(1);
+        }
+      },
+    );
   };
 
   useEffect(() => {
@@ -49,7 +67,7 @@ export default function useBlogsGestures(
           if (finished) {
             runOnJS(updateIndex)(1);
           }
-        }
+        },
       );
     });
   }, [activeIndex, isActive]);
@@ -57,7 +75,7 @@ export default function useBlogsGestures(
   const FPS = 30;
   const FRAME_STEP = 10;
   const durationSec = durationMs / 1000;
-  const stepCount = Math.floor(durationSec * FPS / FRAME_STEP);
+  const stepCount = Math.floor((durationSec * FPS) / FRAME_STEP);
   const stepProgress = 1 / stepCount;
 
   const clampToFrameStep = (p) => {
@@ -90,19 +108,7 @@ export default function useBlogsGestures(
       const currentProgress = progress.value;
       const currentTime = currentProgress * durationSec;
       runOnJS(setSeekTimeSec)(currentTime);
-      const remaining = 1 - currentProgress;
-      const remainingDuration = durationMs * remaining;
-
-      progress.value = withTiming(
-        1,
-        { duration: remainingDuration, easing: Easing.linear },
-        (finished) => {
-          "worklet";
-          if (finished) {
-            runOnJS(updateIndex)(1);
-          }
-        }
-      );
+      resumeProgressAnimation();
     });
 
   const longPressGesture = Gesture.LongPress()
@@ -114,6 +120,7 @@ export default function useBlogsGestures(
     })
     .onEnd(() => {
       runOnJS(setIsSeeking)(false);
+      resumeProgressAnimation();
     })
     .onFinalize(() => {
       runOnJS(setIsSeeking)(false);
@@ -122,7 +129,7 @@ export default function useBlogsGestures(
   const gesture = Gesture.Simultaneous(
     tapGesture,
     longPressGesture,
-    panGesture
+    panGesture,
   );
 
   return { gesture, activeIndex, isSeeking, seekTimeSec };
