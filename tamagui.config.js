@@ -170,6 +170,7 @@ export const tokens = createTokens({
   color: {
     white: '#fff',
     primary: '#1A6AFF',
+    primaryDark: '#003EB2',
     glassButtonDark: 'rgba(61, 61, 61, 0.24)',
     glassButtonLight: 'rgba(194, 194, 194, 0.24)',
     red: '#FF1A1A',

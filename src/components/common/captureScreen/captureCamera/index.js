@@ -25,7 +25,7 @@ const CaptureScreen = () => {
     <YStack
       ref={ref}
       f={1}
-      br="$12"
+      br="$11"
       position="relative"
       justifyContent="center"
       overflow="hidden"

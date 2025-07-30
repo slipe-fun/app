@@ -46,7 +46,7 @@ const FormatButton = memo(
         h="$13"
         onLayout={onLayout}
       >
-        <AnimatedText fz="$2" lh="$2" fw={500} style={animatedTextStyle}>
+        <AnimatedText fz="$3" lh="$4" fw="$2" style={animatedTextStyle}>
           {format}
         </AnimatedText>
       </Button>

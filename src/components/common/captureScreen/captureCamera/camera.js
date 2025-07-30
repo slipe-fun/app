@@ -19,7 +19,6 @@ import useBestCameraFormat from "@hooks/ui/useBestCameraFormat";
 import { normalSpring } from "@constants/easings";
 
 import CameraOverlay from "./cameraOverlay";
-import { GradientBorder } from "@components/ui/gradientBorder";
 
 const AnimatedCamera = Animated.createAnimatedComponent(Camera);
 const AnimatedView = Animated.createAnimatedComponent(View);
@@ -70,9 +69,8 @@ const CaptureCamera = ({ viewHeight }) => {
 
   return (
     <GestureDetector gesture={gesture}>
-      <GradientBorder
+      <View
         f={1}
-        br="$12"
         justifyContent="center"
         alignItems="center"
       >
@@ -95,7 +93,7 @@ const CaptureCamera = ({ viewHeight }) => {
             animatedProps={animatedProps}
           />
         </AnimatedView>
-      </GradientBorder>
+      </View>
     </GestureDetector>
   );
 };
