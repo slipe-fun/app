@@ -17,12 +17,14 @@ import Animated from "react-native-reanimated";
 import { Blurhash } from "react-native-blurhash";
 import { getVariableValue, View } from "tamagui";
 import { StyleSheet } from "react-native";
+import useInsets from "@hooks/ui/useInsets";
 import { getFadeIn, getFadeOut } from "@constants/fadeAnimations";
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 const AnimatedBlurhash = Animated.createAnimatedComponent(Blurhash);
 
 const padding = getVariableValue("$6", "space");
+const buttonSize = getVariableValue("$13", "size");
 
 const ProfileAvatar = ({ scrollY }) => {
   const user = useProfileStore((state) => state.user);
@@ -30,6 +32,8 @@ const ProfileAvatar = ({ scrollY }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [size, setSize] = useState(140);
   const ref = useRef();
+
+  const insets = useInsets();
 
   const image = useImage(`${URLS.CDN_AVATARS_URL}${user?.avatar}`);
 
@@ -67,6 +71,8 @@ const ProfileAvatar = ({ scrollY }) => {
     <AnimatedView
       ref={ref}
       w="$24"
+      zIndex="$2"
+      mt={insets.top + (buttonSize / 2)}
       aspectRatio="1/1"
       transformOrigin="bottom"
       overflow="hidden"

@@ -1,7 +1,6 @@
 import { XStack } from "tamagui";
 import Icon from "@components/ui/icon";
 import Animated, {
-    interpolateColor,
     interpolate,
     useAnimatedStyle
 } from "react-native-reanimated";
@@ -14,7 +13,6 @@ import { GradientBorder } from "@components/ui/gradientBorder";
 import { useRef, useState, useEffect, memo } from "react";
 import ProfileUserInfo from "./profileBlock/userInfo";
 
-const AnimatedGradientBorder = Animated.createAnimatedComponent(GradientBorder);
 const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
 
 const ProfileHeader = ({ scrollY, back = false }) => {
@@ -25,18 +23,12 @@ const ProfileHeader = ({ scrollY, back = false }) => {
   const ref = useRef(null); 
 
   const color = theme.color.get();
-  const glassButton = theme.glassButton.get();
-  const backgroundTransparent = theme.backgroundTransparent.get();  
 
   const [headerHeight, setHeaderHeight] = useState(0);
 
   const handleBack = () => {
     navigation.goBack();
   };
-
-  const animatedGradientBorderStyle = useAnimatedStyle(() => ({
-    backgroundColor: interpolateColor(scrollY.value, [0, headerHeight], [backgroundTransparent, glassButton]),
-  }));
 
   const animatedLinearGradientStyle = useAnimatedStyle(() => ({
     opacity: interpolate(scrollY.value, [0, headerHeight], [0, 1]),
@@ -55,7 +47,7 @@ const ProfileHeader = ({ scrollY, back = false }) => {
         style={[StyleSheet.absoluteFill, animatedLinearGradientStyle]}
       />
       {back && (
-      <AnimatedGradientBorder
+      <GradientBorder
         p={0}
         justifyContent="center"
         alignItems="center"
@@ -63,29 +55,29 @@ const ProfileHeader = ({ scrollY, back = false }) => {
         w="$13"
         br="$full"
         onPress={handleBack}
-        style={animatedGradientBorderStyle}
+        backgroundColor="$glassButton"
         pressStyle={{
           scale: 0.9,
         }}
       >
         <Icon size={26} icon="chevronLeft" color={color} />
-      </AnimatedGradientBorder>
+      </GradientBorder>
       )}
       <ProfileUserInfo header scrollY={scrollY}/>
-      <AnimatedGradientBorder
+      <GradientBorder
         p={0}
         justifyContent="center"
         alignItems="center"
         h="$13"
         w="$13"
         br="$full"
-        style={animatedGradientBorderStyle}
+        backgroundColor="$glassButton"
         pressStyle={{
           scale: 0.9,
         }}
       >
           <Icon size={28} icon="qrcode" color={color} />
-      </AnimatedGradientBorder>
+      </GradientBorder>
     </XStack>
   );
 };

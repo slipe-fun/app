@@ -5,21 +5,17 @@ import Post from "@components/ui/post";
 import { useCallback } from "react";
 import ProfileInfoBlock from "@components/common/profileScreen/infoBlock";
 import Animated, { useAnimatedScrollHandler } from "react-native-reanimated";
-import useInsets from "@hooks/ui/useInsets";
 import { useProfileStore } from "@stores/profileScreen";
-import { getVariableValue, YStack } from "tamagui";
+import { YStack } from "tamagui";
 import ProfileBlock from "./profileBlock";
 
 const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
-
-const buttonSize = getVariableValue("$13", "size");
 
 const ProfilePostsList = ({ scrollY }) => {
   const user = useProfileStore((state) => state.user);
 
   const { posts, setPage } = useFetchProfilePosts(user?.id, true);
 
-  const insets = useInsets();
 
   const onScroll = useAnimatedScrollHandler({
     onScroll: (event) => {
@@ -46,7 +42,6 @@ const ProfilePostsList = ({ scrollY }) => {
     <AnimatedFlashList
       keyExtractor={keyExtractor}
       contentContainerStyle={{
-        paddingTop: insets.top + (buttonSize / 2),
         paddingHorizontal: 8,
       }}
       ListHeaderComponent={<YStack ph="$3" pb="$3" gap="$6"><ProfileBlock scrollY={scrollY}/><ProfileInfoBlock /></YStack>}
