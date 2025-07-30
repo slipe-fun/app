@@ -1,140 +1,111 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useWindowDimensions } from "react-native";
 import { Gesture } from "react-native-gesture-handler";
-import {
-  cancelAnimation,
-  Easing,
-  runOnJS,
-  useSharedValue,
-  withTiming,
-} from "react-native-reanimated";
+import { cancelAnimation, Easing, runOnJS, useSharedValue, withTiming } from "react-native-reanimated";
+import * as Haptics from "expo-haptics";
 
-export default function useBlogsGestures(
-  isActive,
-  postsLength,
-  progress,
-  durationMs = 4000,
-) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isSeeking, setIsSeeking] = useState(false);
-  const [seekTimeSec, setSeekTimeSec] = useState(0);
-  const { width: screenWidth } = useWindowDimensions();
+export default function useBlogsGestures(isActive, postsLength, progress, durationMs = 4000) {
+	const [activeIndex, setActiveIndex] = useState(0);
+	const [isSeeking, setIsSeeking] = useState(false);
+	const [seekTimeSec, setSeekTimeSec] = useState(0);
 
-  const savedProgress = useSharedValue(0);
+	const { width: screenWidth } = useWindowDimensions();
 
-  const updateIndex = (delta) => {
-    setActiveIndex((prev) => {
-      const next = prev + delta;
-      if (next < 0 || next >= postsLength) return prev;
-      return next;
-    });
-  };
+	const savedProgress = useSharedValue(0);
+	const lastHapticStep = useSharedValue(0);
 
-  const resumeProgressAnimation = () => {
-    "worklet";
-    const currentProgress = progress.value;
-    const remaining = 1 - currentProgress;
-    const remainingDuration = durationMs * remaining;
+	const updateIndex = useCallback(
+		delta =>
+			setActiveIndex(prev => {
+				const next = prev + delta;
+				return next < 0 || next >= postsLength ? prev : next;
+			}),
+		[postsLength]
+	);
 
-    progress.value = withTiming(
-      1,
-      { duration: remainingDuration, easing: Easing.linear },
-      (finished) => {
-        "worklet";
-        if (finished) {
-          runOnJS(updateIndex)(1);
-        }
-      },
-    );
-  };
+	const startAnimation = useCallback(
+		(from = 0) => {
+			"worklet";
+			cancelAnimation(progress);
+			const remaining = 1 - from;
+			progress.value = withTiming(1, { duration: durationMs * remaining, easing: Easing.linear }, finished => {
+				"worklet";
+				if (finished) {
+					runOnJS(updateIndex)(1);
+				}
+			});
+		},
+		[durationMs, progress, updateIndex]
+	);
 
-  useEffect(() => {
-    if (!isActive) {
-      progress.value = 0;
-      setActiveIndex(0);
-      return;
-    }
+	useEffect(() => {
+		if (!isActive) {
+			cancelAnimation(progress);
+			progress.value = 0;
+			setActiveIndex(0);
+			setSeekTimeSec(0);
+		} else {
+			progress.value = 0;
+			requestAnimationFrame(() => startAnimation(0));
+		}
+	}, [activeIndex, isActive, progress, startAnimation]);
 
-    cancelAnimation(progress);
-    progress.value = 0;
+	const tapGesture = Gesture.Tap()
+		.maxDuration(250)
+		.onEnd(e => {
+			"worklet";
+			const delta = e.x < screenWidth / 2 ? -1 : 1;
+			runOnJS(updateIndex)(delta);
+		});
 
-    requestAnimationFrame(() => {
-      progress.value = withTiming(
-        1,
-        { duration: durationMs, easing: Easing.linear },
-        (finished) => {
-          "worklet";
-          if (finished) {
-            runOnJS(updateIndex)(1);
-          }
-        },
-      );
-    });
-  }, [activeIndex, isActive]);
+	const beginSeek = () => {
+		"worklet";
+		cancelAnimation(progress);
+		savedProgress.value = progress.value;
+		lastHapticStep.value = Math.floor(progress.value * 10);
+		runOnJS(setIsSeeking)(true);
+	};
 
-  const FPS = 30;
-  const FRAME_STEP = 10;
-  const durationSec = durationMs / 1000;
-  const stepCount = Math.floor((durationSec * FPS) / FRAME_STEP);
-  const stepProgress = 1 / stepCount;
+	const panGesture = Gesture.Pan()
+		.activeOffsetX([-10, 10])
+		.onStart(beginSeek)
+		.onUpdate(e => {
+			"worklet";
+			const raw = savedProgress.value + e.translationX / screenWidth;
+			const clamped = Math.min(1, Math.max(0, raw));
+			progress.value = clamped;
 
-  const clampToFrameStep = (p) => {
-    "worklet";
-    const clamped = Math.round(p / stepProgress) * stepProgress;
-    return Math.max(0, Math.min(1, clamped));
-  };
+			const step = Math.floor(clamped * 10);
+			if (step !== lastHapticStep.value) {
+				lastHapticStep.value = step;
+				runOnJS(Haptics.impactAsync)(Haptics.ImpactFeedbackStyle.Rigid);
+			}
+		})
+		.onEnd(() => {
+			"worklet";
+			runOnJS(setIsSeeking)(false);
+			const secs = progress.value * (durationMs / 1000);
+			runOnJS(setSeekTimeSec)(secs);
+			startAnimation(progress.value);
+		});
 
-  const tapGesture = Gesture.Tap()
-    .maxDuration(250)
-    .onEnd((event) => {
-      const delta = event.x < screenWidth / 2 ? -1 : 1;
-      runOnJS(updateIndex)(delta);
-    });
+	const longPressGesture = Gesture.LongPress()
+		.minDuration(150)
+		.maxDistance(screenWidth)
+		.onStart(beginSeek)
+		.onFinalize((_, success) => {
+			"worklet";
+			runOnJS(setIsSeeking)(false);
+			if (success) {
+				startAnimation(progress.value);
+			}
+		});
 
-  const panGesture = Gesture.Pan()
-    .activeOffsetX([-10, 10])
-    .onStart(() => {
-      savedProgress.value = progress.value;
-    })
-    .onUpdate((event) => {
-      if (!isSeeking) return;
-      const delta = event.translationX / screenWidth;
-      const raw = savedProgress.value + delta;
-      const clamped = clampToFrameStep(raw);
-      progress.value = clamped;
-    })
-    .onEnd(() => {
-      runOnJS(setIsSeeking)(false);
-      const currentProgress = progress.value;
-      const currentTime = currentProgress * durationSec;
-      runOnJS(setSeekTimeSec)(currentTime);
-      resumeProgressAnimation();
-    });
+	useEffect(() => {
+		setIsSeeking(false);
+	}, [activeIndex]);
 
-  const longPressGesture = Gesture.LongPress()
-    .minDuration(150)
-    .maxDistance(screenWidth)
-    .onStart(() => {
-      cancelAnimation(progress);
-      runOnJS(setIsSeeking)(true);
-    })
-    .onEnd(() => {
-      runOnJS(setIsSeeking)(false);
-      resumeProgressAnimation();
-    })
-    .onFinalize(() => {
-      runOnJS(setIsSeeking)(false);
-    });
+	const gesture = Gesture.Simultaneous(tapGesture, panGesture, longPressGesture);
 
-  useEffect(() => {
-    setIsSeeking(false);
-  }, [activeIndex]);
-
-  const gesture = Gesture.Simultaneous(
-    tapGesture,
-    longPressGesture,
-    panGesture,
-  );
-
-  return { gesture, activeIndex, isSeeking, seekTimeSec };
+	return { gesture, activeIndex, isSeeking, seekTimeSec };
 }
