@@ -52,9 +52,6 @@ const NotificationStack = ({ notifications }) => {
         >
           <Text fw="$3" fz="$4" lh="$4" color="$white">
             {formatDate(date)}{" "}
-            <Text fw="$3" fz="$4" lh="$4" color="$secondaryText">
-              30
-            </Text>
           </Text>
         </View>
         <View

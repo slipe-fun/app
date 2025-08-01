@@ -5,9 +5,11 @@ import { memo } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet } from "react-native";
 import MediaPreview from "@components/ui/mediaPreview";
+import { useTranslation } from "react-i18next";
 
 const Category = ({ category }) => {
   const navigation = useNavigation();
+  const { t } = useTranslation();
 
   return (
     <Button
@@ -27,7 +29,7 @@ const Category = ({ category }) => {
       }}
       onPress={() => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
-        navigation.navigate("Category_Page", { category });
+        navigation.navigate("category_Page", { category });
       }}
     >
       <View
@@ -53,7 +55,7 @@ const Category = ({ category }) => {
           style={StyleSheet.absoluteFill}
         />
         <Text textAlign="start" fz="$4" lh="$4" fw="$3" color={category.color}>
-          {category.title}
+          {t(`categories.${category.name}`)}
         </Text>
       </View>
     </Button>

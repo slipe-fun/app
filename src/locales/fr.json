@@ -1,0 +1,80 @@
+{
+	"navigation": {
+		"blogs": "Fil",
+		"search": "Recherche",
+		"profile": "Profil"
+	},
+	"profile": {
+		"edit": "Modifier",
+		"username": "Nom d'utilisateur",
+		"bio": "À propos de moi",
+		"publishButton": "Nouveau post"
+	},
+	"search": {
+		"title": "Recherche",
+		"input": "Rechercher dans l'univers",
+		"top10": "Top 10 des posts populaires",
+		"similar": "Similaires à vos posts",
+		"relevant": "Posts pertinents pour vous",
+		"categoriesTitle": "Catégories",
+		"resultsTitle": "Résultats",
+		"inputCancel": "Annuler",
+		"slideOpen": "Ouvrir"
+	},
+	"categories": {
+		"animals": "Animaux",
+		"creativity": "Créativité",
+		"diy": "DIY",
+		"ecology": "Écologie",
+		"education": "Éducation",
+		"fashion": "Mode",
+		"finance": "Finance",
+		"food": "Nourriture",
+		"jokes": "Blagues",
+		"movies": "Films",
+		"programming": "Code",
+		"science": "Science",
+		"shitpost": "Shitpost",
+		"sport": "Sport",
+		"traveling": "Voyages",
+		"volunteering": "Bénévolat"
+	},
+	"notifications": {
+		"title": "Notifications",
+		"subscribed": "S'est abonné à vous",
+		"reacted": "A réagi",
+		"commented": "A commenté",
+		"new": "{{count}} nouveaux",
+		"loading": "Chargement..."
+	},
+	"publish": {
+		"accessTitle": "Nous avons besoin d'accéder à la caméra pour enregistrer des photos et des vidéos",
+		"accessSubtitle": "Allez dans Paramètres {'>'} Permissions et autorisez l'accès à la caméra",
+		"accessSettings": "Paramètres",
+		"switcherPhoto": "PHOTO",
+		"switcherVideo": "VIDÉO"
+	},
+	"register": {
+		"title": "S'inscrire",
+		"haveAccount": "Vous avez déjà un compte ?",
+		"inputPassword": "Mot de passe",
+		"inputUsername": "Nom d'utilisateur",
+		"button": "S'inscrire"
+	},
+	"login": {
+		"title": "Connexion",
+		"haveAccount": "Pas encore de compte ?",
+		"inputPassword": "Mot de passe",
+		"inputUsername": "Nom d'utilisateur",
+		"button": "Connexion"
+	},
+	"timeUnits": {
+		"year": "an",
+		"month": "mois",
+		"week": "sem.",
+		"day": "j",
+		"hour": "h",
+		"minute": "min",
+		"second": "s"
+	}
+}

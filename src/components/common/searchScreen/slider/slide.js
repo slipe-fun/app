@@ -5,16 +5,18 @@ import { StyleSheet } from "react-native";
 import { URLS } from "@constants/urls";
 import { useNavigation } from "@react-navigation/native";
 import MediaPreview from "@components/ui/mediaPreview";
+import { useTranslation } from "react-i18next";
 
 const SearchSliderSlide = ({ isActive, title, posts }) => {
-  const post = posts[0];
-
   const navigation = useNavigation();
+  const { t } = useTranslation();
+
+  const post = posts[0];
 
   return (
     <View
       onPress={() =>
-        navigation.navigate("Category_Page", {
+        navigation.navigate("category_Page", {
           category: {
             blurhash: post?.blurhash,
             thumbnail: `${URLS.CDN_POSTS_URL}${post?.image}`,
@@ -76,7 +78,7 @@ const SearchSliderSlide = ({ isActive, title, posts }) => {
           backgroundColor="$white"
         >
           <Text fz="$2" lh="$2" fw="$3" color="$black">
-            Открыть
+            {t('search.slideOpen')}
           </Text>
         </Button>
         <LinearGradient

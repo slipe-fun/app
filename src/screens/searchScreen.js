@@ -1,8 +1,5 @@
 import { YStack, View, Text } from "tamagui";
-import Animated, {
-  useSharedValue,
-  useAnimatedScrollHandler,
-} from "react-native-reanimated";
+import Animated, { useSharedValue, useAnimatedScrollHandler } from "react-native-reanimated";
 import { SearchHeader } from "../components/common/searchScreen/header";
 import Hints from "@components/common/searchScreen/searchContent/hints";
 import { FlashList } from "@shopify/flash-list";
@@ -14,97 +11,98 @@ import useFetchDataByQuery from "@hooks/useFetchDataByQuery";
 import Post from "@components/ui/post";
 import SearchSlider from "@components/common/searchScreen/slider";
 import useFetchCategoryStatistics from "@hooks/useFetchCategoryStatistics";
+import { useTranslation } from "react-i18next";
 
 const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
 
 export function SearchScreen() {
-  const scrollY = useSharedValue(0);
+	const scrollY = useSharedValue(0);
+	const { t } = useTranslation();
+	const setIsFocused = useSearchStore(state => state.setIsFocused);
+	const type = useSearchStore(state => state.type);
+	const isFocused = useSearchStore(state => state.isFocused);
+	const isSearch = useSearchStore(state => state.isSearch);
+	const setIsSearch = useSearchStore(state => state.setIsSearch);
+	const headerHeight = useSearchStore(state => state.headerHeight);
+	const query = useSearchStore(state => state.query);
+	const setStatistics = useSearchStore(state => state.setStatistics);
 
-  const setIsFocused = useSearchStore((state) => state.setIsFocused);
-  const type = useSearchStore((state) => state.type);
-  const isFocused = useSearchStore((state) => state.isFocused);
-  const isSearch = useSearchStore((state) => state.isSearch);
-  const setIsSearch = useSearchStore((state) => state.setIsSearch);
-  const headerHeight = useSearchStore((state) => state.headerHeight);
-  const query = useSearchStore((state) => state.query);
-  const setStatistics = useSearchStore((state) => state.setStatistics);
+	const { data, setPage } = useFetchDataByQuery(isSearch ? query : "", type);
+	const { statistics, isLoading, error } = useFetchCategoryStatistics();
 
-  const { data, setPage } = useFetchDataByQuery(isSearch ? query : "", type);
-  const { statistics, isLoading, error } = useFetchCategoryStatistics();
+	const onScroll = useAnimatedScrollHandler(event => {
+		scrollY.value = event.contentOffset.y;
+	});
 
-  const onScroll = useAnimatedScrollHandler((event) => {
-    scrollY.value = event.contentOffset.y;
-  });
+	const renderItem = useCallback(
+		({ item }) => {
+			if (isSearch) {
+				return <Post post={item} />;
+			}
+			return (
+				<View style={{ flex: 1, margin: 8 }}>
+					<Category category={item} />
+				</View>
+			);
+		},
+		[isSearch]
+	);
 
-  const renderItem = useCallback(
-    ({ item }) => {
-      if (isSearch) {
-        return <Post post={item} />;
-      }
-      return (
-        <View style={{ flex: 1, margin: 8 }}>
-          <Category category={item} />
-        </View>
-      );
-    },
-    [isSearch]
-  );
+	const handleEndReached = useCallback(() => {
+		setPage(prev => prev + 1);
+	}, []);
 
-  const handleEndReached = useCallback(() => {
-    setPage((prev) => prev + 1);
-  }, []);
+	useEffect(() => {
+		return () => {
+			setIsFocused(false);
+		};
+	}, []);
 
-  useEffect(() => {
-    return () => {
-      setIsFocused(false);
-    };
-  }, []);
+	useEffect(() => {
+		if (isFocused) {
+			setIsSearch(false);
+		}
+	}, [isFocused]);
 
-  useEffect(() => {
-    if (isFocused) {
-      setIsSearch(false);
-    }
-  }, [isFocused]);
+	useEffect(() => {
+		setStatistics(statistics?.filter(statistic => statistic?.category !== "story"));
+	}, [statistics]);
 
-  useEffect(() => {
-    setStatistics(statistics?.filter(statistic => statistic?.category !== "story"))
-  }, [statistics])
-
-  return (
-    <YStack f={1} backgroundColor="$black">
-      <SearchHeader scrollY={scrollY} />
-      <AnimatedFlashList
-        keyboardShouldPersistTaps="handled"
-        data={isSearch ? data : categories}
-        extraData={isSearch}
-        onEndReached={isSearch ? handleEndReached : null}
-        renderItem={renderItem}
-        keyExtractor={(item, index) =>
-          isSearch ? `post-${item?.id}` : `category-${index}`
-        }
-        numColumns={2}
-        initialNumToRender={10}
-        maxToRenderPerBatch={isSearch ? 12 : 6}
-        ListHeaderComponent={
-          <YStack pt="$7" gap="$10" pb="$3">
-            {!isSearch && <SearchSlider />}
-            <Text lh="$8" fw="$3" fz="$8" color="$color" mh="$3">{isSearch ? "Результаты" : "Категории"}</Text>
-          </YStack>
-        }
-        estimatedItemSize={isSearch ? 250 : 131}
-        contentContainerStyle={{
-          paddingTop: headerHeight,
-          paddingHorizontal: 8,
-        }}
-        columnWrapperStyle={{
-          marginBottom: 24,
-        }}
-        scrollEventThrottle={16}
-        onScroll={onScroll}
-      />
-      <Hints />
-    </YStack>
-  );
+	return (
+		<YStack f={1} backgroundColor='$black'>
+			<SearchHeader scrollY={scrollY} />
+			<AnimatedFlashList
+				keyboardShouldPersistTaps='handled'
+				data={isSearch ? data : categories}
+				extraData={isSearch}
+				onEndReached={isSearch ? handleEndReached : null}
+				renderItem={renderItem}
+				keyExtractor={(item, index) => (isSearch ? `post-${item?.id}` : `category-${index}`)}
+				numColumns={2}
+				initialNumToRender={10}
+				maxToRenderPerBatch={isSearch ? 12 : 6}
+				ListHeaderComponent={
+					<YStack pt='$7' gap='$10' pb='$3'>
+						{!isSearch && <SearchSlider />}
+						<Text lh='$8' fw='$3' fz='$8' color='$color' mh='$3'>
+							{t(`search.${isSearch ? "resultsTitle" : "categoriesTitle"}`)}
+						</Text>
+					</YStack>
+				}
+				estimatedItemSize={isSearch ? 250 : 131}
+				contentContainerStyle={{
+					paddingTop: headerHeight,
+					paddingHorizontal: 8,
+				}}
+				columnWrapperStyle={{
+					marginBottom: 24,
+				}}
+				scrollEventThrottle={16}
+				onScroll={onScroll}
+			/>
+			<Hints />
+		</YStack>
+	);
 }
 
 export default SearchScreen;

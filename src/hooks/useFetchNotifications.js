@@ -6,6 +6,7 @@ export default function useFetchNotifications() {
     const [afterDay, setAfterDay] = useState("");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState();
+    const [count, setCount] = useState(0);
 
     async function fetchNotifications(customAfterDay) {
         setLoading(true);
@@ -13,7 +14,8 @@ export default function useFetchNotifications() {
             const request = await api.v2.get(`/notifications?after_day=${typeof customAfterDay === "string" ? customAfterDay : afterDay}`);
             const localNotifications = request.data || [];
             if (Object.keys(localNotifications).length === 0) return;
-            setNotifications(notifications => [...notifications, ...Object.values(localNotifications) || []]);
+            setCount(localNotifications?.count)
+            setNotifications(notifications => [...notifications, ...Object.values(localNotifications?.success) || []]);
             setLoading(false);
         } catch (error) {
             setLoading(false);
@@ -41,5 +43,5 @@ export default function useFetchNotifications() {
         addPage();
     }, [afterDay]);
 
-    return { notifications, error, addPage, refresh, loading }
+    return { notifications, error, addPage, refresh, loading, count }
 }

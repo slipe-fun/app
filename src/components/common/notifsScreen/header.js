@@ -14,6 +14,7 @@ import useInsets from "@hooks/ui/useInsets";
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet } from "react-native";
 import { GradientBorder } from "@components/ui/gradientBorder";
+import { useTranslation } from "react-i18next";
 
 const AnimatedText = Animated.createAnimatedComponent(Text);
 
@@ -23,11 +24,10 @@ const gap = getVariableValue("$1", "space");
 const NotifsHeader = ({ refresh, loading }) => {
   const navigation = useNavigation();
   const theme = useTheme();
-  const ref = useRef(null);
   const insets = useInsets();
-
+  const { t } = useTranslation();
+  const ref = useRef(null);
   const rotation = useSharedValue(0);
-
   const setHeaderHeight = useNotifsStore((state) => state.setHeaderHeight);
 
   const color = theme.color.get();
@@ -77,10 +77,10 @@ const NotifsHeader = ({ refresh, loading }) => {
       </GradientBorder>
       <YStack gap='$1' h="$12" justifyContent="center" alignItems="center">
         <AnimatedText color="$color" fw="$3" fz="$5" lh="$5" style={animatedTitleStyle}>
-          Уведомления
+          {t('notifications.title')}
         </AnimatedText>
         <AnimatedText color="$transparentText" fw="$2" fz="$2" lh="$2" style={animatedLoadingTextStyle}>
-          Загрузка...
+           {t('notifications.loading')} 
         </AnimatedText>
       </YStack>
       <GradientBorder

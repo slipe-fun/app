@@ -9,12 +9,14 @@ import Animated, {
   withSpring,
 } from "react-native-reanimated";
 import { ROUTES_TITLES } from "@constants/routes";
+import { useTranslation } from "react-i18next";
 
 const AnimatedText = Animated.createAnimatedComponent(Text);
 
 const TabBarItem = ({ route, isFocused, onPress }) => {
   const colorValue = useSharedValue(0);
   const iconName = route.name.toLowerCase();
+  const { t } = useTranslation();
   const theme = useTheme();
   const inactiveColor = theme.secondaryText.get();
   const activeColor = theme.primary.get();
@@ -61,7 +63,7 @@ const TabBarItem = ({ route, isFocused, onPress }) => {
     >
       <Icon color={inactiveColor} icon={iconName} size={28} animatedProps={iconColorProps} />
       <AnimatedText fz="$0.75" fw="$3" lh="$0.75" style={textAnimatedStyles}>
-        {ROUTES_TITLES[route.name]}
+        {t(`navigation.${route.name}`)}
       </AnimatedText>
     </Button>
   );

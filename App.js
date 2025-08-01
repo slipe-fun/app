@@ -1,3 +1,5 @@
+import './i18n';
+
 import configUI from "./tamagui.config";
 import { useCallback } from "react";
 import { StatusBar } from "expo-status-bar";

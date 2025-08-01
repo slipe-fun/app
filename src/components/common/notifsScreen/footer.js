@@ -11,11 +11,13 @@ import * as Haptics from 'expo-haptics';
 import { GradientBorder } from "@components/ui/gradientBorder";
 import { useRef, useEffect } from "react";
 import useNotifsStore from "@stores/notifsScreen";
+import { useTranslation } from "react-i18next";
 
 const AnimatedGradientBorder = Animated.createAnimatedComponent(GradientBorder);
 
 const NotifsFooter = ({ count }) => {
   const insets = useInsets();
+  const { t } = useTranslation();
 
   const scale = useSharedValue(1);
 
@@ -79,7 +81,7 @@ const NotifsFooter = ({ count }) => {
         style={animatedStyle}
       >
         <Text color="$color" fw="$3" fz="$4" lh="$4">
-          {count} уведомлений
+         {t('notifications.new', { count })}
         </Text>
       </AnimatedGradientBorder>
     </View>

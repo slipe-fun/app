@@ -9,11 +9,14 @@ import isRegistrationDataCorrect from "../../lib/auth/signUp/isDataCorrect";
 import { useKeyboard } from "@react-native-community/hooks";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming, Easing, ReduceMotion } from "react-native-reanimated";
 import { toast } from "sonner-native";
+import { useTranslation } from "react-i18next";
+import { ROUTES } from "@constants/routes";
 
 const RegisterScreen = ({ navigation }) => {
 	const { login } = useAuth();
 	const insets = useSafeAreaInsets();
 	const buttonOffset = useSharedValue(0);
+	const { t } = useTranslation();
 	const keyboard = useKeyboard();
 
 	const [username, setUsername] = useState("");
@@ -43,7 +46,7 @@ const RegisterScreen = ({ navigation }) => {
 					password,
 				})
 			);
-			
+
 			const storageInstance = await storage();
 			await storageInstance.set("token", res?.data?.token);
 			login();
@@ -63,14 +66,14 @@ const RegisterScreen = ({ navigation }) => {
 	return (
 		<View style={[styles.container, { paddingBottom: Platform.OS === "ios" ? insets.bottom : insets.bottom + 6 }]}>
 			<View style={styles.wrapper}>
-				<Text style={styles.title}>Зарегистрироваться</Text>
+				<Text style={styles.title}>{t('register.title')}</Text>
 				<TextInput
 					style={styles.input}
 					onChangeText={text => setUsername(text)}
 					cursorColor={COLORS.white}
 					maxLength={32}
 					placeholderTextColor={COLORS.transparentText}
-					placeholder='Имя пользователя'
+					placeholder={t('register.inputUsername')}
 				/>
 				<TextInput
 					secureTextEntry
@@ -79,16 +82,16 @@ const RegisterScreen = ({ navigation }) => {
 					cursorColor={COLORS.white}
 					maxLength={32}
 					placeholderTextColor={COLORS.transparentText}
-					placeholder='Пароль'
+					placeholder={t('register.inputPassword')}
 				/>
-				<TouchableOpacity onPress={() => navigation.navigate("Login")} activeOpacity={0.8} style={{ width: "100%" }}>
-					<Text style={styles.dontText}>Уже есть аккаунт?</Text>
+				<TouchableOpacity onPress={() => navigation.navigate(ROUTES.LOGIN)} activeOpacity={0.8} style={{ width: "100%" }}>
+					<Text style={styles.dontText}>{t('register.haveAccount')}</Text>
 				</TouchableOpacity>
 			</View>
 
 			<Animated.View style={[buttonAnimatedStyles, { width: "100%" }]}>
 				<TouchableOpacity onPress={handleRegister} activeOpacity={0.8} style={styles.button}>
-					<Text style={styles.buttonText}>Зарегистрироваться</Text>
+					<Text style={styles.buttonText}>{t('register.button')}</Text>
 				</TouchableOpacity>
 			</Animated.View>
 		</View>

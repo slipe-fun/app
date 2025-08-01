@@ -2,9 +2,10 @@ import Icon from "@components/ui/icon";
 import { Linking } from "react-native";
 import { Text, YStack, View, Button } from "tamagui";
 import * as Haptics from "expo-haptics";
-import { GradientBorder } from "@components/ui/gradientBorder";
+import { useTranslation } from "react-i18next";
 
 const CaptureCameraDenied = () => {
+  const { t } = useTranslation();
   const handlePressIn = async () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
     await Linking.openSettings();
@@ -31,7 +32,7 @@ const CaptureCameraDenied = () => {
         </View>
         <YStack alignItems="center" justifyContent="center" gap="$4">
           <Text textAlign="center" fw="$3" color="$color" fz="$6" lh="$6">
-            Нам нужен доступ к камере для записи фото и видео.
+            {t('publish.accessTitle')}
           </Text>
           <Text
             textAlign="center"
@@ -40,7 +41,7 @@ const CaptureCameraDenied = () => {
             fz="$2"
             lh="$2"
           >
-            Нажмите Настройки {">"} Разрешения, и разрешите доступ к камере
+            {t('publish.accessSubtitle')}
           </Text>
         </YStack>
       </YStack>
@@ -69,7 +70,7 @@ const CaptureCameraDenied = () => {
           }}
         >
           <Text fw="$3" fz="$3" lh="$3">
-            Настройки
+            {t('publish.accessSettings')}
           </Text>
         </Button>
       </View>

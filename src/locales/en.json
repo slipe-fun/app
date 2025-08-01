@@ -1,0 +1,80 @@
+{
+	"navigation": {
+		"blogs": "Feed",
+		"search": "Search",
+		"profile": "Profile"
+	},
+	"profile": {
+		"edit": "Edit",
+		"username": "Username",
+		"bio": "About me",
+		"publishButton": "New post"
+	},
+	"search": {
+		"title": "Search",
+		"input": "Search the universe",
+		"top10": "Top 10 popular posts",
+		"similar": "Similar to your posts",
+		"relevant": "Relevant posts for you",
+		"categoriesTitle": "Categories",
+		"resultsTitle": "Results",
+		"inputCancel": "Cancel",
+		"slideOpen": "Open"
+	},
+	"categories": {
+		"animals": "Animals",
+		"creativity": "Creativity",
+		"diy": "DIY",
+		"ecology": "Ecology",
+		"education": "Education",
+		"fashion": "Fashion",
+		"finance": "Finance",
+		"food": "Food",
+		"jokes": "Jokes",
+		"movies": "Movies",
+		"programming": "Coding",
+		"science": "Science",
+		"shitpost": "Shitpost",
+		"sport": "Sport",
+		"traveling": "Traveling",
+		"volunteering": "Volunteering"
+	},
+	"notifications": {
+		"title": "Notifications",
+		"subscribed": "Subscribed to you",
+		"reacted": "Reacted",
+		"commented": "Commented",
+		"new": "{{count}} new",
+		"loading": "Loading..."
+	},
+	"publish": {
+		"accessTitle": "We need access to the camera for photo and video recording",
+		"accessSubtitle": "Go to Settings {'>'} Permissions and allow camera access",
+		"accessSettings": "Settings",
+		"switcherPhoto": "PHOTO",
+		"switcherVideo": "VIDEO"
+	},
+	"register": {
+		"title": "Register",
+		"haveAccount": "Already have an account?",
+		"inputPassword": "Password",
+		"inputUsername": "Username",
+		"button": "Register"
+	},
+	"login": {
+		"title": "Login",
+		"haveAccount": "Don't have an account?",
+		"inputPassword": "Password",
+		"inputUsername": "Username",
+		"button": "Login"
+	},
+	"timeUnits": {
+		"year": "yr",
+		"month": "mo",
+		"week": "wk",
+		"day": "d",
+		"hour": "hr",
+		"minute": "min",
+		"second": "sec"
+	}
+}

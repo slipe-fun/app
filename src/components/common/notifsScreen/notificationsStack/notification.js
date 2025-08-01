@@ -4,6 +4,7 @@ import { XStack, YStack, View, Text, Image } from "tamagui";
 import FastImage from "react-native-fast-image";
 import Icon from "@components/ui/icon";
 import { memo } from "react";
+import { useTranslation } from "react-i18next";
 
 const badgeColors = {
   reaction: "$primary",
@@ -31,21 +32,22 @@ const NotificationBadge = ({ action }) => {
 }
 
 const NotificationActionText = ({ action, reaction }) => {
+  const { t } = useTranslation();
   switch (action) {
     case "reaction":
       return (
         <XStack gap="$1">
-          <Text color="$transparentText" fw="$2" fz="$1" lh="$1">Оставил реакцию: {reaction} </Text>
+          <Text color="$transparentText" fw="$2" fz="$1" lh="$1">{t('notifications.reacted')}</Text>
           <Image width="$1" height="$1" source='' />
         </XStack>
       );
     case "comment":
       return (
-        <Text color="$transparentText" fw="$2" fz="$1" lh="$1">Оставил комментарий</Text>
+        <Text color="$transparentText" fw="$2" fz="$1" lh="$1">{t('notifications.commented')}</Text>
       );
     case "subscribe":
       return (
-        <Text color="$transparentText" fw="$2" fz="$1" lh="$1">Подписался на вас</Text>
+        <Text color="$transparentText" fw="$2" fz="$1" lh="$1">{t('notifications.subscribed')}</Text>
       );
     default:
       return null;
@@ -63,7 +65,7 @@ const Notification = ({ notification }) => {
           priority={FastImage.priority.normal}
         />
       </View>
-      <YStack gap="$5.5" p="$5.5" w="$full">
+      <YStack gap="$4" p="$5.5" w="$full">
         <XStack w="$full" alignItems="flex-start" gap="$5.5">
           <View w="$13" h="$13" br="$full" overflow="hidden">
             {notification?.from_user?.avatar ? (

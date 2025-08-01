@@ -8,10 +8,13 @@ import { api } from "../../lib/api";
 import { useKeyboard } from "@react-native-community/hooks";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming, Easing, ReduceMotion } from "react-native-reanimated";
 import { toast } from "sonner-native";
+import { useTranslation } from "react-i18next";
+import { ROUTES } from "@constants/routes";
 
 const LoginScreen = ({ navigation }) => {
 	const { login } = useAuth();
 	const insets = useSafeAreaInsets();
+	const { t } = useTranslation();
 	const buttonOffset = useSharedValue(0);
 	const keyboard = useKeyboard();
 
@@ -37,7 +40,7 @@ const LoginScreen = ({ navigation }) => {
 					password,
 				})
 			);
-			
+
 			const storageInstance = await storage();
 			await storageInstance.set("token", res?.data?.token);
 			login();
@@ -57,14 +60,14 @@ const LoginScreen = ({ navigation }) => {
 	return (
 		<View style={[styles.container, { paddingBottom: Platform.OS === "ios" ? insets.bottom : insets.bottom + 6 }]}>
 			<View style={styles.wrapper}>
-				<Text style={styles.title}>Войти</Text>
+				<Text style={styles.title}>{t("login.title")}</Text>
 				<TextInput
 					onChangeText={text => setUsername(text)}
 					style={styles.input}
 					cursorColor={COLORS.white}
 					maxLength={32}
 					placeholderTextColor={COLORS.transparentText}
-					placeholder='Имя пользователя'
+					placeholder={t("login.inputUsername")}
 				/>
 				<TextInput
 					onChangeText={text => setPassword(text)}
@@ -73,16 +76,16 @@ const LoginScreen = ({ navigation }) => {
 					maxLength={32}
 					secureTextEntry
 					placeholderTextColor={COLORS.transparentText}
-					placeholder='Пароль'
+					placeholder={t("login.inputPassword")}
 				/>
-				<TouchableOpacity onPress={() => navigation.navigate("Register")} activeOpacity={0.8} style={{ width: "100%" }}>
-					<Text style={styles.dontText}>Нет аккаунта?</Text>
+				<TouchableOpacity onPress={() => navigation.navigate(ROUTES.REGISTER)} activeOpacity={0.8} style={{ width: "100%" }}>
+					<Text style={styles.dontText}>{t("login.haveAccount")}</Text>
 				</TouchableOpacity>
 			</View>
 
 			<Animated.View style={[buttonAnimatedStyles, { width: "100%" }]}>
 				<TouchableOpacity onPress={handleLogin} activeOpacity={0.8} style={styles.button}>
-					<Text style={styles.buttonText}>Войти</Text>
+					<Text style={styles.buttonText}>{t("login.button")}</Text>
 				</TouchableOpacity>
 			</Animated.View>
 		</View>

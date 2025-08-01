@@ -1,13 +1,12 @@
-import { Platform, View } from "react-native";
-import { COLORS } from "../constants/theme";
 import VerticalSlider from "../components/ui/verticalSlider";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import useFetchUsers from "@hooks/useFetchUsers";
 import { useState, useEffect } from "react";
 import addView from "@lib/addView";
+import useInsets from "@hooks/ui/useInsets";
+import { View } from "tamagui";
 
 const BlogsScreen = () => {
-	const insets = useSafeAreaInsets();
+	const insets = useInsets();
 
 	const { users, handleFetchUsers } = useFetchUsers();
 
@@ -24,7 +23,7 @@ const BlogsScreen = () => {
 	}, [currentSlide])
 
 	return (
-		<View style={{ flex: 1, paddingTop: Platform.OS === "ios" ? insets.top - 2 : insets.top + 6, backgroundColor: COLORS.black }}>
+		<View f={1} backgroundColor="$bg" pt={insets.top}>
 			<VerticalSlider onSlideChange={setCurrentSlide} users={users} />
 		</View>
 	); 

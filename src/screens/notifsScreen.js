@@ -9,7 +9,7 @@ import { FlashList } from "@shopify/flash-list";
 const gap = getVariableValue("$10", "space");
 
 const NotifsScreen = () => {
-  const { notifications, addPage, refresh, loading } = useFetchNotifications();
+  const { notifications, addPage, refresh, loading, count } = useFetchNotifications();
   const headerHeight = useNotifsStore((state) => state.headerHeight);
   const footerHeight = useNotifsStore((state) => state.footerHeight);
 
@@ -27,7 +27,7 @@ const NotifsScreen = () => {
         onEndReached={addPage}
         onEndReachedThreshold={0.5}
       />
-      <NotifsFooter count={notifications.length} />
+      <NotifsFooter count={count} />
     </YStack>
   );
 }
