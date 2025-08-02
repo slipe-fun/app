@@ -8,8 +8,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { XStack, Text, Button, View, useTheme } from "tamagui";
 import useCaptureStore from "@stores/captureScreen";
-
-const formats = ["ВИДЕО", "ФОТО"];
+import { useTranslation } from "react-i18next";
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 const AnimatedText = Animated.createAnimatedComponent(Text);
@@ -27,7 +26,7 @@ const FormatButton = memo(
     useEffect(() => {
       isActive.value = withSpring(
         index === selectedFormat ? 1 : 0,
-        normalSpring
+        normalSpring,
       );
     }, [selectedFormat]);
 
@@ -51,7 +50,7 @@ const FormatButton = memo(
         </AnimatedText>
       </Button>
     );
-  }
+  },
 );
 
 const CaptureFormatSwitcher = () => {
@@ -63,6 +62,10 @@ const CaptureFormatSwitcher = () => {
 
   const layouts = useRef([]);
 
+  const { t } = useTranslation();
+
+  const formats = [t("publish.switcherVideo"), t("publish.switcherPhoto")];
+
   const onSelect = useCallback(
     (index) => {
       setFormat(index);
@@ -72,7 +75,7 @@ const CaptureFormatSwitcher = () => {
         indicatorW.value = withSpring(layout.width, normalSpring);
       }
     },
-    [setFormat]
+    [setFormat],
   );
 
   const animatedStyle = useAnimatedStyle(() => ({
@@ -89,7 +92,7 @@ const CaptureFormatSwitcher = () => {
         indicatorW.value = width;
       }
     },
-    [format]
+    [format],
   );
 
   return (
