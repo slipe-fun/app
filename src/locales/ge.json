@@ -1,0 +1,94 @@
+{
+  "navigation": {
+    "blogs": "Für dich",
+    "search": "Suchen",
+    "profile": "Profil"
+  },
+  "profile": {
+    "edit": "Edit",
+    "username": "Benutzername",
+    "bio": "Über mich",
+    "publishButton": "Neuer Post"
+  },
+  "search": {
+    "title": "Suchen",
+    "input": "Das Universum Suchen",
+    "top10": "Top 10 populärste Posts",
+    "similar": "Ähnlich zu deinen Posts",
+    "relevant": "Relevante Posts für dich",
+    "categoriesTitle": "Kategorien",
+    "resultsTitle": "Gefunden",
+    "inputCancel": "Abrechen",
+    "slideOpen": "Öffnen"
+  },
+  "categories": {
+    "animals": "Tiere",
+    "creativity": "Kreativität",
+    "diy": "DIY",
+    "ecology": "Ecologie",
+    "education": "Bildung",
+    "fashion": "Fashion",
+    "finance": "Finanzen",
+    "food": "Essen",
+    "jokes": "Witze",
+    "movies": "Filme",
+    "programming": "Programmierung",
+    "science": "Wissenschaft",
+    "shitpost": "Shitpost",
+    "sport": "Sport",
+    "traveling": "Reisen",
+    "volunteering": "Ehrenamt"
+  },
+  "notifications": {
+    "title": "Benachrichtigung",
+    "subscribed": "Hat dich Aboniert",
+    "reacted": "Reagierte",
+    "commented": "Kommentierte",
+    "new": "{{count}} neu",
+    "loading": "Laden..."
+  },
+  "publish": {
+    "accessTitle": "Wir benötigen Zugriff auf die Kamera für Foto- und Videoaufnahmen",
+    "accessSubtitle": "Gehen Sie zu Einstellungen {'>'} Berechtigungen und erlauben Sie den Kamerazugriff",
+    "accessSettings": "Einstellungen",
+    "switcherPhoto": "FOTO",
+    "switcherVideo": "VIDEO"
+  },
+  "register": {
+    "title": "Registrierung",
+    "haveAccount": "Schon ein Account vorhanden?",
+    "inputPassword": "Passwort",
+    "inputUsername": "Benutzername",
+    "button": "Registrieren"
+  },
+  "login": {
+    "title": "Login",
+    "haveAccount": "Kein Account vorhanden?",
+    "inputPassword": "Passwort",
+    "inputUsername": "Benutzername",
+    "button": "Login"
+  },
+  "timeUnits": {
+    "year": "jhr",
+    "month": "mo",
+    "week": "wo",
+    "day": "t",
+    "hour": "st",
+    "minute": "min",
+    "second": "sec"
+  },
+  "months": {
+    "january": "Januar",
+    "february": "Februar",
+    "march": "März",
+    "april": "April",
+    "may": "Mai",
+    "june": "Juni",
+    "july": "Juli",
+    "august": "August",
+    "september": "September",
+    "october": "Oktober",
+    "november": "November",
+    "december": "Dezember"
+  }
+}

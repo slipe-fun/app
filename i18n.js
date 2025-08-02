@@ -6,11 +6,13 @@ import en from "./src/locales/en.json";
 import ru from "./src/locales/ru.json";
 import fr from "./src/locales/fr.json";
 import ua from "./src/locales/ua.json";
+import ge from "./src/locales/ge.json";
 
 const resources = {
   en: { translation: en },
   ru: { translation: ru },
   ua: { translation: ua },
+  ge: { translation: ge },
   fr: { translation: fr },
 };
 
