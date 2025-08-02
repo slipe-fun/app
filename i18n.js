@@ -5,10 +5,12 @@ import * as RNLocalize from "react-native-localize";
 import en from "./src/locales/en.json";
 import ru from "./src/locales/ru.json";
 import fr from "./src/locales/fr.json";
+import ua from "./src/locales/ua.json";
 
 const resources = {
   en: { translation: en },
   ru: { translation: ru },
+  ua: { translation: ua },
   fr: { translation: fr },
 };
 
@@ -17,13 +19,13 @@ const getDeviceLanguage = () => {
   if (Array.isArray(locales)) {
     return locales[0].languageCode;
   }
-  return "ru";
+  return "en";
 };
 
 i18n.use(initReactI18next).init({
   resources,
   lng: getDeviceLanguage(),
-  fallbackLng: "ru",
+  fallbackLng: "en",
   interpolation: {
     escapeValue: false,
   },

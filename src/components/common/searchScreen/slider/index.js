@@ -13,17 +13,13 @@ import * as Haptics from "expo-haptics";
 import { useEffect, useState } from "react";
 import useSearchStore from "@stores/searchScreen";
 import useFetchPostsForSlider from "@hooks/useFetchPostsForSlider";
+import { useTranslation } from "react-i18next";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
 const ITEM_SPACING = 16;
 const ITEM_WIDTH = SCREEN_WIDTH - ITEM_SPACING * 2;
 const ITEM_HEIGHT = 200;
-const data = [
-  { title: "Подходящие для вас посты", type: "relevant" },
-  { title: "Топ 10 популярных постов", type: "popular" },
-  { title: "Похожие на ваши посты", type: "similar" },
-];
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
@@ -35,6 +31,14 @@ const SearchSlider = () => {
 
   const setSlidePosts = useSearchStore((state) => state.setSlidePosts);
   const slidePosts = useSearchStore((state) => state.slidePosts);
+
+  const { t } = useTranslation();
+
+  const data = [
+    { title: t("search.relevant"), type: "relevant" },
+    { title: t("search.top10"), type: "popular" },
+    { title: t("search.similar"), type: "similar" },
+  ];
 
   const { data: relevant } = useFetchPostsForSlider("relevant");
   const { data: popular } = useFetchPostsForSlider("popular");
@@ -50,7 +54,11 @@ const SearchSlider = () => {
       br="$8"
       overflow="hidden"
     >
-      <SearchSliderSlide isActive={index === currentIndex} posts={slidePosts[data[index].type]} title={data[index].title} />
+      <SearchSliderSlide
+        isActive={index === currentIndex}
+        posts={slidePosts[data[index].type]}
+        title={data[index].title}
+      />
     </View>
   );
 
@@ -83,7 +91,7 @@ const SearchSlider = () => {
         }}
         renderItem={renderItem}
         onScrollEnd={(current) => {
-          setCurrentIndex(current)
+          setCurrentIndex(current);
         }}
       />
 
@@ -92,11 +100,11 @@ const SearchSlider = () => {
           const animatedDotStyle = useAnimatedStyle(() => ({
             width: withSpring(
               roundedProgress.value === i ? 18 : 6,
-              normalSpring
+              normalSpring,
             ),
             opacity: withSpring(
               roundedProgress.value === i ? 1 : 0.35,
-              normalSpring
+              normalSpring,
             ),
           }));
 

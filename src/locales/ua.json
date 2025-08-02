@@ -1,0 +1,80 @@
+{
+  "navigation": {
+    "blogs": "Стрічка",
+    "search": "Пошук",
+    "profile": "Профіль"
+  },
+  "profile": {
+    "edit": "Редагувати",
+    "username": "Ім’я користувача",
+    "bio": "Про мене",
+    "publishButton": "Новий допис"
+  },
+  "search": {
+    "title": "Пошук",
+    "input": "Пошук у всесвіті",
+    "top10": "Топ 10 найпопулярніших дописів",
+    "similar": "Схожі на ваші дописи",
+    "relevant": "Дописи для вас",
+    "categoriesTitle": "Категорії",
+    "resultsTitle": "Результати",
+    "inputCancel": "Скасувати",
+    "slideOpen": "Відкрити"
+  },
+  "categories": {
+    "animals": "Тварини",
+    "creativity": "Креатив",
+    "diy": "DIY",
+    "ecology": "Екологія",
+    "education": "Освіта",
+    "fashion": "Мода",
+    "finance": "Фінанси",
+    "food": "Їжа",
+    "jokes": "Жарти",
+    "movies": "Фільми",
+    "programming": "Кодинг",
+    "science": "Наука",
+    "shitpost": "Щитпост",
+    "sport": "Спорт",
+    "traveling": "Подорожі",
+    "volunteering": "Волонтерство"
+  },
+  "notifications": {
+    "title": "Сповіщення",
+    "subscribed": "Підписався на вас",
+    "reacted": "Залишив реакцію",
+    "commented": "Залишив коментар",
+    "new": "{{count}} нових",
+    "loading": "Завантаження..."
+  },
+  "publish": {
+    "accessTitle": "Нам потрібен доступ до камери для запису фото та відео",
+    "accessSubtitle": "Натисніть Налашнування {'>'} Дозволи, та дозвольте доступ до камери",
+    "accessSettings": "Налаштування",
+    "switcherPhoto": "ФОТО",
+    "switcherVideo": "ВІДЕО"
+  },
+  "register": {
+    "title": "Зареєструватися",
+    "haveAccount": "Вже є акаунт?",
+    "inputPassword": "Пароль",
+    "inputUsername": "Ім’я користувача",
+    "button": "Зареєструватися"
+  },
+  "login": {
+    "title": "Вхід",
+    "haveAccount": "Немає акаунта?",
+    "inputPassword": "Пароль",
+    "inputUsername": "Ім’я користувача",
+    "button": "Увійти"
+  },
+  "timeUnits": {
+    "year": "р.",
+    "month": "міс.",
+    "week": "тиж.",
+    "day": "день",
+    "hour": "год.",
+    "minute": "хв.",
+    "second": "с."
+  }
+}
