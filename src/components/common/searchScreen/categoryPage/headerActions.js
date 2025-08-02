@@ -42,7 +42,7 @@ const CategoryPageHeaderActions = ({ isSlides }) => {
           opacity: 0.9,
         }}
       >
-        <Icon icon="chevronLeft" size={26} color={color} />
+        <Icon icon="chevron.left" size={26} color={color} />
       </GradientBorder>
       {!isSlides && (
         <GradientBorder

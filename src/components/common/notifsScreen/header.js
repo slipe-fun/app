@@ -73,7 +73,7 @@ const NotifsHeader = ({ refresh, loading }) => {
           scale: 0.9,
         }}
       >
-        <Icon size={26} icon="chevronLeft" color={color} />
+        <Icon size={26} icon="chevron.left" color={color} />
       </GradientBorder>
       <YStack gap='$1' h="$12" justifyContent="center" alignItems="center">
         <AnimatedText color="$color" fw="$3" fz="$5" lh="$5" style={animatedTitleStyle}>
@@ -101,7 +101,7 @@ const NotifsHeader = ({ refresh, loading }) => {
         }}
       >
         <Animated.View style={animatedIconStyle}>
-          <Icon size={28} icon="reload" color={color} />
+          <Icon size={28} icon="arrow.circle" color={color} />
         </Animated.View>
       </GradientBorder>
     </XStack>

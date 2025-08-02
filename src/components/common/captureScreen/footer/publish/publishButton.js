@@ -55,7 +55,7 @@ const CaptureFooterPublishButton = () => {
         <CircularIndicator size={30} progress={progress} />
       ) : (
         <AnimatedView entering={getFadeIn()} exiting={getFadeOut()}>
-          <Icon icon="publish" size={28} color="white" />
+          <Icon icon="plus" size={28} color="white" />
         </AnimatedView>
       )}
     </Button>

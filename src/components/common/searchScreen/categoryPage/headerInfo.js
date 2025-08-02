@@ -35,7 +35,7 @@ const CategoryPageHeaderInfo = ({ category, topNumber, postCount, opacityStyle, 
 					<View br='$7' w='$0.5' h='$0.5' backgroundColor='$white' />
 
 					<View flexDirection='row' alignItems='center' gap='$2'>
-						<Icon icon='blogs' size={17} />
+						<Icon icon='rectangle.columns' size={17} />
 						<Text fz='$2' lh='$2' fw='$2' color='$white'>
 							{postCount}
 						</Text>

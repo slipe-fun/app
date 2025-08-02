@@ -55,7 +55,7 @@ const CaptureCameraHeader = () => {
         justifyContent="center" 
         alignItems="center" 
       >
-        <Icon icon="chevronLeft" size={26} />
+        <Icon icon="chevron.left" size={26} />
       </GradientBorder>
       {content ? <AnimatedMenuButton setActiveItem={setCategory} /> : null}
     </XStack>

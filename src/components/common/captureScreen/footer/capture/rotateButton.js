@@ -46,7 +46,7 @@ const CaptureRotateButton = ({}) => {
 			h='$13'
 		>
 			<Animated.View style={animatedIconStyles}>
-				<Icon size={28} icon='circleArrow' />
+				<Icon size={28} icon='arrow.circle' />
 			</Animated.View> 
 		</Button>
 	);

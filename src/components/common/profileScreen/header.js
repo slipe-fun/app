@@ -60,7 +60,7 @@ const ProfileHeader = ({ scrollY, back = false }) => {
           scale: 0.9,
         }}
       >
-        <Icon size={26} icon="chevronLeft" color={color} />
+        <Icon size={26} icon="chevron.left" color={color} />
       </GradientBorder>
       )}
       <ProfileUserInfo header scrollY={scrollY}/>

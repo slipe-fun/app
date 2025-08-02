@@ -44,7 +44,7 @@ const UserCardHeader = ({ user, post, paused }) => {
 						<MediaPreview type='avatar' blurhash={user?.avatar_information?.blurhash} media={user?.avatar} />
 					) : (
 						<View backgroundColor='$black' justifyContent='center' alignItems='center' f={1} br='$full'>
-							<Icon icon='profile' size={22} />
+							<Icon icon='person' size={22} />
 						</View>
 					)}
 				</View>

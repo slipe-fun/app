@@ -64,7 +64,7 @@ const NotificationStack = ({ notifications }) => {
         >
           <Icon
             style={{ transform: [{ rotate: "180deg" }] }}
-            icon="chevronLeft"
+            icon="chevron.left"
             size={26}
           />
         </View>

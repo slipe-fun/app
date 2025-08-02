@@ -48,7 +48,7 @@ const RecentlyQuery = ({ isHint, result, index }) => {
         br="$full"
         backgroundColor={isHint ? yellow + 59 : blue + 59}
       >
-        <Icon icon={isHint ? "lamp" : "clock"} size={24} color={isHint ? yellow : blue} />
+        <Icon icon={isHint ? "lightbulb" : "clock"} size={24} color={isHint ? yellow : blue} />
       </View>
       <Text f={1} textAlign="left" fz="$2" lh="$2" fw="$3" color={color}>
         {result}
@@ -60,7 +60,7 @@ const RecentlyQuery = ({ isHint, result, index }) => {
         opacity={0.35}
         alignItems="center"
       >
-        <Icon icon="arrowUpRight" size={24} color={color} />
+        <Icon icon="arrow.right.up" size={24} color={color} />
       </View>
     </AnimatedView>
   );

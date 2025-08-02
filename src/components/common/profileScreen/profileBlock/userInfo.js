@@ -56,7 +56,7 @@ const ProfileUserInfo = ({ header, scrollY }) => {
       </Text>
       <XStack alignItems="center" opacity={header ? 0.7 : 0.35} gap="$5">
         <XStack gap="$2">
-          <Icon icon="profile" size={17} color={iconColor} />
+          <Icon icon="person" size={17} color={iconColor} />
           <Text fz="$2" lh="$2" fw="$2" color="$color">
             {user?.followers}
           </Text>

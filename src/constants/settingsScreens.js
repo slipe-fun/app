@@ -3,7 +3,7 @@ export const settingsScreen = [
 		title: "",
 		data: [
 			{ title: "Язык", screenName: "settingsLanguage", icon: "globe", color: "gray" },
-			{ title: "Тема приложения", screenName: "settingsTheme", icon: "theme", color: "yellow" },
+			{ title: "Тема приложения", screenName: "settingsTheme", icon: "moon", color: "yellow" },
 		],
 	},
 	{

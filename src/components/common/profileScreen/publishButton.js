@@ -48,7 +48,7 @@ const PublishButton = () => {
 				<Image source={{ uri: photos[0]?.uri }} position='absolute' top={0} left={0} right={0} bottom={0} objectFit='scale-down' />
 				<View f={1} justifyContent='center' alignItems='center'>
 					<ColorfullyView br='$full' w='$19' h='$19' justifyContent='center' alignItems='center' color={color}>
-						<Icon icon='publish' size={44} color='white' />
+						<Icon icon='plus' size={44} color='white' />
 					</ColorfullyView>
 				</View>
 				<View position='absolute' p='$6.5' alignItems='center' pb='$6.5' left={0} right={0} bottom={0}>

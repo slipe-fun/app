@@ -24,7 +24,7 @@ const NotificationBadge = ({ action }) => {
       );
     case "subscribe":
       return (
-        <Icon icon="profile" size={16} />
+        <Icon icon="person" size={16} />
       );
     default:
       return null;
@@ -84,7 +84,7 @@ const Notification = ({ notification }) => {
                 h="$13"
                 br="$full"
               >
-                <Icon icon="profile" size={24} />
+                <Icon icon="person" size={24} />
               </View>
             )}
           </View>

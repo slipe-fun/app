@@ -75,7 +75,7 @@ const SearchBar = () => {
 		<XStack width='$full' gap='$6' alignItems='center'>
 			<XStack flex={1} onPressIn={() => onCancelPressed("focus")} alignItems='center' backgroundColor='$backgroundTransparent' br='$full' h='$13'>
 				<View gap='$4' width='$full' flex={1} flexDirection='row' ph='$4' pr='$0' alignItems='center'>
-					<Icon size={22} icon='search' color={color} />
+					<Icon size={22} icon='magnifyingglass' color={color} />
 					<Input
 						ref={inputRef}
 						onSubmitEditing={() => {
