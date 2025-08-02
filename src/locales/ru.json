@@ -1,80 +1,94 @@
 {
-	"navigation": {
-		"blogs": "Лента",
-		"search": "Поиск",
-		"profile": "Профиль"
-	},
-	"profile": {
-		"edit": "Редактировать",
-		"username": "Имя пользователя",
-		"bio": "Обо мне",
-		"publishButton": "Новый пост"
-	},
-	"search": {
-		"title": "Поиск",
-		"input": "Поиск по вселенной",
-		"top10": "Топ 10 популярных постов",
-		"similar": "Похожие на ваши посты",
-		"relevant": "Подходящие для вас посты",
-		"categoriesTitle": "Категории",
-		"resultsTitle": "Результаты",
-		"inputCancel": "Отмена",
-		"slideOpen": "Открыть"
-	},
-	"categories": {
-		"animals": "Животные",
-		"creativity": "Креатив",
-		"diy": "DIY",
-		"ecology": "Экология",
-		"education": "Образование",
-		"fashion": "Мода",
-		"finance": "Финансы",
-		"food": "Еда",
-		"jokes": "Шутки",
-		"movies": "Фильмы",
-		"programming": "Кодинг",
-		"science": "Наука",
-		"shitpost": "Щитпост",
-		"sport": "Спорт",
-		"traveling": "Путешествия",
-		"volunteering": "Волонтерство"
-	},
-	"notifications": {
-		"title": "Уведомления",
-		"subscribed": "Подписался на вас",
-		"reacted": "Поставил реакцию",
-		"commented": "Оставил комментарий",
-		"new": "{{count}} новых",
-		"loading": "Загрузка..."
-	},
-	"publish": {
-		"accessTitle": "Нам нужен доступ к камере для записи фото и видео",
-		"accessSubtitle": "Нажмите Настройки {'>'} Разрешения, и разрешите доступ к камере",
-		"accessSettings": "Настройки",
-		"switcherPhoto": "ФОТО",
-		"switcherVideo": "ВИДЕО"
-	},
-	"register": {
-		"title": "Зарегистрироваться",
-		"haveAccount": "Уже есть аккаунт?",
-		"inputPassword": "Пароль",
-		"inputUsername": "Имя пользователя",
-		"button": "Зарегистрироваться"
-	},
-	"login": {
-		"title": "Зарегистрироваться",
-		"haveAccount": "Нет аккаунта?",
-		"inputPassword": "Пароль",
-		"inputUsername": "Имя пользователя",
-		"button": "Зарегистрироваться"
-	},
-	"timeUnits": {
-		"year": "г.",
-		"month": "мес.",
-		"week": "нед.",
-		"day": "дн.",
-		"hour": "час.",
-		"minute": "мин.",
-		"second": "сек."
-	}
+  "navigation": {
+    "blogs": "Лента",
+    "search": "Поиск",
+    "profile": "Профиль"
+  },
+  "profile": {
+    "edit": "Редактировать",
+    "username": "Имя пользователя",
+    "bio": "Обо мне",
+    "publishButton": "Новый пост"
+  },
+  "search": {
+    "title": "Поиск",
+    "input": "Поиск по вселенной",
+    "top10": "Топ 10 популярных постов",
+    "similar": "Похожие на ваши посты",
+    "relevant": "Подходящие для вас посты",
+    "categoriesTitle": "Категории",
+    "resultsTitle": "Результаты",
+    "inputCancel": "Отмена",
+    "slideOpen": "Открыть"
+  },
+  "categories": {
+    "animals": "Животные",
+    "creativity": "Креатив",
+    "diy": "DIY",
+    "ecology": "Экология",
+    "education": "Образование",
+    "fashion": "Мода",
+    "finance": "Финансы",
+    "food": "Еда",
+    "jokes": "Шутки",
+    "movies": "Фильмы",
+    "programming": "Кодинг",
+    "science": "Наука",
+    "shitpost": "Щитпост",
+    "sport": "Спорт",
+    "traveling": "Путешествия",
+    "volunteering": "Волонтерство"
+  },
+  "notifications": {
+    "title": "Уведомления",
+    "subscribed": "Подписался на вас",
+    "reacted": "Поставил реакцию",
+    "commented": "Оставил комментарий",
+    "new": "{{count}} новых",
+    "loading": "Загрузка..."
+  },
+  "publish": {
+    "accessTitle": "Нам нужен доступ к камере для записи фото и видео",
+    "accessSubtitle": "Нажмите Настройки {'>'} Разрешения, и разрешите доступ к камере",
+    "accessSettings": "Настройки",
+    "switcherPhoto": "ФОТО",
+    "switcherVideo": "ВИДЕО"
+  },
+  "register": {
+    "title": "Зарегистрироваться",
+    "haveAccount": "Уже есть аккаунт?",
+    "inputPassword": "Пароль",
+    "inputUsername": "Имя пользователя",
+    "button": "Зарегистрироваться"
+  },
+  "login": {
+    "title": "Зарегистрироваться",
+    "haveAccount": "Нет аккаунта?",
+    "inputPassword": "Пароль",
+    "inputUsername": "Имя пользователя",
+    "button": "Зарегистрироваться"
+  },
+  "timeUnits": {
+    "year": "г.",
+    "month": "мес.",
+    "week": "нед.",
+    "day": "дн.",
+    "hour": "час.",
+    "minute": "мин.",
+    "second": "сек."
+  },
+  "months": {
+    "january": "janvier",
+    "february": "février",
+    "march": "mars",
+    "april": "avril",
+    "may": "mai",
+    "june": "juin",
+    "july": "juillet",
+    "august": "août",
+    "september": "septembre",
+    "october": "octobre",
+    "november": "novembre",
+    "december": "décembre"
+  }
 }
