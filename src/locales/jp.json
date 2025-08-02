@@ -1,0 +1,94 @@
+{
+  "navigation": {
+    "blogs": "フィード",
+    "search": "検索",
+    "profile": "プロフィール"
+  },
+  "profile": {
+    "edit": "編集",
+    "username": "ユーザー名",
+    "bio": "自己紹介",
+    "publishButton": "新しい投稿"
+  },
+  "search": {
+    "title": "検索",
+    "input": "宇宙を検索",
+    "top10": "人気の投稿トップ10",
+    "similar": "あなたの投稿に似たもの",
+    "relevant": "あなたに関連する投稿",
+    "categoriesTitle": "カテゴリー",
+    "resultsTitle": "結果",
+    "inputCancel": "キャンセル",
+    "slideOpen": "開く"
+  },
+  "categories": {
+    "animals": "動物",
+    "creativity": "創造性",
+    "diy": "DIY",
+    "ecology": "エコロジー",
+    "education": "教育",
+    "fashion": "ファッション",
+    "finance": "金融",
+    "food": "食べ物",
+    "jokes": "ジョーク",
+    "movies": "映画",
+    "programming": "コーディング",
+    "science": "科学",
+    "shitpost": "ネタ投稿",
+    "sport": "スポーツ",
+    "traveling": "旅行",
+    "volunteering": "ボランティア"
+  },
+  "notifications": {
+    "title": "通知",
+    "subscribed": "あなたに登録しました",
+    "reacted": "リアクションしました",
+    "commented": "コメントしました",
+    "new": "{{count}} 件の新着",
+    "loading": "読み込み中..."
+  },
+  "publish": {
+    "accessTitle": "写真やビデオの撮影にはカメラのアクセス許可が必要です",
+    "accessSubtitle": "設定 {'>'} 権限 に移動してカメラのアクセスを許可してください",
+    "accessSettings": "設定",
+    "switcherPhoto": "写真",
+    "switcherVideo": "ビデオ"
+  },
+  "register": {
+    "title": "登録",
+    "haveAccount": "すでにアカウントをお持ちですか？",
+    "inputPassword": "パスワード",
+    "inputUsername": "ユーザー名",
+    "button": "登録"
+  },
+  "login": {
+    "title": "ログイン",
+    "haveAccount": "アカウントをお持ちでないですか？",
+    "inputPassword": "パスワード",
+    "inputUsername": "ユーザー名",
+    "button": "ログイン"
+  },
+  "timeUnits": {
+    "year": "年",
+    "month": "か月",
+    "week": "週",
+    "day": "日",
+    "hour": "時間",
+    "minute": "分",
+    "second": "秒"
+  },
+  "months": {
+    "january": "1月",
+    "february": "2月",
+    "march": "3月",
+    "april": "4月",
+    "may": "5月",
+    "june": "6月",
+    "july": "7月",
+    "august": "8月",
+    "september": "9月",
+    "october": "10月",
+    "november": "11月",
+    "december": "12月"
+  }
+}

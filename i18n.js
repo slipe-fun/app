@@ -7,6 +7,7 @@ import ru from "./src/locales/ru.json";
 import fr from "./src/locales/fr.json";
 import ua from "./src/locales/ua.json";
 import ge from "./src/locales/ge.json";
+import jp from "./src/locales/jp.json";
 
 const resources = {
   en: { translation: en },
@@ -14,6 +15,7 @@ const resources = {
   ua: { translation: ua },
   ge: { translation: ge },
   fr: { translation: fr },
+  jp: { translation: jp },
 };
 
 const getDeviceLanguage = () => {
