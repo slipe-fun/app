@@ -17,4 +17,8 @@ export const ROUTES = {
 
   // Search Routes
   CATEGORY_PAGE: "category_Page",
+
+  // Settings Routes
+  SETTINGS: "settings",
+  SETTINGS_MAIN: "settings_main"
 };

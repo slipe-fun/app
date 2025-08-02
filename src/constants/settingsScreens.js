@@ -12,29 +12,29 @@ export const settingsScreen = [
 			{ title: "Настройки профиля", screenName: "settingsProfile", icon: "person.circle", color: "gray" },
 			{ title: "Настройки аккаунта", screenName: "settingsAccount", icon: "person", color: "purple" },
 			{ title: "Сканировать QR-code", screenName: "settingsQRcode", icon: "qrcode", color: "purple" },
-			{ title: "Slipe Premium", screenName: "settingsPremium", icon: "premium", color: "red" },
+			{ title: "Slipe Premium", screenName: "settingsPremium", icon: "star", color: "red" },
 		],
 	},
 	{
 		title: "",
 		data: [
 			{ title: "Уведомления", screenName: "settingsNotifications", icon: "bell", color: "red" },
-			{ title: "Иконка приложения", screenName: "settingsAppIcon", icon: "", color: "" },
-			{ title: "Доступы приложения", screenName: "settingsAppRestictions", icon: "globe", color: "hand.stop" },
+			{ title: "Иконка приложения", screenName: "settingsAppIcon", icon: "logo", color: "red" },
+			{ title: "Доступы приложения", screenName: "settingsAppRestictions", icon: "hand.stop", color: "red" },
 		],
 	},
 	{
 		title: "",
 		data: [
-			{ title: "Экспериментальные", screenName: "settingsExperemental", icon: "globe", color: "gears" },
-			{ title: "Для разработчиков", screenName: "settingsDevelopers", icon: "globe", color: "hammer" },
+			{ title: "Экспериментальные", screenName: "settingsExperemental", icon: "gears", color: "red" },
+			{ title: "Для разработчиков", screenName: "settingsDevelopers", icon: "hammer", color: "yellow" },
 		],
 	},
 	{
 		title: "",
 		data: [
-			{ title: "Политика конфиденциальности", screenName: "settingsPP", icon: "globe", color: "book" },
-			{ title: "Условия обслуживания", screenName: "settingsToS", icon: "globe", color: "list" },
+			{ title: "Политика конфиденциальности", screenName: "settingsPP", icon: "book", color: "purple" },
+			{ title: "Условия обслуживания", screenName: "settingsToS", icon: "list", color: "purple" },
 		],
 	},
 ];

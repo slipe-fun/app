@@ -9,6 +9,7 @@ import { useState, createContext, useContext, useEffect } from "react";
 import { storage } from "../lib/storage";
 import { useTheme } from "tamagui";
 import { Toaster } from "sonner-native";
+import SettingsNavigator from "./settingsNavigator";
 
 export const AuthContext = createContext(null);
 
@@ -70,10 +71,11 @@ const AppNavigator = () => {
 				<RootStack.Navigator screenOptions={{ headerShown: false, animation: "simple_push", presentation: "card", gestureEnabled: true, contentStyle: { backgroundColor } }}>
 					{isAuthenticated ? (
 						<>
-							<RootStack.Screen name='MainApp' component={MainTabNavigator} />
+						<RootStack.Screen name='MainApp' component={MainTabNavigator} />
 						<RootStack.Screen name={ROUTES.PUBLISH} component={CaptureScreen} />
 						<RootStack.Screen name={ROUTES.CATEGORY_PAGE} component={CategoryPage} />
 						<RootStack.Screen name={ROUTES.NOTIFS} component={NotifsScreen} />
+						<RootStack.Screen name={ROUTES.SETTINGS} component={SettingsNavigator}/>
 						</>
 					) : (
 						<RootStack.Screen name={ROUTES.AUTH} component={AuthNavigator} />

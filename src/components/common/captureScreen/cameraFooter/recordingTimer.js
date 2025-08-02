@@ -47,7 +47,7 @@ const CaptureRecordingTimer = ({ viewHeight }) => {
       position="absolute"
       bottom={viewHeight}
       overflow="hidden"
-      backgroundColor="$red"
+      backgroundColor="$contrastRed"
       flexDirection="row"
       pv="$3"
       ph="$6"
