@@ -54,6 +54,22 @@
     "switcherPhoto": "PHOTO",
     "switcherVideo": "VIDEO"
   },
+  "settings": {
+    "mainTitle": "Settings",
+    "settingsLanguage": "Language",
+    "settingsTheme": "App theme",
+    "settingsProfile": "Profile settings",
+    "settingsAccount": "Account settings",
+    "settingsQRcode": "Scan QR-code",
+    "settingsPremium": "Slipe Premium",
+    "settingsNotifications": "Notifications",
+    "settingsAppIcon": "App icon",
+    "settingsAppRestictions": "App permissions",
+    "settingsExperemental": "Experimental",
+    "settingsDevelopers": "For developers",
+    "settingsPP": "Privacy policy",
+    "settingsToS": "Terms of service"
+  },
   "register": {
     "title": "Register",
     "haveAccount": "Already have an account?",

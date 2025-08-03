@@ -6,3 +6,6 @@ export { default as NotifsScreen } from './notifsScreen';
 export { default as CaptureScreen } from './captureScreen';
 export { default as LoginScreen } from './auth/loginScreen';
 export { default as RegisterScreen } from './auth/registerScreen';
+export { default as SettingsScreen } from './settings'
+export { default as SettingsLanguageScreen } from './settings/language'
+export { default as SettingsThemeScreen } from './settings/theme'

@@ -54,6 +54,22 @@
     "switcherPhoto": "ФОТО",
     "switcherVideo": "ВИДЕО"
   },
+  "settings": {
+    "mainTitle": "Настройки",
+    "language": "Язык",
+    "theme": "Тема приложения",
+    "profile": "Настройки профиля",
+    "account": "Настройки аккаунта",
+    "QRcode": "Сканировать QR-code",
+    "premium": "Slipe Premium",
+    "notifications": "Уведомления",
+    "appIcon": "Иконка приложения",
+    "appRestictions": "Доступы приложения",
+    "experemental": "Экспериментальные",
+    "developers": "Для разработчиков",
+    "PP": "Политика конфиденциальности",
+    "ToS": "Условия обслуживания"
+  },
   "register": {
     "title": "Зарегистрироваться",
     "haveAccount": "Уже есть аккаунт?",

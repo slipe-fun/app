@@ -54,6 +54,22 @@
     "switcherPhoto": "ФОТО",
     "switcherVideo": "ВІДЕО"
   },
+  "settings": {
+    "mainTitle": "Налаштування",
+    "language": "Мова",
+    "theme": "Тема застосунку",
+    "profile": "Налаштування профілю",
+    "account": "Налаштування облікового запису",
+    "QRcode": "Сканувати QR-код",
+    "premium": "Slipe Premium",
+    "notifications": "Сповіщення",
+    "appIcon": "Піктограма застосунку",
+    "appRestictions": "Обмеження застосунку",
+    "experemental": "Експериментальні функції",
+    "developers": "Для розробників",
+    "PP": "Політика конфіденційності",
+    "ToS": "Умови користування"
+  },
   "register": {
     "title": "Зареєструватися",
     "haveAccount": "Вже є акаунт?",

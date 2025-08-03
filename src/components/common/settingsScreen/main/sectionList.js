@@ -1,9 +1,26 @@
 import { SectionList } from "react-native";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import SettingRow from "./settingRow";
-import { YStack } from "tamagui";
+import { getVariableValue, YStack } from "tamagui";
+import { useSettingsStore } from "@stores/settingsScreen";
+import Animated, { useAnimatedScrollHandler, useSharedValue } from "react-native-reanimated";
+import { useNavigation } from "@react-navigation/native";
+
+const padding = getVariableValue("$6", "space");
+
+const AnimatedSectionList = Animated.createAnimatedComponent(SectionList);
 
 const SettingsSectionList = ({ data }) => {
+	const headerHeight = useSettingsStore(state => state.headerHeight);
+	const setTitle = useSettingsStore(state => state.setTitle);
+	const scrollY = useSharedValue(0);
+	const setScrollYRef = useSettingsStore(state => state.setScrollY);
+	const navigation = useNavigation();
+
+	const onScroll = useAnimatedScrollHandler(event => {
+		scrollY.value = event.contentOffset.y;
+	});
+
 	const renderSection = useCallback(({ section }) => {
 		return (
 			<YStack backgroundColor='$backgroundTransparent' br='$7' mb='$8'>
@@ -12,22 +29,27 @@ const SettingsSectionList = ({ data }) => {
 						key={item.screenName + index}
 						color={item.color}
 						icon={item.icon}
-						title={item.title}
-                        separator={index !== section.data.length - 1} 
-						onPress={() => console.log("Navigate to:", item.screenName)}
+						title={item.screenName}
+						separator={index !== section.data.length - 1}
+						onPress={() => {setTitle(item.screenName); navigation.navigate(item.screenName);}}
 					/>
 				))}
 			</YStack>
 		);
 	});
 
+	useEffect(() => {
+		setScrollYRef(scrollY);
+	}, []);
+
 	return (
-		<SectionList
-			sections={data.filter(s => s.data?.length)}
+		<AnimatedSectionList
+			sections={data.filter(s => s.data?.length)} 
 			keyExtractor={(item, index) => item.screenName + index}
 			renderSectionHeader={renderSection}
 			renderItem={() => null}
-			contentContainerStyle={{ paddingHorizontal: 16 }}
+			onScroll={onScroll}
+			contentContainerStyle={{ paddingHorizontal: 16, paddingTop: headerHeight + padding }}
 			stickySectionHeadersEnabled={false}
 			style={{ flex: 1 }}
 		/>

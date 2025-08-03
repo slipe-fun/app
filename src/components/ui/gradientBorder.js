@@ -2,6 +2,7 @@ import { Button, View } from "tamagui";
 import { LinearGradient } from "@tamagui/linear-gradient";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { forwardRef, useMemo } from "react";
+import Animated from "react-native-reanimated";
 import { StyleSheet } from "react-native";
 
 export const GradientBorder = forwardRef(
@@ -18,6 +19,9 @@ export const GradientBorder = forwardRef(
       gradientStart = { x: 0, y: 0 },
       gradientEnd = { x: 1, y: 1 },
       isButton = false,
+      animated,
+      animatedStyle,
+      maskAnimatedStyle,
       ...props
     },
     ref
@@ -33,14 +37,21 @@ export const GradientBorder = forwardRef(
       [br, borderWidth]
     );
 
-    const Wrapper = isButton ? Button : View;
+    const BaseWrapper = isButton ? Button : View;
+    const Wrapper = animated
+      ? Animated.createAnimatedComponent(BaseWrapper)
+      : BaseWrapper;
+
+    const MaskComponent = animated
+      ? Animated.createAnimatedComponent(MaskedView)
+      : MaskedView;
 
     return (
-      <Wrapper unstyled br={br} ref={ref} {...props}>
+      <Wrapper style={animatedStyle} unstyled br={br} ref={ref} {...props}>
         {children}
-        <MaskedView
+        <MaskComponent
           pointerEvents="none"
-          style={StyleSheet.absoluteFill}
+          style={[StyleSheet.absoluteFill, maskAnimatedStyle]}
           maskElement={<View br={br} style={maskStyles.maskElementContainer} />}
         >
           <LinearGradient
@@ -49,7 +60,7 @@ export const GradientBorder = forwardRef(
             end={gradientEnd}
             style={StyleSheet.absoluteFill}
           />
-        </MaskedView>
+        </MaskComponent>
       </Wrapper>
     );
   }

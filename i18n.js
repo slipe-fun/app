@@ -5,14 +5,14 @@ import * as RNLocalize from "react-native-localize";
 import en from "./src/locales/en.json";
 import ru from "./src/locales/ru.json";
 import fr from "./src/locales/fr.json";
-import ua from "./src/locales/ua.json";
+import uk from "./src/locales/uk.json";
 import ge from "./src/locales/ge.json";
 import jp from "./src/locales/jp.json";
 
 const resources = {
   en: { translation: en },
   ru: { translation: ru },
-  ua: { translation: ua },
+  uk: { translation: uk },
   ge: { translation: ge },
   fr: { translation: fr },
   jp: { translation: jp },
