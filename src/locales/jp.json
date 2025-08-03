@@ -54,6 +54,22 @@
     "switcherPhoto": "写真",
     "switcherVideo": "ビデオ"
   },
+  "settings": {
+    "mainTitle": "設定",
+    "settingsLanguage": "ランゲージ",
+    "settingsTheme": "応募テーマ",
+    "settingsProfile": "プロフィール設定",
+    "settingsAccount": "アカウント設定",
+    "settingsQRcode": "QRコードをスキャン",
+    "settingsPremium": "Slipe Premium",
+    "settingsNotifications": "お知らせ",
+    "settingsAppIcon": "アプリケーションアイコン",
+    "settingsAppRestictions": "アプリケーション・アクセス",
+    "settingsExperemental": "実験的",
+    "settingsDevelopers": "デベロッパー向け",
+    "settingsPP": "プライバシーポリシー",
+    "settingsToS": "利用規約"
+  },
   "register": {
     "title": "登録",
     "haveAccount": "すでにアカウントをお持ちですか？",
