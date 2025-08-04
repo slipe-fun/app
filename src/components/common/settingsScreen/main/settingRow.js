@@ -2,6 +2,7 @@ import { Image, Separator, Text, View, XStack, YStack, useTheme } from "tamagui"
 import Icon from "@components/ui/icon";
 import { useTranslation } from "react-i18next";
 import { useCallback } from "react";
+import Toggle from "@components/ui/toggle";
 
 const SettingRow = ({ title, onPress, icon, value, label, color, separator, type = "link", image = false, translate = true }) => {
 	const theme = useTheme();
@@ -17,11 +18,9 @@ const SettingRow = ({ title, onPress, icon, value, label, color, separator, type
 						<Icon size={22} color={iconColor} icon='chevron.right' />
 					</View>
 				);
-			case "switch":
+			case "toggle":
 				return (
-					<View alignItems='center' justifyContent='center' w='$10' h='$10'>
-						<Icon size={22} color={iconColor} icon='chevron.right' />
-					</View>
+					<Toggle initial={value} />
 				);
 			case "checkbox":
 				return (

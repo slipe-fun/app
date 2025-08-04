@@ -17,10 +17,10 @@ const SettingsLanguageScreen = () => {
                     <SettingRow
                         key={item.id + index}
                         title={item.name}
-                        active
+                        value={true}
                         translate={false}
                         image={item.image}
-                        type="checkbox"
+                        type="toggle"
                         onPress={() => i18n.changeLanguage(item.id)}
                         icon
                         color="innerBlock"
