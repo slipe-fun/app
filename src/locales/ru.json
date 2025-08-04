@@ -68,7 +68,9 @@
     "settingsExperemental": "Экспериментальные",
     "settingsDevelopers": "Для разработчиков",
     "settingsPP": "Политика конфиденциальности",
-    "settingsToS": "Условия обслуживания"
+    "settingsToS": "Условия обслуживания",
+    "settingsAutoLanguage": "Автоопредление языка",
+    "settingsAutoLanguageDescription": "Автоматический вариант выбирается на основе языка устройства"
   },
   "register": {
     "title": "Зарегистрироваться",

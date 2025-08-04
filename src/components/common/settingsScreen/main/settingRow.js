@@ -30,7 +30,7 @@ const SettingRow = ({ title, onPress, icon, value, label, color, separator, type
 			default:
 				return null;
 		}
-	}, [type]);
+	}, [type, value]);
 
 	return (
 			<XStack onPress={() => onPress()} alignItems='center'>

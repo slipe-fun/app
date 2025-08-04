@@ -54,6 +54,24 @@
     "switcherPhoto": "FOTO",
     "switcherVideo": "VIDEO"
   },
+  "settings": {
+    "mainTitle": "Einstellungen",
+    "settingsLanguage": "Sprache",
+    "settingsTheme": "App-Thema",
+    "settingsProfile": "Profileinstellungen",
+    "settingsAccount": "Kontoeinstellungen",
+    "settingsQRcode": "QR-Code scannen",
+    "settingsPremium": "Slipe Premium",
+    "settingsNotifications": "Benachrichtigungen",
+    "settingsAppIcon": "App-Symbol",
+    "settingsAppRestictions": "App-Berechtigungen",
+    "settingsExperemental": "Experimentell",
+    "settingsDevelopers": "Für Entwickler",
+    "settingsPP": "Datenschutzrichtlinie",
+    "settingsToS": "Nutzungsbedingungen",
+    "settingsAutoLanguage": "Automatische Spracherkennung",
+    "settingsAutoLanguageDescription": "Die automatische Option wird basierend auf der Gerätesprache gewählt"
+  },
   "register": {
     "title": "Registrierung",
     "haveAccount": "Schon ein Account vorhanden?",

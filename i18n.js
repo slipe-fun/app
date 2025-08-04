@@ -7,16 +7,20 @@ import en from "./src/locales/en.json";
 import ru from "./src/locales/ru.json";
 import fr from "./src/locales/fr.json";
 import uk from "./src/locales/uk.json";
-import ge from "./src/locales/ge.json";
+import de from "./src/locales/de.json";
 import jp from "./src/locales/jp.json";
+import pl from "./src/locales/pl.json";
+import hi from "./src/locales/hi.json";
 
 const resources = {
   en: { translation: en },
   ru: { translation: ru },
   uk: { translation: uk },
-  ge: { translation: ge },
+  de: { translation: de },
   fr: { translation: fr },
   jp: { translation: jp },
+  pl: { translation: pl },
+  hi: { translation: hi },
 };
 
 const getDeviceLanguage = () => {

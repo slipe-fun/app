@@ -63,12 +63,14 @@
     "settingsQRcode": "Сканувати QR-код",
     "settingsPremium": "Slipe Premium",
     "settingsNotifications": "Сповіщення",
-    "settingsAppIcon": "Піктограма застосунку",
-    "settingsAppRestictions": "Обмеження застосунку",
-    "settingsExperemental": "Експериментальні функції",
+    "settingsAppIcon": "Іконка застосунку",
+    "settingsAppRestictions": "Дозволи застосунку",
+    "settingsExperemental": "Експериментальні",
     "settingsDevelopers": "Для розробників",
     "settingsPP": "Політика конфіденційності",
-    "settingsToS": "Умови користування"
+    "settingsToS": "Умови обслуговування",
+    "settingsAutoLanguage": "Автовизначення мови",
+    "settingsAutoLanguageDescription": "Автоматичний варіант обирається на основі мови пристрою"
   },
   "register": {
     "title": "Зареєструватися",

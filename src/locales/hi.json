@@ -1,0 +1,113 @@
+{
+    "navigation": {
+      "blogs": "फ़ीड",
+      "search": "खोज",
+      "profile": "प्रोफ़ाइल"
+    },
+    "profile": {
+      "edit": "संपादित करें",
+      "username": "उपयोगकर्ता नाम",
+      "bio": "मेरे बारे में",
+      "publishButton": "नया पोस्ट"
+    },
+    "search": {
+      "title": "खोज",
+      "input": "ब्रह्मांड में खोजें",
+      "top10": "शीर्ष 10 लोकप्रिय पोस्ट",
+      "similar": "आपकी पोस्ट जैसी पोस्ट",
+      "relevant": "आपके लिए उपयुक्त पोस्ट",
+      "categoriesTitle": "श्रेणियाँ",
+      "resultsTitle": "परिणाम",
+      "inputCancel": "रद्द करें",
+      "slideOpen": "खोलें"
+    },
+    "categories": {
+      "animals": "जानवर",
+      "creativity": "रचनात्मकता",
+      "diy": "DIY",
+      "ecology": "पारिस्थितिकी",
+      "education": "शिक्षा",
+      "fashion": "फ़ैशन",
+      "finance": "वित्त",
+      "food": "भोजन",
+      "jokes": "चुटकुले",
+      "movies": "फ़िल्में",
+      "programming": "कोडिंग",
+      "science": "विज्ञान",
+      "shitpost": "शिटपोस्ट",
+      "sport": "खेल",
+      "traveling": "यात्रा",
+      "volunteering": "स्वेच्छा सेवा"
+    },
+    "notifications": {
+      "title": "सूचनाएँ",
+      "subscribed": "आपको सब्सक्राइब किया",
+      "reacted": "प्रतिक्रिया दी",
+      "commented": "टिप्पणी की",
+      "new": "{{count}} नई",
+      "loading": "लोड हो रहा है..."
+    },
+    "publish": {
+      "accessTitle": "फ़ोटो और वीडियो रिकॉर्ड करने के लिए हमें कैमरे की अनुमति चाहिए",
+      "accessSubtitle": "सेटिंग्स {'>'} अनुमतियाँ पर जाएँ और कैमरे की अनुमति दें",
+      "accessSettings": "सेटिंग्स",
+      "switcherPhoto": "फ़ोटो",
+      "switcherVideo": "वीडियो"
+    },
+    "settings": {
+      "mainTitle": "सेटिंग्स",
+      "settingsLanguage": "भाषा",
+      "settingsTheme": "ऐप थीम",
+      "settingsProfile": "प्रोफ़ाइल सेटिंग्स",
+      "settingsAccount": "खाता सेटिंग्स",
+      "settingsQRcode": "QR-कोड स्कैन करें",
+      "settingsPremium": "Slipe प्रीमियम",
+      "settingsNotifications": "सूचनाएँ",
+      "settingsAppIcon": "ऐप आइकन",
+      "settingsAppRestictions": "ऐप अनुमतियाँ",
+      "settingsExperemental": "प्रायोगिक",
+      "settingsDevelopers": "डेवलपर्स के लिए",
+      "settingsPP": "गोपनीयता नीति",
+      "settingsToS": "सेवा की शर्तें",
+      "settingsAutoLanguage": "भाषा का स्वत: पता लगाना",
+      "settingsAutoLanguageDescription": "भाषा डिवाइस की भाषा के आधार पर चुनी जाती है"
+    },
+    "register": {
+      "title": "पंजीकरण करें",
+      "haveAccount": "पहले से खाता है?",
+      "inputPassword": "पासवर्ड",
+      "inputUsername": "उपयोगकर्ता नाम",
+      "button": "पंजीकरण करें"
+    },
+    "login": {
+      "title": "पंजीकरण करें",
+      "haveAccount": "कोई खाता नहीं?",
+      "inputPassword": "पासवर्ड",
+      "inputUsername": "उपयोगकर्ता नाम",
+      "button": "पंजीकरण करें"
+    },
+    "timeUnits": {
+      "year": "व.",
+      "month": "माह",
+      "week": "सप्ताह",
+      "day": "दिन",
+      "hour": "घं.",
+      "minute": "मि.",
+      "second": "से."
+    },
+    "months": {
+      "january": "जनवरी",
+      "february": "फ़रवरी",
+      "march": "मार्च",
+      "april": "अप्रैल",
+      "may": "मई",
+      "june": "जून",
+      "july": "जुलाई",
+      "august": "अगस्त",
+      "september": "सितंबर",
+      "october": "अक्टूबर",
+      "november": "नवंबर",
+      "december": "दिसंबर"
+    }
+  }
+  

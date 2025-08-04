@@ -1,51 +1,70 @@
 import { Text, View, YStack } from "tamagui";
+import { useState, useEffect } from "react";
+import * as RNLocalize from "react-native-localize";
+
 import SettingsHeader from "@components/common/settingsScreen/header";
-import { localesList } from "@constants/locales";
 import SettingRow from "@components/common/settingsScreen/main/settingRow";
-import i18n from "i18n";
+import { localesList } from "@constants/locales";
 import { useSettingsStore } from "@stores/settingsScreen";
 import { createDefaultStorage } from "@lib/storage";
+import i18n from "i18n";
+import { useTranslation } from "react-i18next";
 
-const SettingsLanguageScreen = () => {
+const getDeviceLanguage = () => {
+  const locales = RNLocalize.getLocales();
+  return (Array.isArray(locales) && locales[0]?.languageCode) || "en";
+};
+
+export default function SettingsLanguageScreen() {
   const headerHeight = useSettingsStore((state) => state.headerHeight);
   const storage = createDefaultStorage("settings");
-  const language = storage.getString("language") || "en";
+  const { t } = useTranslation();
 
-  const handleLanguageChange = (language) => {
-    i18n.changeLanguage(language);
-    console.log(language)
-    storage.set("language", language);
+  const [language, setLanguage] = useState("en");
+  const [deviceLanguage, setDeviceLanguage] = useState("en");
+
+  const handleLanguageChange = (lang) => {
+    i18n.changeLanguage(lang);
+    storage.set("language", lang);
+    setLanguage(lang);
   };
+
+  useEffect(() => {
+    setLanguage(storage.getString("language") || "en");
+    setDeviceLanguage(getDeviceLanguage());
+  }, []);
 
   return (
     <View backgroundColor="$bg" gap="$8" ph="$6" pt={headerHeight} f={1}>
       <SettingsHeader title="settingsLanguage" />
+
       <YStack gap="$5">
         <View backgroundColor="$backgroundTransparent" br="$7">
           <SettingRow
-            title="Автоопределение языка"
-            image={require("@assets/flags/en.webp")}
-            value={true}
-            translate={false}
+            title="settingsAutoLanguage"
+            image={localesList.find((i) => i.id === deviceLanguage)?.image}
+            value={language === "auto"}
             type="toggle"
-            onPress={() => handleLanguageChange("auto")}
+            onPress={() => handleLanguageChange(language === "auto" ? deviceLanguage : "auto")}
             icon
             color="innerBlock"
             separator={false}
           />
         </View>
+
         <View ph="$6">
           <Text fz="$3" lh="$3" fw="$2" color="$secondaryText">
-            Автоматический вариант выбирается на основе темы устройства
+            {t("settings.settingsAutoLanguageDescription")}
           </Text>
         </View>
       </YStack>
-      <YStack opacity={language === "auto" ? 0.5 : 1} backgroundColor="$backgroundTransparent" br="$7">
+
+      <YStack backgroundColor="$backgroundTransparent" br="$7">
         {localesList.map((item, index) => (
           <SettingRow
-            key={item.id + index}
+            key={item.id} 
             title={item.name}
-            value={true}
+            value={language === item.id}
             translate={false}
             image={item.image}
             type="checkbox"
@@ -58,6 +77,4 @@ const SettingsLanguageScreen = () => {
       </YStack>
     </View>
   );
-};
-
-export default SettingsLanguageScreen;
+}

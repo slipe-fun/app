@@ -68,7 +68,9 @@
     "settingsExperemental": "実験的",
     "settingsDevelopers": "デベロッパー向け",
     "settingsPP": "プライバシーポリシー",
-    "settingsToS": "利用規約"
+    "settingsToS": "利用規約",
+    "settingsAutoLanguage": "言語の自動検出",
+    "settingsAutoLanguageDescription": "自動オプションはデバイスの言語に基づいて選択されます"
   },
   "register": {
     "title": "登録",

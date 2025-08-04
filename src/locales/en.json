@@ -68,7 +68,9 @@
     "settingsExperemental": "Experimental",
     "settingsDevelopers": "For developers",
     "settingsPP": "Privacy policy",
-    "settingsToS": "Terms of service"
+    "settingsToS": "Terms of service",
+    "settingsAutoLanguage": "Auto language",
+    "settingsAutoLanguageDescription": "The automatic option is selected based on the device language"
   },
   "register": {
     "title": "Register",
