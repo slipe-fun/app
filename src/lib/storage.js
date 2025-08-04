@@ -1,46 +1,50 @@
 import { MMKV } from "react-native-mmkv";
 import * as Keychain from "react-native-keychain";
 import { Platform } from "react-native";
-import { randomBytes } from "react-native-randombytes";
+import QuickCrypto from "react-native-quick-crypto";
 
-const SERVICE_NAME = `com.slipe.storage.${Platform.OS}`;
-let _storage = null;
+const SERVICE_PREFIX = "com.slipe.storage";
 
-const genKey = () =>
-	new Promise((resolve, reject) => {
-		randomBytes(32, (err, bytes) => {
-			if (err) reject(err);
-			else resolve(bytes.toString("base64"));
-		});
-	});
-
-const genOrCreateKey = async () => {
-	const existing = await Keychain.getGenericPassword({
-		service: SERVICE_NAME,
-		authenticationType: Keychain.AUTHENTICATION_TYPE.NONE,
-	});
-
-	if (existing) {
-		return existing.password;
-	}
-
-	const newKey = await genKey();
-
-	await Keychain.setGenericPassword("mmkv", newKey, {
-		service: SERVICE_NAME,
-		accessible: Platform.OS === "ios" ? Keychain.ACCESSIBLE.WHEN_UNLOCKED : undefined,
-		authenticationType: Keychain.AUTHENTICATION_TYPE.NONE,
-		storage: Platform.OS === "android" ? Keychain.STORAGE_TYPE.AES : undefined,
-	});
-
-	return newKey;
+const genKey = () => {
+	const bytes = QuickCrypto.randomBytes(32);
+	const binary = String.fromCharCode(...bytes);
+	return global.btoa(binary);
 };
 
-export const storage = async () => {
-	if (_storage) {
-		return _storage;
-	}
-	const key = await genOrCreateKey();
-	_storage = new MMKV({ id: "user-storage", key });
-	return _storage;
+const genOrCreateKey = async (serviceName) => {
+  const existing = await Keychain.getGenericPassword({
+    service: serviceName,
+    authenticationType: Keychain.AUTHENTICATION_TYPE.NONE,
+  });
+
+  if (existing) {
+    return existing.password;
+  }
+
+  const newKey = genKey();
+
+  await Keychain.setGenericPassword("mmkv", newKey, {
+    service: serviceName,
+    accessible:
+      Platform.OS === "ios" ? Keychain.ACCESSIBLE.WHEN_UNLOCKED : undefined,
+    authenticationType: Keychain.AUTHENTICATION_TYPE.NONE,
+    storage: Platform.OS === "android" ? Keychain.STORAGE_TYPE.AES : undefined,
+  });
+
+  return newKey;
+};
+
+export const createStorage = async ({ id, secure = false }) => {
+  if (!id) throw new Error("Storage id is required");
+
+  let storageInstance;
+  if (secure) {
+    const serviceName = `${SERVICE_PREFIX}.${id}.${Platform.OS}`;
+    const key = await genOrCreateKey(serviceName);
+    storageInstance = new MMKV({ id, key });
+  } else {
+    storageInstance = new MMKV({ id });
+  }
+
+  return storageInstance;
 };

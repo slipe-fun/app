@@ -6,7 +6,7 @@ import { BlogsScreen, SearchScreen, ProfileScreen, CaptureScreen, CategoryPage, 
 import AuthNavigator from "./AuthNavigator";
 import { ROUTES } from "../constants/routes";
 import { useState, createContext, useContext, useEffect } from "react";
-import { storage } from "../lib/storage";
+import { createStorage } from "@lib/storage";
 import { useTheme } from "tamagui";
 import { Toaster } from "sonner-native";
 import SettingsNavigator from "./settingsNavigator";
@@ -40,8 +40,8 @@ const AppNavigator = () => {
 	useEffect(() => {
 		const checkAuth = async () => {
 			try {
-				const storageInstance = await storage();
-				const token = storageInstance?.getString("token");
+				const storage = await createStorage({ id: "user-storage", secure: true });
+				const token = storage?.getString("token");
 				setIsAuthenticated(!!token);
 			} finally {
 				setIsLoading(false);
@@ -56,8 +56,8 @@ const AppNavigator = () => {
 		login: () => setIsAuthenticated(true),
 		logout: async () => {
 			try {
-				const storageInstance = await storage();
-				storageInstance.delete("token");
+				const storage = await createStorage({ id: "user-storage", secure: true });
+				storage.delete("token");
 				setIsAuthenticated(false);
 			} catch (error) {
 				throw error

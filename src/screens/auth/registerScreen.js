@@ -3,8 +3,8 @@ import { View, Text, StyleSheet, TouchableOpacity, Platform, TextInput } from "r
 import { useAuth } from "../../navigation/appNavigator";
 import { COLORS, FONT_SIZE, SPACING } from "../../constants/theme";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { storage } from "../../lib/storage";
-import { api } from "../../lib/api";
+import { createStorage } from "@lib/storage";
+import { api } from "@lib/api";
 import isRegistrationDataCorrect from "../../lib/auth/signUp/isDataCorrect";
 import { useKeyboard } from "@react-native-community/hooks";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming, Easing, ReduceMotion } from "react-native-reanimated";
@@ -47,8 +47,8 @@ const RegisterScreen = ({ navigation }) => {
 				})
 			);
 
-			const storageInstance = await storage();
-			await storageInstance.set("token", res?.data?.token);
+			const storage = await createStorage({ id: "user-storage", secure: true })
+			storage.set("token", res?.data?.token);
 			login();
 		} catch (err) {
 			toast.error(err?.response?.data?.error);

@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { Pressable } from "react-native";
-import { View } from "tamagui";
+import { useEffect } from "react";
+import { View, getVariableValue, useTheme } from "tamagui";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -12,23 +11,19 @@ import * as Haptics from "expo-haptics";
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
-const Toggle = ({ initial = false, onToggle }) => {
-  const [active, setActive] = useState(initial);
-  const progress = useSharedValue(initial ? 1 : 0);
+const green = getVariableValue("$green", "color");
 
-  const toggleSwitch = () => {
-    const newValue = !active;
-    setActive(newValue);
-    progress.value = withSpring(newValue ? 1 : 0, quickSpring);
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    onToggle?.(newValue);
-  };
+const Toggle = ({ initial = false }) => {
+  const progress = useSharedValue(initial ? 1 : 0);
+  const theme = useTheme();
+
+  const innerBlock = theme.innerBlock.get();
 
   const animatedTrack = useAnimatedStyle(() => ({
     backgroundColor: interpolateColor(
       progress.value,
       [0, 1],
-      ["#333", "#1ED760"]
+      [innerBlock, green]
     ),
   }));
 
@@ -36,8 +31,12 @@ const Toggle = ({ initial = false, onToggle }) => {
     transform: [{ translateX: progress.value * 20 }],
   }));
 
+  useEffect(() => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    progress.value = withSpring(initial ? 1 : 0, quickSpring);
+  }, [initial]);
+
   return (
-    <Pressable onPress={toggleSwitch}>
       <AnimatedView
         w="$16"
         h="$9"
@@ -56,7 +55,6 @@ const Toggle = ({ initial = false, onToggle }) => {
           style={animatedThumb}
         />
       </AnimatedView>
-    </Pressable>
   );
 };
 

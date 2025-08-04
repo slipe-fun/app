@@ -3,6 +3,7 @@ import Icon from "@components/ui/icon";
 import { useTranslation } from "react-i18next";
 import { useCallback } from "react";
 import Toggle from "@components/ui/toggle";
+import Checkbox from "@components/ui/checkbox";
 
 const SettingRow = ({ title, onPress, icon, value, label, color, separator, type = "link", image = false, translate = true }) => {
 	const theme = useTheme();
@@ -24,9 +25,7 @@ const SettingRow = ({ title, onPress, icon, value, label, color, separator, type
 				);
 			case "checkbox":
 				return (
-					<View alignItems='center' justifyContent='center' w='$10' h='$10'>
-						<Icon size={22} color={iconColor} icon='chevron.right' />
-					</View>
+					<Checkbox initial={value} />
 				);
 			default:
 				return null;

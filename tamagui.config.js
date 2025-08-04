@@ -178,6 +178,7 @@ export const tokens = createTokens({
     glassButtonStatic: 'rgba(61, 61, 61, 0.24)',
     purple: '#BF5AF2',
     innerBlockDark: '#333333',
+    green: '#1ED760',
     innerBlockLight: '#CCCCCC',
     gray: '#747474',
     elemBackgroundDark: '#1F1F1F',
