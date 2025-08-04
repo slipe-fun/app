@@ -1,6 +1,6 @@
-import { useTheme, XStack, View, Text } from "tamagui";
+import { useTheme, XStack, View, Text, getVariableValue } from "tamagui";
 import Icon from "@components/ui/icon";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet } from "react-native";
 import { GradientBorder } from "@components/ui/gradientBorder";
@@ -9,6 +9,8 @@ import { useSettingsStore } from "@stores/settingsScreen";
 import { useTranslation } from "react-i18next";
 import { useAnimatedStyle, interpolate, interpolateColor } from "react-native-reanimated";
 import { useNavigation } from "@react-navigation/native";
+
+const padding = getVariableValue("$6", "space");
  
 const SettingsHeader = ({title}) => {
 	const insets = useInsets();
@@ -24,7 +26,7 @@ const SettingsHeader = ({title}) => {
     const afterScroll = theme.glassButton.get();
 
 	const handleLayout = useCallback(e => {
-		setHeaderHeight(e.nativeEvent.layout.height);
+		setHeaderHeight(e.nativeEvent.layout.height + padding);
 	}, []); 
 
     const animatedStyle = useAnimatedStyle(() => ({

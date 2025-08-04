@@ -1,12 +1,10 @@
 import { SectionList } from "react-native";
 import { useCallback, useEffect } from "react";
 import SettingRow from "./settingRow";
-import { getVariableValue, YStack } from "tamagui";
+import { YStack } from "tamagui";
 import { useSettingsStore } from "@stores/settingsScreen";
 import Animated, { useAnimatedScrollHandler, useSharedValue } from "react-native-reanimated";
 import { useNavigation } from "@react-navigation/native";
-
-const padding = getVariableValue("$6", "space");
 
 const AnimatedSectionList = Animated.createAnimatedComponent(SectionList);
 
@@ -49,7 +47,7 @@ const SettingsSectionList = ({ data }) => {
 			renderSectionHeader={renderSection}
 			renderItem={() => null}
 			onScroll={onScroll}
-			contentContainerStyle={{ paddingHorizontal: 16, paddingTop: headerHeight + padding }}
+			contentContainerStyle={{ paddingHorizontal: 16, paddingTop: headerHeight }}
 			stickySectionHeadersEnabled={false}
 			style={{ flex: 1 }}
 		/>
