@@ -17,24 +17,28 @@ const Checkbox = ({ initial = false }) => {
 
   const animatedCheck = useAnimatedStyle(() => ({
     opacity: progress.value,
-    transform: [{ scale: progress.value }]
+    transform: [{ scale: progress.value }],
   }));
 
+  const handlePress = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
+  };
+
   useEffect(() => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     progress.value = withSpring(initial ? 1 : 0, quickSpring);
   }, [initial]);
 
   return (
-      <AnimatedView
-        style={animatedCheck}
-        w="$10"
-        h="$10"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Icon icon="checkmark" size={24} color={iconColor} />
-      </AnimatedView>
+    <AnimatedView
+      style={animatedCheck}
+      w="$10"
+      h="$10"
+      alignItems="center"
+      justifyContent="center"
+      onPress={handlePress}
+    >
+      <Icon icon="checkmark" size={24} color={iconColor} />
+    </AnimatedView>
   );
 };
 

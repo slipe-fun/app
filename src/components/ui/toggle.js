@@ -27,34 +27,38 @@ const Toggle = ({ initial = false }) => {
     ),
   }));
 
+  const handlePress = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
+  };
+
   const animatedThumb = useAnimatedStyle(() => ({
     transform: [{ translateX: progress.value * 20 }],
   }));
 
   useEffect(() => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     progress.value = withSpring(initial ? 1 : 0, quickSpring);
   }, [initial]);
 
   return (
+    <AnimatedView
+      w="$16"
+      h="$9"
+      p="$0.5"
+      onPress={handlePress}
+      br="$full"
+      style={animatedTrack}
+    >
       <AnimatedView
-        w="$16"
-        h="$9"
-        p="$0.5"
+        h="$7.5"
+        w="$10"
+        backgroundColor="$white"
         br="$full"
-        style={animatedTrack}
-      >
-        <AnimatedView
-          h="$7.5"
-          w="$10"
-          backgroundColor="$white"
-          br="$full"
-          shadowColor="$black"
-          shadowOpacity={0.2}
-          shadowRadius={8}
-          style={animatedThumb}
-        />
-      </AnimatedView>
+        shadowColor="$black"
+        shadowOpacity={0.2}
+        shadowRadius={8}
+        style={animatedThumb}
+      />
+    </AnimatedView>
   );
 };
 
