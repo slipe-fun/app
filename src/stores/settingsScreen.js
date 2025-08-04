@@ -6,5 +6,5 @@ export const useSettingsStore = create(set => ({
 	title: "mainTitle",
 	setTitle: newTitle => set({ title: newTitle }),
 	scrollY: null,
-	setScrollY: newScrollY => set({ scrollY: newScrollY }),
+	setScrollY: newScrollY => set({ scrollY: newScrollY })
 }));

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createStorage } from "./storage";
+import { createSecureStorage } from "./storage";
 
 const jsonConfig = {
 	headers: {
@@ -31,7 +31,7 @@ const mediaInstance = axios.create({
 });
 
 const requestInterceptor = async config => {
-	const storage = await createStorage({ id: "user-storage", secure: true });
+	const storage = await createSecureStorage("user-storage");
 	const token = storage?.getString("token") || null;
 	if (token) {
 		if (!config.headers) {

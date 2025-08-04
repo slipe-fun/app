@@ -6,9 +6,9 @@ import QuickCrypto from "react-native-quick-crypto";
 const SERVICE_PREFIX = "com.slipe.storage";
 
 const genKey = () => {
-	const bytes = QuickCrypto.randomBytes(32);
-	const binary = String.fromCharCode(...bytes);
-	return global.btoa(binary);
+  const bytes = QuickCrypto.randomBytes(32); 
+  const binary = String.fromCharCode(...bytes);
+  return global.btoa(binary);
 };
 
 const genOrCreateKey = async (serviceName) => {
@@ -34,17 +34,12 @@ const genOrCreateKey = async (serviceName) => {
   return newKey;
 };
 
-export const createStorage = async ({ id, secure = false }) => {
-  if (!id) throw new Error("Storage id is required");
+export const createSecureStorage = async (id) => {
+  const serviceName = `${SERVICE_PREFIX}.${id}.${Platform.OS}`;
+  const key = await genOrCreateKey(serviceName);
+  return new MMKV({ id, key });
+};
 
-  let storageInstance;
-  if (secure) {
-    const serviceName = `${SERVICE_PREFIX}.${id}.${Platform.OS}`;
-    const key = await genOrCreateKey(serviceName);
-    storageInstance = new MMKV({ id, key });
-  } else {
-    storageInstance = new MMKV({ id });
-  }
-
-  return storageInstance;
+export const createDefaultStorage = (id) => {
+  return new MMKV({ id });
 };

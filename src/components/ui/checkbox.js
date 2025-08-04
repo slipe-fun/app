@@ -28,8 +28,8 @@ const Checkbox = ({ initial = false }) => {
   return (
       <AnimatedView
         style={animatedCheck}
-        w="$7"
-        h="$7"
+        w="$10"
+        h="$10"
         alignItems="center"
         justifyContent="center"
       >

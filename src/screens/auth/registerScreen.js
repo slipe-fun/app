@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Platform, TextInput } from "r
 import { useAuth } from "../../navigation/appNavigator";
 import { COLORS, FONT_SIZE, SPACING } from "../../constants/theme";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { createStorage } from "@lib/storage";
+import { createSecureStorage } from "@lib/storage";
 import { api } from "@lib/api";
 import isRegistrationDataCorrect from "../../lib/auth/signUp/isDataCorrect";
 import { useKeyboard } from "@react-native-community/hooks";
@@ -47,7 +47,7 @@ const RegisterScreen = ({ navigation }) => {
 				})
 			);
 
-			const storage = await createStorage({ id: "user-storage", secure: true })
+			const storage = await createSecureStorage("user-storage")
 			storage.set("token", res?.data?.token);
 			login();
 		} catch (err) {

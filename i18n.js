@@ -1,6 +1,7 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import * as RNLocalize from "react-native-localize";
+import { createDefaultStorage } from "@lib/storage";
 
 import en from "./src/locales/en.json";
 import ru from "./src/locales/ru.json";
@@ -26,9 +27,12 @@ const getDeviceLanguage = () => {
   return "en";
 };
 
+const storage = createDefaultStorage("settings");
+const language = storage?.getString("language") || "en";
+
 i18n.use(initReactI18next).init({
   resources,
-  lng: getDeviceLanguage(),
+  lng: language === "auto" ? getDeviceLanguage() : language,
   fallbackLng: "en",
   interpolation: {
     escapeValue: false,
