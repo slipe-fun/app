@@ -7,7 +7,6 @@ import Animated, {
 } from "react-native-reanimated";
 import Icon from "@components/ui/icon";
 import { quickSpring } from "@constants/easings";
-import * as Haptics from "expo-haptics";
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 const iconColor = getVariableValue("$primary", "color");
@@ -20,10 +19,6 @@ const Checkbox = ({ initial = false }) => {
     transform: [{ scale: progress.value }],
   }));
 
-  const handlePress = () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
-  };
-
   useEffect(() => {
     progress.value = withSpring(initial ? 1 : 0, quickSpring);
   }, [initial]);
@@ -35,7 +30,6 @@ const Checkbox = ({ initial = false }) => {
       h="$10"
       alignItems="center"
       justifyContent="center"
-      onPress={handlePress}
     >
       <Icon icon="checkmark" size={24} color={iconColor} />
     </AnimatedView>

@@ -9,6 +9,7 @@ import { useSettingsStore } from "@stores/settingsScreen";
 import { createDefaultStorage } from "@lib/storage";
 import i18n from "i18n";
 import { useTranslation } from "react-i18next";
+import * as Haptics from "expo-haptics";
 
 const getDeviceLanguage = () => {
   const locales = RNLocalize.getLocales();
@@ -27,6 +28,7 @@ export default function SettingsLanguageScreen() {
     i18n.changeLanguage(lang);
     storage.set("language", lang);
     setLanguage(lang);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
   };
 
   useEffect(() => {
@@ -45,7 +47,11 @@ export default function SettingsLanguageScreen() {
             image={localesList.find((i) => i.id === deviceLanguage)?.image}
             value={language === "auto"}
             type="toggle"
-            onPress={() => handleLanguageChange(language === "auto" ? deviceLanguage : "auto")}
+            onPress={() =>
+              handleLanguageChange(
+                language === "auto" ? deviceLanguage : "auto"
+              )
+            }
             icon
             color="innerBlock"
             separator={false}
@@ -62,7 +68,7 @@ export default function SettingsLanguageScreen() {
       <YStack backgroundColor="$backgroundTransparent" br="$7">
         {localesList.map((item, index) => (
           <SettingRow
-            key={item.id} 
+            key={item.id}
             title={item.name}
             value={language === item.id}
             translate={false}

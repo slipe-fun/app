@@ -7,7 +7,6 @@ import Animated, {
   interpolateColor,
 } from "react-native-reanimated";
 import { quickSpring } from "@constants/easings";
-import * as Haptics from "expo-haptics";
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
@@ -27,10 +26,6 @@ const Toggle = ({ initial = false }) => {
     ),
   }));
 
-  const handlePress = () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
-  };
-
   const animatedThumb = useAnimatedStyle(() => ({
     transform: [{ translateX: progress.value * 20 }],
   }));
@@ -44,7 +39,6 @@ const Toggle = ({ initial = false }) => {
       w="$16"
       h="$9"
       p="$0.5"
-      onPress={handlePress}
       br="$full"
       style={animatedTrack}
     >
