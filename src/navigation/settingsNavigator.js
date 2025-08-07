@@ -1,4 +1,3 @@
-import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { ROUTES } from "../constants/routes";
 import * as Screens from "src/screens";
@@ -20,7 +19,6 @@ const SettingsNavigator = () => {
 				gestureEnabled: true,
 			}}
 		>
-			{/* Главный экран настроек */}
 			<Stack.Screen name={ROUTES.SETTINGS_MAIN} component={Screens.SettingsScreen} />
 
 			{settingsScreens.flatMap(section =>

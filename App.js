@@ -29,7 +29,6 @@ export default function App() {
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded || fontError) {
-      await SplashScreen.hideAsync();
       if (Platform.OS === "android") {
         await NavigationBar.setBehaviorAsync("inset-swipe");
         await NavigationBar.setPositionAsync("absolute");

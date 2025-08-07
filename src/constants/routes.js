@@ -8,6 +8,7 @@ export const ROUTES = {
   AUTH: "auth",
   LOGIN: "login",
   REGISTER: "register",
+  AUTH_WELCOME: "auth_welcome",
 
   // Notifications routes
   NOTIFS: "notifs",

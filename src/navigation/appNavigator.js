@@ -10,6 +10,7 @@ import { createSecureStorage } from "@lib/storage";
 import { useTheme } from "tamagui";
 import { Toaster } from "sonner-native";
 import SettingsNavigator from "./settingsNavigator";
+import * as SplashScreen from "expo-splash-screen";
 
 export const AuthContext = createContext(null);
 
@@ -34,6 +35,7 @@ const MainTabNavigator = () => {
 const AppNavigator = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
+	const [isNavReady, setIsNavReady] = useState(false);
 	const theme = useTheme();
 	const backgroundColor = theme.bg;
 
@@ -51,6 +53,12 @@ const AppNavigator = () => {
 		checkAuth();
 	}, []);
 
+	useEffect(() => {
+		if (!isLoading && isNavReady) {
+			SplashScreen.hideAsync().catch(() => {});
+		}
+	}, [isLoading, isNavReady]);
+
 	const authContextValue = {
 		isAuthenticated,
 		login: () => setIsAuthenticated(true),
@@ -65,9 +73,12 @@ const AppNavigator = () => {
 		},
 	};
 
+	// Keep native splash while checking auth
+	if (isLoading) return null;
+
 	return (
 		<AuthContext.Provider value={authContextValue}>
-			<NavigationContainer>
+			<NavigationContainer onReady={() => setIsNavReady(true)}>
 				<RootStack.Navigator screenOptions={{ headerShown: false, animation: "simple_push", presentation: "card", gestureEnabled: true, contentStyle: { backgroundColor } }}>
 					{isAuthenticated ? (
 						<>
