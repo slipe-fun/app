@@ -13,7 +13,7 @@
       "backgroundColor": "#000000"
     },
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "com.slipe.fun"
     },
     "android": {
@@ -49,8 +49,7 @@
           "enableMicrophonePermission": true,
           "microphonePermissionText": "$(PRODUCT_NAME) needs access to your Microphone."
         }
-      ],
-      "expo-asset"
+      ]
     ]
   }
 }

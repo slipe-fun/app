@@ -1,5 +1,5 @@
 import { Text, View, YStack } from "tamagui";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import * as RNLocalize from "react-native-localize";
 
 import SettingsHeader from "@components/common/settingsScreen/header";
@@ -16,19 +16,18 @@ const getDeviceLanguage = () => {
   return (Array.isArray(locales) && locales[0]?.languageCode) || "en";
 };
 
-export default function SettingsLanguageScreen() {
+const SettingsLanguageScreen = () => {
   const headerHeight = useSettingsStore((state) => state.headerHeight);
   const storage = createDefaultStorage("settings");
   const { t } = useTranslation();
-
   const [language, setLanguage] = useState("en");
   const [deviceLanguage, setDeviceLanguage] = useState("en");
 
   const handleLanguageChange = (lang) => {
-    i18n.changeLanguage(lang);
-    storage.set("language", lang);
     setLanguage(lang);
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
+    i18n.changeLanguage(lang);
+    storage.set("language", lang);
   };
 
   useEffect(() => {
@@ -44,7 +43,7 @@ export default function SettingsLanguageScreen() {
         <View backgroundColor="$backgroundTransparent" br="$7">
           <SettingRow
             title="settingsAutoLanguage"
-            image={localesList.find((i) => i.id === deviceLanguage)?.image}
+            image={localesList.find((i) => i.id === deviceLanguage)?.image} 
             value={language === "auto"}
             type="toggle"
             onPress={() =>
@@ -84,3 +83,6 @@ export default function SettingsLanguageScreen() {
     </View>
   );
 }
+
+export default memo(SettingsLanguageScreen);
+

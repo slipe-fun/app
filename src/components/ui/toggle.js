@@ -25,6 +25,7 @@ const Toggle = ({ initial = false }) => {
       [innerBlock, green]
     ),
   }));
+  
 
   const animatedThumb = useAnimatedStyle(() => ({
     transform: [{ translateX: progress.value * 20 }],

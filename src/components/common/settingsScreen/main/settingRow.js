@@ -1,7 +1,7 @@
 import { Image, Separator, Text, View, XStack, YStack, useTheme } from "tamagui";
 import Icon from "@components/ui/icon";
 import { useTranslation } from "react-i18next";
-import { useCallback } from "react";
+import { useCallback, memo } from "react";
 import Toggle from "@components/ui/toggle";
 import Checkbox from "@components/ui/checkbox";
 
@@ -33,7 +33,7 @@ const SettingRow = ({ title, onPress, icon, value, label, color, separator, type
 	}, [type, value]);
 
 	return (
-			<XStack onPress={() => onPress()} alignItems='center'>
+			<XStack pressStyle={{ opacity: 0.75 }} onPress={() => onPress()} alignItems='center'>
 				{icon && (
 					<View alignItems='center' justifyContent='center' m='$5.5' mr='$0' br='$1' backgroundColor={`$${color}`} w='$10' h='$10'>
 						{image ? (
@@ -56,4 +56,4 @@ const SettingRow = ({ title, onPress, icon, value, label, color, separator, type
 	);
 };
 
-export default SettingRow;
+export default memo(SettingRow);
