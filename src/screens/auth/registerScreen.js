@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Platform, TextInput } from "react-native";
-import { useAuth } from "../../navigation/appNavigator";
 import { COLORS, FONT_SIZE, SPACING } from "../../constants/theme";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { createSecureStorage } from "@lib/storage";
@@ -13,7 +12,6 @@ import { useTranslation } from "react-i18next";
 import { ROUTES } from "@constants/routes";
 
 const RegisterScreen = ({ navigation }) => {
-	const { login } = useAuth();
 	const insets = useSafeAreaInsets();
 	const buttonOffset = useSharedValue(0);
 	const { t } = useTranslation();
@@ -47,9 +45,8 @@ const RegisterScreen = ({ navigation }) => {
 				})
 			);
 
-			const storage = await createSecureStorage("user-storage")
-			storage.set("token", res?.data?.token);
-			login();
+            const storage = await createSecureStorage("user-storage")
+            storage.set("token", res?.data?.token);
 		} catch (err) {
 			toast.error(err?.response?.data?.error);
 		}
