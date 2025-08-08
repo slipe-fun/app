@@ -72,6 +72,12 @@
     "settingsAutoLanguage": "Автоопредление языка",
     "settingsAutoLanguageDescription": "Автоматический вариант выбирается на основе языка устройства"
   },
+  "welcome": {
+    "share": "Делиться",
+    "create": "Создавать",
+    "creativity": "Креативить",
+    "subtitle": "Поехали"
+  },
   "register": {
     "title": "Зарегистрироваться",
     "haveAccount": "Уже есть аккаунт?",

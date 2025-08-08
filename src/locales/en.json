@@ -72,6 +72,12 @@
     "settingsAutoLanguage": "Auto language",
     "settingsAutoLanguageDescription": "The automatic option is selected based on the device language"
   },
+  "welcome": {
+    "share": "Share ideas",
+    "create": "Create posts",
+    "creativity": "Creativity",
+    "subtitle": "Let's go"
+  },
   "register": {
     "title": "Register",
     "haveAccount": "Already have an account?",

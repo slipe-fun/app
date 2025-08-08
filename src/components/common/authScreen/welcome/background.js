@@ -7,8 +7,9 @@ const AnimatedImage = Animated.createAnimatedComponent(Image);
 const AuthBackground = ({ opacity, image }) => {
   const animatedStyle = useAnimatedStyle(() => ({
     opacity: opacity.value,
+    position: "absolute",
   }));
-  
+
   return (
     <>
       <AnimatedImage
