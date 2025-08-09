@@ -69,6 +69,7 @@ const AuthFooter = ({ navigation }) => {
         <AnimatedButton
           h="$13"
           br="$full"
+          key="footer-button"
           onPress={handlePress}
           style={animatedStyle}
           justifyContent="center"

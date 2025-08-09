@@ -11,7 +11,6 @@ import { useFonts } from "expo-font";
 import { TamaguiProvider, Theme } from "tamagui";
 import * as SplashScreen from "expo-splash-screen";
 import { enableScreens } from "react-native-screens";
-import { Platform } from "react-native";
 
 enableScreens();
 
@@ -41,7 +40,7 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <GestureHandlerRootView
-        style={{ flex: 1, backgroundColor: "black" }}
+        style={{ flex: 1, backgroundColor: 'black' }}
         onLayout={onLayoutRootView}
       >
         <StatusBar translucent style="light" />
