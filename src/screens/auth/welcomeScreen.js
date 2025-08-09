@@ -8,7 +8,7 @@ import AuthAnimatedTitle from "@components/common/authScreen/welcome/animatedTit
 import Icon from "@components/ui/icon";
 import useInsets from "@hooks/ui/useInsets";
 
-const WelcomeScreen = () => {
+const AuthWelcomeScreen = () => {
   const [slideIndex, setSlideIndex] = useState(0);
   const opacity = useSharedValue(1);
   const insets = useInsets();
@@ -48,4 +48,4 @@ const WelcomeScreen = () => {
   );
 };
 
-export default WelcomeScreen;
+export default AuthWelcomeScreen;
