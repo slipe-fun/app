@@ -72,25 +72,13 @@
     "settingsAutoLanguage": "Auto language",
     "settingsAutoLanguageDescription": "The automatic option is selected based on the device language"
   },
-  "welcome": {
-    "share": "Share ideas",
-    "create": "Create posts",
-    "creativity": "Creativity",
-    "subtitle": "Let's go"
-  },
-  "register": {
-    "title": "Register",
-    "haveAccount": "Already have an account?",
-    "inputPassword": "Password",
-    "inputUsername": "Username",
-    "button": "Register"
-  },
-  "login": {
-    "title": "Login",
-    "haveAccount": "Don't have an account?",
-    "inputPassword": "Password",
-    "inputUsername": "Username",
-    "button": "Login"
+  "auth": {
+    "welcome_share": "Share ideas",
+    "welcome_create": "Create posts",
+    "welcome_creativity": "Creativity",
+    "welcome_subtitle": "Let's go",
+    "footer_button": "Start creating",
+    "footer_button_next": "Continue"
   },
   "timeUnits": {
     "year": "yr",

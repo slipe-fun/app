@@ -6,6 +6,10 @@ export const ROUTES = {
 
   // Auth routes
   AUTH: "auth",
+  AUTH_USERNAME: "auth_username",
+  AUTH_PASSWORD: "auth_password",
+  AUTH_AVATAR: "auth_avatar",
+  AUTH_FINISH: "auth_finish",
   LOGIN: "login",
   REGISTER: "register",
   AUTH_WELCOME: "auth_welcome",

@@ -4,10 +4,13 @@ import WelcomeScreen from "../screens/auth/welcomeScreen";
 import LoginScreen from "../screens/auth/loginScreen";
 import RegisterScreen from "../screens/auth/registerScreen";
 import AuthFooter from "@components/common/authScreen/footer";
+import { useNavigation } from "@react-navigation/native";
 
 const Stack = createNativeStackNavigator();
 
 const AuthNavigator = () => {
+  const navigation = useNavigation();
+
   return (
     <>
       <Stack.Navigator
@@ -19,10 +22,13 @@ const AuthNavigator = () => {
         }}
       >
         <Stack.Screen name={ROUTES.AUTH_WELCOME} component={WelcomeScreen} />
-        <Stack.Screen name={ROUTES.LOGIN} component={LoginScreen} />
-        <Stack.Screen name={ROUTES.REGISTER} component={RegisterScreen} />
+        <Stack.Screen name={ROUTES.AUTH_USERNAME} component={LoginScreen} />
+        <Stack.Screen name={ROUTES.AUTH_PASSWORD} component={RegisterScreen} />
+        <Stack.Screen name={ROUTES.AUTH_AVATAR} component={RegisterScreen} />
+        <Stack.Screen name={ROUTES.AUTH_FINISH} component={RegisterScreen} />
       </Stack.Navigator>
-      <AuthFooter />
+
+      <AuthFooter navigation={navigation} />
     </>
   );
 };

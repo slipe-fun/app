@@ -21,7 +21,7 @@ const AuthAnimatedTitle = ({ text }) => {
       gap={8}
     >
       <Text fz="$9" lh="$9" w="$full" textAlign="center" fw="$3" color="white" opacity={0.7} ta="center">
-        {t("welcome.subtitle")}
+        {t("auth.welcome_subtitle")}
       </Text>
 
       <XStack
@@ -30,7 +30,7 @@ const AuthAnimatedTitle = ({ text }) => {
         alignItems="center"
         flexWrap="wrap"
       >
-        {t(`welcome.${text}`)
+        {t(`auth.welcome_${text}`)
           .split("")
           .map((char, i) => (
             <AnimatedText
