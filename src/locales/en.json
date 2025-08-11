@@ -86,10 +86,9 @@
     "username_nickname_placeholder": "Nickname (optional)",
     "password_title": "Enter password",
     "password_tip": "The password must consist of 2–64 characters and contain any characters.",
-    "password_placeholder": "password",
+    "password_placeholder": "Password",
     "password_confirm_placeholder": "Confirm password",
     "avatar_title": "Select an avatar"
-
   },
   "timeUnits": {
     "year": "yr",

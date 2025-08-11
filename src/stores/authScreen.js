@@ -9,6 +9,8 @@ const useAuthStore = create((set) => ({
   setNickname: (newNickname) => set({ nickname: newNickname }),
   password: "",
   setPassword: (newPassword) => set({ password: newPassword }),
+  passwordConfirm: "",
+  setPasswordConfirm: (newPasswordConfirm) => set({ passwordConfirm: newPasswordConfirm }),
   avatar: "",
   setAvatar: (newAvatar) => set({ avatar: newAvatar }),
 }))

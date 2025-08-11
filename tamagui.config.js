@@ -1,6 +1,5 @@
 import { createFont, createTamagui, createTokens } from 'tamagui'
 import { createAnimations } from '@tamagui/animations-moti'
-import { Easing } from 'react-native-reanimated'
 
 const openRundeFont = createFont({
   family: 'OpenRunde',
@@ -197,27 +196,25 @@ export const tokens = createTokens({
 })
 
 const animations = createAnimations({
-  fast: {
-    type: 'spring',
-    damping: 20,
-    mass: 1.2,
-    stiffness: 250,
+  bouncy: {
+    type: 'timing',
+    duration: 0,
   },
-  medium: {
-    type: 'spring',
-    damping: 15,
-    mass: 1,
-    stiffness: 200,
+  lazy: {
+    type: 'timing',
+    duration: 0,
   },
   slow: {
-    type: 'spring',
-    damping: 15,
-    stiffness: 50,
-  },
-  quick: {
     type: 'timing',
-    duration: 125,
-    easing: Easing.inOut(Easing.ease),
+    duration: 0,
+  },
+  medium: {
+    type: 'timing',
+    duration: 0, 
+  },
+  fast: {
+    type: 'timing',
+    duration: 0,
   },
 });
 

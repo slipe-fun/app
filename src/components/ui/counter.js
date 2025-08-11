@@ -10,6 +10,7 @@ const AnimatedText = Animated.createAnimatedComponent(Text);
 const AnimatedXStack = Animated.createAnimatedComponent(XStack);
 
 const Counter = ({ value, max, visible, ...props }) => {
+  
   const containerStyle = useAnimatedStyle(
     () => ({
       opacity: withSpring(visible ? 1 : 0, fastSpring),
