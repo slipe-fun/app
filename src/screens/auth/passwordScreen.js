@@ -13,17 +13,18 @@ import AuthTypeSwitcher from "@components/common/authScreen/main/typeSwitcher";
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
 const AuthPasswordScreen = () => {
-  const { setPassword, password, passwordConfirm, setPasswordConfirm } = useAuthStore();
+  const { setPassword, password, passwordConfirm, setPasswordConfirm, footerHeight } = useAuthStore();
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [passwordConfirmFocused, setPasswordConfirmFocused] = useState(false);
   const [type, setType] = useState(true);
+  const [repeatType, setRepeatType] = useState(true);
   const keyboard = useAnimatedKeyboard({
     isStatusBarTranslucentAndroid: true, 
     isNavigationBarTranslucentAndroid: true,
   });
 
   const renderSwitcher = useCallback(
-    (type,render) => {
+    (type,render, setType) => {
       return (
         <AuthTypeSwitcher
           type={type}
@@ -36,7 +37,7 @@ const AuthPasswordScreen = () => {
         />
       );
     },
-    [type]
+    [type, repeatType]
   );
 
   const animatedYstackStyle = useAnimatedStyle(() => {
@@ -57,7 +58,7 @@ const AuthPasswordScreen = () => {
         style={animatedYstackStyle}
       >
         <AuthScreenTitle
-          shadowed={passwordFocused}
+          shadowed={passwordFocused || passwordConfirmFocused}
           title="password_title"
           source={require("@assets/auth/monkey.webp")}
         />
@@ -69,7 +70,7 @@ const AuthPasswordScreen = () => {
           onBlur={() => setPasswordFocused(false)}
           onChangeText={setPassword}
           secureTextEntry={type}
-          action={renderSwitcher(type, passwordFocused)}
+          action={renderSwitcher(type, passwordFocused, setType)}
         />
         <AuthAnimatedInput
           maxLength={64}
@@ -78,14 +79,15 @@ const AuthPasswordScreen = () => {
           onFocus={() => setPasswordConfirmFocused(true)}
           onBlur={() => setPasswordConfirmFocused(false)}
           onChangeText={setPasswordConfirm}
-          secureTextEntry
+          secureTextEntry={repeatType}
+          action={renderSwitcher(repeatType, passwordConfirmFocused, setRepeatType)}
         />
         <AuthTip
           text="password_tip"
           shadowed={passwordFocused || passwordConfirmFocused}
         />
       </AnimatedYStack>
-    </View>
+    </View> 
   );
 };
 
