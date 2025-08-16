@@ -25,8 +25,6 @@ const AuthNavigator = () => {
         <Stack.Screen name={ROUTES.AUTH_AVATAR} component={AuthAvatarScreen} />
         <Stack.Screen name={ROUTES.AUTH_FINISH} component={AuthFinishScreen} />
       </Stack.Navigator>
-
-      <AuthFooter navigation={navigation} />
     </>
   );
 };

@@ -7,8 +7,9 @@ import AuthBackground from "@components/common/authScreen/welcome/background";
 import AuthAnimatedTitle from "@components/common/authScreen/welcome/animatedTitle";
 import Icon from "@components/ui/icon";
 import useInsets from "@hooks/ui/useInsets";
+import AuthFooter from "@components/common/authScreen/footer";
 
-const AuthWelcomeScreen = () => {
+const AuthWelcomeScreen = ({ navigation }) => {
   const [slideIndex, setSlideIndex] = useState(0);
   const opacity = useSharedValue(1);
   const insets = useInsets();
@@ -44,6 +45,7 @@ const AuthWelcomeScreen = () => {
       </View>
       <AuthBackground opacity={opacity} image={authTexts[slideIndex][1]} />
       <AuthAnimatedTitle text={authTexts[slideIndex][0]} />
+      <AuthFooter navigation={navigation} welcome active nextRoute={1}/>
     </YStack>
   );
 };

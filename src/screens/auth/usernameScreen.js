@@ -9,10 +9,11 @@ import Animated, {
   useAnimatedStyle,
 } from "react-native-reanimated";
 import AuthTip from "@components/common/authScreen/main/tip";
+import AuthFooter from "@components/common/authScreen/footer";
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
-const AuthUsernameScreen = () => {
+const AuthUsernameScreen = ({ navigation }) => {
   const { setUsername, setNickname, username, nickname } =
     useAuthStore();
   const [usernameFocused, setUsernameFocused] = useState(false);
@@ -84,6 +85,7 @@ const AuthUsernameScreen = () => {
           shadowed={usernameFocused || nicknameFocused}
         />
       </AnimatedYStack>
+      <AuthFooter navigation={navigation} active={username.length >= 2} nextRoute={2}/>
     </View>
   );
 };

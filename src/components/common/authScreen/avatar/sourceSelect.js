@@ -22,7 +22,7 @@ const AuthSourceSelect = () => {
 
     const result = await ImagePicker.launchCameraAsync({
       mediaTypes: ['images'],
-      allowsEditing: false,
+      allowsEditing: true,
       quality: 1,
     });
 
@@ -36,7 +36,7 @@ const AuthSourceSelect = () => {
     await ImagePicker.requestMediaLibraryPermissionsAsync();
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ['images'],
-      allowsEditing: false,
+      allowsEditing: true,
       quality: 1,
     });
 

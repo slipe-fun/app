@@ -9,11 +9,12 @@ import Animated, {
 } from "react-native-reanimated";
 import AuthTip from "@components/common/authScreen/main/tip";
 import AuthTypeSwitcher from "@components/common/authScreen/main/typeSwitcher";
+import AuthFooter from "@components/common/authScreen/footer";
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
-const AuthPasswordScreen = () => {
-  const { setPassword, password, passwordConfirm, setPasswordConfirm, footerHeight } = useAuthStore();
+const AuthPasswordScreen = ({ navigation }) => {
+  const { setPassword, password, passwordConfirm, setPasswordConfirm } = useAuthStore();
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [passwordConfirmFocused, setPasswordConfirmFocused] = useState(false);
   const [type, setType] = useState(true);
@@ -46,6 +47,8 @@ const AuthPasswordScreen = () => {
       transform: [{ translateY: -keyboardHeight.value / 2 }],
     };
   });
+
+  console.log(passwordConfirm === password);
 
   return (
     <View f={1} backgroundColor="$bg">
@@ -87,6 +90,7 @@ const AuthPasswordScreen = () => {
           shadowed={passwordFocused || passwordConfirmFocused}
         />
       </AnimatedYStack>
+      <AuthFooter navigation={navigation} active={password.length >= 2 && passwordConfirm === password} nextRoute={3}/>
     </View> 
   );
 };
