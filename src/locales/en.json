@@ -83,7 +83,6 @@
     "username_title": "Enter username",
     "username_tip": "Username must be 2-24 symbols length, and contain only a-Z, 0-9, and (.) (-) (_)",
     "username_placeholder": "username.slipe.fun",
-    "username_nickname_placeholder": "Nickname (optional)",
     "password_title": "Enter password",
     "password_tip": "The password must consist of 2–64 characters and contain any characters.",
     "password_placeholder": "Password",

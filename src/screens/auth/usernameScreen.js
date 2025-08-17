@@ -16,10 +16,9 @@ import isUsernameCorrect from "@lib/auth/isUsernameCorrect";
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
 const AuthUsernameScreen = ({ navigation }) => {
-  const { setUsername, setNickname, username, nickname } =
+  const { setUsername, username } =
     useAuthStore();
   const [usernameFocused, setUsernameFocused] = useState(false);
-  const [nicknameFocused, setNicknameFocused] = useState(false);
   const [error, setError] = useState(null);
   const [active, setActive] = useState(false);
   const keyboard = useAnimatedKeyboard({
@@ -41,7 +40,7 @@ const AuthUsernameScreen = ({ navigation }) => {
         />
       );
     },
-    [username.length, nickname.length]
+    [username.length]
   );
 
   const animatedYstackStyle = useAnimatedStyle(() => {
@@ -87,7 +86,7 @@ const AuthUsernameScreen = ({ navigation }) => {
         style={animatedYstackStyle}
       >
         <AuthScreenTitle
-          shadowed={usernameFocused || nicknameFocused}
+          shadowed={usernameFocused}
           title="username_title"
           source={require("@assets/auth/badge.webp")}
         />
@@ -100,18 +99,9 @@ const AuthUsernameScreen = ({ navigation }) => {
           onChangeText={setUsername}
           action={renderCounter(username.length, 24, usernameFocused)}
         />
-        <AuthAnimatedInput
-          maxLength={32}
-          placeholder="username_nickname_placeholder"
-          value={nickname}
-          onFocus={() => setNicknameFocused(true)}
-          onBlur={() => setNicknameFocused(false)}
-          onChangeText={setNickname}
-          action={renderCounter(nickname.length, 32, nicknameFocused)}
-        />
         <AuthTip
           text="username_tip"
-          shadowed={usernameFocused || nicknameFocused}
+          shadowed={usernameFocused}
         />
       </AnimatedYStack>
       <AuthFooter navigation={navigation} active={active} nextRoute={2} callback={check} />

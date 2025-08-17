@@ -5,8 +5,6 @@ const useAuthStore = create((set) => ({
   setFooterHeight: (newFooterHeight) => set({ footerHeight: newFooterHeight }),
   username: "",
   setUsername: (newUsername) => set({ username: newUsername }),
-  nickname: "",
-  setNickname: (newNickname) => set({ nickname: newNickname }),
   password: "",
   setPassword: (newPassword) => set({ password: newPassword }),
   passwordConfirm: "",

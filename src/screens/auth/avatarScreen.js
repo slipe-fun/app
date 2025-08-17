@@ -9,7 +9,7 @@ import { createSecureStorage } from "@lib/storage";
 import mime from 'react-native-mime-types';
 
 const AuthAvatarScreen = ({ navigation }) => {
-  const { avatar, username, password, nickname } = useAuthStore();
+  const { avatar, username, password } = useAuthStore();
   const [error, setError] = useState(null);
   const [active, setActive] = useState(true);
 
@@ -32,7 +32,6 @@ const AuthAvatarScreen = ({ navigation }) => {
         type: mimeType,
         name: fileName,
       });
-      if (nickname) form.append("nickname", nickname);
 
       await api.v2.post('/user/settings/profile', form, {
         headers: {

@@ -4,7 +4,7 @@ import useAuthStore from "@stores/authScreen";
 import AuthFooter from "@components/common/authScreen/footer";
 
 const AuthFinishScreen = ({ navigation }) => {
-  const { avatar, nickname, username } = useAuthStore();
+  const { avatar, username } = useAuthStore();
   return (
     <YStack
       gap="$7"
@@ -20,7 +20,7 @@ const AuthFinishScreen = ({ navigation }) => {
           Привет
         </Text>{" "}
         <Text fw="$3" color="$color">
-          {nickname || username}
+          {username}
         </Text>
       </Text>
       <AuthFooter navigation={navigation} active nextRoute={5} />
