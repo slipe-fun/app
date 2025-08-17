@@ -1,141 +1,120 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Platform, TextInput } from "react-native";
-import { COLORS, FONT_SIZE, SPACING } from "../../constants/theme";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { createSecureStorage } from "@lib/storage";
-import { api } from "@lib/api";
-import { useKeyboard } from "@react-native-community/hooks";
-import Animated, { useAnimatedStyle, useSharedValue, withTiming, Easing, ReduceMotion } from "react-native-reanimated";
-import { toast } from "sonner-native";
-import { useTranslation } from "react-i18next";
-import { ROUTES } from "@constants/routes";
+import AuthScreenTitle from "@components/common/authScreen/main/screenTitle";
+import { YStack, View } from "tamagui";
+import AuthAnimatedInput from "@components/common/authScreen/main/animatedInput";
+import useAuthStore from "@stores/authScreen";
+import { useState, useCallback, useEffect } from "react";
+import Animated, {
+  useAnimatedKeyboard,
+  useAnimatedStyle,
+} from "react-native-reanimated";
+import AuthTip from "@components/common/authScreen/main/tip";
+import AuthTypeSwitcher from "@components/common/authScreen/main/typeSwitcher";
+import AuthFooter from "@components/common/authScreen/footer";
+import isPasswordCorrect from "@lib/auth/isPasswordCorrect";
+import Counter from "@components/ui/counter";
 
-const LoginScreen = ({ navigation }) => {
-	const insets = useSafeAreaInsets();
-	const { t } = useTranslation();
-	const buttonOffset = useSharedValue(0);
-	const keyboard = useKeyboard();
+const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
-	const [username, setUsername] = useState();
-	const [password, setPassword] = useState();
+export default function AuthLoginScreen({ navigation }) {
+  const { setPassword, password, username, setUsername } = useAuthStore();
+  const [passwordFocused, setPasswordFocused] = useState(false);
+  const [usernameFocused, setUsernameFocused] = useState(false);
+  const [type, setType] = useState(true);
+  const [error, setError] = useState(null);
+  const [active, setActive] = useState(false);
+  const keyboard = useAnimatedKeyboard({
+    isStatusBarTranslucentAndroid: true,
+    isNavigationBarTranslucentAndroid: true,
+  });
 
-	const buttonAnimatedStyles = useAnimatedStyle(() => {
-		return {
-			paddingBottom: buttonOffset.value,
-		};
-	});
+  const renderSwitcher = useCallback(
+    (type, render, setType) => {
+      return (
+        <AuthTypeSwitcher
+          type={type}
+          visible={render}
+          position="absolute"
+          right="$0"
+          ph="$6"
+          alignItems="center"
+          setType={setType}
+        />
+      );
+    },
+    [type]
+  );
 
-	async function handleLogin() {
-		if (!username.trim().length || !password.trim().length) {
-			return toast.error("Username and password are required");
-		}
+  const renderCounter = useCallback(
+    (value, max, render) => {
+      return (
+        <Counter
+          value={value}
+          max={max}
+          position="absolute"
+          right="$0"
+          ph="$6"
+          alignItems="center"
+          visible={render}
+        />
+      );
+    },
+    [username.length]
+  );
 
-		try {
-			const res = await api.v2.post(
-				"/auth/login",
-				JSON.stringify({
-					username,
-					password,
-				})
-			);
+  const animatedYstackStyle = useAnimatedStyle(() => {
+    const keyboardHeight = keyboard.height;
+    return {
+      transform: [{ translateY: -keyboardHeight.value / 2 }],
+    };
+  });
 
-            const storage = await createSecureStorage("user-storage")
-            storage.set("token", res?.data?.token);
-		} catch (err) {
-			console.error(err);
-		}
-	}
+  useEffect(() => {
+    const passwordCheck = isPasswordCorrect(password);
 
-	useEffect(() => {
-		buttonOffset.value = withTiming(keyboard.keyboardShown ? keyboard.keyboardHeight + 10 : 0, {
-			duration: 100,
-			easing: Easing.linear,
-			reduceMotion: ReduceMotion.Never,
-		});
-	}, [keyboard]);
+    setError(passwordCheck?.message);
+    setActive(passwordCheck?.success);
+  }, [password]);
 
-	return (
-		<View style={[styles.container, { paddingBottom: Platform.OS === "ios" ? insets.bottom : insets.bottom + 6 }]}>
-			<View style={styles.wrapper}>
-				<Text style={styles.title}>{t("login.title")}</Text>
-				<TextInput
-					onChangeText={text => setUsername(text)}
-					style={styles.input}
-					cursorColor={COLORS.white}
-					maxLength={32}
-					placeholderTextColor={COLORS.transparentText}
-					placeholder={t("login.inputUsername")}
-				/>
-				<TextInput
-					onChangeText={text => setPassword(text)}
-					style={styles.input}
-					cursorColor={COLORS.white}
-					maxLength={32}
-					secureTextEntry
-					placeholderTextColor={COLORS.transparentText}
-					placeholder={t("login.inputPassword")}
-				/>
-				<TouchableOpacity onPress={() => navigation.navigate(ROUTES.REGISTER)} activeOpacity={0.8} style={{ width: "100%" }}>
-					<Text style={styles.dontText}>{t("login.haveAccount")}</Text>
-				</TouchableOpacity>
-			</View>
-
-			<Animated.View style={[buttonAnimatedStyles, { width: "100%" }]}>
-				<TouchableOpacity onPress={handleLogin} activeOpacity={0.8} style={styles.button}>
-					<Text style={styles.buttonText}>{t("login.button")}</Text>
-				</TouchableOpacity>
-			</Animated.View>
-		</View>
-	);
-};
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: "center",
-		alignItems: "center",
-		padding: SPACING.large,
-		backgroundColor: COLORS.black,
-		width: "100%",
-	},
-	input: {
-		backgroundColor: COLORS.elemBackground,
-		width: "100%",
-		fontSize: FONT_SIZE.medium,
-		padding: 14,
-		color: COLORS.white,
-		borderRadius: 12,
-	},
-	wrapper: {
-		flex: 1,
-		gap: SPACING.large,
-		alignItems: "center",
-		justifyContent: "center",
-		width: "100%",
-	},
-	title: {
-		fontSize: 24,
-		fontFamily: "700",
-		textAlign: "center",
-		color: COLORS.white,
-	},
-	button: {
-		backgroundColor: COLORS.primary,
-		width: "100%",
-		paddingVertical: 12,
-		borderRadius: 12,
-		alignItems: "center",
-	},
-	buttonText: {
-		color: COLORS.white,
-		textAlign: "center",
-		fontFamily: "600",
-		fontSize: FONT_SIZE.medium,
-	},
-	dontText: {
-		color: COLORS.transparentText,
-		textAlign: "center",
-	},
-});
-
-export default LoginScreen;
+  return (
+    <View f={1} backgroundColor="$bg">
+      <AnimatedYStack
+        ph="$7"
+        gap="$7"
+        flex={1}
+        justifyContent="center"
+        backgroundColor="$bg"
+        style={animatedYstackStyle}
+      >
+        <AuthScreenTitle
+          shadowed={passwordFocused || usernameFocused}
+          title="login_title"
+          source={require("@assets/auth/house.webp")}
+        />
+        <AuthAnimatedInput
+          maxLength={24}
+          placeholder="username_placeholder"
+          value={username}
+          onFocus={() => setUsernameFocused(true)}
+          onBlur={() => setUsernameFocused(false)}
+          onChangeText={setUsername}
+          action={renderCounter(username.length, 24, usernameFocused)}
+        />
+        <AuthAnimatedInput
+          maxLength={64}
+          placeholder="password_placeholder"
+          value={password}
+          onFocus={() => setPasswordFocused(true)}
+          onBlur={() => setPasswordFocused(false)}
+          onChangeText={setPassword}
+          secureTextEntry={type}
+          action={renderSwitcher(type, passwordFocused, setType)}
+        />
+        <AuthTip
+          text="password_tip"
+          shadowed={passwordFocused || usernameFocused}
+        />
+      </AnimatedYStack>
+      <AuthFooter navigation={navigation} active={active} nextRoute={6} />
+    </View>
+  );
+}

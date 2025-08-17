@@ -12,6 +12,7 @@ import AuthTip from "@components/common/authScreen/main/tip";
 import AuthFooter from "@components/common/authScreen/footer";
 import { api } from "@lib/api";
 import isUsernameCorrect from "@lib/auth/isUsernameCorrect";
+import { ROUTES } from "@constants/routes";
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
@@ -57,7 +58,7 @@ const AuthUsernameScreen = ({ navigation }) => {
       setActive(true);
       if (!user) return true;
       
-    // dikiy pls do redirect to login
+      navigation.navigate(ROUTES.AUTH_LOGIN);
 
       return false;
     } catch (error) {

@@ -28,7 +28,7 @@ const AuthFooter = ({ nextRoute, active, welcome, navigation, callback = async (
 
   const handlePress = async () => {
     if (!await callback?.()) return;
-    navigation.navigate(nextRoute === 5 ? "MainApp" : routes[nextRoute]);
+    navigation.navigate(nextRoute >= 5 ? "MainApp" : routes[nextRoute]);
   };
 
   return (

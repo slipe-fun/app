@@ -10,9 +10,9 @@ export const ROUTES = {
   AUTH_PASSWORD: "auth_password",
   AUTH_AVATAR: "auth_avatar",
   AUTH_FINISH: "auth_finish",
-  LOGIN: "login",
-  REGISTER: "register",
+  AUTH_LOGIN: "auth_login",
   AUTH_WELCOME: "auth_welcome",
+
 
   // Notifications routes
   NOTIFS: "notifs",
