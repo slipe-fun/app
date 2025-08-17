@@ -1,8 +1,8 @@
 export const ROUTES = {
   // Main tabs
-  BLOGS: "blogs",
-  PROFILE: "profile",
-  SEARCH: "search",
+  TAB_BLOGS: "tab_blogs",
+  TAB_PROFILE: "tab_profile",
+  TAB_SEARCH: "tab_search",
 
   // Auth routes
   AUTH: "auth",
@@ -16,6 +16,9 @@ export const ROUTES = {
 
   // Notifications routes
   NOTIFS: "notifs",
+
+  // Profile routes
+  PROFILE: "profile",
 
   // Publish Routes
   PUBLISH: "publish",

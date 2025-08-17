@@ -23,9 +23,9 @@ const MainTabNavigator = () => {
 				headerShown: false,
 			}}
 		>
-			<Tab.Screen name={ROUTES.BLOGS} component={BlogsScreen} />
-			<Tab.Screen name={ROUTES.PROFILE} component={ProfileScreen} />
-			<Tab.Screen name={ROUTES.SEARCH} component={SearchScreen} />
+			<Tab.Screen name={ROUTES.TAB_BLOGS} component={BlogsScreen} />
+			<Tab.Screen name={ROUTES.TAB_PROFILE} component={ProfileScreen} />
+			<Tab.Screen name={ROUTES.TAB_SEARCH} component={SearchScreen} />
 		</Tab.Navigator>
 	);
 };
@@ -84,6 +84,7 @@ const AppNavigator = () => {
 							<RootStack.Screen name='MainApp' component={MainTabNavigator} />
 							<RootStack.Screen name={ROUTES.PUBLISH} component={CaptureScreen} />
 							<RootStack.Screen name={ROUTES.CATEGORY_PAGE} component={CategoryPage} />
+							<RootStack.Screen name={ROUTES.PROFILE} component={ProfileScreen} />
 							<RootStack.Screen name={ROUTES.NOTIFS} component={NotifsScreen} />
 							<RootStack.Screen name={ROUTES.SETTINGS} component={SettingsNavigator} />
 						</>

@@ -1,4 +1,3 @@
-import { useProfileStore } from "@stores/profileScreen";
 import { View, getVariableValue } from "tamagui";
 import Animated, { useAnimatedStyle, interpolate } from "react-native-reanimated";
 import useInsets from "@hooks/ui/useInsets";
@@ -11,8 +10,7 @@ const AnimatedView = Animated.createAnimatedComponent(View);
 const avatarSize = getVariableValue("$24", "size");
 const buttonSize = getVariableValue("$13", "size");
 
-const ProfileBanner = ({ scrollY }) => {
-	const user = useProfileStore(state => state.user);
+const ProfileBanner = ({ scrollY, user }) => {
 
 	const insets = useInsets();
 	const { width } = useWindowDimensions();

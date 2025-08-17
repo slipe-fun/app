@@ -1,8 +1,8 @@
 {
   "navigation": {
-    "blogs": "Feed",
-    "search": "Search",
-    "profile": "Profile"
+    "tab_blogs": "Feed",
+    "tab_search": "Search",
+    "tab_profile": "Profile"
   },
   "profile": {
     "edit": "Edit",

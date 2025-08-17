@@ -8,11 +8,13 @@ import MediaPreview from "@components/ui/mediaPreview";
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from "react-native-reanimated";
 import { GradientBorder } from "@components/ui/gradientBorder";
 import { quickSpring } from "@constants/easings";
+import { useNavigation } from "@react-navigation/native";
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
 const UserCardHeader = ({ user, post, paused }) => {
 	const opacity = useSharedValue(1);
+	const navigation = useNavigation();
 
 	const opacityStyle = useAnimatedStyle(() => ({
 			opacity: opacity.value,
@@ -39,7 +41,7 @@ const UserCardHeader = ({ user, post, paused }) => {
 
 	return (
 			<AnimatedView style={opacityStyle} w='$full' flexDirection='row' justifyContent='space-between' alignItems='center'>
-				<View w='$12' h='$12' br='$full' overflow='hidden' position='relative'>
+				<View onPress={() => navigation.navigate("profile", { id: user?.id })} w='$12' h='$12' br='$full' overflow='hidden' position='relative'>
 					{user?.avatar ? (
 						<MediaPreview type='avatar' blurhash={user?.avatar_information?.blurhash} media={user?.avatar} />
 					) : (
@@ -48,7 +50,7 @@ const UserCardHeader = ({ user, post, paused }) => {
 						</View>
 					)}
 				</View>
-				<YStack flex={1} gap='$1' alignItems='center' justifyContent='center'>
+				<YStack onPress={() => navigation.navigate("profile", { id: user?.id })} flex={1} gap='$1' alignItems='center' justifyContent='center'>
 					<Text fz='$2' lh='$2' fw='$3' color='$white'>
 						{user?.nickname || `${user?.username}`}
 					</Text>

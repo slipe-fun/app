@@ -1,4 +1,3 @@
-import { useProfileStore } from "@stores/profileScreen";
 import Icon from "@components/ui/icon";
 import { Text, View, useTheme, YStack, XStack, getVariableValue  } from "tamagui";
 import GetNormalDate from "@lib/getNormalDate";
@@ -15,9 +14,7 @@ const size = getVariableValue("$14", "size");
 const padding = getVariableValue("$6", "space");
 const buttonSize = getVariableValue("$13", "size");
 
-const ProfileUserInfo = ({ header, scrollY }) => {
-  const user = useProfileStore((state) => state.user);
-
+const ProfileUserInfo = ({ header, scrollY, user }) => {
   const insets = useInsets();
   const [height, setHeight] = useState(0);
   const animatedRef = useRef();

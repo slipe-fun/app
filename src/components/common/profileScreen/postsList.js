@@ -5,16 +5,14 @@ import Post from "@components/ui/post";
 import { useCallback } from "react";
 import ProfileInfoBlock from "@components/common/profileScreen/infoBlock";
 import Animated, { useAnimatedScrollHandler } from "react-native-reanimated";
-import { useProfileStore } from "@stores/profileScreen";
 import { YStack } from "tamagui";
 import ProfileBlock from "./profileBlock";
 
 const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
 
-const ProfilePostsList = ({ scrollY }) => {
-  const user = useProfileStore((state) => state.user);
+const ProfilePostsList = ({ scrollY, user, isScreen }) => {
 
-  const { posts, setPage } = useFetchProfilePosts(user?.id, true);
+  const { posts, setPage } = useFetchProfilePosts(user?.id, !isScreen);
 
 
   const onScroll = useAnimatedScrollHandler({
@@ -24,7 +22,7 @@ const ProfilePostsList = ({ scrollY }) => {
   });
 
   const renderItem = useCallback(({item}) => {
-    if (item?.type === "publish") {
+    if (item?.type === "publish" && !isScreen) {
       return <PublishButton />;
     }
     return <Post post={item} />;
@@ -44,7 +42,7 @@ const ProfilePostsList = ({ scrollY }) => {
       contentContainerStyle={{
         paddingHorizontal: 8,
       }}
-      ListHeaderComponent={<YStack ph="$3" pb="$3" gap="$6"><ProfileBlock scrollY={scrollY}/><ProfileInfoBlock /></YStack>}
+      ListHeaderComponent={<YStack ph="$3" pb="$3" gap="$6"><ProfileBlock isScreen={isScreen} scrollY={scrollY} user={user}/><ProfileInfoBlock user={user} /></YStack>}
       data={posts}
       scrollEventThrottle={16} 
       numColumns={2}

@@ -1,12 +1,11 @@
 import Icon from "@components/ui/icon";
 import { View, Text, Button, getVariableValue } from "tamagui";
-import { useProfileStore } from "@stores/profileScreen";
 import { useTranslation } from "react-i18next";
 
-const ProfileInfoBlock = () => {
-	const user = useProfileStore(state => state.user);
+const ProfileInfoBlock = ({ user }) => {
 	const color = getVariableValue("$white", "color");
 	const { t } = useTranslation();
+	
 	return (
 		<View w='$full' br='$7' gap='$6.5' backgroundColor='$backgroundTransparent' p='$6.5'>
 			<View w='$full' flexDirection='row' justifyContent='space-between' alignItems='center'>

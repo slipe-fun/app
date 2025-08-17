@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 
 const AnimatedText = Animated.createAnimatedComponent(Text);
 
-const icons = {blogs: "rectangle.columns", search: "magnifyingglass", profile: "person"}
+const icons = {"tab_blogs": "rectangle.columns", "tab_search": "magnifyingglass", "tab_profile": "person"}
 
 const TabBarItem = ({ route, isFocused, onPress }) => {
   const colorValue = useSharedValue(0);

@@ -15,7 +15,7 @@ import ProfileUserInfo from "./profileBlock/userInfo";
 
 const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
 
-const ProfileHeader = ({ scrollY, back = false }) => {
+const ProfileHeader = ({ scrollY, isScreen = false, user }) => {
   const navigation = useNavigation();
   const theme = useTheme();
   const insets = useInsets();
@@ -39,14 +39,14 @@ const ProfileHeader = ({ scrollY, back = false }) => {
   }, [])
 
   return (
-    <XStack ref={ref} left={0} right={0} zIndex="$1" pt={insets.top} position="absolute" pb="$6" pr="$6" alignItems="center" pl={back ? "$6" : "$13"}>
+    <XStack ref={ref} left={0} right={0} zIndex="$1" pt={insets.top} position="absolute" pb="$6" pr="$6" alignItems="center" pl={isScreen ? "$6" : "$13"}>
       <AnimatedLinearGradient
         colors={["#000", "transparent"]}
         start={{ x: 0, y: 0 }}
         end={{ x: 0, y: 1 }}
         style={[StyleSheet.absoluteFill, animatedLinearGradientStyle]}
       />
-      {back && (
+      {isScreen && (
       <GradientBorder
         p={0}
         justifyContent="center"
@@ -63,7 +63,7 @@ const ProfileHeader = ({ scrollY, back = false }) => {
         <Icon size={26} icon="chevron.left" color={color} />
       </GradientBorder>
       )}
-      <ProfileUserInfo header scrollY={scrollY}/>
+      <ProfileUserInfo header scrollY={scrollY} user={user}/>
       <GradientBorder
         p={0}
         justifyContent="center"

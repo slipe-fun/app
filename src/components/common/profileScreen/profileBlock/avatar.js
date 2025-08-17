@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { useProfileStore } from     "@stores/profileScreen";
 import {
   useDerivedValue,
   interpolate,
@@ -26,9 +25,7 @@ const AnimatedBlurhash = Animated.createAnimatedComponent(Blurhash);
 const padding = getVariableValue("$6", "space");
 const buttonSize = getVariableValue("$13", "size");
 
-const ProfileAvatar = ({ scrollY }) => {
-  const user = useProfileStore((state) => state.user);
-
+const ProfileAvatar = ({ scrollY, user }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [size, setSize] = useState(140);
   const ref = useRef();

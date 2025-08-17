@@ -14,8 +14,7 @@ const AuthNavigator = () => {
         screenOptions={{
           headerShown: false,
           animation: "simple_push",
-          presentation: "card",
-          gestureEnabled: true,
+          presentation: "card"
         }}
       >
         <Stack.Screen name={ROUTES.AUTH_WELCOME} component={AuthWelcomeScreen} />
