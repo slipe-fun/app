@@ -12,5 +12,6 @@ export { default as AuthUsernameScreen } from './auth/usernameScreen'
 export { default as AuthPasswordScreen } from './auth/passwordScreen'
 export { default as AuthAvatarScreen } from './auth/avatarScreen'
 export { default as AuthFinishScreen } from './auth/finishScreen'
+export { default as PostScreen } from './postScreen'
 export { default as AuthLoginScreen } from './auth/loginScreen'
 

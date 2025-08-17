@@ -5,11 +5,16 @@ import { StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Icon from "./icon";
 import MediaPreview from "./mediaPreview";
+import { useNavigation } from "@react-navigation/native";
+import { ROUTES } from "@constants/routes";
 
 const Post = ({ post }) => {
+	const navigation = useNavigation();
+
 	const handlePress = useCallback(() => {
+		navigation.navigate(ROUTES.POST, { post });
 		Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
-	}, []);
+	}, [post]);
 
 	return (
 		<View

@@ -14,7 +14,6 @@ const ProfilePostsList = ({ scrollY, user, isScreen }) => {
 
   const { posts, setPage } = useFetchProfilePosts(user?.id, !isScreen);
 
-
   const onScroll = useAnimatedScrollHandler({
     onScroll: (event) => {
       scrollY.value = event.contentOffset.y;

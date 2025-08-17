@@ -13,6 +13,9 @@ export const ROUTES = {
   AUTH_LOGIN: "auth_login",
   AUTH_WELCOME: "auth_welcome",
 
+  // Post routes
+  POST: "post",
+
 
   // Notifications routes
   NOTIFS: "notifs",
