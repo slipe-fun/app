@@ -78,8 +78,8 @@ const AppNavigator = () => {
 	return (
 		<>
 			<NavigationContainer onReady={() => setIsNavReady(true)}>
-				<RootStack.Navigator screenOptions={{ headerShown: false, animation: "simple_push", presentation: "card", gestureEnabled: true, contentStyle: { backgroundColor } }}>
-					{isAuthenticated ? (
+				<RootStack.Navigator screenOptions={{ headerShown: false, animation: "simple_push", presentation: "card", contentStyle: { backgroundColor } }}>
+					{isAuthenticated && (
 						<>
 							<RootStack.Screen name='MainApp' component={MainTabNavigator} />
 							<RootStack.Screen name={ROUTES.PUBLISH} component={CaptureScreen} />
@@ -87,9 +87,8 @@ const AppNavigator = () => {
 							<RootStack.Screen name={ROUTES.NOTIFS} component={NotifsScreen} />
 							<RootStack.Screen name={ROUTES.SETTINGS} component={SettingsNavigator} />
 						</>
-					) : (
-						<RootStack.Screen name={ROUTES.AUTH} component={AuthNavigator} />
 					)}
+					<RootStack.Screen name={ROUTES.AUTH} component={AuthNavigator} />
 				</RootStack.Navigator>
 			</NavigationContainer>
 			<Toaster />
