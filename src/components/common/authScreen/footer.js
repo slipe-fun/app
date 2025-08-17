@@ -14,7 +14,7 @@ const routes = [
   ROUTES.AUTH_FINISH,
 ];
 
-const AuthFooter = ({ nextRoute, active, welcome, navigation }) => {
+const AuthFooter = ({ nextRoute, active, welcome, navigation, callback = async () => true}) => {
   const insets = useInsets();
   const { t } = useTranslation();
   const setFooterHeight = useAuthStore((state) => state.setFooterHeight);
@@ -26,7 +26,8 @@ const AuthFooter = ({ nextRoute, active, welcome, navigation }) => {
     [setFooterHeight]
   );
 
-  const handlePress = () => {
+  const handlePress = async () => {
+    if (!await callback?.()) return;
     navigation.navigate(nextRoute === 5 ? "MainApp" : routes[nextRoute]);
   };
 

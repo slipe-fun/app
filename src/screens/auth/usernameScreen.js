@@ -3,13 +3,15 @@ import { YStack, View } from "tamagui";
 import AuthAnimatedInput from "@components/common/authScreen/main/animatedInput";
 import useAuthStore from "@stores/authScreen";
 import Counter from "@components/ui/counter";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Animated, {
   useAnimatedKeyboard,
   useAnimatedStyle,
 } from "react-native-reanimated";
 import AuthTip from "@components/common/authScreen/main/tip";
 import AuthFooter from "@components/common/authScreen/footer";
+import { api } from "@lib/api";
+import isUsernameCorrect from "@lib/auth/isUsernameCorrect";
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
@@ -18,6 +20,8 @@ const AuthUsernameScreen = ({ navigation }) => {
     useAuthStore();
   const [usernameFocused, setUsernameFocused] = useState(false);
   const [nicknameFocused, setNicknameFocused] = useState(false);
+  const [error, setError] = useState(null);
+  const [active, setActive] = useState(false);
   const keyboard = useAnimatedKeyboard({
     isStatusBarTranslucentAndroid: true,
     isNavigationBarTranslucentAndroid: true,
@@ -46,6 +50,31 @@ const AuthUsernameScreen = ({ navigation }) => {
       transform: [{ translateY: -keyboardHeight.value / 2 }],
     };
   });
+
+  async function check() {
+    try {
+      setActive(false);
+      const user = await api.v2.get("/user/" + username);
+      setActive(true);
+      if (!user) return true;
+      
+    // dikiy pls do redirect to login
+
+      return false;
+    } catch (error) {
+      setActive(true);
+      if (error?.status === 404) return true;
+
+      return false;
+    }
+  }
+
+  useEffect(() => {
+    const usernameCheck = isUsernameCorrect(username);
+    
+    setError(usernameCheck?.message);
+    setActive(usernameCheck.success);
+  }, [username]);
 
   return (
     <View f={1} backgroundColor="$bg">
@@ -85,7 +114,7 @@ const AuthUsernameScreen = ({ navigation }) => {
           shadowed={usernameFocused || nicknameFocused}
         />
       </AnimatedYStack>
-      <AuthFooter navigation={navigation} active={username.length >= 2} nextRoute={2}/>
+      <AuthFooter navigation={navigation} active={active} nextRoute={2} callback={check} />
     </View>
   );
 };

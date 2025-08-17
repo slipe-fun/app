@@ -2,7 +2,7 @@ import AuthScreenTitle from "@components/common/authScreen/main/screenTitle";
 import { YStack, View } from "tamagui";
 import AuthAnimatedInput from "@components/common/authScreen/main/animatedInput";
 import useAuthStore from "@stores/authScreen";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Animated, {
   useAnimatedKeyboard,
   useAnimatedStyle,
@@ -10,6 +10,7 @@ import Animated, {
 import AuthTip from "@components/common/authScreen/main/tip";
 import AuthTypeSwitcher from "@components/common/authScreen/main/typeSwitcher";
 import AuthFooter from "@components/common/authScreen/footer";
+import isPasswordCorrect from "@lib/auth/isPasswordCorrect";
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
@@ -19,20 +20,22 @@ const AuthPasswordScreen = ({ navigation }) => {
   const [passwordConfirmFocused, setPasswordConfirmFocused] = useState(false);
   const [type, setType] = useState(true);
   const [repeatType, setRepeatType] = useState(true);
+  const [error, setError] = useState(null);
+  const [active, setActive] = useState(false);
   const keyboard = useAnimatedKeyboard({
-    isStatusBarTranslucentAndroid: true, 
+    isStatusBarTranslucentAndroid: true,
     isNavigationBarTranslucentAndroid: true,
   });
 
   const renderSwitcher = useCallback(
-    (type,render, setType) => {
+    (type, render, setType) => {
       return (
         <AuthTypeSwitcher
           type={type}
           visible={render}
           position="absolute"
           right="$0"
-          ph="$6" 
+          ph="$6"
           alignItems="center"
           setType={setType}
         />
@@ -48,7 +51,12 @@ const AuthPasswordScreen = ({ navigation }) => {
     };
   });
 
-  console.log(passwordConfirm === password);
+  useEffect(() => {
+    const passwordCheck = isPasswordCorrect(password, passwordConfirm);
+
+    setError(passwordCheck?.message);
+    setActive(passwordCheck?.success);
+  }, [password, passwordConfirm]);
 
   return (
     <View f={1} backgroundColor="$bg">
@@ -90,8 +98,8 @@ const AuthPasswordScreen = ({ navigation }) => {
           shadowed={passwordFocused || passwordConfirmFocused}
         />
       </AnimatedYStack>
-      <AuthFooter navigation={navigation} active={password.length >= 2 && passwordConfirm === password} nextRoute={3}/>
-    </View> 
+      <AuthFooter navigation={navigation} active={active} nextRoute={3} />
+    </View>
   );
 };
 

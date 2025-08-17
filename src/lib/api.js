@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createSecureStorage } from "./storage";
+import { URLS } from "@constants/urls";
 
 const jsonConfig = {
 	headers: {
@@ -22,7 +23,7 @@ const v1Instance = axios.create({
 
 const v2Instance = axios.create({
 	...jsonConfig,
-	baseURL: "https://api.slipe.fun/v2",
+	baseURL: URLS.API_URL,
 });
 
 const mediaInstance = axios.create({
