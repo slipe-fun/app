@@ -15,7 +15,7 @@ import Animated, {
 const AnimatedView = Animated.createAnimatedComponent(View);
 
 const COLOR_WHITE = getVariableValue("$white", "color");
-const COLOR_RED = getVariableValue("$red", "color");
+const COLOR_RED = getVariableValue("$contrastRed", "color");
 
 const CaptureButton = ({ cameraRef }) => {
   const formatIdx = useCaptureStore((s) => s.format);

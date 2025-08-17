@@ -12,6 +12,8 @@ import CaptureCameraDenied from "./cameraDenied";
 const CaptureScreen = () => {
   const ref = useRef(null);
   const [viewHeight, setViewHeight] = useState(0);
+  const cameraRef = useRef(null);
+
 
   const permission = useCameraPermission();
 
@@ -31,13 +33,13 @@ const CaptureScreen = () => {
       overflow="hidden"
     >
       {permission === "granted" && (
-        <CaptureCamera permission={permission} viewHeight={viewHeight} />
+        <CaptureCamera permission={permission} viewHeight={viewHeight} ref={cameraRef} />
       )}
       <CaptureCameraHeader />
       {permission === "granted" ? (
         <>
           <CaptureCameraResult />
-          <CaptureCameraFooter />
+          <CaptureCameraFooter cameraRef={cameraRef} />
         </>
       ) : (
         <CaptureCameraDenied /> 

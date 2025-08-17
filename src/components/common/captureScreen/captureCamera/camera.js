@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useEffect, forwardRef } from "react";
 import { GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   useSharedValue,
@@ -26,7 +26,7 @@ const AnimatedView = Animated.createAnimatedComponent(View);
 const { width } = Dimensions.get("window");
 const aspectWidth = width * (4 / 3);
 
-const CaptureCamera = ({ viewHeight }) => {
+const CaptureCamera = forwardRef(({ viewHeight }, ref) => {
   const formatIdx = useCaptureStore((s) => s.format);
   const facing = useCaptureStore((s) => s.facing);
   const aspect = useCaptureStore((s) => s.aspect);
@@ -42,10 +42,9 @@ const CaptureCamera = ({ viewHeight }) => {
   const { gesture } = usePinchZoom({ device, zoom });
 
   const animatedProps = useAnimatedProps(() => ({ zoom: zoom.value }), [zoom]);
-  const camRef = useRef(null);
 
   const { applyCameraBlur, isBlurring, snapshotUri } = useCameraBlur({
-    cameraRef: camRef,
+    cameraRef: ref,
     zoom,
     device,
   });
@@ -82,7 +81,7 @@ const CaptureCamera = ({ viewHeight }) => {
         >
           <CameraOverlay isBlurring={isBlurring} snapshotUri={snapshotUri} />
           <AnimatedCamera
-            ref={camRef}
+            ref={ref}
             style={{ flex: 1 }}
             device={device}
             isActive={active && !content}
@@ -96,6 +95,6 @@ const CaptureCamera = ({ viewHeight }) => {
       </View>
     </GestureDetector>
   );
-};
+});
 
 export default CaptureCamera;
