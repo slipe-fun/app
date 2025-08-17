@@ -10,8 +10,10 @@ import Animated, {
 import AuthTip from "@components/common/authScreen/main/tip";
 import AuthTypeSwitcher from "@components/common/authScreen/main/typeSwitcher";
 import AuthFooter from "@components/common/authScreen/footer";
-import isPasswordCorrect from "@lib/auth/isPasswordCorrect";
 import Counter from "@components/ui/counter";
+import { toast } from "sonner-native";
+import { api } from "@lib/api";
+import { createSecureStorage } from "@lib/storage";
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
@@ -20,8 +22,7 @@ export default function AuthLoginScreen({ navigation }) {
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [usernameFocused, setUsernameFocused] = useState(false);
   const [type, setType] = useState(true);
-  const [error, setError] = useState(null);
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(true);
   const keyboard = useAnimatedKeyboard({
     isStatusBarTranslucentAndroid: true,
     isNavigationBarTranslucentAndroid: true,
@@ -68,12 +69,28 @@ export default function AuthLoginScreen({ navigation }) {
     };
   });
 
-  useEffect(() => {
-    const passwordCheck = isPasswordCorrect(password);
+  async function callback () {
+    try {
+      setActive(false);
+      const res = await api.v2.post("/auth/login", JSON.stringify({ username, password }), {
+        'Content-Type': 'application/json'
+      });
+      setActive(true);
 
-    setError(passwordCheck?.message);
-    setActive(passwordCheck?.success);
-  }, [password]);
+      const token = res?.data?.token;
+
+      if (!token) toast.error("Unknown error");
+
+      const storage = await createSecureStorage("user-storage")
+      storage.set("token", token);
+
+      return true;
+    } catch (error) {
+      setActive(true);
+      toast.error(error?.response?.data?.error || error?.message);
+      return false;
+    }
+  }
 
   return (
     <View f={1} backgroundColor="$bg">
@@ -114,7 +131,7 @@ export default function AuthLoginScreen({ navigation }) {
           shadowed={passwordFocused || usernameFocused}
         />
       </AnimatedYStack>
-      <AuthFooter navigation={navigation} active={active} nextRoute={6} />
+      <AuthFooter navigation={navigation} active={username.length > 0 && password.length > 0 && active} nextRoute={6} callback={callback}/>
     </View>
   );
 }

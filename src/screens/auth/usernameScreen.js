@@ -13,6 +13,7 @@ import AuthFooter from "@components/common/authScreen/footer";
 import { api } from "@lib/api";
 import isUsernameCorrect from "@lib/auth/isUsernameCorrect";
 import { ROUTES } from "@constants/routes";
+import { toast } from "sonner-native";
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
@@ -20,7 +21,6 @@ const AuthUsernameScreen = ({ navigation }) => {
   const { setUsername, username } =
     useAuthStore();
   const [usernameFocused, setUsernameFocused] = useState(false);
-  const [error, setError] = useState(null);
   const [active, setActive] = useState(false);
   const keyboard = useAnimatedKeyboard({
     isStatusBarTranslucentAndroid: true,
@@ -72,7 +72,7 @@ const AuthUsernameScreen = ({ navigation }) => {
   useEffect(() => {
     const usernameCheck = isUsernameCorrect(username);
     
-    setError(usernameCheck?.message);
+    if (usernameCheck?.message && username > 0) toast.error(usernameCheck?.message);
     setActive(usernameCheck.success);
   }, [username]);
 

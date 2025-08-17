@@ -11,6 +11,7 @@ import AuthTip from "@components/common/authScreen/main/tip";
 import AuthTypeSwitcher from "@components/common/authScreen/main/typeSwitcher";
 import AuthFooter from "@components/common/authScreen/footer";
 import isPasswordCorrect from "@lib/auth/isPasswordCorrect";
+import { toast } from "sonner-native";
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
@@ -20,7 +21,6 @@ const AuthPasswordScreen = ({ navigation }) => {
   const [passwordConfirmFocused, setPasswordConfirmFocused] = useState(false);
   const [type, setType] = useState(true);
   const [repeatType, setRepeatType] = useState(true);
-  const [error, setError] = useState(null);
   const [active, setActive] = useState(false);
   const keyboard = useAnimatedKeyboard({
     isStatusBarTranslucentAndroid: true,
@@ -54,7 +54,7 @@ const AuthPasswordScreen = ({ navigation }) => {
   useEffect(() => {
     const passwordCheck = isPasswordCorrect(password, passwordConfirm);
 
-    setError(passwordCheck?.message);
+    if (passwordCheck?.message && password > 0) toast.error(passwordCheck?.message);
     setActive(passwordCheck?.success);
   }, [password, passwordConfirm]);
 

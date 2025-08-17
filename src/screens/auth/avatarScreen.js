@@ -7,10 +7,10 @@ import { useState } from "react";
 import { api } from "@lib/api";
 import { createSecureStorage } from "@lib/storage";
 import mime from 'react-native-mime-types';
+import { toast } from "sonner-native";
 
 const AuthAvatarScreen = ({ navigation }) => {
   const { avatar, username, password } = useAuthStore();
-  const [error, setError] = useState(null);
   const [active, setActive] = useState(true);
 
   async function saveSettings(token) {
@@ -19,12 +19,6 @@ const AuthAvatarScreen = ({ navigation }) => {
       const fileExtension = fileName.split('.').pop() || '';
 
       const mimeType = mime.lookup(fileExtension) || 'application/octet-stream';
-
-      console.log({
-        uri: avatar,
-        type: mimeType,
-        name: fileName,
-      })
 
       const form = new FormData();
       if (avatar) form.append("avatar", {
@@ -58,7 +52,7 @@ const AuthAvatarScreen = ({ navigation }) => {
       const token = res?.data?.token;
 
       if (!token) {
-        setError("Unknown error");
+        toast.error("Unknown error");
         return false;
       }
 
@@ -69,7 +63,7 @@ const AuthAvatarScreen = ({ navigation }) => {
 
       return true;
     } catch (error) {
-      setError(error?.response?.data?.error);
+      toast.error(error?.response?.data?.error);
       setActive(true);
       return false;
     }
