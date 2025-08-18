@@ -22,12 +22,12 @@ const UserCardActions = ({ post, paused, setPosts = null }) => {
 
   // it's just shit, i will move all emojis to cdn soon
   const emojiImages = {
-    "0_16": require("../../../../../../assets/emojis/0_16.png"),
-    "0_29": require("../../../../../../assets/emojis/0_29.png"),
-    "0_32": require("../../../../../../assets/emojis/0_32.png"),
-    "0_39": require("../../../../../../assets/emojis/0_39.png"),
-    "1_29": require("../../../../../../assets/emojis/1_29.png"),
-    "1_35": require("../../../../../../assets/emojis/1_35.png"),
+    "0_16": require("@assets/emojis/0_16.png"),
+    "0_29": require("@assets/emojis/0_29.png"),
+    "0_32": require("@assets/emojis/0_32.png"),
+    "0_39": require("@assets/emojis/0_39.png"),
+    "1_29": require("@assets/emojis/1_29.png"),
+    "1_35": require("@assets/emojis/1_35.png"),
   };
 
   const handleEmojiClickButton = (reaction) => {

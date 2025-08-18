@@ -52,7 +52,7 @@ const DropdownMenu = ({ setActiveItem, color }) => {
       >
         <Image
           resizeMethod="resize"
-          source={selectedCategory.thumbnail}
+          source={selectedCategory.emoji}
           style={{ width: 24, height: 24 }}
         />
         <Text fz="$2" lh="$2" fw="$3" color="$white">
@@ -81,7 +81,7 @@ const DropdownMenu = ({ setActiveItem, color }) => {
             >
               <Image
                 resizeMethod="resize"
-                source={item.thumbnail}
+                source={item.emoji}
                 style={{ width: 24, height: 24 }}
               />
               <Text fz="$2" lh="$2" fw="$2" color="$white">

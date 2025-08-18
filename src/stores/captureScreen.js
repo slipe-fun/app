@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { categories } from '@constants/categories'
 
 const useCaptureStore = create((set) => ({
   format: 1,
@@ -11,7 +12,7 @@ const useCaptureStore = create((set) => ({
   setRecording: (newRecording) => set({ recording: newRecording }),
   content: '',
   setContent: (newContent) => set({ content: newContent }),
-  category: 'food',
+  category: categories[0],
   setCategory: (newCategory) => set({ category: newCategory }),
   postName: '',
   setPostName: (newPostName) => set({ postName: newPostName }),

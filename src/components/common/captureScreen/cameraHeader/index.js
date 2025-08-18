@@ -57,7 +57,7 @@ const CaptureCameraHeader = () => {
       >
         <Icon icon="chevron.left" size={26} />
       </GradientBorder>
-      {content ? <AnimatedMenuButton setActiveItem={setCategory} /> : null}
+      {content ? <AnimatedMenuButton color="$glassButtonStatic" setActiveItem={setCategory} /> : null}
     </XStack>
   );
 };
