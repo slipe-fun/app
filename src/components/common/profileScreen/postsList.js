@@ -20,7 +20,7 @@ const ProfilePostsList = ({ scrollY, user, isScreen }) => {
     },
   });
 
-  const renderItem = useCallback(({item}) => {
+  const renderItem = useCallback(({ item }) => {
     if (item?.type === "publish" && !isScreen) {
       return <PublishButton />;
     }
@@ -32,7 +32,7 @@ const ProfilePostsList = ({ scrollY, user, isScreen }) => {
   }, []);
 
   const keyExtractor = useCallback((item) => {
-    return item?.id?.toString(); 
+    return item?.id?.toString();
   }, []);
 
   return (
@@ -41,9 +41,14 @@ const ProfilePostsList = ({ scrollY, user, isScreen }) => {
       contentContainerStyle={{
         paddingHorizontal: 8,
       }}
-      ListHeaderComponent={<YStack ph="$3" pb="$3" gap="$6"><ProfileBlock isScreen={isScreen} scrollY={scrollY} user={user}/><ProfileInfoBlock user={user} /></YStack>}
+      ListHeaderComponent={
+        <YStack ph="$3" pb="$3" gap="$6">
+          <ProfileBlock isScreen={isScreen} scrollY={scrollY} user={user} />
+          <ProfileInfoBlock user={user} />
+        </YStack>
+      }
       data={posts}
-      scrollEventThrottle={16} 
+      scrollEventThrottle={16}
       numColumns={2}
       initialNumToRender={4}
       maxToRenderPerBatch={12}

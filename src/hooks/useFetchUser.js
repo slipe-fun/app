@@ -23,5 +23,5 @@ export default function useFetchUser (id) {
         setIsLoading(false);
     }, [id])
 
-    return { user, isLoading, error };
+    return { user, isLoading, error, setUser };
 }

@@ -8,7 +8,9 @@
     "edit": "Edit",
     "username": "Username",
     "bio": "About me",
-    "publishButton": "New post"
+    "publishButton": "New post",
+    "follow": "Follow",
+    "unfollow": "Unfollow"
   },
   "search": {
     "title": "Search",

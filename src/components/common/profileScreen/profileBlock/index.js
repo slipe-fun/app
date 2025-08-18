@@ -10,7 +10,7 @@ const ProfileBlock = ({scrollY, user, isScreen}) => {
             <ProfileBanner scrollY={scrollY} user={user}/>
             <ProfileAvatar scrollY={scrollY} user={user}/>
             <ProfileUserInfo scrollY={scrollY} user={user}/>  
-            <ProfileActions isScreen={isScreen} />
+            <ProfileActions isScreen={isScreen} user={user}/>
         </YStack>
     )
 }
