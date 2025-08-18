@@ -54,7 +54,8 @@
     "accessSubtitle": "Go to Settings {'>'} Permissions and allow camera access",
     "accessSettings": "Settings",
     "switcherPhoto": "PHOTO",
-    "switcherVideo": "VIDEO"
+    "switcherVideo": "VIDEO",
+    "publishTitlePlaceholder": "Post title"
   },
   "settings": {
     "mainTitle": "Settings",
@@ -83,13 +84,19 @@
     "footer_button_next": "Continue",
     "footer_policy": "By signing up, you agree to our Terms of Use",
     "username_title": "Enter username",
-    "username_tip": "Username must be 2-24 symbols length, and contain only a-Z, 0-9, and (.) (-) (_)",
+    "username_tip": "Username must be 2-24 symbols length, and contain only a-Z, 0-9, and (.) (_)",
     "username_placeholder": "username.slipe.fun",
     "password_title": "Enter password",
     "password_tip": "The password must consist of 8–64 characters and contain any characters.",
     "password_placeholder": "Password",
     "password_confirm_placeholder": "Confirm password",
-    "avatar_title": "Select an avatar"
+    "avatar_title": "Select an avatar",
+    "finish_title": "Hello,",
+    "password_forbidden_symbols": "Password contains forbidden symbols",
+    "password_not_identical": "Passwords must be identical",
+    "password_length": "Password must be between {{minLegth}} and {{maxLength}} characters long",
+    "username_length": "Username must be between {{minLength}} and {{maxLength}} characters long",
+    "username_forbidden_symbols": "Username must contain only letters, numbers, (_), (.)"
   },
   "timeUnits": {
     "year": "yr",

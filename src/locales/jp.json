@@ -1,14 +1,16 @@
 {
   "navigation": {
-    "blogs": "フィード",
-    "search": "検索",
-    "profile": "プロフィール"
+    "tab_blogs": "フィード",
+    "tab_search": "検索",
+    "tab_profile": "プロフィール"
   },
   "profile": {
     "edit": "編集",
     "username": "ユーザー名",
     "bio": "自己紹介",
-    "publishButton": "新しい投稿"
+    "publishButton": "新しい投稿",
+    "follow": "フォロー",
+    "unfollow": "フォロー解除"
   },
   "search": {
     "title": "検索",
@@ -52,39 +54,49 @@
     "accessSubtitle": "設定 {'>'} 権限 に移動してカメラのアクセスを許可してください",
     "accessSettings": "設定",
     "switcherPhoto": "写真",
-    "switcherVideo": "ビデオ"
+    "switcherVideo": "ビデオ",
+    "publishTitlePlaceholder": "投稿のタイトル"
   },
   "settings": {
     "mainTitle": "設定",
-    "settingsLanguage": "ランゲージ",
-    "settingsTheme": "応募テーマ",
+    "settingsLanguage": "言語",
+    "settingsTheme": "アプリテーマ",
     "settingsProfile": "プロフィール設定",
     "settingsAccount": "アカウント設定",
     "settingsQRcode": "QRコードをスキャン",
     "settingsPremium": "Slipe Premium",
-    "settingsNotifications": "お知らせ",
-    "settingsAppIcon": "アプリケーションアイコン",
-    "settingsAppRestictions": "アプリケーション・アクセス",
+    "settingsNotifications": "通知",
+    "settingsAppIcon": "アプリアイコン",
+    "settingsAppRestictions": "アプリのアクセス許可",
     "settingsExperemental": "実験的",
-    "settingsDevelopers": "デベロッパー向け",
+    "settingsDevelopers": "開発者向け",
     "settingsPP": "プライバシーポリシー",
     "settingsToS": "利用規約",
-    "settingsAutoLanguage": "言語の自動検出",
-    "settingsAutoLanguageDescription": "自動オプションはデバイスの言語に基づいて選択されます"
+    "settingsAutoLanguage": "自動言語",
+    "settingsAutoLanguageDescription": "デバイスの言語に基づいて自動的に選択されます"
   },
-  "register": {
-    "title": "登録",
-    "haveAccount": "すでにアカウントをお持ちですか？",
-    "inputPassword": "パスワード",
-    "inputUsername": "ユーザー名",
-    "button": "登録"
-  },
-  "login": {
-    "title": "ログイン",
-    "haveAccount": "アカウントをお持ちでないですか？",
-    "inputPassword": "パスワード",
-    "inputUsername": "ユーザー名",
-    "button": "ログイン"
+  "auth": {
+    "welcome_share": "アイデアを共有",
+    "welcome_create": "投稿を作成",
+    "welcome_creativity": "創造性",
+    "welcome_subtitle": "さあ始めよう",
+    "footer_button": "作成を始める",
+    "footer_button_next": "続ける",
+    "footer_policy": "登録することで、利用規約に同意したものとみなされます",
+    "username_title": "ユーザー名を入力",
+    "username_tip": "ユーザー名は2〜24文字で、a-Z, 0-9, (.) (_) のみ使用できます",
+    "username_placeholder": "username.slipe.fun",
+    "password_title": "パスワードを入力",
+    "password_tip": "パスワードは8〜64文字で、任意の文字を使用できます。",
+    "password_placeholder": "パスワード",
+    "password_confirm_placeholder": "パスワードを確認",
+    "avatar_title": "アバターを選択",
+    "finish_title": "こんにちは,",
+    "password_forbidden_symbols": "パスワードに使用できない記号が含まれています",
+    "password_not_identical": "パスワードが一致しません",
+    "password_length": "パスワードは{{minLegth}}〜{{maxLength}}文字である必要があります",
+    "username_length": "ユーザー名は{{minLength}}〜{{maxLength}}文字である必要があります",
+    "username_forbidden_symbols": "ユーザー名は英字、数字、(_)、(.) のみ使用できます"
   },
   "timeUnits": {
     "year": "年",

@@ -12,10 +12,12 @@ import AuthTypeSwitcher from "@components/common/authScreen/main/typeSwitcher";
 import AuthFooter from "@components/common/authScreen/footer";
 import isPasswordCorrect from "@lib/auth/isPasswordCorrect";
 import { toast } from "sonner-native";
+import { useTranslation } from "react-i18next";
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
 const AuthPasswordScreen = ({ navigation }) => {
+  const { t } = useTranslation();
   const { setPassword, password, passwordConfirm, setPasswordConfirm } = useAuthStore();
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [passwordConfirmFocused, setPasswordConfirmFocused] = useState(false);
@@ -52,9 +54,9 @@ const AuthPasswordScreen = ({ navigation }) => {
   });
 
   useEffect(() => {
-    const passwordCheck = isPasswordCorrect(password, passwordConfirm);
+    const passwordCheck = isPasswordCorrect(password, passwordConfirm, t);
 
-    if (passwordCheck?.message && password > 0) toast.error(passwordCheck?.message);
+    if (passwordCheck?.message && password?.length > 0) toast.error(passwordCheck?.message);
     setActive(passwordCheck?.success);
   }, [password, passwordConfirm]);
 

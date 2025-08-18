@@ -1,113 +1,124 @@
 {
-    "navigation": {
-      "blogs": "Kanał",
-      "search": "Szukaj",
-      "profile": "Profil"
-    },
-    "profile": {
-      "edit": "Edytuj",
-      "username": "Nazwa użytkownika",
-      "bio": "O mnie",
-      "publishButton": "Nowy post"
-    },
-    "search": {
-      "title": "Szukaj",
-      "input": "Szukaj w uniwersum",
-      "top10": "Top 10 popularnych postów",
-      "similar": "Posty podobne do twoich",
-      "relevant": "Posty odpowiednie dla ciebie",
-      "categoriesTitle": "Kategorie",
-      "resultsTitle": "Wyniki",
-      "inputCancel": "Anuluj",
-      "slideOpen": "Otwórz"
-    },
-    "categories": {
-      "animals": "Zwierzęta",
-      "creativity": "Kreatywność",
-      "diy": "DIY",
-      "ecology": "Ekologia",
-      "education": "Edukacja",
-      "fashion": "Moda",
-      "finance": "Finanse",
-      "food": "Jedzenie",
-      "jokes": "Żarty",
-      "movies": "Filmy",
-      "programming": "Kodowanie",
-      "science": "Nauka",
-      "shitpost": "Shitpost",
-      "sport": "Sport",
-      "traveling": "Podróże",
-      "volunteering": "Wolontariat"
-    },
-    "notifications": {
-      "title": "Powiadomienia",
-      "subscribed": "Zasubskrybował cię",
-      "reacted": "Zareagował",
-      "commented": "Skomentował",
-      "new": "{{count}} nowych",
-      "loading": "Ładowanie..."
-    },
-    "publish": {
-      "accessTitle": "Potrzebujemy dostępu do kamery, aby nagrywać zdjęcia i filmy",
-      "accessSubtitle": "Przejdź do Ustawienia {'>'} Uprawnienia i zezwól na dostęp do kamery",
-      "accessSettings": "Ustawienia",
-      "switcherPhoto": "FOTO",
-      "switcherVideo": "WIDEO"
-    },
-    "settings": {
-      "mainTitle": "Ustawienia",
-      "settingsLanguage": "Język",
-      "settingsTheme": "Motyw aplikacji",
-      "settingsProfile": "Ustawienia profilu",
-      "settingsAccount": "Ustawienia konta",
-      "settingsQRcode": "Skanuj kod QR",
-      "settingsPremium": "Slipe Premium",
-      "settingsNotifications": "Powiadomienia",
-      "settingsAppIcon": "Ikona aplikacji",
-      "settingsAppRestictions": "Uprawnienia aplikacji",
-      "settingsExperemental": "Eksperymentalne",
-      "settingsDevelopers": "Dla deweloperów",
-      "settingsPP": "Polityka prywatności",
-      "settingsToS": "Warunki korzystania",
-      "settingsAutoLanguage": "Automatyczne wykrywanie języka",
-      "settingsAutoLanguageDescription": "Język wybierany jest automatycznie na podstawie języka urządzenia"
-    },
-    "register": {
-      "title": "Zarejestruj się",
-      "haveAccount": "Masz już konto?",
-      "inputPassword": "Hasło",
-      "inputUsername": "Nazwa użytkownika",
-      "button": "Zarejestruj się"
-    },
-    "login": {
-      "title": "Zarejestruj się",
-      "haveAccount": "Nie masz konta?",
-      "inputPassword": "Hasło",
-      "inputUsername": "Nazwa użytkownika",
-      "button": "Zarejestruj się"
-    },
-    "timeUnits": {
-      "year": "r.",
-      "month": "mies.",
-      "week": "tydz.",
-      "day": "d.",
-      "hour": "godz.",
-      "minute": "min.",
-      "second": "sek."
-    },
-    "months": {
-      "january": "stycznia",
-      "february": "lutego",
-      "march": "marca",
-      "april": "kwietnia",
-      "may": "maja",
-      "june": "czerwca",
-      "july": "lipca",
-      "august": "sierpnia",
-      "september": "września",
-      "october": "października",
-      "november": "listopada",
-      "december": "grudnia"
-    }
+  "navigation": {
+    "tab_blogs": "Kanał",
+    "tab_search": "Szukaj",
+    "tab_profile": "Profil"
+  },
+  "profile": {
+    "edit": "Edytuj",
+    "username": "Nazwa użytkownika",
+    "bio": "O mnie",
+    "publishButton": "Nowy post",
+    "follow": "Obserwuj",
+    "unfollow": "Przestań obserwować"
+  },
+  "search": {
+    "title": "Szukaj",
+    "input": "Szukaj w uniwersum",
+    "top10": "Top 10 popularnych postów",
+    "similar": "Podobne do Twoich postów",
+    "relevant": "Posty odpowiednie dla Ciebie",
+    "categoriesTitle": "Kategorie",
+    "resultsTitle": "Wyniki",
+    "inputCancel": "Anuluj",
+    "slideOpen": "Otwórz"
+  },
+  "categories": {
+    "animals": "Zwierzęta",
+    "creativity": "Kreatywność",
+    "diy": "DIY",
+    "ecology": "Ekologia",
+    "education": "Edukacja",
+    "fashion": "Moda",
+    "finance": "Finanse",
+    "food": "Jedzenie",
+    "jokes": "Żarty",
+    "movies": "Filmy",
+    "programming": "Kodowanie",
+    "science": "Nauka",
+    "shitpost": "Shitpost",
+    "sport": "Sport",
+    "traveling": "Podróże",
+    "volunteering": "Wolontariat"
+  },
+  "notifications": {
+    "title": "Powiadomienia",
+    "subscribed": "Subskrybował Cię",
+    "reacted": "Zareagował",
+    "commented": "Skomentował",
+    "new": "{{count}} nowych",
+    "loading": "Ładowanie..."
+  },
+  "publish": {
+    "accessTitle": "Potrzebujemy dostępu do kamery, aby nagrywać zdjęcia i filmy",
+    "accessSubtitle": "Przejdź do Ustawienia {'>'} Uprawnienia i zezwól na dostęp do kamery",
+    "accessSettings": "Ustawienia",
+    "switcherPhoto": "FOTO",
+    "switcherVideo": "WIDEO",
+    "publishTitlePlaceholder": "Tytuł posta"
+  },
+  "settings": {
+    "mainTitle": "Ustawienia",
+    "settingsLanguage": "Język",
+    "settingsTheme": "Motyw aplikacji",
+    "settingsProfile": "Ustawienia profilu",
+    "settingsAccount": "Ustawienia konta",
+    "settingsQRcode": "Skanuj kod QR",
+    "settingsPremium": "Slipe Premium",
+    "settingsNotifications": "Powiadomienia",
+    "settingsAppIcon": "Ikona aplikacji",
+    "settingsAppRestictions": "Uprawnienia aplikacji",
+    "settingsExperemental": "Eksperymentalne",
+    "settingsDevelopers": "Dla deweloperów",
+    "settingsPP": "Polityka prywatności",
+    "settingsToS": "Warunki korzystania",
+    "settingsAutoLanguage": "Automatyczne wykrywanie języka",
+    "settingsAutoLanguageDescription": "Język wybierany jest automatycznie na podstawie języka urządzenia"
+  },
+  "auth": {
+    "welcome_share": "Dziel się pomysłami",
+    "welcome_create": "Twórz posty",
+    "welcome_creativity": "Kreatywność",
+    "welcome_subtitle": "Zaczynamy",
+    "footer_button": "Rozpocznij tworzenie",
+    "footer_button_next": "Kontynuuj",
+    "footer_policy": "Rejestrując się, akceptujesz nasze Warunki korzystania",
+    "username_title": "Wprowadź nazwę użytkownika",
+    "username_tip": "Nazwa użytkownika musi mieć 2-24 znaki i zawierać tylko a-Z, 0-9, (_), (.)",
+    "username_placeholder": "username.slipe.fun",
+    "password_title": "Wprowadź hasło",
+    "password_tip": "Hasło musi mieć 8–64 znaki i może zawierać dowolne znaki.",
+    "password_placeholder": "Hasło",
+    "password_confirm_placeholder": "Potwierdź hasło",
+    "avatar_title": "Wybierz awatar",
+    "finish_title": "Witaj,",
+    "password_forbidden_symbols": "Hasło zawiera niedozwolone znaki",
+    "password_not_identical": "Hasła muszą być identyczne",
+    "password_length": "Hasło musi mieć od {{minLegth}} do {{maxLength}} znaków",
+    "username_length": "Nazwa użytkownika musi mieć od {{minLength}} do {{maxLength}} znaków",
+    "username_forbidden_symbols": "Nazwa użytkownika może zawierać tylko litery, cyfry, (_), (.)"
+  },
+  "timeUnits": {
+    "year": "r.",
+    "month": "mies.",
+    "week": "tydz.",
+    "day": "d.",
+    "hour": "godz.",
+    "minute": "min.",
+    "second": "sek."
+  },
+  "months": {
+    "january": "stycznia",
+    "february": "lutego",
+    "march": "marca",
+    "april": "kwietnia",
+    "may": "maja",
+    "june": "czerwca",
+    "july": "lipca",
+    "august": "sierpnia",
+    "september": "września",
+    "october": "października",
+    "november": "listopada",
+    "december": "grudnia"
   }
-  
+}

@@ -1,14 +1,16 @@
 {
   "navigation": {
-    "blogs": "Fil",
-    "search": "Recherche",
-    "profile": "Profil"
+    "tab_blogs": "Fil",
+    "tab_search": "Recherche",
+    "tab_profile": "Profil"
   },
   "profile": {
     "edit": "Modifier",
     "username": "Nom d'utilisateur",
     "bio": "À propos de moi",
-    "publishButton": "Nouveau post"
+    "publishButton": "Nouveau post",
+    "follow": "Suivre",
+    "unfollow": "Se désabonner"
   },
   "search": {
     "title": "Recherche",
@@ -44,7 +46,7 @@
     "subscribed": "S'est abonné à vous",
     "reacted": "A réagi",
     "commented": "A commenté",
-    "new": "{{count}} nouveaux",
+    "new": "{{count}} nouveau(x)",
     "loading": "Chargement..."
   },
   "publish": {
@@ -52,7 +54,8 @@
     "accessSubtitle": "Allez dans Paramètres {'>'} Permissions et autorisez l'accès à la caméra",
     "accessSettings": "Paramètres",
     "switcherPhoto": "PHOTO",
-    "switcherVideo": "VIDÉO"
+    "switcherVideo": "VIDÉO",
+    "publishTitlePlaceholder": "Titre du post"
   },
   "settings": {
     "mainTitle": "Paramètres",
@@ -72,19 +75,28 @@
     "settingsAutoLanguage": "Détection automatique de la langue",
     "settingsAutoLanguageDescription": "L'option automatique est choisie en fonction de la langue de l'appareil"
   },
-  "register": {
-    "title": "S'inscrire",
-    "haveAccount": "Vous avez déjà un compte ?",
-    "inputPassword": "Mot de passe",
-    "inputUsername": "Nom d'utilisateur",
-    "button": "S'inscrire"
-  },
-  "login": {
-    "title": "Connexion",
-    "haveAccount": "Pas encore de compte ?",
-    "inputPassword": "Mot de passe",
-    "inputUsername": "Nom d'utilisateur",
-    "button": "Connexion"
+  "auth": {
+    "welcome_share": "Partager des idées",
+    "welcome_create": "Créer des posts",
+    "welcome_creativity": "Créativité",
+    "welcome_subtitle": "C'est parti",
+    "footer_button": "Commencer à créer",
+    "footer_button_next": "Continuer",
+    "footer_policy": "En vous inscrivant, vous acceptez nos Conditions d'utilisation",
+    "username_title": "Entrez un nom d'utilisateur",
+    "username_tip": "Le nom d'utilisateur doit contenir entre 2 et 24 caractères, uniquement a-Z, 0-9 et (.) (_)",
+    "username_placeholder": "username.slipe.fun",
+    "password_title": "Entrez un mot de passe",
+    "password_tip": "Le mot de passe doit comporter entre 8 et 64 caractères et peut contenir n'importe quels caractères.",
+    "password_placeholder": "Mot de passe",
+    "password_confirm_placeholder": "Confirmer le mot de passe",
+    "avatar_title": "Choisissez un avatar",
+    "finish_title": "Bonjour,",
+    "password_forbidden_symbols": "Le mot de passe contient des symboles interdits",
+    "password_not_identical": "Les mots de passe doivent être identiques",
+    "password_length": "Le mot de passe doit contenir entre {{minLegth}} et {{maxLength}} caractères",
+    "username_length": "Le nom d'utilisateur doit contenir entre {{minLength}} et {{maxLength}} caractères",
+    "username_forbidden_symbols": "Le nom d'utilisateur doit contenir uniquement des lettres, chiffres, (_), (.)"
   },
   "timeUnits": {
     "year": "an",
@@ -96,17 +108,17 @@
     "second": "s"
   },
   "months": {
-    "january": "января",
-    "february": "февраля",
-    "march": "марта",
-    "april": "апреля",
-    "may": "мая",
-    "june": "июня",
-    "july": "июля",
-    "august": "августа",
-    "september": "сентября",
-    "october": "октября",
-    "november": "ноября",
-    "december": "декабря"
+    "january": "Janvier",
+    "february": "Février",
+    "march": "Mars",
+    "april": "Avril",
+    "may": "Mai",
+    "june": "Juin",
+    "july": "Juillet",
+    "august": "Août",
+    "september": "Septembre",
+    "october": "Octobre",
+    "november": "Novembre",
+    "december": "Décembre"
   }
 }

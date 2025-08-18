@@ -1,33 +1,35 @@
 {
   "navigation": {
-    "blogs": "Für dich",
-    "search": "Suchen",
-    "profile": "Profil"
+    "tab_blogs": "Für dich",
+    "tab_search": "Suchen",
+    "tab_profile": "Profil"
   },
   "profile": {
-    "edit": "Edit",
+    "edit": "Bearbeiten",
     "username": "Benutzername",
     "bio": "Über mich",
-    "publishButton": "Neuer Post"
+    "publishButton": "Neuer Post",
+    "follow": "Folgen",
+    "unfollow": "Entfolgen"
   },
   "search": {
     "title": "Suchen",
-    "input": "Das Universum Suchen",
-    "top10": "Top 10 populärste Posts",
+    "input": "Das Universum durchsuchen",
+    "top10": "Top 10 beliebteste Posts",
     "similar": "Ähnlich zu deinen Posts",
     "relevant": "Relevante Posts für dich",
     "categoriesTitle": "Kategorien",
-    "resultsTitle": "Gefunden",
-    "inputCancel": "Abrechen",
+    "resultsTitle": "Ergebnisse",
+    "inputCancel": "Abbrechen",
     "slideOpen": "Öffnen"
   },
   "categories": {
     "animals": "Tiere",
     "creativity": "Kreativität",
     "diy": "DIY",
-    "ecology": "Ecologie",
+    "ecology": "Ökologie",
     "education": "Bildung",
-    "fashion": "Fashion",
+    "fashion": "Mode",
     "finance": "Finanzen",
     "food": "Essen",
     "jokes": "Witze",
@@ -40,24 +42,25 @@
     "volunteering": "Ehrenamt"
   },
   "notifications": {
-    "title": "Benachrichtigung",
-    "subscribed": "Hat dich Aboniert",
-    "reacted": "Reagierte",
-    "commented": "Kommentierte",
+    "title": "Benachrichtigungen",
+    "subscribed": "Hat dich abonniert",
+    "reacted": "Reagiert",
+    "commented": "Kommentiert",
     "new": "{{count}} neu",
-    "loading": "Laden..."
+    "loading": "Lädt..."
   },
   "publish": {
     "accessTitle": "Wir benötigen Zugriff auf die Kamera für Foto- und Videoaufnahmen",
-    "accessSubtitle": "Gehen Sie zu Einstellungen {'>'} Berechtigungen und erlauben Sie den Kamerazugriff",
+    "accessSubtitle": "Gehe zu Einstellungen {'>'} Berechtigungen und erlaube den Kamerazugriff",
     "accessSettings": "Einstellungen",
     "switcherPhoto": "FOTO",
-    "switcherVideo": "VIDEO"
+    "switcherVideo": "VIDEO",
+    "publishTitlePlaceholder": "Post-Titel"
   },
   "settings": {
     "mainTitle": "Einstellungen",
     "settingsLanguage": "Sprache",
-    "settingsTheme": "App-Thema",
+    "settingsTheme": "App-Design",
     "settingsProfile": "Profileinstellungen",
     "settingsAccount": "Kontoeinstellungen",
     "settingsQRcode": "QR-Code scannen",
@@ -69,31 +72,40 @@
     "settingsDevelopers": "Für Entwickler",
     "settingsPP": "Datenschutzrichtlinie",
     "settingsToS": "Nutzungsbedingungen",
-    "settingsAutoLanguage": "Automatische Spracherkennung",
+    "settingsAutoLanguage": "Automatische Sprache",
     "settingsAutoLanguageDescription": "Die automatische Option wird basierend auf der Gerätesprache gewählt"
   },
-  "register": {
-    "title": "Registrierung",
-    "haveAccount": "Schon ein Account vorhanden?",
-    "inputPassword": "Passwort",
-    "inputUsername": "Benutzername",
-    "button": "Registrieren"
-  },
-  "login": {
-    "title": "Login",
-    "haveAccount": "Kein Account vorhanden?",
-    "inputPassword": "Passwort",
-    "inputUsername": "Benutzername",
-    "button": "Login"
+  "auth": {
+    "welcome_share": "Ideen teilen",
+    "welcome_create": "Posts erstellen",
+    "welcome_creativity": "Kreativität",
+    "welcome_subtitle": "Los geht's",
+    "footer_button": "Mit dem Erstellen beginnen",
+    "footer_button_next": "Weiter",
+    "footer_policy": "Mit der Anmeldung stimmst du unseren Nutzungsbedingungen zu",
+    "username_title": "Benutzernamen eingeben",
+    "username_tip": "Der Benutzername muss 2–24 Zeichen lang sein und darf nur a–Z, 0–9 sowie (.) (_) enthalten.",
+    "username_placeholder": "benutzername.slipe.fun",
+    "password_title": "Passwort eingeben",
+    "password_tip": "Das Passwort muss aus 8–64 Zeichen bestehen und darf beliebige Zeichen enthalten.",
+    "password_placeholder": "Passwort",
+    "password_confirm_placeholder": "Passwort bestätigen",
+    "avatar_title": "Avatar auswählen",
+    "finish_title": "Hallo,",
+    "password_forbidden_symbols": "Das Passwort enthält unzulässige Zeichen",
+    "password_not_identical": "Passwörter müssen identisch sein",
+    "password_length": "Das Passwort muss zwischen {{minLegth}} und {{maxLength}} Zeichen lang sein",
+    "username_length": "Der Benutzername muss zwischen {{minLength}} und {{maxLength}} Zeichen lang sein",
+    "username_forbidden_symbols": "Der Benutzername darf nur Buchstaben, Zahlen, (_), (.) enthalten"
   },
   "timeUnits": {
-    "year": "jhr",
-    "month": "mo",
-    "week": "wo",
-    "day": "t",
-    "hour": "st",
-    "minute": "min",
-    "second": "sec"
+    "year": "J",
+    "month": "M",
+    "week": "W",
+    "day": "T",
+    "hour": "Std",
+    "minute": "Min",
+    "second": "Sek"
   },
   "months": {
     "january": "Januar",

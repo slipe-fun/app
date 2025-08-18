@@ -2,10 +2,12 @@ import { View, Input, Text } from "tamagui";
 import Animated from "react-native-reanimated";
 import { getCharEnter, getCharExit } from "@constants/fadeAnimations";
 import useCaptureStore from "@stores/captureScreen";
+import { useTranslation } from "react-i18next";
 
 const AnimatedText = Animated.createAnimatedComponent(Text);
 
 const CaptureFooterPublishInput = () => {
+  const { t } = useTranslation();
   const postName = useCaptureStore((s) => s.postName);
   const setPostName = useCaptureStore((s) => s.setPostName);
 
@@ -30,7 +32,7 @@ const CaptureFooterPublishInput = () => {
           fw="$2"
           placeholderTextColor="$secondaryText"
           unstyled
-          placeholder="Название поста"
+          placeholder={t("publish.publishTitlePlaceholder")}
         />
         <View p="$6" pv="$0" flexDirection="row" alignItems="center">
           {String(postName.length)

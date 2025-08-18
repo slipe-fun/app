@@ -8,7 +8,9 @@
     "edit": "Редактировать",
     "username": "Имя пользователя",
     "bio": "Обо мне",
-    "publishButton": "Новый пост"
+    "publishButton": "Новый пост",
+    "follow": "Подписаться",
+    "unfollow": "Отписаться"
   },
   "search": {
     "title": "Поиск",
@@ -52,7 +54,8 @@
     "accessSubtitle": "Нажмите Настройки {'>'} Разрешения, и разрешите доступ к камере",
     "accessSettings": "Настройки",
     "switcherPhoto": "ФОТО",
-    "switcherVideo": "ВИДЕО"
+    "switcherVideo": "ВИДЕО",
+    "publishTitlePlaceholder": "Название поста"
   },
   "settings": {
     "mainTitle": "Настройки",
@@ -72,11 +75,28 @@
     "settingsAutoLanguage": "Автоопредление языка",
     "settingsAutoLanguageDescription": "Автоматический вариант выбирается на основе языка устройства"
   },
-  "welcome": {
-    "share": "Делиться",
-    "create": "Создавать",
-    "creativity": "Креативить",
-    "subtitle": "Поехали"
+  "auth": {
+    "welcome_share": "Делиться идеями",
+    "welcome_create": "Создавать посты",
+    "welcome_creativity": "Творить",
+    "welcome_subtitle": "Давайте",
+    "footer_button": "Начать творить",
+    "footer_button_next": "Продолжить",
+    "footer_policy": "Регистрируясь, вы соглашаетесь с нашей политикой использования и конфиденциальности",
+    "username_title": "Имя пользователя",
+    "username_tip": "Имя пользователя должно иметь длину 2-24 символа, содержать a-Z, 0-9 и (.) (_).",
+    "username_placeholder": "username.slipe.fun",
+    "password_title": "Пароль",
+    "password_tip": "Пароль должен иметь от 8 до 64 символов.",
+    "password_placeholder": "Ввести пароль",
+    "password_confirm_placeholder": "Подтверждение пароля",
+    "avatar_title": "Выбрать аватар",
+    "finish_title": "Привет,",
+    "password_forbidden_symbols": "Пароль имеет неверные символы",
+    "password_not_identical": "Пароли должны быть идентичными",
+    "password_length": "Пароль должен иметь от {{minLegth}} до {{maxLength}} символов",
+    "username_length": "Имя пользователя должно иметь от {{minLength}} до {{maxLength}} символов",
+    "username_forbidden_symbols": "Имя пользователя должно иметь только буквы, числа, (_), (.)"
   },
   "register": {
     "title": "Зарегистрироваться",

@@ -36,7 +36,8 @@ const language = storage?.getString("language") || "en";
 
 i18n.use(initReactI18next).init({
   resources,
-  lng: language === "auto" ? getDeviceLanguage() : language,
+  lng: "ru",
+  // lng: language === "auto" ? getDeviceLanguage() : language,
   fallbackLng: "en",
   interpolation: {
     escapeValue: false,

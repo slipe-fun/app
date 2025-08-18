@@ -1,14 +1,16 @@
 {
   "navigation": {
-    "blogs": "Стрічка",
-    "search": "Пошук",
-    "profile": "Профіль"
+    "tab_blogs": "Стрічка",
+    "tab_search": "Пошук",
+    "tab_profile": "Профіль"
   },
   "profile": {
     "edit": "Редагувати",
     "username": "Ім’я користувача",
     "bio": "Про мене",
-    "publishButton": "Новий допис"
+    "publishButton": "Новий допис",
+    "follow": "Підписатися",
+    "unfollow": "Відписатися"
   },
   "search": {
     "title": "Пошук",
@@ -32,9 +34,9 @@
     "food": "Їжа",
     "jokes": "Жарти",
     "movies": "Фільми",
-    "programming": "Кодинг",
+    "programming": "Кодування",
     "science": "Наука",
-    "shitpost": "Щитпост",
+    "shitpost": "Шітпост",
     "sport": "Спорт",
     "traveling": "Подорожі",
     "volunteering": "Волонтерство"
@@ -42,17 +44,18 @@
   "notifications": {
     "title": "Сповіщення",
     "subscribed": "Підписався на вас",
-    "reacted": "Залишив реакцію",
-    "commented": "Залишив коментар",
+    "reacted": "Відреагував",
+    "commented": "Коментував",
     "new": "{{count}} нових",
     "loading": "Завантаження..."
   },
   "publish": {
-    "accessTitle": "Нам потрібен доступ до камери для запису фото та відео",
-    "accessSubtitle": "Натисніть Налашнування {'>'} Дозволи, та дозвольте доступ до камери",
+    "accessTitle": "Нам потрібен доступ до камери для фото та відео",
+    "accessSubtitle": "Перейдіть у Налаштування {'>'} Дозволи та дозвольте доступ до камери",
     "accessSettings": "Налаштування",
     "switcherPhoto": "ФОТО",
-    "switcherVideo": "ВІДЕО"
+    "switcherVideo": "ВІДЕО",
+    "publishTitlePlaceholder": "Назва допису"
   },
   "settings": {
     "mainTitle": "Налаштування",
@@ -72,41 +75,50 @@
     "settingsAutoLanguage": "Автовизначення мови",
     "settingsAutoLanguageDescription": "Автоматичний варіант обирається на основі мови пристрою"
   },
-  "register": {
-    "title": "Зареєструватися",
-    "haveAccount": "Вже є акаунт?",
-    "inputPassword": "Пароль",
-    "inputUsername": "Ім’я користувача",
-    "button": "Зареєструватися"
-  },
-  "login": {
-    "title": "Вхід",
-    "haveAccount": "Немає акаунта?",
-    "inputPassword": "Пароль",
-    "inputUsername": "Ім’я користувача",
-    "button": "Увійти"
+  "auth": {
+    "welcome_share": "Діліться ідеями",
+    "welcome_create": "Створюйте дописи",
+    "welcome_creativity": "Креативність",
+    "welcome_subtitle": "Розпочнемо",
+    "footer_button": "Почати створювати",
+    "footer_button_next": "Продовжити",
+    "footer_policy": "Реєструючись, ви погоджуєтесь з нашими Умовами використання",
+    "username_title": "Введіть ім’я користувача",
+    "username_tip": "Ім’я користувача повинно містити 2–24 символи та лише a-z, 0-9, (_), (.)",
+    "username_placeholder": "username.slipe.fun",
+    "password_title": "Введіть пароль",
+    "password_tip": "Пароль повинен містити 8–64 символи будь-якого типу",
+    "password_placeholder": "Пароль",
+    "password_confirm_placeholder": "Підтвердіть пароль",
+    "avatar_title": "Оберіть аватар",
+    "finish_title": "Привіт,",
+    "password_forbidden_symbols": "Пароль містить заборонені символи",
+    "password_not_identical": "Паролі повинні збігатися",
+    "password_length": "Пароль повинен містити від {{minLegth}} до {{maxLength}} символів",
+    "username_length": "Ім’я користувача повинно містити від {{minLength}} до {{maxLength}} символів",
+    "username_forbidden_symbols": "Ім’я користувача повинно містити лише літери, цифри, (_), (.)"
   },
   "timeUnits": {
     "year": "р.",
     "month": "міс.",
     "week": "тиж.",
-    "day": "день",
+    "day": "д.",
     "hour": "год.",
     "minute": "хв.",
     "second": "с."
   },
   "months": {
-    "january": "січня",
-    "february": "лютого",
-    "march": "березня",
-    "april": "квітня",
-    "may": "травня",
-    "june": "червня",
-    "july": "липня",
-    "august": "серпня",
-    "september": "вересня",
-    "october": "жовтня",
-    "november": "листопада",
-    "december": "грудня"
+    "january": "Січень",
+    "february": "Лютий",
+    "march": "Березень",
+    "april": "Квітень",
+    "may": "Травень",
+    "june": "Червень",
+    "july": "Липень",
+    "august": "Серпень",
+    "september": "Вересень",
+    "october": "Жовтень",
+    "november": "Листопад",
+    "december": "Грудень"
   }
 }

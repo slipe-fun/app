@@ -14,10 +14,12 @@ import { api } from "@lib/api";
 import isUsernameCorrect from "@lib/auth/isUsernameCorrect";
 import { ROUTES } from "@constants/routes";
 import { toast } from "sonner-native";
+import { useTranslation } from "react-i18next";
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack);
 
 const AuthUsernameScreen = ({ navigation }) => {
+  const { t } = useTranslation();
   const { setUsername, username } =
     useAuthStore();
   const [usernameFocused, setUsernameFocused] = useState(false);
@@ -72,9 +74,8 @@ const AuthUsernameScreen = ({ navigation }) => {
   }
 
   useEffect(() => {
-    const usernameCheck = isUsernameCorrect(username);
-    
-    if (usernameCheck?.message && username > 0) toast.error(usernameCheck?.message);
+    const usernameCheck = isUsernameCorrect(username, t);
+    if (usernameCheck?.message && username?.length > 0) toast.error(usernameCheck?.message);
     setActive(usernameCheck.success);
   }, [username]);
 
