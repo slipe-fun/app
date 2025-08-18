@@ -1,8 +1,8 @@
 {
   "navigation": {
-    "blogs": "Лента",
-    "search": "Поиск",
-    "profile": "Профиль"
+    "tab_blogs": "Лента",
+    "tab_search": "Поиск",
+    "tab_profile": "Профиль"
   },
   "profile": {
     "edit": "Редактировать",
