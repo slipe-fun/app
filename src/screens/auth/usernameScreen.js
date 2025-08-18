@@ -65,6 +65,8 @@ const AuthUsernameScreen = ({ navigation }) => {
       setActive(true);
       if (error?.status === 404) return true;
 
+      toast.error(error?.message);
+
       return false;
     }
   }

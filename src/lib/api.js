@@ -6,7 +6,7 @@ const jsonConfig = {
 	headers: {
 		"Content-Type": "application/json",
 	},
-	timeout: 256000,
+	timeout: 3000,
 };
 
 const mediaConfig = {
