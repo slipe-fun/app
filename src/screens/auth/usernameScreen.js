@@ -74,10 +74,11 @@ const AuthUsernameScreen = ({ navigation }) => {
   }
 
   useEffect(() => {
+    if (!usernameFocused) return;
     const usernameCheck = isUsernameCorrect(username, t);
     if (usernameCheck?.message && username?.length > 0) toast.error(usernameCheck?.message);
     setActive(usernameCheck.success);
-  }, [username]);
+  }, [username, usernameFocused]);
 
   return (
     <View f={1} backgroundColor="$bg">

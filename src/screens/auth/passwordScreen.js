@@ -54,11 +54,12 @@ const AuthPasswordScreen = ({ navigation }) => {
   });
 
   useEffect(() => {
+    if (!passwordFocused && !passwordConfirmFocused) return;
     const passwordCheck = isPasswordCorrect(password, passwordConfirm, t);
 
     if (passwordCheck?.message && password?.length > 0) toast.error(passwordCheck?.message);
     setActive(passwordCheck?.success);
-  }, [password, passwordConfirm]);
+  }, [password, passwordConfirm, passwordFocused, passwordConfirmFocused]);
 
   return (
     <View f={1} backgroundColor="$bg">
