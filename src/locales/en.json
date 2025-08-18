@@ -92,6 +92,7 @@
     "password_confirm_placeholder": "Confirm password",
     "avatar_title": "Select an avatar",
     "finish_title": "Hello,",
+    "login_title": "Login",
     "password_forbidden_symbols": "Password contains forbidden symbols",
     "password_not_identical": "Passwords must be identical",
     "password_length": "Password must be between {{minLegth}} and {{maxLength}} characters long",

@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 export default function PostScreen({ route }) {
   const navigation = useNavigation();
   const { post } = route.params;
+  const { setPosts } = route.params;
   const theme = useTheme();
   const { user } = useFetchUser(post?.author_id);
   const insets = useInsets();
@@ -16,7 +17,7 @@ export default function PostScreen({ route }) {
 
   return (
     <YStack pt={insets.top} flex={1} backgroundColor="$bg">
-      <UserCard active posts={[post]} user={user} />
+      <UserCard active posts={[post]} user={user} setPosts={setPosts} />
       <View alignItems="flex-start" w="$full" pt="$6" pb={insets.bottom} ph="$6">
         <Button br="$full" backgroundColor="$backgroundTransparent" unstyled h="$12.5" w="$12.5" justifyContent="center" alignItems="center" onPress={() => navigation.goBack()}>
             <Icon icon="chevron.left" size={26} color={color} />

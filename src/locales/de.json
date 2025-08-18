@@ -92,6 +92,7 @@
     "password_confirm_placeholder": "Passwort bestätigen",
     "avatar_title": "Avatar auswählen",
     "finish_title": "Hallo,",
+    "login_title": "Anmeldung",
     "password_forbidden_symbols": "Das Passwort enthält unzulässige Zeichen",
     "password_not_identical": "Passwörter müssen identisch sein",
     "password_length": "Das Passwort muss zwischen {{minLegth}} und {{maxLength}} Zeichen lang sein",

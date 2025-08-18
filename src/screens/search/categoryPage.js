@@ -9,6 +9,7 @@ import Animated, {
   useSharedValue,
   useAnimatedScrollHandler, 
 } from "react-native-reanimated";
+import useSearchStore from "@stores/searchScreen";
 
 const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
 
@@ -19,14 +20,14 @@ const CategoryPage = ({ route }) => {
   const { category } = route.params;
   const scrollY = useSharedValue(0);
 
-  const { posts, setPage } = useFetchCategoryPosts(category?.name?.toLowerCase());
+  const { posts, setPage, setPosts } = useFetchCategoryPosts(category?.name?.toLowerCase());
 
   const onScroll = useAnimatedScrollHandler((event) => {
     scrollY.value = event.contentOffset.y;
   });
 
   const renderItem = useCallback(({ item, index }) => (
-    <Post key={`${item.id}-${index}`} post={item} width={(width - 48) / 2} />
+    <Post key={`${item.id}-${index}`} post={item} width={(width - 48) / 2} setPosts={setPosts} />
   ), []);
 
   const handleEndReached = useCallback(() => {

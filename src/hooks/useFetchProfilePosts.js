@@ -29,5 +29,5 @@ export default function useFetchProfilePosts(userId, selfUser) {
     fetchPosts();
   }, [page, userId]);
 
-  return { posts, setPage };
+  return { posts, setPage, setPosts };
 }

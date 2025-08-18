@@ -12,7 +12,7 @@ const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
 
 const ProfilePostsList = ({ scrollY, user, isScreen }) => {
 
-  const { posts, setPage } = useFetchProfilePosts(user?.id, !isScreen);
+  const { posts, setPage, setPosts } = useFetchProfilePosts(user?.id, !isScreen);
 
   const onScroll = useAnimatedScrollHandler({
     onScroll: (event) => {
@@ -24,7 +24,7 @@ const ProfilePostsList = ({ scrollY, user, isScreen }) => {
     if (item?.type === "publish" && !isScreen) {
       return <PublishButton />;
     }
-    return <Post post={item} />;
+    return <Post post={item} setPosts={setPosts} />;
   }, []);
 
   const handleEndReached = useCallback(() => {

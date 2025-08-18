@@ -27,7 +27,7 @@ export function SearchScreen() {
 	const query = useSearchStore(state => state.query);
 	const setStatistics = useSearchStore(state => state.setStatistics);
 
-	const { data, setPage } = useFetchDataByQuery(isSearch ? query : "", type);
+	const { data, setPage, setData } = useFetchDataByQuery(isSearch ? query : "", type);
 	const { statistics, isLoading, error } = useFetchCategoryStatistics();
 
 	const onScroll = useAnimatedScrollHandler(event => {
@@ -37,7 +37,7 @@ export function SearchScreen() {
 	const renderItem = useCallback(
 		({ item }) => {
 			if (isSearch) {
-				return <Post post={item} />;
+				return <Post post={item} setPosts={setData} />;
 			}
 			return (
 				<View style={{ flex: 1, margin: 8 }}>

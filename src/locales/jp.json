@@ -92,6 +92,7 @@
     "password_confirm_placeholder": "パスワードを確認",
     "avatar_title": "アバターを選択",
     "finish_title": "こんにちは,",
+    "login_title": "アカウントにログイン",
     "password_forbidden_symbols": "パスワードに使用できない記号が含まれています",
     "password_not_identical": "パスワードが一致しません",
     "password_length": "パスワードは{{minLegth}}〜{{maxLength}}文字である必要があります",

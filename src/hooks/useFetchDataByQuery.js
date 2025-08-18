@@ -21,5 +21,5 @@ export default function useFetchDataByQuery (query, type) {
         fetchData();
     }, [page])
 
-    return { data, setPage };
+    return { data, setPage, setData };
 }

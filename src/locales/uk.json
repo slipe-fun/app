@@ -92,6 +92,7 @@
     "password_confirm_placeholder": "Підтвердіть пароль",
     "avatar_title": "Оберіть аватар",
     "finish_title": "Привіт,",
+    "login_title": "Вхід до акаунту",
     "password_forbidden_symbols": "Пароль містить заборонені символи",
     "password_not_identical": "Паролі повинні збігатися",
     "password_length": "Пароль повинен містити від {{minLegth}} до {{maxLength}} символів",

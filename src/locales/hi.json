@@ -92,6 +92,7 @@
     "password_confirm_placeholder": "पासवर्ड की पुष्टि करें",
     "avatar_title": "अवतार चुनें",
     "finish_title": "नमस्ते,",
+    "login_title": "खाता लॉगिन",
     "password_forbidden_symbols": "पासवर्ड में निषिद्ध प्रतीक हैं",
     "password_not_identical": "पासवर्ड समान होना चाहिए",
     "password_length": "पासवर्ड {{minLegth}} से {{maxLength}} वर्णों के बीच होना चाहिए",

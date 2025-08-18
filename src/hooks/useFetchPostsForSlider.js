@@ -23,5 +23,5 @@ export default function useFetchPostsForSlider (type) {
         setIsLoading(false);
     }, [type])
 
-    return { data, isLoading, error };
+    return { data, isLoading, error, setData };
 }

@@ -8,11 +8,11 @@ import MediaPreview from "./mediaPreview";
 import { useNavigation } from "@react-navigation/native";
 import { ROUTES } from "@constants/routes";
 
-const Post = ({ post }) => {
+const Post = ({ post, setPosts }) => {
 	const navigation = useNavigation();
 
 	const handlePress = useCallback(() => {
-		navigation.navigate(ROUTES.POST, { post });
+		navigation.navigate(ROUTES.POST, { post, setPosts });
 		Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid);
 	}, [post]);
 

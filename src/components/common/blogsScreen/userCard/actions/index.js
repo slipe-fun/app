@@ -4,20 +4,21 @@ import Reaction from "./reaction";
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from "react-native-reanimated";
 import { useEffect } from "react";
 import * as Haptics from "expo-haptics";
-import { quickSpring } from "@constants/easings"; 
+import { quickSpring } from "@constants/easings";
 import Icon from "@components/ui/icon";
 import { GradientBorder } from "@components/ui/gradientBorder";
+import syncPostReactions from "@lib/syncPostReactions";
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
-const UserCardActions = ({ post, paused }) => {
+const UserCardActions = ({ post, paused, setPosts = null }) => {
   const { emojis, handleEmojiClick } = useEmojiState(post);
 
   const opacity = useSharedValue(1);
 
   const opacityStyle = useAnimatedStyle(() => ({
-      opacity: opacity.value,
-    }), [paused]);
+    opacity: opacity.value,
+  }), [paused]);
 
   // it's just shit, i will move all emojis to cdn soon
   const emojiImages = {
@@ -34,9 +35,14 @@ const UserCardActions = ({ post, paused }) => {
     handleEmojiClick(reaction);
   };
 
-  useEffect(() => { 
-        opacity.value = withSpring(paused ? 0 : 1, quickSpring);
-      }, [paused])
+  useEffect(() => {
+    opacity.value = withSpring(paused ? 0 : 1, quickSpring);
+  }, [paused])
+
+  useEffect(() => {
+    if (!setPosts) return;
+    setPosts(prev => syncPostReactions(prev, post, emojis));
+  }, [emojis]);
 
   return (
     <AnimatedView style={opacityStyle}>
@@ -51,7 +57,7 @@ const UserCardActions = ({ post, paused }) => {
           h="$12"
           justifyContent="center"
           alignItems="center"
-           backgroundColor="$glassButtonStatic"
+          backgroundColor="$glassButtonStatic"
           w="$12"
           br="$full"
           unstyled

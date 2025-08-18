@@ -92,6 +92,7 @@
     "password_confirm_placeholder": "Confirmer le mot de passe",
     "avatar_title": "Choisissez un avatar",
     "finish_title": "Bonjour,",
+    "login_title": "Connexion",
     "password_forbidden_symbols": "Le mot de passe contient des symboles interdits",
     "password_not_identical": "Les mots de passe doivent être identiques",
     "password_length": "Le mot de passe doit contenir entre {{minLegth}} et {{maxLength}} caractères",

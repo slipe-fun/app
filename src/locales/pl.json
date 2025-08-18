@@ -92,6 +92,7 @@
     "password_confirm_placeholder": "Potwierdź hasło",
     "avatar_title": "Wybierz awatar",
     "finish_title": "Witaj,",
+    "login_title": "Logowanie",
     "password_forbidden_symbols": "Hasło zawiera niedozwolone znaki",
     "password_not_identical": "Hasła muszą być identyczne",
     "password_length": "Hasło musi mieć od {{minLegth}} do {{maxLength}} znaków",

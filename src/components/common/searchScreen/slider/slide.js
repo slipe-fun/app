@@ -22,7 +22,7 @@ const SearchSliderSlide = ({ isActive, title, posts }) => {
             thumbnail: `${URLS.CDN_POSTS_URL}${post?.image}`,
             title: title,
             isSlides: true,
-            posts,
+            posts
           },
         })
       }

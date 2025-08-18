@@ -12,7 +12,7 @@ import MediaPreview from "@components/ui/mediaPreview";
 import useBlogsGestures from "@hooks/ui/useBlogsGestures";
 import { GestureDetector } from "react-native-gesture-handler";
 
-const UserCard = ({ user, posts, active }) => {
+const UserCard = ({ user, posts, active, setPosts = null }) => {
 	const [duration, setDuration] = useState(8);
 	const progress = useSharedValue(0);
 	const videoRef = useRef(null);
@@ -69,7 +69,7 @@ const UserCard = ({ user, posts, active }) => {
 			<GestureDetector gesture={gesture}>
 				<View zIndex='$3' flex={1} />
 			</GestureDetector>
-			<UserCardActions paused={isSeeking} post={posts[activeIndex]} />
+			<UserCardActions setPosts={setPosts} paused={isSeeking} post={posts[activeIndex]} />
 		</View>
 	);
 };

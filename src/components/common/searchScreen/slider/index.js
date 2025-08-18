@@ -44,6 +44,7 @@ const SearchSlider = () => {
   const { data: popular } = useFetchPostsForSlider("popular");
   const { data: similar } = useFetchPostsForSlider("similar");
 
+
   const renderItem = ({ index }) => (
     <View
       onPress={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Rigid)}
@@ -66,7 +67,7 @@ const SearchSlider = () => {
     setSlidePosts({
       relevant: relevant,
       popular: popular,
-      similar: similar,
+      similar: similar
     });
   }, [relevant, popular, similar]);
 

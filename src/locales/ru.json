@@ -92,6 +92,7 @@
     "password_confirm_placeholder": "Подтверждение пароля",
     "avatar_title": "Выбрать аватар",
     "finish_title": "Привет,",
+    "login_title": "Вход в аккаунт",
     "password_forbidden_symbols": "Пароль имеет неверные символы",
     "password_not_identical": "Пароли должны быть идентичными",
     "password_length": "Пароль должен иметь от {{minLegth}} до {{maxLength}} символов",

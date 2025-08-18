@@ -14,5 +14,5 @@ export default function useFetchCategoryPosts (category) {
         fetchPosts()
     }, [page]);
 
-    return { posts, setPage }
+    return { posts, setPage, setPosts }
 }
