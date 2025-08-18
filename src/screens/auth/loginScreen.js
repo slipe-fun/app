@@ -69,19 +69,23 @@ export default function AuthLoginScreen({ navigation }) {
     };
   });
 
-  async function callback () {
+  async function callback() {
     try {
       setActive(false);
-      const res = await api.v2.post("/auth/login", JSON.stringify({ username, password }), {
-        'Content-Type': 'application/json'
-      });
+      const res = await api.v2.post(
+        "/auth/login",
+        JSON.stringify({ username, password }),
+        {
+          "Content-Type": "application/json",
+        }
+      );
       setActive(true);
 
       const token = res?.data?.token;
 
-      if (!token) toast.error("Unknown error");
+      const storage = await createSecureStorage("user-storage");
 
-      const storage = await createSecureStorage("user-storage")
+      if (!token) toast.error("Unknown error");
       storage.set("token", token);
 
       return true;
@@ -91,6 +95,26 @@ export default function AuthLoginScreen({ navigation }) {
       return false;
     }
   }
+
+  useEffect(() => {
+    let listener;
+    async function init() {
+      const storage = await createSecureStorage("user-storage");
+      listener = storage.addOnValueChangedListener((changedKey) => {
+        if (changedKey === "token") {
+         setTimeout(() => {
+          navigation.navigate("MainApp");
+         }, 1);
+        }
+      });
+    }
+    init();
+    return () => {
+      try {
+        listener?.remove();
+      } catch { }
+    };
+  }, []);
 
   return (
     <View f={1} backgroundColor="$bg">
@@ -131,7 +155,11 @@ export default function AuthLoginScreen({ navigation }) {
           shadowed={passwordFocused || usernameFocused}
         />
       </AnimatedYStack>
-      <AuthFooter navigation={navigation} active={username.length > 0 && password.length > 0 && active} nextRoute={6} callback={callback}/>
+      <AuthFooter
+        navigation={navigation}
+        active={username.length > 0 && password.length > 0 && active}
+        callback={callback}
+      />
     </View>
   );
 }
