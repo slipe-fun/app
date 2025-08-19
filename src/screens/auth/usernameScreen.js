@@ -73,11 +73,12 @@ const AuthUsernameScreen = ({ navigation }) => {
     }
   }
 
-  useEffect(() => {
-    if (!usernameFocused) return;
+  useEffect(() => { 
     const usernameCheck = isUsernameCorrect(username, t);
+
+    if (usernameFocused) return setActive(usernameCheck.success);
+
     if (usernameCheck?.message && username?.length > 0) toast.error(usernameCheck?.message);
-    setActive(usernameCheck.success);
   }, [username, usernameFocused]);
 
   return (

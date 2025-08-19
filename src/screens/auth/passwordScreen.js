@@ -53,12 +53,11 @@ const AuthPasswordScreen = ({ navigation }) => {
     };
   });
 
-  useEffect(() => {
-    if (!passwordFocused && !passwordConfirmFocused) return;
+  useEffect(() => { 
     const passwordCheck = isPasswordCorrect(password, passwordConfirm, t);
-
+    if (passwordFocused || passwordConfirmFocused) return setActive(passwordCheck?.success);
+   
     if (passwordCheck?.message && password?.length > 0) toast.error(passwordCheck?.message);
-    setActive(passwordCheck?.success);
   }, [password, passwordConfirm, passwordFocused, passwordConfirmFocused]);
 
   return (
