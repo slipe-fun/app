@@ -1,4 +1,4 @@
-import './i18n';
+import "./i18n";
 
 import configUI from "./tamagui.config";
 import { useCallback } from "react";
@@ -11,6 +11,7 @@ import { useFonts } from "expo-font";
 import { TamaguiProvider, Theme } from "tamagui";
 import * as SplashScreen from "expo-splash-screen";
 import { enableScreens } from "react-native-screens";
+import { Platform } from "react-native";
 
 enableScreens();
 
@@ -26,27 +27,23 @@ SplashScreen.preventAutoHideAsync();
 export default function App() {
   const [fontsLoaded, fontError] = useFonts(fontsToLoad);
 
-  const onLayoutRootView = useCallback(async () => {
-      if (Platform.OS === "android") {
-        await NavigationBar.setBehaviorAsync("inset-swipe");
-        await NavigationBar.setPositionAsync("absolute");
-        await NavigationBar.setBackgroundColorAsync("#00000000");
-        await NavigationBar.setButtonStyleAsync("light");
-      }
-  }, []);
+  const onLayoutRootView = async () => {
+    if (Platform.OS === "android") {
+      await NavigationBar.setButtonStyleAsync("dark");
+      await NavigationBar.setBackgroundColorAsync("#000000");
+      await NavigationBar.setPositionAsync("absolute");
+    }
+  };
 
   return (
     <SafeAreaProvider>
-      <GestureHandlerRootView
-        style={{ flex: 1, backgroundColor: 'black' }}
-        onLayout={onLayoutRootView}
-      >
-        <StatusBar translucent style="light" />
-          <TamaguiProvider config={configUI}>
-            <Theme name="dark">
-              <AppNavigator />
-            </Theme>
-          </TamaguiProvider>
+      <GestureHandlerRootView style={{ flex: 1, backgroundColor: "#000000" }} onLayout={onLayoutRootView}>
+        <StatusBar style="light" />
+        <TamaguiProvider config={configUI}>
+          <Theme name="dark">
+            <AppNavigator />
+          </Theme>
+        </TamaguiProvider>
       </GestureHandlerRootView>
     </SafeAreaProvider>
   );
