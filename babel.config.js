@@ -16,6 +16,7 @@ module.exports = {
           '@lib': './src/lib',
           '@stores': './src/stores',
           '@assets': './assets',
+          '@screens': './src/screens',
         },
       },
     ],

@@ -1,10 +1,9 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import CustomTabBar from "../components/ui/tabBar/tabBar";
-import { BlogsScreen, SearchScreen, ProfileScreen, CaptureScreen, CategoryPage, NotifsScreen, PostScreen } from "../screens";
+import { ProfileScreen, CaptureScreen, CategoryPage, NotifsScreen, PostScreen } from "../screens";
 import AuthNavigator from "./AuthNavigator";
 import { ROUTES } from "../constants/routes";
+import MainTabNavigator from "./tabbar/tabBar.navigator";
 import { useState, useEffect } from "react";
 import { createSecureStorage } from "@lib/storage";
 import { useTheme } from "tamagui";
@@ -12,23 +11,7 @@ import { Toaster } from "sonner-native";
 import SettingsNavigator from "./settingsNavigator";
 import * as SplashScreen from "expo-splash-screen";
 
-const Tab = createBottomTabNavigator();
 const RootStack = createNativeStackNavigator();
-
-const MainTabNavigator = () => {
-	return (
-		<Tab.Navigator
-			tabBar={props => <CustomTabBar {...props} />}
-			screenOptions={{
-				headerShown: false,
-			}}
-		>
-			<Tab.Screen name={ROUTES.TAB_BLOGS} component={BlogsScreen} />
-			<Tab.Screen name={ROUTES.TAB_PROFILE} component={ProfileScreen} />
-			<Tab.Screen name={ROUTES.TAB_SEARCH} component={SearchScreen} />
-		</Tab.Navigator>
-	);
-};
 
 const AppNavigator = () => {
 	const [isAuthenticated, setIsAuthenticated] = useState(false);
