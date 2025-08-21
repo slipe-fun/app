@@ -6,7 +6,7 @@ import useInsets from "@hooks/ui/useInsets";
 import { View } from "tamagui";
 
 const BlogsScreen = () => {
-	const insets = useInsets();
+	const insets = useInsets(true);
 
 	const { users, handleFetchUsers } = useFetchUsers();
 
@@ -23,7 +23,7 @@ const BlogsScreen = () => {
 	}, [currentSlide])
 
 	return (
-		<View f={1} backgroundColor="$bg" pt={insets.top}>
+		<View f={1} backgroundColor="$bg" pt={insets.top} pb={insets.bottom}>
 			<VerticalSlider onSlideChange={setCurrentSlide} users={users} />
 		</View>
 	); 

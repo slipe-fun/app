@@ -14,8 +14,8 @@ export default function MainTabNavigator() {
 			}}
 		>
 			<Tab.Screen name={ROUTES.TAB_BLOGS} component={BlogsScreen} />
+            <Tab.Screen name={ROUTES.TAB_SEARCH} component={SearchScreen} />
 			<Tab.Screen name={ROUTES.TAB_PROFILE} component={ProfileScreen} />
-			<Tab.Screen name={ROUTES.TAB_SEARCH} component={SearchScreen} />
 		</Tab.Navigator>
 	);
 }

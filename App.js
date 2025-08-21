@@ -27,15 +27,13 @@ export default function App() {
   const [fontsLoaded, fontError] = useFonts(fontsToLoad);
 
   const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded || fontError) {
       if (Platform.OS === "android") {
         await NavigationBar.setBehaviorAsync("inset-swipe");
         await NavigationBar.setPositionAsync("absolute");
         await NavigationBar.setBackgroundColorAsync("#00000000");
         await NavigationBar.setButtonStyleAsync("light");
       }
-    }
-  }, [fontsLoaded, fontError]);
+  }, []);
 
   return (
     <SafeAreaProvider>

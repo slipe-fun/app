@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import Icon from "@components/ui/icon";
 import { useTheme, Button } from "tamagui";
-import {
+import Animated, {
   useSharedValue,
-  interpolateColor,
-  useAnimatedProps,
   withSpring,
+  useAnimatedStyle,
 } from "react-native-reanimated";
+import { normalSpring } from "@constants/easings";
 
 const icons = {
   tab_blogs: "rectangle.columns",
@@ -14,48 +14,47 @@ const icons = {
   tab_profile: "person",
 };
 
+const AnimatedButton = Animated.createAnimatedComponent(Button);
+
 export default function TabBarItem({ route, isFocused, onPress }) {
   const colorValue = useSharedValue(0);
   const theme = useTheme();
-  const inactiveColor = theme.secondaryText.get();
-  const activeColor = theme.primary.get();
+  const inactiveColor = theme.color.get();
 
-  const iconColorProps = useAnimatedProps(() => ({
-    fill: interpolateColor(
-      colorValue.value,
-      [0, 1],
-      [inactiveColor, activeColor]
-    ),
+  const scale = useSharedValue(1);
+
+  const buttonOpacityStyle = useAnimatedStyle(() => ({
+    opacity: colorValue.value,
+    transform: [{ scale: scale.value }],
   }));
 
+  const handlePressIn = () => {
+    scale.value = withSpring(0.85, normalSpring);
+  };
+
+  const handlePressOut = () => {
+    scale.value = withSpring(1, normalSpring);
+  };
+
   useEffect(() => {
-    colorValue.value = withSpring(isFocused ? 1 : 0, {
-      mass: 0.3,
-      damping: 16,
-      stiffness: 120,
-    });
-  }, [isFocused, colorValue]);
+    colorValue.value = withSpring(isFocused ? 1 : 0.5, normalSpring);
+  }, [isFocused]);
 
   return (
-    <Button
-      pressStyle={{
-        opacity: 0.9,
-        scale: 0.9,
-      }}
+    <AnimatedButton
+      style={buttonOpacityStyle}
       flex={1}
-      gap="$0.5"
+      h="$12.5"
+      zIndex="$2"
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
       unstyled
       backgroundColor="$transparent"
       justifyContent="center"
       alignItems="center"
       onPress={onPress}
     >
-      <Icon
-        color={inactiveColor}
-        icon={icons[route.name]}
-        size={28}
-        animatedProps={iconColorProps}
-      />
-    </Button>
+      <Icon color={inactiveColor} icon={icons[route.name]} size={28} />
+    </AnimatedButton>
   );
 }
