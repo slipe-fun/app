@@ -47,7 +47,6 @@ export default function TabBarIndicator({ index = 0, count = 3 }) {
     <GradientBorder bottom={insets.bottom} position="absolute" overflow="hidden" zIndex="$1" left={0} w={indicatorWidth} h={indicatorHeight} animated br="$full" animatedStyle={style}>
       <BlurView
         intensity={24}
-        blurReductionFactor={0}
         tint="systemThickMaterial"
         style={StyleSheet.absoluteFill}
       />

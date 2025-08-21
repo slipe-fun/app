@@ -41,6 +41,7 @@
     "react-i18next": "^15.6.1",
     "react-native": "0.76.9",
     "react-native-blurhash": "^2.1.1",
+    "react-native-edge-to-edge": "^1.6.2",
     "react-native-fast-confetti": "^1.1.0",
     "react-native-gesture-handler": "~2.20.2",
     "react-native-keychain": "^10.0.0",
