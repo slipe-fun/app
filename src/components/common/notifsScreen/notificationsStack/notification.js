@@ -1,7 +1,7 @@
 import MediaPreview from "@components/ui/mediaPreview";
 import { StyleSheet } from "react-native";
 import { XStack, YStack, View, Text, Image } from "tamagui";
-import FastImage from "react-native-fast-image";
+import FastImage from "@d11/react-native-fast-image";
 import Icon from "@components/ui/icon";
 import { memo } from "react";
 import { useTranslation } from "react-i18next";

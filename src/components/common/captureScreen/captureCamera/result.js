@@ -2,7 +2,7 @@ import { Image } from "tamagui";
 import useCaptureStore from "@stores/captureScreen";
 import Video from "react-native-video";
 import { StyleSheet } from "react-native";
-import FastImage from "react-native-fast-image";
+import FastImage from "@d11/react-native-fast-image";
 
 const CaptureCameraResult = () => {
   const content = useCaptureStore((s) => s.content);

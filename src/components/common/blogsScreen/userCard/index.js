@@ -5,7 +5,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet } from "react-native";
 import Indicators from "./indicators";
 import { useState, useEffect, memo, useRef } from "react";
-import FastImage from "react-native-fast-image";
+import FastImage from "@d11/react-native-fast-image";
 import { useSharedValue } from "react-native-reanimated";
 import addView from "@lib/addView";
 import MediaPreview from "@components/ui/mediaPreview";

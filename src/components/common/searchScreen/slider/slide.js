@@ -1,6 +1,6 @@
 import { Button, Text, XStack, View } from "tamagui";
 import { LinearGradient } from "expo-linear-gradient";
-import FastImage from "react-native-fast-image";
+import FastImage from "@d11/react-native-fast-image";
 import { StyleSheet } from "react-native";
 import { URLS } from "@constants/urls";
 import { useNavigation } from "@react-navigation/native";

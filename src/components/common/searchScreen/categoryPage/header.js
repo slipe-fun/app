@@ -10,7 +10,7 @@ import { getCategoryStats } from "@lib/getCategoryStats";
 import CategoryPageHeaderInfo from "./headerInfo";
 import { LinearGradient } from "expo-linear-gradient";
 import MediaPreview from "@components/ui/mediaPreview";
-import FastImage from "react-native-fast-image";
+import FastImage from "@d11/react-native-fast-image";
 
 const { width } = Dimensions.get("window");
 const headerHeight = width * 0.8;

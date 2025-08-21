@@ -1,7 +1,7 @@
 import { View, Text, YStack, XStack } from "tamagui";
 import Notification from "./notification";
 import MediaPreview from "@components/ui/mediaPreview";
-import FastImage from "react-native-fast-image";
+import FastImage from "@d11/react-native-fast-image";
 import Icon from "@components/ui/icon";
 import Animated, {
   useSharedValue,

@@ -1,6 +1,6 @@
 import React, { memo, useState, useEffect, forwardRef } from "react";
 import { StyleSheet } from "react-native";
-import FastImage from "react-native-fast-image";
+import FastImage from "@d11/react-native-fast-image";
 import Video from "react-native-video";
 import { Blurhash } from "react-native-blurhash";
 import Animated from "react-native-reanimated";
